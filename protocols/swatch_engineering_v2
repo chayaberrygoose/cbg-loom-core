@@ -1,0 +1,52 @@
+[LOG_DATE: 2026-02-16] // PROTOCOL: SWATCH_ENGINEERING_V2.0
+
+Objective
+
+Establishment of core design primitives, vocabulary, and synthesis rules for C.B.G. Studio textile engineering. This protocol replaces previous versions and dictates prompt structure for external generation (Midjourney).
+
+---
+
+I. DESIGN PRIMITIVES
+
+• TILING (THE FIELD): Seamless, repeating base fabrics (e.g., Obsidian ISO grids).
+
+• ANCHOR (THE VALIDATOR): Localized technical stamps/icons to verify engineered status.
+
+• GLITCH (THE DISRUPTOR): Asymmetrical artifacts (signal loss) to break grid flow.
+
+• DATA STREAM (THE LINEAR): Directional elements for motion/framing (sleeves, spine).
+
+II. THE LAB VOCABULARY
+
+• INDUSTRIAL NOIR: Logic/Engineering. Obsidian, Grey, White.
+
+• CYBER-PUNK: Rebellion/Chaos. Tartan, Red, Glitched Fishnets.
+
+• SUB-ATOMIC: Truth/Analysis. Phosphor Green, TEM Lattices, Moire Fringes.
+
+• SACRED AND PROFANE: History/Poetry. Vellum, Anatomical Sketches, Etched Poetry.
+
+• VIBRANT MODERNIST: Movement/Energy. Bauhaus Geometry, Primary Shards.
+
+III. SYNTHESIS RULES
+
+1. THE CONTRAST RULE: Pair high-chaos (Plaid) with high-order (ISO Grid).
+
+2. THE VERIFICATION RULE: Minimum of one Anchor per piece.
+
+3. THE PHOSPHOR SHIFT: Phosphor Green is reserved exclusively for Sub-Atomic elements.
+
+IV. MIDJOURNEY ARCHITECTURE
+
+• Tiling: `... [Lab Keywords], minimalist [Color Palette], clean vector lines, high-resolution technical texture --tile --v 6.0`
+
+• Anchor: `... minimalist [Lab Keywords], centered on a [Color] background, technical legend typography, blueprint schematic style --v 6.0`
+
+[STATUS: PROTOCOL_LOCKED_V2.0] [RESTRICTION: NO_NANO_BANANA_GENERATION]
+IDENTITY_RECALIBRATION [2026-02-16]
+
+• Master Entity: Chaya Berry Goose
+
+• Technical Mark: CBG / CBG Studio
+
+• Note: Chaya Berry Goose is the overarching brand name and persona. CBG remains the clinical stamp/logo for hardware and textile engineering.
