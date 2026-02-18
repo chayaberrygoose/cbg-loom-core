@@ -33,7 +33,7 @@ The CBG workflow is a recursive loop between AI synthesis and physical extrusion
 ---
 
 ## 05_ACCESS_PROTOCOL
-* [ ] **Public Terminal:** [chayaberrygoose.com](https://chayaberrygoose.com)
+* [ ] **Public Terminal:** [chayaberrygoose.com](https://www.chayaberrygoose.com)
 * [ ] **Commerce Probe:** [Etsy Storefront](https://etsy.com/shop/chayaberrygoose)
 * [ ] **Visual Archive:** [Pinterest](https://pinterest.com/chayaberrygoose)
 
