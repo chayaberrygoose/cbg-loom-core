@@ -6,7 +6,7 @@ import sys
 f1 = r"""
                    .---.
                   /     \
-                 | -- -- |
+                 | () () |
                   \  ^  /
                    |   |
              ______|   |______
@@ -102,7 +102,7 @@ def finite_goose(message_file):
             start_time = time.time()
             
             # Rotate for 4 seconds per message
-            while time.time() - start_time < 4:
+            while time.time() - start_time < 2:
                 for frame in frames:
                     os.system('cls' if os.name == 'nt' else 'clear')
                     
@@ -111,9 +111,9 @@ def finite_goose(message_file):
                     print(frame)
                     print("\n" * 2)
                     
-                    time.sleep(0.4) # Rotation speed
+                    time.sleep(0.1) # Rotation speed
                     
-                    if time.time() - start_time >= 4:
+                    if time.time() - start_time >= 2:
                         break
 
         print("\n--- transmission complete ---")
