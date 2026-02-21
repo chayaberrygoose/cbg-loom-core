@@ -4,28 +4,68 @@ import sys
 
 # ASCII Art Frames for the Rotation
 f1 = r"""
-     __
-   /(  )>
-  |  /
-   ww
+                   .---.
+                  /     \
+                 | -- -- |
+                  \  ^  /
+                   |   |
+             ______|   |______
+            /                 \
+           /                   \
+          |                     |
+           \                   /
+            \_________________/
+               | |       | |
+               | |       | |
+             _/___\_   _/___\_
 """
 f2 = r"""
-      __
-     (  \__
-      \  _ \
-       ww  \\
+                   .---.
+                  /     \
+                 | () () |
+                  \  ^  /
+                   |   |
+             ______|   |______
+            /                 \
+           /                   \
+          |                     |
+           \                   /
+            \_________________/
+               | |       | |
+               | |       | |
+             _/___\_   _/___\_
 """
 f3 = r"""
-     __
-    <  )\
-      \  |
-       ww
+                   .---.
+                  /     \
+                 | () () |
+                  \  ^  /
+                   |   |
+             ______|   |______
+            /                 \
+           /                   \
+          |                     |
+           \                   /
+            \_________________/
+               | |       | |
+               | |       | |
+             _/___\_   _/___\_
 """
 f4 = r"""
-        __
-     __/  )
-    / _  /
-   //  ww
+                   .---.
+                  /     \
+                 | -- -- |
+                  \  ^  /
+                   |   |
+             ______|   |______
+            /                 \
+           /                   \
+          |                     |
+           \                   /
+            \_________________/
+               | |       | |
+               | |       | |
+             _/___\_   _/___\_
 """
 
 frames = [f1, f2, f3, f4]
@@ -41,10 +81,10 @@ def draw_speech_bubble(message):
 def finite_goose(message_file):
     # Default messages if file is missing or empty
     default_messages = [
-        "waiting for connection...",
-        "signal detected...",
-        "data stream active...",
-        "waiting for loom..."
+        "waiting for connection",
+        "signal detected",
+        "data stream active",
+        "waiting for loom"
     ]
     
     messages = []
@@ -71,12 +111,12 @@ def finite_goose(message_file):
                     print(frame)
                     print("\n" * 2)
                     
-                    time.sleep(0.2) # Rotation speed
+                    time.sleep(0.4) # Rotation speed
                     
                     if time.time() - start_time >= 4:
                         break
 
-        print("\n--- Sequence Complete. Honk! ---")
+        print("\n--- transmission complete ---")
                 
     except KeyboardInterrupt:
         print("\nStopped by user.")
