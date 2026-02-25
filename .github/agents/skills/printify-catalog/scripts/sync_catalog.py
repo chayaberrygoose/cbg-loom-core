@@ -1,3 +1,4 @@
+/* [FILE_ID]: SYNC_CATALOG // VERSION: 2.1 // STATUS: STABLE */
 import json
 import os
 import shutil
@@ -26,12 +27,15 @@ def sync(shop_id, token_path, output_dir):
 
     # 2. Fetch products
     print(f"Fetching products for shop {shop_id}...")
-    try:
-        with open(token_path, 'r') as f:
-            token = f.read().strip()
-    except Exception as e:
-        print(f"Error reading token from {token_path}: {e}")
-        return
+    token = os.environ.get('PRINTIFY_API_TOKEN')
+    
+    if not token:
+        try:
+            with open(token_path, 'r') as f:
+                token = f.read().strip()
+        except Exception as e:
+            print(f"Error: PRINTIFY_API_TOKEN not set and could not read from {token_path}: {e}")
+            return
 
     headers = {"Authorization": f"Bearer {token}"}
     url = f"https://api.printify.com/v1/shops/{shop_id}/products.json"
@@ -125,7 +129,11 @@ def sync(shop_id, token_path, output_dir):
     print(f"Success: Catalog updated with {len(products)} products.")
 
 if __name__ == "__main__":
-    if len(sys.argv) < 4:
-        print("Usage: sync_catalog.py <shop_id> <token_path> <output_dir>")
-    else:
+    if len(sys.argv) == 3:
+        # Assuming token is in environment
+        sync(sys.argv[1], "", sys.argv[2])
+    elif len(sys.argv) == 4:
         sync(sys.argv[1], sys.argv[2], sys.argv[3])
+    else:
+        print("Usage: sync_catalog.py <shop_id> [token_path] <output_dir>")
+        print("Note: If token_path is omitted, PRINTIFY_API_TOKEN environment variable must be set.")

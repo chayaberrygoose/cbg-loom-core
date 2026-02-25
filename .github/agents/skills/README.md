@@ -7,7 +7,7 @@ Usage
 Run from the workspace root:
 
 ```bash
-python3 cbg/agents/skills/docx_to_md_skill.py --input cbg/chathistories --output cbg/chathistories_md
+python3 .github/agents/skills/docx_to_md_skill.py --input artifacts/chathistories --output artifacts/chathistories_md
 ```
 
 Notes
@@ -19,7 +19,7 @@ Notes
 Pandoc example (what the skill runs):
 
 ```bash
-python3 cbg/agents/skills/docx_to_md_skill.py --input cbg/chathistories --output cbg/chathistories_md_pandoc
+python3 .github/agents/skills/docx_to_md_skill.py --input artifacts/chathistories --output artifacts/chathistories_md_pandoc
 ```
 
 This will create `*.md` files and a `<filename>_media/` folder per document containing extracted images.

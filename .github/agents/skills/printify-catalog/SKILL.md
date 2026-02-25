@@ -9,16 +9,17 @@ This skill automates the process of fetching products from Printify, downloading
 
 ## Workflow
 
-1.  **Identify Shop ID and Token Path**:
+1.  **Identify Shop ID and Output path**:
     *   Default Shop ID: `12043562`
-    *   Default Token Path: `/home/cbg/repos/cbg/prinitfy_api_token.txt`
-    *   Default Output Directory: `/home/cbg/repos/cbg`
+    *   Default Output Directory: `~/repos/cbg-loom-core/artifacts/catalog`
+    *   Requires `PRINTIFY_API_TOKEN` environment variable.
 
 2.  **Execute Sync Script**:
     Run the bundled Python script to perform the cleanup, download, and generation:
 
     ```bash
-    python3 scripts/sync_catalog.py <shop_id> <token_path> <output_dir>
+    export PRINTIFY_API_TOKEN="your_token_here"
+    python3 .github/agents/skills/printify-catalog/scripts/sync_catalog.py <shop_id> artifacts/catalog
     ```
 
 3.  **Resulting Structure**:

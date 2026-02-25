@@ -10,8 +10,8 @@ set -euo pipefail
 #  ./mount_rclone_cbg.sh stop
 #  ./mount_rclone_cbg.sh status
 
-# If script is in /home/cbg/repos/cbg/mount_rclone_cbg.sh
-# then dirname $0 is /home/cbg/repos/cbg
+# If script is in ~/repos/cbg-loom-core/.github/agents/skills/mount_rclone_cbg.sh
+# then dirname $0 is ~/repos/cbg-loom-core/.github/agents/skills
 MOUNT_DIR="$(cd "$(dirname "$0")" && pwd)"
 PIDFILE="$MOUNT_DIR/.rclone_cbg_mount.pid"
 LOGFILE="$MOUNT_DIR/.rclone_cbg_mount.log"

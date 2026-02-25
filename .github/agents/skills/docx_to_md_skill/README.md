@@ -4,14 +4,14 @@ Lightweight skill to convert `.docx` files to Markdown (`.md`).
 
 Location
 
-The skill is now located at `cbg/agents/skills/docx_to_md_skill/docx_to_md_skill.py`.
+The skill is now located at `.github/agents/skills/docx_to_md_skill/docx_to_md_skill.py`.
 
 Usage
 
 Run from the workspace root:
 
 ```bash
-python3 cbg/agents/skills/docx_to_md_skill/docx_to_md_skill.py --input cbg/chathistories --output cbg/chathistories_md
+python3 .github/agents/skills/docx_to_md_skill/docx_to_md_skill.py --input artifacts/chathistories --output artifacts/chathistories_md
 ```
 
 Notes
