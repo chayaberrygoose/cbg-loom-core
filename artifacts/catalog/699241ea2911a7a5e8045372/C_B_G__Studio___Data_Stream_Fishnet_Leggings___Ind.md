@@ -3,7 +3,13 @@
 **Product ID:** `699241ea2911a7a5e8045372`
 **Blueprint ID:** `516`
 ## Description
-These skinny fitting high-waisted yoga leggings will take you from workout to store run in comfort and style. They are fully customizable with an all-over print that adds an instant pop to any athleisure wardrobe.Note: Runs small, consider sizing up!- 83% Polyester, 17% Spandex- Skinny fit- Outside seam thread is color-matched to design- Interior white seam thread- Double layer waistband- Please note: Slightly see-through when stretched. Some of the undyed white underneath material may become visible at the seams or where sewn.- Assembled in the USA from globally sourced parts
+"Structural Transparency."
+Reimagined for the minimalist, the "Data-Stream" Leggings trade chaotic distortion for mathematical clarity. By focusing on a clean, high-contrast white diamond mesh against a deep obsidian field, these leggings evoke the precision of a digital wireframe. The high-waisted band features a specialized "Blueprint" anchor, grounding the ethereal mesh with structural technical legends. It is the essential base layer for the Industrial Noir wardrobe.
+Technical Specs
+• Fit: High-waisted, compression-fit technical leggings.
+• Pattern: 360-degree Seamless Fishnet Grid (Obsidian/White).
+• Detailing: "Blueprint" waist-anchor with integrated goose silhouette.
+• Material: Four-way stretch poly-spandex for deep color retention.
 
 ## Keywords
 `Cyberpunk Leggings, Techwear Bottoms, Fishnet Mesh Style, Industrial Noir, CBG Studio, Minimalist Goth, All Over Print, Seamless Grid, Technical Tights, Aesthetic Apparel, Black and White, Lab Aesthetic, Modernist Gear`

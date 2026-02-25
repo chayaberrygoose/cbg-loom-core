@@ -3,7 +3,16 @@
 **Product ID:** `699296da90577c34b004e72c`
 **Blueprint ID:** `591`
 ## Description
-These personalized jogging pants come to add a custom style to your lounging as well as your workouts. Ensuring a cozy, unisex fit, these all-over-print joggers are cut & sew, meaning higher quality across the board both in materials used and in terms of production quality.NB! Please refer to the size guide for ankle cuff measurements. The fabric is tighter and not particulary stretchy in this area.- Material: 95% polyester, 5% spandex- Seam thread color automatically matched to design- Medium fabric (7.5 oz /yd² (250 g/m²))- Double layer side insert pockets- Soft fabric- Printed care label inside- White drawstring
+"Calculated Movement." These joggers utilize the Industrial Noir Micro-Grid as a base "Field" for a recursive anatomical print. The design integrates technical measurement scales and the signature "Independent Unit" goose anchor on the thigh. Engineered for those who move through urban environments with mathematical precision.
+
+Technical Specs
+• Tiling: Dense Obsidian ISO-Grid with repeating anatomical studies.
+• Anchor: Centered "Targeting Logo" with goose icon and green signal-drift detail.
+• Fit: Modern tailored technical jogger.
+• Material: Premium four-way stretch fabric for high-fidelity detail.
+
+## Care Instructions
+Printed care label included (See Blueprint Specs).
 
 ## Keywords
 `Cyberpunk Pants, Techwear Joggers, Minimalist Goth, Industrial Noir, ISO Grid Clothing, CBG Studio, All Over Print, Geometric Apparel, Architectural Pants, Black on Black, Stealth Fashion, Technical Gear, Drafting Art`

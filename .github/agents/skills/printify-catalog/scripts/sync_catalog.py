@@ -1,4 +1,4 @@
-# [FILE_ID]: SYNC_CATALOG // VERSION: 3.5 // STATUS: STABLE
+# [FILE_ID]: SYNC_CATALOG // VERSION: 3.6 // STATUS: STABLE
 import json
 import os
 import shutil
@@ -80,28 +80,31 @@ def sync(shop_id, token_path, output_dir):
         product_id = p.get('id', 'N/A')
         blueprint_id = p.get('blueprint_id', 'N/A')
         
-        # Get Blueprint info for the product (Used for Description, Care, and Specs)
+        # Get Blueprint info for the product (Used for Care and Specs)
         blueprint_info = get_blueprint_info(blueprint_id, headers)
-        
-        # Sourcing description and care instructions from the BLUEPRINT not the product
         blueprint_raw_description = blueprint_info.get('description', '')
         
-        # Clean HTML from blueprint description
+        # Sourcing main description from the PRODUCT
+        product_raw_description = p.get('description', 'No description available.')
+        
+        # Clean HTML helper
         def clean_html(text):
             return re.sub('<[^<]+?>', '', text).replace('.:', '- ').strip()
 
-        description = clean_html(blueprint_raw_description)
+        # Handle product description (remove its care instructions if we're using blueprint's)
+        description = product_raw_description
+        if "Care instructions" in product_raw_description:
+            description = product_raw_description.split("Care instructions")[0].strip()
+
+        # Sourcing care instructions from the BLUEPRINT not the product
         care_instructions = ""
-        
-        # Check if the blueprint description actually contains care info (sometimes it does in a list)
         if "Care instructions" in blueprint_raw_description:
             parts = blueprint_raw_description.split("Care instructions")
-            description = clean_html(parts[0])
             care_instructions = clean_html(parts[1])
         elif "Printed care label" in blueprint_raw_description:
-            # If it just mentions a care label, we'll keep that as a note in care section if user prefers, 
-            # but for now we'll just let it be part of the description as per blueprint default.
-            pass
+            # Check if it's in the bullet points of the blueprint
+            if "Printed care label" in clean_html(blueprint_raw_description):
+                care_instructions = "Printed care label included (See Blueprint Specs)."
 
         tags = p.get('tags', [])
         
