@@ -1,10 +1,30 @@
-# [FILE_ID]: SYNC_CATALOG // VERSION: 3.0 // STATUS: STABLE
+# [FILE_ID]: SYNC_CATALOG // VERSION: 3.5 // STATUS: STABLE
 import json
 import os
 import shutil
 import requests
 import urllib.parse
 import sys
+import re
+
+# Cache for blueprint info to avoid redundant API calls
+BLUEPRINT_CACHE = {}
+
+def get_blueprint_info(blueprint_id, headers):
+    if blueprint_id in BLUEPRINT_CACHE:
+        return BLUEPRINT_CACHE[blueprint_id]
+        
+    url = f"https://api.printify.com/v1/catalog/blueprints/{blueprint_id}.json"
+    try:
+        res = requests.get(url, headers=headers)
+        if res.status_code == 200:
+            data = res.json()
+            BLUEPRINT_CACHE[blueprint_id] = data
+            return data
+    except Exception as e:
+        print(f"Error fetching blueprint {blueprint_id}: {e}")
+    
+    return {"description": "No blueprint description available."}
 
 def sync(shop_id, token_path, output_dir):
     # Setup paths
@@ -57,10 +77,33 @@ def sync(shop_id, token_path, output_dir):
 
     for p in products:
         title = p.get('title', 'Unknown')
-        description = p.get('description', 'No description available.')
-        tags = p.get('tags', [])
         product_id = p.get('id', 'N/A')
         blueprint_id = p.get('blueprint_id', 'N/A')
+        
+        # Get Blueprint info for the product (Used for Description, Care, and Specs)
+        blueprint_info = get_blueprint_info(blueprint_id, headers)
+        
+        # Sourcing description and care instructions from the BLUEPRINT not the product
+        blueprint_raw_description = blueprint_info.get('description', '')
+        
+        # Clean HTML from blueprint description
+        def clean_html(text):
+            return re.sub('<[^<]+?>', '', text).replace('.:', '- ').strip()
+
+        description = clean_html(blueprint_raw_description)
+        care_instructions = ""
+        
+        # Check if the blueprint description actually contains care info (sometimes it does in a list)
+        if "Care instructions" in blueprint_raw_description:
+            parts = blueprint_raw_description.split("Care instructions")
+            description = clean_html(parts[0])
+            care_instructions = clean_html(parts[1])
+        elif "Printed care label" in blueprint_raw_description:
+            # If it just mentions a care label, we'll keep that as a note in care section if user prefers, 
+            # but for now we'll just let it be part of the description as per blueprint default.
+            pass
+
+        tags = p.get('tags', [])
         
         # Determine Status: If it has an external ID, it is considered published.
         external = p.get('external', {})
@@ -75,20 +118,23 @@ def sync(shop_id, token_path, output_dir):
         clean_filename = "".join([c if c.isalnum() else "_" for c in title])[:50]
         md_filename = f"{clean_filename}.md"
         
-        # Price
-        price = "N/A"
-        if p.get('variants'):
-            price = f"${p['variants'][0].get('price', 0) / 100:.2f}"
-
         # Build product page
         md_content = [f"# {title}", 
                       f"**Status:** `{status_text}`",
-                      f"**Price:** {price}",
                       f"**Product ID:** `{product_id}`",
                       f"**Blueprint ID:** `{blueprint_id}`",
                       f"## Description\n{description}\n"]
+        
+        if care_instructions:
+            md_content.append(f"## Care Instructions\n{care_instructions}\n")
+            
+        # Tag and Description synthesis
         if tags:
             md_content.append(f"## Keywords\n`{', '.join(tags)}`\n")
+        
+        # Add Blueprint Specifications
+        # (Already fetched via blueprint_info earlier in the loop)
+        
         md_content.append("## Gallery\n")
 
         image_previews = []
@@ -118,6 +164,10 @@ def sync(shop_id, token_path, output_dir):
                 cat_rel_img = urllib.parse.quote(f"{product_id}/{img_filename}")
                 image_previews.append(f"![{title.replace('|', '&#124;')}]({cat_rel_img})")
 
+        # Append Blueprint Specifications at the end
+        blueprint_desc_raw = blueprint_info.get('description', 'No blueprint description available.')
+        md_content.append(f"\n## Blueprint Specifications\n{blueprint_desc_raw}\n")
+
         # Write individual MD
         with open(os.path.join(product_dir, md_filename), 'w') as f_md:
             f_md.write("\n".join(md_content))
@@ -125,13 +175,13 @@ def sync(shop_id, token_path, output_dir):
         # Catalog Row
         title_for_table = title.replace('|', '&#124;')
         catalog_link = urllib.parse.quote(f"{product_id}/{md_filename}")
-        catalog_rows.append(f"| [{title_for_table}]({catalog_link}) | `{status_text}` | `{product_id}` | `{blueprint_id}` | {price} | {' '.join(image_previews)} |")
+        catalog_rows.append(f"| [{title_for_table}]({catalog_link}) | `{status_text}` | `{product_id}` | `{blueprint_id}` | {' '.join(image_previews)} |")
 
     # Write catalog.md
     with open(catalog_path, 'w') as f_cat:
         f_cat.write("### Product Catalog\n\n")
-        f_cat.write("| Product Name | Status | Product ID | Blueprint ID | Price (MSRP) | Image Previews |\n")
-        f_cat.write("| :--- | :--- | :--- | :--- | :--- | :--- |\n")
+        f_cat.write("| Product Name | Status | Product ID | Blueprint ID | Image Previews |\n")
+        f_cat.write("| :--- | :--- | :--- | :--- | :--- |\n")
         for row in catalog_rows:
             f_cat.write(f"{row}\n")
 
