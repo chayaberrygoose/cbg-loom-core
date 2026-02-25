@@ -1,4 +1,4 @@
-/* [FILE_ID]: DOCX_TO_MD_SKILL // VERSION: 1.1 // STATUS: STABLE */
+# [FILE_ID]: DOCX_TO_MD_SKILL // VERSION: 1.1 // STATUS: STABLE
 #!/usr/bin/env python3
 """Skill: Convert .docx files to Markdown
 

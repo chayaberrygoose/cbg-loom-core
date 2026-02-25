@@ -1,0 +1,736 @@
+{
+  "id": "699abcd0c7c3be94ff0c20ad",
+  "title": "Red Black Plaid Glitch Zip Hoodie | All-Over Print Hoodie",
+  "description": "A bold, all-over zip hoodie that walks the line between grunge and cabin-core. The red-and-black distorted plaid wraps every seam, giving a lived-in, layered look that feels like a favorite flannel reimagined in streetwear form. The roomy hood and front pockets make it easy to slide into on a chilly morning commute or after a day chopping wood at the lake. Subtle cuff and hem lettering and a contrasting black zipper add an urban edge while the medium-weight knit keeps the silhouette structured without feeling bulky. Wear it pulled up for quiet warmth or unzipped over a tee when the sun comes out \u2014 it blends city grit and rustic comfort in one wearable statement.\n\nProduct features\n- All-over print with bright, intense colors\n- Durable 100% polyester; medium weight (7.4 oz/yd\u00b2)\n- Spacious front pockets for hand warmth\n- Classic fit with custom cut-and-sewn construction\n- Black zipper, white thread accents, assembled in the USA\n\nCare instructions\n- Do not dryclean\n- Do not iron\n- Tumble dry: low heat\n- Do not bleach\n- Machine wash: cold (max 30C or 90F)\n",
+  "tags": [
+    "zip hoodie",
+    "red plaid",
+    "unisex hoodie",
+    "punk hoodie",
+    "grunge hoodie",
+    "cozy streetwear",
+    "graphic hoodie",
+    "all over print",
+    "holiday gift",
+    "casual jacket",
+    "festival wear",
+    "gothic fashion",
+    "winter layering"
+  ],
+  "options": [
+    {
+      "name": "Sizes",
+      "type": "size",
+      "values": [
+        {
+          "id": 13,
+          "title": "XS"
+        },
+        {
+          "id": 14,
+          "title": "S"
+        },
+        {
+          "id": 15,
+          "title": "M"
+        },
+        {
+          "id": 16,
+          "title": "L"
+        },
+        {
+          "id": 17,
+          "title": "XL"
+        },
+        {
+          "id": 18,
+          "title": "2XL"
+        }
+      ],
+      "display_in_preview": false
+    }
+  ],
+  "variants": [
+    {
+      "id": 63246,
+      "sku": "15268456553934743030",
+      "cost": 6391,
+      "price": 12745,
+      "title": "XS",
+      "grams": 771,
+      "is_enabled": false,
+      "is_default": false,
+      "is_available": true,
+      "is_printify_express_eligible": false,
+      "options": [
+        13
+      ],
+      "quantity": 1
+    },
+    {
+      "id": 63247,
+      "sku": "50490718128650351038",
+      "cost": 6496,
+      "price": 12952,
+      "title": "S",
+      "grams": 862,
+      "is_enabled": false,
+      "is_default": false,
+      "is_available": true,
+      "is_printify_express_eligible": false,
+      "options": [
+        14
+      ],
+      "quantity": 1
+    },
+    {
+      "id": 63248,
+      "sku": "97397279049709962204",
+      "cost": 6586,
+      "price": 13130,
+      "title": "M",
+      "grams": 952,
+      "is_enabled": false,
+      "is_default": false,
+      "is_available": true,
+      "is_printify_express_eligible": false,
+      "options": [
+        15
+      ],
+      "quantity": 1
+    },
+    {
+      "id": 63249,
+      "sku": "18544477630372120585",
+      "cost": 6702,
+      "price": 13503,
+      "title": "L",
+      "grams": 1000,
+      "is_enabled": true,
+      "is_default": true,
+      "is_available": true,
+      "is_printify_express_eligible": false,
+      "options": [
+        16
+      ],
+      "quantity": 1
+    },
+    {
+      "id": 63250,
+      "sku": "23188608321823778326",
+      "cost": 6882,
+      "price": 13717,
+      "title": "XL",
+      "grams": 1000,
+      "is_enabled": false,
+      "is_default": false,
+      "is_available": true,
+      "is_printify_express_eligible": false,
+      "options": [
+        17
+      ],
+      "quantity": 1
+    },
+    {
+      "id": 63251,
+      "sku": "22243142406339973180",
+      "cost": 7301,
+      "price": 14547,
+      "title": "2XL",
+      "grams": 1000,
+      "is_enabled": false,
+      "is_default": false,
+      "is_available": true,
+      "is_printify_express_eligible": false,
+      "options": [
+        18
+      ],
+      "quantity": 1
+    }
+  ],
+  "images": [
+    {
+      "mockup_id": "699abcd0c7c3be94ff0c20ad_63249_5051_front",
+      "src": "https://images.printify.com/mockup/699abcd0c7c3be94ff0c20ad/63249/5051/red-black-plaid-glitch-zip-hoodie-all-over-print-hoodie.jpg?camera_label=front",
+      "variant_ids": [
+        63249
+      ],
+      "position": "other",
+      "is_default": true,
+      "is_selected_for_publishing": true,
+      "order": null
+    },
+    {
+      "mockup_id": "699abcd0c7c3be94ff0c20ad_63249_5052_back",
+      "src": "https://images.printify.com/mockup/699abcd0c7c3be94ff0c20ad/63249/5052/red-black-plaid-glitch-zip-hoodie-all-over-print-hoodie.jpg?camera_label=back",
+      "variant_ids": [
+        63249
+      ],
+      "position": "other",
+      "is_default": false,
+      "is_selected_for_publishing": true,
+      "order": null
+    }
+  ],
+  "created_at": "2026-02-22 08:22:40+00:00",
+  "updated_at": "2026-02-22 08:23:05+00:00",
+  "visible": true,
+  "is_locked": false,
+  "external": {
+    "id": "",
+    "handle": ""
+  },
+  "blueprint_id": 451,
+  "user_id": 15433811,
+  "shop_id": 12043562,
+  "print_provider_id": 10,
+  "print_areas": [
+    {
+      "variant_ids": [
+        63246,
+        63247,
+        63248,
+        63249,
+        63250,
+        63251
+      ],
+      "placeholders": [
+        {
+          "position": "front_right",
+          "images": [
+            {
+              "id": "6992280438f2ee2cc65ca3c5",
+              "name": "IMG_1810.jpeg",
+              "type": "image/jpeg",
+              "height": 1024,
+              "width": 1024,
+              "x": 0.5,
+              "y": 0.5,
+              "scale": 0.620020214733871,
+              "angle": 0,
+              "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+              "pattern": {
+                "spacing_x": 1,
+                "spacing_y": 1,
+                "angle": 0,
+                "offset": 0
+              }
+            }
+          ],
+          "decoration_method": "aop"
+        },
+        {
+          "position": "front_left",
+          "images": [
+            {
+              "id": "6992280438f2ee2cc65ca3c5",
+              "name": "IMG_1810.jpeg",
+              "type": "image/jpeg",
+              "height": 1024,
+              "width": 1024,
+              "x": 0.5,
+              "y": 0.5,
+              "scale": 0.620020214733871,
+              "angle": 0,
+              "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+              "pattern": {
+                "spacing_x": 1,
+                "spacing_y": 1,
+                "angle": 0,
+                "offset": 0
+              }
+            },
+            {
+              "id": "6995fafee0068a54871a8000",
+              "name": "IMG_1936.png",
+              "type": "image/png",
+              "height": 1024,
+              "width": 1024,
+              "x": 0.35867992822130673,
+              "y": 0.37099341942877684,
+              "scale": 0.2826401435573861,
+              "angle": 0,
+              "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/eb0ddb19-60bb-4caf-b6b2-c5e461bbfa3c"
+            }
+          ],
+          "decoration_method": "aop"
+        },
+        {
+          "position": "back",
+          "images": [
+            {
+              "id": "6992280438f2ee2cc65ca3c5",
+              "name": "IMG_1810.jpeg",
+              "type": "image/jpeg",
+              "height": 1024,
+              "width": 1024,
+              "x": 0.5,
+              "y": 0.5,
+              "scale": 0.3196382047878877,
+              "angle": 0,
+              "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+              "pattern": {
+                "spacing_x": 1,
+                "spacing_y": 1,
+                "angle": 0,
+                "offset": 0
+              }
+            }
+          ],
+          "decoration_method": "aop"
+        },
+        {
+          "position": "right_sleeve",
+          "images": [
+            {
+              "id": "6992280438f2ee2cc65ca3c5",
+              "name": "IMG_1810.jpeg",
+              "type": "image/jpeg",
+              "height": 1024,
+              "width": 1024,
+              "x": 0.5,
+              "y": 0.5,
+              "scale": 0.3616482850293939,
+              "angle": 0,
+              "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+              "pattern": {
+                "spacing_x": 1,
+                "spacing_y": 1,
+                "angle": 0,
+                "offset": 0
+              }
+            }
+          ],
+          "decoration_method": "aop"
+        },
+        {
+          "position": "left_sleeve",
+          "images": [
+            {
+              "id": "6992280438f2ee2cc65ca3c5",
+              "name": "IMG_1810.jpeg",
+              "type": "image/jpeg",
+              "height": 1024,
+              "width": 1024,
+              "x": 0.5,
+              "y": 0.5,
+              "scale": 0.3616482850293939,
+              "angle": 0,
+              "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+              "pattern": {
+                "spacing_x": 1,
+                "spacing_y": 1,
+                "angle": 0,
+                "offset": 0
+              }
+            }
+          ],
+          "decoration_method": "aop"
+        },
+        {
+          "position": "right_hood",
+          "images": [
+            {
+              "id": "6992280438f2ee2cc65ca3c5",
+              "name": "IMG_1810.jpeg",
+              "type": "image/jpeg",
+              "height": 1024,
+              "width": 1024,
+              "x": 0.5,
+              "y": 0.5,
+              "scale": 0.6793501541033274,
+              "angle": 0,
+              "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+              "pattern": {
+                "spacing_x": 1,
+                "spacing_y": 1,
+                "angle": 0,
+                "offset": 0
+              }
+            }
+          ],
+          "decoration_method": "aop"
+        },
+        {
+          "position": "left_hood",
+          "images": [
+            {
+              "id": "6992280438f2ee2cc65ca3c5",
+              "name": "IMG_1810.jpeg",
+              "type": "image/jpeg",
+              "height": 1024,
+              "width": 1024,
+              "x": 0.5,
+              "y": 0.5,
+              "scale": 0.6793501541033274,
+              "angle": 0,
+              "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+              "pattern": {
+                "spacing_x": 1,
+                "spacing_y": 1,
+                "angle": 0,
+                "offset": 0
+              }
+            }
+          ],
+          "decoration_method": "aop"
+        },
+        {
+          "position": "pocket_right",
+          "images": [
+            {
+              "id": "6992280438f2ee2cc65ca3c5",
+              "name": "IMG_1810.jpeg",
+              "type": "image/jpeg",
+              "height": 1024,
+              "width": 1024,
+              "x": 0.5,
+              "y": 0.5,
+              "scale": 0.9310423825887741,
+              "angle": 0,
+              "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+              "pattern": {
+                "spacing_x": 1,
+                "spacing_y": 1,
+                "angle": 0,
+                "offset": 0
+              }
+            }
+          ],
+          "decoration_method": "aop"
+        },
+        {
+          "position": "pocket_left",
+          "images": [
+            {
+              "id": "6992280438f2ee2cc65ca3c5",
+              "name": "IMG_1810.jpeg",
+              "type": "image/jpeg",
+              "height": 1024,
+              "width": 1024,
+              "x": 0.5,
+              "y": 0.5,
+              "scale": 0.9310423825887741,
+              "angle": 0,
+              "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+              "pattern": {
+                "spacing_x": 1,
+                "spacing_y": 1,
+                "angle": 0,
+                "offset": 0
+              }
+            }
+          ],
+          "decoration_method": "aop"
+        },
+        {
+          "position": "right_cuff_panel",
+          "images": [
+            {
+              "id": "6996b04f14989f756a298f50",
+              "name": "IMG_1941.jpeg",
+              "type": "image/jpeg",
+              "height": 1024,
+              "width": 1024,
+              "x": 0.46557995581754885,
+              "y": 0.3767145143400794,
+              "scale": 2.3088419843583217,
+              "angle": 0,
+              "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/d8428bfe-cec8-4022-acde-fa06d370ae20"
+            }
+          ],
+          "decoration_method": "aop"
+        },
+        {
+          "position": "left_cuff_panel",
+          "images": [
+            {
+              "id": "6996b04f14989f756a298f50",
+              "name": "IMG_1941.jpeg",
+              "type": "image/jpeg",
+              "height": 1024,
+              "width": 1024,
+              "x": 0.4999999999999999,
+              "y": 0.3866117086408327,
+              "scale": 2.5,
+              "angle": 0,
+              "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/d8428bfe-cec8-4022-acde-fa06d370ae20"
+            }
+          ],
+          "decoration_method": "aop"
+        },
+        {
+          "position": "waistband",
+          "images": [
+            {
+              "id": "6996b04f14989f756a298f50",
+              "name": "IMG_1941.jpeg",
+              "type": "image/jpeg",
+              "height": 1024,
+              "width": 1024,
+              "x": 0.5,
+              "y": 0.2790469728682643,
+              "scale": 1,
+              "angle": 0,
+              "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/d8428bfe-cec8-4022-acde-fa06d370ae20"
+            }
+          ],
+          "decoration_method": "aop"
+        },
+        {
+          "position": "all",
+          "images": [],
+          "decoration_method": "aop"
+        }
+      ],
+      "background": "#ffffff"
+    }
+  ],
+  "print_details": [],
+  "sales_channel_properties": {
+    "custom_attributes": [],
+    "free_shipping": false
+  },
+  "is_printify_express_eligible": false,
+  "is_printify_express_enabled": false,
+  "is_economy_shipping_eligible": true,
+  "is_economy_shipping_enabled": false,
+  "is_deleted": false,
+  "original_product_id": "",
+  "views": [
+    {
+      "id": 83393,
+      "label": "Front right",
+      "position": "front_right",
+      "files": [
+        {
+          "src": "https://images.printify.com/api/catalog/631b2116174f5066ca0759d4.svg",
+          "variant_ids": [
+            63246,
+            63247,
+            63248,
+            63249,
+            63250,
+            63251
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10846,
+      "label": "Front left",
+      "position": "front_left",
+      "files": [
+        {
+          "src": "https://images.printify.com/api/catalog/5d9c8b82c92a2a02ac3662dd.svg",
+          "variant_ids": [
+            63246,
+            63247,
+            63248,
+            63249,
+            63250,
+            63251
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10779,
+      "label": "Back side",
+      "position": "back",
+      "files": [
+        {
+          "src": "https://images.printify.com/api/catalog/5d9ae61ccf4e077eb561b028.svg",
+          "variant_ids": [
+            63246,
+            63247,
+            63248,
+            63249,
+            63250,
+            63251
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10769,
+      "label": "Right sleeve",
+      "position": "right_sleeve",
+      "files": [
+        {
+          "src": "https://images.printify.com/api/catalog/5d9ae1d58bb77340c7729745.svg",
+          "variant_ids": [
+            63246,
+            63247,
+            63248,
+            63249,
+            63250,
+            63251
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10768,
+      "label": "Left sleeve",
+      "position": "left_sleeve",
+      "files": [
+        {
+          "src": "https://images.printify.com/api/catalog/5d9ae1b44e699c71a202db03.svg",
+          "variant_ids": [
+            63246,
+            63247,
+            63248,
+            63249,
+            63250,
+            63251
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10770,
+      "label": "Right hood",
+      "position": "right_hood",
+      "files": [
+        {
+          "src": "https://images.printify.com/api/catalog/5d9ae1e932345a5ce56f1e1c.svg",
+          "variant_ids": [
+            63246,
+            63247,
+            63248,
+            63249,
+            63250,
+            63251
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10771,
+      "label": "Left hood",
+      "position": "left_hood",
+      "files": [
+        {
+          "src": "https://images.printify.com/api/catalog/5d9ae1fa4e699c71a202db06.svg",
+          "variant_ids": [
+            63246,
+            63247,
+            63248,
+            63249,
+            63250,
+            63251
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10849,
+      "label": "Pocket right",
+      "position": "pocket_right",
+      "files": [
+        {
+          "src": "https://images.printify.com/api/catalog/5d9c8e76c92a2a02ac3662e3.svg",
+          "variant_ids": [
+            63246,
+            63247,
+            63248,
+            63249,
+            63250,
+            63251
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10848,
+      "label": "Pocket left",
+      "position": "pocket_left",
+      "files": [
+        {
+          "src": "https://images.printify.com/api/catalog/5d9c8e67c92a2a02ac3662e0.svg",
+          "variant_ids": [
+            63246,
+            63247,
+            63248,
+            63249,
+            63250,
+            63251
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10844,
+      "label": "Right cuff panel",
+      "position": "right_cuff_panel",
+      "files": [
+        {
+          "src": "https://images.printify.com/api/catalog/5d9c8335c92a2a02ac3662d4.svg",
+          "variant_ids": [
+            63246,
+            63247,
+            63248,
+            63249,
+            63250,
+            63251
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10775,
+      "label": "Left cuff panel",
+      "position": "left_cuff_panel",
+      "files": [
+        {
+          "src": "https://images.printify.com/api/catalog/5d9ae385cf4e077eb561b01c.svg",
+          "variant_ids": [
+            63246,
+            63247,
+            63248,
+            63249,
+            63250,
+            63251
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10780,
+      "label": "Waistband",
+      "position": "waistband",
+      "files": [
+        {
+          "src": "https://images.printify.com/api/catalog/5d9b0eda32345a5ce56f1e37.svg",
+          "variant_ids": [
+            63246,
+            63247,
+            63248,
+            63249,
+            63250,
+            63251
+          ]
+        }
+      ]
+    },
+    {
+      "id": 20148,
+      "label": "All areas",
+      "position": "all",
+      "files": [
+        {
+          "src": "https://images.printify.com/api/catalog/631b228a41ea4705d50d352f.svg",
+          "variant_ids": [
+            63246,
+            63247,
+            63248,
+            63249,
+            63250,
+            63251
+          ]
+        }
+      ]
+    }
+  ]
+}

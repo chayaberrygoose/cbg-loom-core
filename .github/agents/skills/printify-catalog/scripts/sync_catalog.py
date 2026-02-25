@@ -1,4 +1,4 @@
-/* [FILE_ID]: SYNC_CATALOG // VERSION: 2.1 // STATUS: STABLE */
+# [FILE_ID]: SYNC_CATALOG // VERSION: 3.0 // STATUS: STABLE
 import json
 import os
 import shutil
@@ -8,22 +8,21 @@ import sys
 
 def sync(shop_id, token_path, output_dir):
     # Setup paths
-    img_dir = os.path.join(output_dir, 'Product images')
-    md_dir = os.path.join(output_dir, 'products_md')
     catalog_path = os.path.join(output_dir, 'catalog.md')
     products_json_path = os.path.join(output_dir, 'products.json')
 
-    # 1. Cleanup old version (including images)
-    print("Cleaning up old catalog and images...")
-    if os.path.exists(img_dir):
-        shutil.rmtree(img_dir)
-    if os.path.exists(md_dir):
-        shutil.rmtree(md_dir)
-    if os.path.exists(catalog_path):
-        os.remove(catalog_path)
+    # 1. Cleanup old version
+    print("Cleaning up old catalog content...")
+    # List all entries in output_dir and remove directories (except hidden ones)
+    if os.path.exists(output_dir):
+        for entry in os.listdir(output_dir):
+            full_path = os.path.join(output_dir, entry)
+            if os.path.isdir(full_path) and not entry.startswith('.'):
+                shutil.rmtree(full_path)
+            elif entry == 'catalog.md':
+                os.remove(full_path)
     
-    os.makedirs(img_dir, exist_ok=True)
-    os.makedirs(md_dir, exist_ok=True)
+    os.makedirs(output_dir, exist_ok=True)
 
     # 2. Fetch products
     print(f"Fetching products for shop {shop_id}...")
@@ -63,6 +62,15 @@ def sync(shop_id, token_path, output_dir):
         product_id = p.get('id', 'N/A')
         blueprint_id = p.get('blueprint_id', 'N/A')
         
+        # Determine Status: If it has an external ID, it is considered published.
+        external = p.get('external', {})
+        is_published = bool(external.get('id'))
+        status_text = "PUBLISHED" if is_published else "UNPUBLISHED"
+        
+        # Create product-specific directory
+        product_dir = os.path.join(output_dir, product_id)
+        os.makedirs(product_dir, exist_ok=True)
+
         # Sanitize for filename
         clean_filename = "".join([c if c.isalnum() else "_" for c in title])[:50]
         md_filename = f"{clean_filename}.md"
@@ -74,6 +82,7 @@ def sync(shop_id, token_path, output_dir):
 
         # Build product page
         md_content = [f"# {title}", 
+                      f"**Status:** `{status_text}`",
                       f"**Price:** {price}",
                       f"**Product ID:** `{product_id}`",
                       f"**Blueprint ID:** `{blueprint_id}`",
@@ -88,7 +97,7 @@ def sync(shop_id, token_path, output_dir):
             if not img_url: continue
             
             img_filename = f"{clean_filename}_{i}.jpg"
-            img_path = os.path.join(img_dir, img_filename)
+            img_path = os.path.join(product_dir, img_filename)
             
             # Download image
             try:
@@ -100,29 +109,29 @@ def sync(shop_id, token_path, output_dir):
             except:
                 pass
             
-            # Link for individual MD (relative)
-            indiv_rel_img = urllib.parse.quote(f"../Product images/{img_filename}")
+            # Link for individual MD (relative - same folder)
+            indiv_rel_img = urllib.parse.quote(img_filename)
             md_content.append(f"![{title} {i}]({indiv_rel_img})\n")
             
-            # For catalog preview (first 2 images)
+            # For catalog preview (first 2 images - relative to output_dir)
             if i < 2:
-                cat_rel_img = urllib.parse.quote(f"Product images/{img_filename}")
+                cat_rel_img = urllib.parse.quote(f"{product_id}/{img_filename}")
                 image_previews.append(f"![{title.replace('|', '&#124;')}]({cat_rel_img})")
 
         # Write individual MD
-        with open(os.path.join(md_dir, md_filename), 'w') as f_md:
+        with open(os.path.join(product_dir, md_filename), 'w') as f_md:
             f_md.write("\n".join(md_content))
             
         # Catalog Row
         title_for_table = title.replace('|', '&#124;')
-        catalog_link = urllib.parse.quote(f"products_md/{md_filename}")
-        catalog_rows.append(f"| [{title_for_table}]({catalog_link}) | `{product_id}` | `{blueprint_id}` | {price} | {' '.join(image_previews)} |")
+        catalog_link = urllib.parse.quote(f"{product_id}/{md_filename}")
+        catalog_rows.append(f"| [{title_for_table}]({catalog_link}) | `{status_text}` | `{product_id}` | `{blueprint_id}` | {price} | {' '.join(image_previews)} |")
 
     # Write catalog.md
     with open(catalog_path, 'w') as f_cat:
         f_cat.write("### Product Catalog\n\n")
-        f_cat.write("| Product Name | Product ID | Blueprint ID | Price (MSRP) | Image Previews |\n")
-        f_cat.write("| :--- | :--- | :--- | :--- | :--- |\n")
+        f_cat.write("| Product Name | Status | Product ID | Blueprint ID | Price (MSRP) | Image Previews |\n")
+        f_cat.write("| :--- | :--- | :--- | :--- | :--- | :--- |\n")
         for row in catalog_rows:
             f_cat.write(f"{row}\n")
 

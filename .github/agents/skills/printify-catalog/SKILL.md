@@ -23,13 +23,14 @@ This skill automates the process of fetching products from Printify, downloading
     ```
 
 3.  **Resulting Structure**:
-    *   `catalog.md`: The main index table with links and image previews.
-    *   `products_md/`: Individual detailed Markdown files for each product.
-    *   `Product images/`: All downloaded product images (up to 2 per product).
+    *   `catalog.md`: The main index table with links, publication status, and previews.
+    *   `{product_id}/`: Dedicated directory for each product ID.
+        *   `{product_name}.md`: Individual detailed product report (includes Status).
+        *   `{product_name}_{n}.jpg`: Product images (localized).
     *   `products.json`: The raw data retrieved from the API.
 
 ## Notes
-- The script automatically deletes the existing `catalog.md`, `products_md/`, and `Product images/` before starting to ensure a clean sync.
+- The script automatically cleans up existing product ID directories and `catalog.md` before starting to ensure a clean sync.
 - Pipe characters (`|`) in product titles are automatically escaped or replaced with `&#124;` to ensure Markdown table compatibility.
 - Image paths are URL-encoded for VSCode compatibility.
 
