@@ -1,2 +1,2 @@
 # Ignore secret material
-secrets/
+.env/
