@@ -1,3 +1,4 @@
+````markdown
 # docx_to_md Skill
 
 Lightweight skill to convert `.docx` files to Markdown (`.md`).
@@ -7,7 +8,7 @@ Usage
 Run from the workspace root:
 
 ```bash
-python3 .github/agents/skills/docx_to_md_skill.py --input artifacts/chathistories --output artifacts/chathistories_md
+python3 agents/skills/docx_to_md_skill/docx_to_md_skill.py --input artifacts/chathistories --output artifacts/chathistories_md
 ```
 
 Notes
@@ -19,7 +20,7 @@ Notes
 Pandoc example (what the skill runs):
 
 ```bash
-python3 .github/agents/skills/docx_to_md_skill.py --input artifacts/chathistories --output artifacts/chathistories_md_pandoc
+python3 agents/skills/docx_to_md_skill/docx_to_md_skill.py --input artifacts/chathistories --output artifacts/chathistories_md_pandoc
 ```
 
 This will create `*.md` files and a `<filename>_media/` folder per document containing extracted images.
@@ -33,3 +34,5 @@ Incremental behavior
 
 *   **[docx_to_md_skill](./docx_to_md_skill/)**: Convert Word documents to Markdown.
 *   **[rclone_mount_skill](./rclone_mount_skill/)**: Anchor cloud Archives to the local filesystem.
+
+````

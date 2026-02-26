@@ -1,3 +1,4 @@
+````skill
 ---
 name: printify-catalog
 description: Automatically syncs products from Printify into a Markdown catalog. Use when the user wants to update their product list, generate new product pages, or refresh the catalog with the latest images and descriptions.
@@ -19,7 +20,7 @@ This skill automates the process of fetching products from Printify, downloading
 
     ```bash
     export PRINTIFY_API_TOKEN="your_token_here"
-    python3 .github/agents/skills/printify-catalog/scripts/sync_catalog.py <shop_id> artifacts/catalog
+    python3 agents/skills/printify-catalog/scripts/sync_catalog.py <shop_id> artifacts/catalog
     ```
 
 3.  **Resulting Structure**:
@@ -45,3 +46,5 @@ This skill also supports updating existing products. To update a product:
    - `variants`: Array of objects (price, is_enabled, etc.)
    - `print_areas`: Array of objects (designs, placeholders)
 4. **Workflow**: Always fetch the current product JSON (`GET`) first to understand the existing structure before sending a `PUT` request with the modified fields.
+
+````

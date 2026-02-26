@@ -5,7 +5,7 @@ from pathlib import Path
 
 # Add the sync script directory to path so we can import it
 ROOT_DIR = Path(__file__).parent.parent
-SYNC_SCRIPT_DIR = ROOT_DIR / ".github" / "agents" / "skills" / "printify-catalog" / "scripts"
+SYNC_SCRIPT_DIR = ROOT_DIR / "agents" / "skills" / "printify-catalog" / "scripts"
 sys.path.append(str(SYNC_SCRIPT_DIR))
 
 # Import the sync function from the existing catalog script
@@ -22,7 +22,7 @@ except ImportError:
 def run_sync():
     # Configuration
     shop_id = "12043562"
-    token_path = ROOT_DIR / ".env" / "prinitfy_api_token.txt"
+    token_path = ROOT_DIR / ".env" / "printify_api_token.txt"
     # The actual folder in artifacts
     local_catalog = ROOT_DIR / "artifacts" / "catalog"
     remote_mount = Path("/home/cbg/repos/cbg-share/catalog")
