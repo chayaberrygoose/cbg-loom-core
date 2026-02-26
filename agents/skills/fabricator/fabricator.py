@@ -68,26 +68,31 @@ class Fabricator:
         print(f"// ARTIFACT_SECURED: ID {data['id']}")
         return data['id']
 
-    def clone_product(self, source_product_id: str, new_image_url: str, title_suffix: str = " [CLONE]", preserve_logo_only: bool = False, logo_id: str = None) -> Dict[str, Any]:
+    def clone_product(self, source_product_id: str, new_image_url: str, title_suffix: str = " [CLONE]", preserve_logo_only: bool = False, logo_id: str = None, trim_image_url: str = None) -> Dict[str, Any]:
         """
         Clones a product's positioning but swaps the image.
         
         Args:
             source_product_id: ID of the product to copy.
-            new_image_url: URL of the new texture/swatch.
+            new_image_url: URL of the new texture/swatch (Body).
             title_suffix: String to append to the new title.
-            preserve_logo_only: If True, only the specified 'logo_id' is preserved. All other images are replaced by 'new_image_url'.
-                                If False (default), it preserves ALL distinct artifacts (cuffs, waistbands) and only replaces the dominant texture.
-            logo_id: The specific image ID to treat as the protected logo when preserve_logo_only=True. 
-                     If None, it tries to detect a logo-like layer (small scale, front position) or requires user input.
+            preserve_logo_only: If True, operates in aggressive mode replacing everything except logo_id.
+            logo_id: The specific image ID to treat as the protected logo.
+            trim_image_url: [OPTIONAL] URL of a second texture for trim (cuffs, waistband, etc.).
+                            If provided, any artifact that is NOT the Main Swatch and NOT the Logo gets this texture.
+                            If NOT provided, trim gets the Main Swatch (in aggressive mode) or is preserved (in conservative mode).
         """
         print(f"--- [FABRICATION_START]: SOURCE_{source_product_id} ---")
         
         # 1. Get Source
         source = self.get_product(source_product_id)
         
-        # 2. Upload New Image
-        new_image_id = self.upload_image(new_image_url)
+        # 2. Upload Artifacts
+        new_image_id = self.upload_image(new_image_url, "fabricated_body.png")
+        trim_image_id = None
+        if trim_image_url:
+            trim_image_id = self.upload_image(trim_image_url, "fabricated_trim.png")
+            print(f"// SECONDARY_ARTIFACT_SECURED: TRIM_ID_{trim_image_id}")
         
         # [PROTOCOL_UPDATE]: Genetic Marker Logic
         source_main_id = None
@@ -137,29 +142,33 @@ class Fabricator:
                 for index, original_img in enumerate(images):
                     
                     original_id = original_img.get('id')
-                    should_replace = False
+                    replacement_id = None # If None, preserve original
                     
                     if preserve_logo_only:
-                        # AGGRESSIVE MODE: Replace EVERYTHING except the protected logo
+                        # AGGRESSIVE MODE
                         if original_id == logo_id:
-                             should_replace = False # Protect the Logo
+                             # Protect Logo -> Preserve
+                             replacement_id = None
+                        elif original_id == source_main_id:
+                             # Main Body -> New Body Texture
+                             replacement_id = new_image_id
                         else:
-                             should_replace = True # Replace everything else (swatch, cuffs, waistband)
+                             # Trim/Artifacts -> Trim Texture (if exists) OR Body Texture
+                             replacement_id = trim_image_id if trim_image_id else new_image_id
+
                     else:
-                        # CONSERVATIVE MODE (Default): Only replace the Main Swatch, preserve all else
+                        # CONSERVATIVE MODE
                         if original_id == source_main_id:
-                            should_replace = True
+                            # Main Body -> New Body Texture
+                            replacement_id = new_image_id
                         else:
-                            should_replace = False
+                            # Trim/Logos -> Preserve Original
+                            replacement_id = None
 
-                    if should_replace:
-                        # This is the Main Swatch or Non-Logo Artifact -> REPLACE
-                        if index == 0: 
-                             # only log usually
-                             pass
-
+                    if replacement_id:
+                        # REPLACE
                         new_base_obj = {
-                            "id": new_image_id, # The new texture
+                            "id": replacement_id,
                             "x": original_img.get('x', 0.5),
                             "y": original_img.get('y', 0.5),
                             "scale": original_img.get('scale', 1),
@@ -170,8 +179,7 @@ class Fabricator:
                         new_images_list.append(new_base_obj)
                     
                     else:
-                        # This is a Protected Artifact (Logo in Aggressive Mode, or Distinct Artifact in Conservative Mode) -> PRESERVE
-                        # print(f"   > Preserving Artifact {original_id} at {placeholder.get('position')} L{index}")
+                        # PRESERVE
                         new_images_list.append(original_img)
 
                 new_placeholders.append({

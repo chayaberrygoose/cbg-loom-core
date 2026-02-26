@@ -16,7 +16,9 @@ from agents.skills.fabricator.fabricator import Fabricator
 SOURCE_PRODUCT_ID = "699abcd0c7c3be94ff0c20ad"  # Red Black Plaid Glitch Zip Hoodie
 # Replace this with a valid image URL to test the cloning
 NEW_IMAGE_URL = "https://images.unsplash.com/photo-1550684848-fac1c5b4e853?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
-NEW_TITLE_SUFFIX = " // PROTOCOL_TEST_AGGRESSIVE"
+# A secondary distinct texture (e.g. solid black or contrasting pattern) for the trim
+TRIM_IMAGE_URL = "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80"
+NEW_TITLE_SUFFIX = " // PROTOCOL_DUAL_TEXTURE_TEST"
 
 # The ID of the Logo to preserve (from previous context: IMG_1936.png)
 LOGO_ID = "6995fafee0068a54871a8000"
@@ -29,7 +31,8 @@ def run_test():
         fab = Fabricator()
         
         print(f"Targeting Source Product: {SOURCE_PRODUCT_ID}")
-        print(f"Injecting Specimen Image: {NEW_IMAGE_URL}")
+        print(f"Body Specimen: {NEW_IMAGE_URL}")
+        print(f"Trim Specimen: {TRIM_IMAGE_URL}")
         print(f"Preserving ONLY Logo ID: {LOGO_ID}")
         
         # Execute Clone
@@ -38,7 +41,8 @@ def run_test():
             new_image_url=NEW_IMAGE_URL,
             title_suffix=NEW_TITLE_SUFFIX,
             preserve_logo_only=True,
-            logo_id=LOGO_ID
+            logo_id=LOGO_ID,
+            trim_image_url=TRIM_IMAGE_URL
         )
         
         print(f"\n[SUCCESS] New Product Fabricated!")
