@@ -6,3 +6,4 @@ The automation layer. These scripts facilitate the movement of data between the 
 ### CONTENTS:
 * **sync_logic.py:** Python script for Google Drive authentication and upload.
 * **poll_inventory.sh:** Shell script for periodic Printify API queries.
+* **setup_rclone_mount.sh:** Automated systemd service generator for rclone mounts.

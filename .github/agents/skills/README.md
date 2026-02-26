@@ -28,3 +28,8 @@ With the updated skill, all images are consolidated into a single `media/` folde
 Incremental behavior
 
 - The skill now skips any `.docx` that already has a corresponding `.md` in the output directory. This allows you to add new `.docx` files and re-run the skill — only the new documents will be converted. Removing a `.docx` file does not delete its `.md` equivalent.
+
+# Skills Index
+
+*   **[docx_to_md_skill](./docx_to_md_skill/)**: Convert Word documents to Markdown.
+*   **[rclone_mount_skill](./rclone_mount_skill/)**: Anchor cloud Archives to the local filesystem.
