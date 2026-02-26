@@ -94,25 +94,27 @@ class Fabricator:
             trim_image_id = self.upload_image(trim_image_url, "fabricated_trim.png")
             print(f"// SECONDARY_ARTIFACT_SECURED: TRIM_ID_{trim_image_id}")
         
-        # [PROTOCOL_UPDATE]: Genetic Marker Logic
+        # [PROTOCOL_UPDATE]: Genetic Marker Logic (Universal Scanner)
         source_main_id = None
         
-        # Identification Logic
+        # Identification Logic: Scan ALL areas to find the most frequent Image ID (The Dominant Gene)
+        image_frequency = {}
+        
         for area in source.get('print_areas', []):
             for ph in area.get('placeholders', []):
-                # Identifying the "Main Swatch" ID (usually widespread)
-                if ph['position'] in ['front_left', 'front_right']:
-                    if ph.get('images'):
-                        source_main_id = ph['images'][0]['id']
-                        if not logo_id and len(ph['images']) > 1:
-                             # Heuristic: If there's a second image on the front, it might be the logo
-                             # But safer to let the user specify or default to "everything else gets replaced"
-                             pass
-                        break
-            if source_main_id:
-                break
+                images = ph.get('images', [])
+                if not images:
+                    continue
+                
+                # Assume the first image (Layer 0) is the base fabric in most cases
+                base_img_id = images[0]['id']
+                image_frequency[base_img_id] = image_frequency.get(base_img_id, 0) + 1
         
-        print(f"// GENETIC_MARKER_IDENTIFIED: MAIN_ID_{source_main_id}")
+        # The ID with the highest frequency is likely the main body fabric
+        if image_frequency:
+             source_main_id = max(image_frequency, key=image_frequency.get)
+        
+        print(f"// GENETIC_MARKER_IDENTIFIED: MAIN_ID_{source_main_id} (Frequency: {image_frequency.get(source_main_id, 0)})")
         if preserve_logo_only and logo_id:
              print(f"// SELECTIVE_PRESERVATION: PROTECTING_LOGO_ID_{logo_id}")
 
