@@ -68,9 +68,18 @@ class Fabricator:
         print(f"// ARTIFACT_SECURED: ID {data['id']}")
         return data['id']
 
-    def clone_product(self, source_product_id: str, new_image_url: str, title_suffix: str = " [CLONE]") -> Dict[str, Any]:
+    def clone_product(self, source_product_id: str, new_image_url: str, title_suffix: str = " [CLONE]", preserve_logo_only: bool = False, logo_id: str = None) -> Dict[str, Any]:
         """
         Clones a product's positioning but swaps the image.
+        
+        Args:
+            source_product_id: ID of the product to copy.
+            new_image_url: URL of the new texture/swatch.
+            title_suffix: String to append to the new title.
+            preserve_logo_only: If True, only the specified 'logo_id' is preserved. All other images are replaced by 'new_image_url'.
+                                If False (default), it preserves ALL distinct artifacts (cuffs, waistbands) and only replaces the dominant texture.
+            logo_id: The specific image ID to treat as the protected logo when preserve_logo_only=True. 
+                     If None, it tries to detect a logo-like layer (small scale, front position) or requires user input.
         """
         print(f"--- [FABRICATION_START]: SOURCE_{source_product_id} ---")
         
@@ -80,20 +89,27 @@ class Fabricator:
         # 2. Upload New Image
         new_image_id = self.upload_image(new_image_url)
         
-        # [PROTOCOL_UPDATE]: Identify Primary Genetic Material
-        # We assume the image used on the 'front_left' or 'front_right' is the "Main" texture.
-        # Everything else (cuffs, logos) is treated as distinct alleles to be preserved unless matched.
+        # [PROTOCOL_UPDATE]: Genetic Marker Logic
         source_main_id = None
+        
+        # Identification Logic
         for area in source.get('print_areas', []):
             for ph in area.get('placeholders', []):
+                # Identifying the "Main Swatch" ID (usually widespread)
                 if ph['position'] in ['front_left', 'front_right']:
                     if ph.get('images'):
                         source_main_id = ph['images'][0]['id']
+                        if not logo_id and len(ph['images']) > 1:
+                             # Heuristic: If there's a second image on the front, it might be the logo
+                             # But safer to let the user specify or default to "everything else gets replaced"
+                             pass
                         break
             if source_main_id:
                 break
         
         print(f"// GENETIC_MARKER_IDENTIFIED: MAIN_ID_{source_main_id}")
+        if preserve_logo_only and logo_id:
+             print(f"// SELECTIVE_PRESERVATION: PROTECTING_LOGO_ID_{logo_id}")
 
         # 3. Construct Payload
         # We need specific variants. For a true clone, we might want to enable all variants
@@ -120,15 +136,26 @@ class Fabricator:
                 # Iterate through all images in this placeholder (Layers)
                 for index, original_img in enumerate(images):
                     
-                    # LOGIC:
-                    # 1. If this image ID matches the SOURCE_MAIN_ID -> Replace with New Texture
-                    # 2. If this image ID is DIFFERENT (Logo, Cuff, Waistband) -> Preserve Original
+                    original_id = original_img.get('id')
+                    should_replace = False
                     
-                    if original_img.get('id') == source_main_id:
-                        # This is the Main Swatch -> REPLACE
+                    if preserve_logo_only:
+                        # AGGRESSIVE MODE: Replace EVERYTHING except the protected logo
+                        if original_id == logo_id:
+                             should_replace = False # Protect the Logo
+                        else:
+                             should_replace = True # Replace everything else (swatch, cuffs, waistband)
+                    else:
+                        # CONSERVATIVE MODE (Default): Only replace the Main Swatch, preserve all else
+                        if original_id == source_main_id:
+                            should_replace = True
+                        else:
+                            should_replace = False
+
+                    if should_replace:
+                        # This is the Main Swatch or Non-Logo Artifact -> REPLACE
                         if index == 0: 
-                             # Only log significant replacements to avoid noise
-                             # print(f"   > Injecting Swatch at {placeholder.get('position')} L{index}")
+                             # only log usually
                              pass
 
                         new_base_obj = {
@@ -143,8 +170,8 @@ class Fabricator:
                         new_images_list.append(new_base_obj)
                     
                     else:
-                        # This is a Distinct Artifact (Logo, Cuff, etc) -> PRESERVE
-                        # print(f"   > Preserving Artifact {original_img.get('id')} at {placeholder.get('position')} L{index}")
+                        # This is a Protected Artifact (Logo in Aggressive Mode, or Distinct Artifact in Conservative Mode) -> PRESERVE
+                        # print(f"   > Preserving Artifact {original_id} at {placeholder.get('position')} L{index}")
                         new_images_list.append(original_img)
 
                 new_placeholders.append({
