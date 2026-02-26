@@ -80,6 +80,21 @@ class Fabricator:
         # 2. Upload New Image
         new_image_id = self.upload_image(new_image_url)
         
+        # [PROTOCOL_UPDATE]: Identify Primary Genetic Material
+        # We assume the image used on the 'front_left' or 'front_right' is the "Main" texture.
+        # Everything else (cuffs, logos) is treated as distinct alleles to be preserved unless matched.
+        source_main_id = None
+        for area in source.get('print_areas', []):
+            for ph in area.get('placeholders', []):
+                if ph['position'] in ['front_left', 'front_right']:
+                    if ph.get('images'):
+                        source_main_id = ph['images'][0]['id']
+                        break
+            if source_main_id:
+                break
+        
+        print(f"// GENETIC_MARKER_IDENTIFIED: MAIN_ID_{source_main_id}")
+
         # 3. Construct Payload
         # We need specific variants. For a true clone, we might want to enable all variants
         # that were enabled in the source, or just use the blueprint defaults.
@@ -99,30 +114,39 @@ class Fabricator:
                 if not images:
                     continue
                 
-                # [PROTOCOL_UPDATE]: Multi-Layer Logic
-                # Layer 0 is the base pattern/swatch (replaced).
-                # Layers 1+ are overlays (preserved, e.g., logos).
-                
+                # [PROTOCOL_UPDATE]: Multi-Layer & Distinct Artifact Logic
                 new_images_list = []
                 
-                # LAYER 0: The Base Swatch
-                base_img = images[0]
-                new_base_obj = {
-                    "id": new_image_id,
-                    "x": base_img.get('x', 0.5),
-                    "y": base_img.get('y', 0.5),
-                    "scale": base_img.get('scale', 1),
-                    "angle": base_img.get('angle', 0)
-                }
-                if 'pattern' in base_img:
-                    new_base_obj['pattern'] = base_img['pattern']
-                new_images_list.append(new_base_obj)
+                # Iterate through all images in this placeholder (Layers)
+                for index, original_img in enumerate(images):
+                    
+                    # LOGIC:
+                    # 1. If this image ID matches the SOURCE_MAIN_ID -> Replace with New Texture
+                    # 2. If this image ID is DIFFERENT (Logo, Cuff, Waistband) -> Preserve Original
+                    
+                    if original_img.get('id') == source_main_id:
+                        # This is the Main Swatch -> REPLACE
+                        if index == 0: 
+                             # Only log significant replacements to avoid noise
+                             # print(f"   > Injecting Swatch at {placeholder.get('position')} L{index}")
+                             pass
 
-                # LAYER 1+: Overlays
-                if len(images) > 1:
-                    for overlay_img in images[1:]:
-                        new_images_list.append(overlay_img)
-                
+                        new_base_obj = {
+                            "id": new_image_id, # The new texture
+                            "x": original_img.get('x', 0.5),
+                            "y": original_img.get('y', 0.5),
+                            "scale": original_img.get('scale', 1),
+                            "angle": original_img.get('angle', 0)
+                        }
+                        if 'pattern' in original_img:
+                            new_base_obj['pattern'] = original_img['pattern']
+                        new_images_list.append(new_base_obj)
+                    
+                    else:
+                        # This is a Distinct Artifact (Logo, Cuff, etc) -> PRESERVE
+                        # print(f"   > Preserving Artifact {original_img.get('id')} at {placeholder.get('position')} L{index}")
+                        new_images_list.append(original_img)
+
                 new_placeholders.append({
                     "position": placeholder.get('position'),
                     "images": new_images_list
