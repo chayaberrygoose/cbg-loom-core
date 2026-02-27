@@ -1,5 +1,5 @@
 # Ignore secret material
-.env/
+.env
 .venv/
 
 # Ignore Python cache artifacts
@@ -9,3 +9,4 @@
 # Ignore runtime logs
 *.log
 artifacts/generated/**/*.log
+artifacts/specimens/
