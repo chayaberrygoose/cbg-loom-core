@@ -105,7 +105,9 @@ class Fabricator:
         print(f"// ARTIFACT_SECURED: ID {data['id']}")
         
         # [PROTOCOL_UPDATE]: Capture the source URL for immediate injection
-        self.last_upload_src = data.get('src')
+        # Printify returns 'preview_url' for uploads, not 'src'
+        self.last_upload_src = data.get('preview_url') or data.get('src')
+        print(f"// UPLOAD_SRC_RESOLVED: {self.last_upload_src}")
         
         return data['id']
 
@@ -573,100 +575,113 @@ class Fabricator:
         response.raise_for_status()
         return response.json()
 
-    def add_lifestyle_to_description(self, product_id: str, image_id: str) -> Dict[str, Any]:
-        """Injects a lifestyle image from the media library into the product description."""
-        url = f"{self.BASE_URL}/shops/{self.shop_id}/products/{product_id}.json"
+    def _resolve_upload_src(self, image_id: str, max_retries: int = 3) -> Optional[str]:
+        """Resolves the publicly accessible URL for an uploaded image, with retry logic."""
+        # Priority 1: Cached from last upload
+        if self.last_upload_src:
+            return self.last_upload_src
         
-        # 1. Get the image URL from media library metadata
-        # [PROTOCOL_ADJUSTMENT]: Prioritize the immediate 'last_upload_src' if available
-        image_src = self.last_upload_src
-        
-        if not image_src:
-            print(f"// SECONDARY_HANDSHAKE: Polling for media URL for ID {image_id}...")
-            media_url = f"{self.BASE_URL}/uploads.json"
-            media_response = requests.get(media_url, headers=self.headers)
-            if media_response.ok:
-                for item in media_response.json().get('data', []):
-                    if item.get('id') == image_id:
-                        image_src = item.get('src')
-                        break
-        
-        # Final Fallback
-        if not image_src:
-            single_media_url = f"{self.BASE_URL}/uploads/{image_id}.json"
+        for attempt in range(max_retries):
+            # Priority 2: Direct single-image endpoint
             try:
-                single_resp = requests.get(single_media_url, headers=self.headers)
-                if single_resp.ok:
-                    image_src = single_resp.json().get('src')
-            except:
+                single_url = f"{self.BASE_URL}/uploads/{image_id}.json"
+                resp = requests.get(single_url, headers=self.headers)
+                if resp.ok:
+                    data = resp.json()
+                    src = data.get('preview_url') or data.get('src')
+                    if src:
+                        return src
+            except Exception:
                 pass
-
-        if not image_src:
-            print(f"!! [SIGNAL_LOST]: Could not resolve Source URL for Image ID {image_id}. Description injection aborted.")
-            return {}
-
-        # 2. Update Description
-        source = self.get_product(product_id)
-        description = source.get('description', '')
+            
+            # Priority 3: Media library listing scan
+            try:
+                media_url = f"{self.BASE_URL}/uploads.json"
+                media_resp = requests.get(media_url, headers=self.headers)
+                if media_resp.ok:
+                    for item in media_resp.json().get('data', []):
+                        if item.get('id') == image_id:
+                            src = item.get('preview_url') or item.get('src')
+                            if src:
+                                return src
+            except Exception:
+                pass
+            
+            if attempt < max_retries - 1:
+                wait = 5 * (attempt + 1)
+                print(f"// SIGNAL_RETRY: Attempt {attempt + 1}/{max_retries} failed. Waiting {wait}s for CDN propagation...")
+                time.sleep(wait)
         
-        lifestyle_html = f'\n<div class="cbg-lifestyle-realization">\n<img src="{image_src}" alt="CBG Studio Lifestyle Realization" style="width:100%; max-width:1200px; border: 1px solid #00FF00; margin-top: 20px;">\n<p style="text-align:center; font-family:monospace; color:#00FF00; font-size:12px;">// VISUAL_LIFESTYLE_REALIZATION_BY_NANOBANANA</p>\n</div>'
-        
-        new_description = description + lifestyle_html
-        payload = {"description": new_description}
-        
-        print(f"// INJECTING_TO_DESCRIPTION: ID_{image_id}...")
-        response = requests.put(url, json=payload, headers=self.headers)
-        response.raise_for_status()
-        return response.json()
+        return None
 
-    def add_product_image(self, product_id: str, image_id: str) -> Dict[str, Any]:
-        """Adds an image ID to a product's gallery and maps it to all variants without triggering a store-front publish."""
+    def add_lifestyle_to_description(self, product_id: str, image_id: str, image_src: str = None) -> Dict[str, Any]:
+        """
+        [DEPRECATED]: Printify sanitizes <img> tags from descriptions.
+        This method now only logs the lifestyle URL for reference in the description
+        without injecting broken HTML.
+        """
+        print(f"⚠️ [PROTOCOL_NOTE]: Printify strips <img> from descriptions. Skipping HTML injection.")
+        print(f"// LIFESTYLE_CDN_URL: {image_src or 'unresolved'}")
+        return {}
+
+    def add_product_image(self, product_id: str, image_src: str, image_id: str = None) -> Dict[str, Any]:
+        """
+        Adds an image to a product's gallery using the CDN src URL.
+        Printify product images use 'src' (not media library 'id').
+        """
         url = f"{self.BASE_URL}/shops/{self.shop_id}/products/{product_id}.json"
+        
+        if not image_src:
+            print(f"!! [SIGNAL_LOST]: No src URL provided for gallery injection. Aborting.")
+            return {}
         
         source = self.get_product(product_id)
         existing_images = source.get('images', [])
         
-        # Check if already added
-        if any(img.get('id') == image_id for img in existing_images):
-            print(f"// IMAGE_ALREADY_EXISTS: ID_{image_id}")
+        # Check if already added by src URL
+        if any(img.get('src') == image_src for img in existing_images):
+            print(f"// IMAGE_ALREADY_EXISTS: {image_src[:60]}")
             return source
             
-        # Get all variant IDs to map this image to the gallery for everyone
-        variant_ids = [v['id'] for v in source.get('variants', [])]
+        # Get all variant IDs
+        variant_ids = [v['id'] for v in source.get('variants', []) if v.get('is_enabled', True)]
         
-        # [PROTOCOL_STRESS_TEST]: Printify sometimes ignores images if they lack a 'src' 
-        # but since we uploaded to media library, we only have 'id'.
-        # We will append it to the existing list.
+        # Printify product images require 'src' URL, not media library 'id'
         new_image = {
-            "id": image_id, 
+            "src": image_src,
+            "variant_ids": variant_ids,
+            "position": "other",
             "is_default": False,
-            "is_selected_for_publishing": False,
-            "variant_ids": variant_ids
+            "is_selected_for_publishing": True
         }
         
         new_images_payload = existing_images + [new_image]
         payload = {"images": new_images_payload}
         
-        print(f"// INJECTING_TO_INTERNAL_GALLERY: ID_{image_id} (Count: {len(new_images_payload)})...")
+        print(f"// INJECTING_TO_GALLERY: {image_src[:60]}... (Total: {len(new_images_payload)})")
         response = requests.put(url, json=payload, headers=self.headers)
         
         if not response.ok:
-            print(f"!! [CONDUIT_REJECTION]: {response.text}")
+            print(f"!! [CONDUIT_REJECTION]: {response.status_code} - {response.text[:200]}")
             response.raise_for_status()
             
         updated_product = response.json()
         
-        # Verify if the image is actually present in the response
+        # Verify by checking if image count increased
         final_images = updated_product.get('images', [])
-        is_present = any(img.get('id') == image_id for img in final_images)
+        original_count = len(existing_images)
+        final_count = len(final_images)
         
-        if is_present:
-            print(f"✅ [SIGNAL_CONFIRMED]: Image {image_id} is now linked to product {product_id}.")
+        # Also check by src URL match
+        src_match = any(image_src in (img.get('src') or '') for img in final_images)
+        
+        if final_count > original_count or src_match:
+            print(f"✅ [SIGNAL_CONFIRMED]: Gallery updated ({original_count} -> {final_count} images).")
+            return updated_product
         else:
-            print(f"!! [SIGNAL_LOST]: Printify accepted the PUT but the image ID {image_id} is missing from the response.")
-            print(f"DEBUG_IMAGES_LIST: {[img.get('id') for img in final_images]}")
-            
-        return updated_product
+            print(f"⚠️ [SIGNAL_WARNING]: PUT accepted but image count unchanged ({original_count} -> {final_count}).")
+            print(f"// DEBUG_SRCS: {[img.get('src', 'N/A')[:50] for img in final_images]}")
+            return updated_product
 
 if __name__ == "__main__":
     # Example Usage (Commented out to prevent accidental execution)

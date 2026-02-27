@@ -1,0 +1,3 @@
+prompt: CBG Studio | Lifestyle Realization: A high-fidelity lifestyle photo. The subject is the specific apparel product shown in the provided image. CRITICAL: The product in the new photo must be EXACTLY identical to the base image. You must replicate the pattern, colors, and placement with 100% precision. Context: Sub-Atomic Bloom style. Visual Reference Style: industrial noir techwear aesthetic, high-contrast shadows, clinical warehouse lighting. The shot should be a medium close-up, focusing on the quality and design of the product specimen.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260227_120033

@@ -174,15 +174,16 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None):
                     
                     # Printify upload ritual
                     lifestyle_media_id = fab.upload_image(local_path=lifestyle_path, file_name=f"lifestyle_{product_id}.png")
+                    # Capture the src URL immediately — upload_image sets last_upload_src
+                    lifestyle_src_url = fab.last_upload_src
                     
                     if lifestyle_media_id:
-                        print(f"// ARTIFACT_SECURED: ID_{lifestyle_media_id}. Waiting for Conduit sync...")
-                        # Increase wait time for the Printify media library to process the image before injection
-                        time.sleep(10)
+                        print(f"// ARTIFACT_SECURED: ID_{lifestyle_media_id}")
+                        print(f"// LIFESTYLE_CDN: {lifestyle_src_url}")
                         
-                        # [NEW_PROTOCOL]: Injecting into description as gallery upload is restricted for external images
-                        fab.add_lifestyle_to_description(product_id, lifestyle_media_id)
-                        print(f"✅ [SYSTEM_SUCCESS]: Lifestyle mockup realized and injected into {product_id} description.")
+                        # [SYSTEM_NOTE]: Printify product gallery only accepts auto-generated mockups.
+                        # Lifestyle image is archived locally with CDN URL for use in external channels.
+                        print(f"✅ [SYSTEM_SUCCESS]: Lifestyle mockup realized for {product_id}.")
                         
                         # [LINKAGE_STAMP]: Archive the relationship between Printify Product and Lifestyle Specimen
                         mapping_file = Path(lifestyle_path).parent / "product_link.json"
@@ -191,6 +192,7 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None):
                             "product_title": product_title,
                             "conduit_url": f"https://printify.com/app/store/{fab.shop_id}/products/{product_id}",
                             "lifestyle_media_id": lifestyle_media_id,
+                            "lifestyle_src_url": lifestyle_src_url,
                             "lifestyle_local_path": lifestyle_path,
                             "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
                         }
