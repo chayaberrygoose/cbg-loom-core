@@ -244,9 +244,17 @@ class Fabricator:
         if len(new_title) > 100:
             new_title = new_title[:97] + "..."
 
+        # Append prompts to description
+        new_description = source.get('description', '')
+        if chosen_prompts:
+            new_description += "\n\n<h3>Synthesis Directives:</h3>\n<ul>\n"
+            for prompt in chosen_prompts:
+                new_description += f"<li>{prompt}</li>\n"
+            new_description += "</ul>"
+
         payload = {
             "title": new_title,
-            "description": source.get('description'),
+            "description": new_description,
             "blueprint_id": source.get('blueprint_id'),
             "print_provider_id": source.get('print_provider_id'),
             "variants": variants,
