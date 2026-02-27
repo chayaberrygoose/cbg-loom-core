@@ -86,6 +86,160 @@ class Fabricator:
         print(f"// ARTIFACT_SECURED: ID {data['id']}")
         return data['id']
 
+    def get_templates(self) -> list:
+        """Retrieves all products that are marked as templates."""
+        url = f"{self.BASE_URL}/shops/{self.shop_id}/products.json"
+        response = requests.get(url, headers=self.headers)
+        response.raise_for_status()
+        products = response.json().get('data', [])
+        templates = [p for p in products if p.get('title', '').startswith('[TEMPLATE]:')]
+        return templates
+
+    def fabricate_from_template(self, template_id: str, graphics_dir: str = "artifacts/graphics") -> Dict[str, Any]:
+        """
+        Clones a template product and replaces its graphics with random ones from the graphics directory.
+        Maps tiles to tiled body, textures to trim, logos to logo.
+        """
+        import random
+        
+        print(f"--- [FABRICATION_START]: TEMPLATE_{template_id} ---")
+        
+        # 1. Get Source
+        source = self.get_product(template_id)
+        
+        # 2. Analyze Source Images and Map to Roles
+        image_roles = {} # original_id -> role ('tile', 'texture', 'logo')
+        
+        for area in source.get('print_areas', []):
+            for ph in area.get('placeholders', []):
+                pos = ph.get('position', '').lower()
+                is_trim_area = 'waistband' in pos or 'trim' in pos or 'collar' in pos or 'cuff' in pos
+                
+                for img in ph.get('images', []):
+                    img_id = img['id']
+                    if img_id in image_roles:
+                        continue
+                    
+                    # Determine role
+                    if 'pattern' in img:
+                        image_roles[img_id] = 'tile'
+                    elif is_trim_area:
+                        image_roles[img_id] = 'texture'
+                    elif img.get('scale', 1) < 0.4:
+                        image_roles[img_id] = 'logo'
+                    else:
+                        image_roles[img_id] = 'texture'
+                        
+        print(f"// IDENTIFIED_ROLES: {image_roles}")
+        
+        # 3. Pick Random Graphics for Each Role
+        graphics_path = Path(graphics_dir)
+        role_to_new_image_id = {}
+        
+        for original_id, role in image_roles.items():
+            # Pick a random image from the corresponding folder
+            folder_name = role + "s" # tiles, textures, logos
+            folder_path = graphics_path / folder_name
+            
+            if not folder_path.exists():
+                print(f"!! [WARNING]: Folder {folder_path} does not exist. Skipping replacement for {original_id}.")
+                continue
+                
+            # Get all images in the folder (including subdirectories)
+            images = []
+            for ext in ('*.png', '*.jpg', '*.jpeg'):
+                images.extend(folder_path.rglob(ext))
+                
+            if not images:
+                print(f"!! [WARNING]: No images found in {folder_path}. Skipping replacement for {original_id}.")
+                continue
+                
+            chosen_image = random.choice(images)
+            print(f"// SELECTED_ARTIFACT for {role}: {chosen_image.name}")
+            
+            # Upload the chosen image
+            new_image_id = self.upload_image(local_path=str(chosen_image), file_name=f"fabricated_{role}_{chosen_image.name}")
+            role_to_new_image_id[original_id] = new_image_id
+            
+        # 4. Construct Payload
+        print_areas = source.get('print_areas', [])
+        new_print_areas = []
+
+        for area in print_areas:
+            new_placeholders = []
+            for placeholder in area.get('placeholders', []):
+                images = placeholder.get('images', [])
+                if not images:
+                    continue
+                
+                new_images_list = []
+                for img in images:
+                    original_id = img.get('id')
+                    replacement_id = role_to_new_image_id.get(original_id)
+                    
+                    if replacement_id:
+                        new_base_obj = {
+                            "id": replacement_id,
+                            "x": img.get('x', 0.5),
+                            "y": img.get('y', 0.5),
+                            "scale": img.get('scale', 1),
+                            "angle": img.get('angle', 0)
+                        }
+                        if 'pattern' in img:
+                            new_base_obj['pattern'] = img['pattern']
+                        if 'height' in img:
+                            new_base_obj['height'] = img['height']
+                        if 'width' in img:
+                            new_base_obj['width'] = img['width']
+                        new_images_list.append(new_base_obj)
+                    else:
+                        new_images_list.append(img)
+
+                new_placeholders.append({
+                    "position": placeholder.get('position'),
+                    "images": new_images_list
+                })
+            
+            new_print_areas.append({
+                "variant_ids": area.get('variant_ids'),
+                "placeholders": new_placeholders,
+                "background": area.get('background')
+            })
+
+        variants = []
+        for v in source.get('variants', []):
+            if v.get('is_enabled', True):
+                variants.append({"id": v['id'], "price": v['price'], "is_enabled": True})
+
+        # Generate a new title
+        base_title = source.get('title', '').replace('[TEMPLATE]: ', '').strip()
+        new_title = f"CBG Studio | {base_title} - Fabricated"
+        if len(new_title) > 100:
+            new_title = new_title[:97] + "..."
+
+        payload = {
+            "title": new_title,
+            "description": source.get('description'),
+            "blueprint_id": source.get('blueprint_id'),
+            "print_provider_id": source.get('print_provider_id'),
+            "variants": variants,
+            "print_areas": new_print_areas
+        }
+        
+        # 5. Create Product
+        print("// INJECTING_SCHEMATIC...")
+        create_url = f"{self.BASE_URL}/shops/{self.shop_id}/products.json"
+        response = requests.post(create_url, json=payload, headers=self.headers)
+        
+        try:
+            response.raise_for_status()
+            product = response.json()
+            print(f"--- [FABRICATION_COMPLETE]: ID_{product['id']} ---")
+            return product
+        except requests.exceptions.HTTPError as e:
+            print(f"!! [SYSTEM_FAILURE]: {response.text}")
+            raise e
+
     def clone_product(self, source_product_id: str, new_image_url: str = None, title_suffix: str = " [CLONE]", preserve_logo_only: bool = False, logo_id: str = None, trim_image_url: str = None, new_image_local_path: str = None, trim_image_local_path: str = None) -> Dict[str, Any]:
         """
         Clones a product's positioning but swaps the image.
