@@ -1,3 +1,11 @@
 # Ignore secret material
 .env/
 .venv/
+
+# Ignore Python cache artifacts
+**/__pycache__/
+*.py[cod]
+
+# Ignore runtime logs
+*.log
+artifacts/generated/**/*.log
