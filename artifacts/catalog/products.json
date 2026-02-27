@@ -2,6 +2,347 @@
   "current_page": 1,
   "data": [
     {
+      "id": "69a112757a1c2660540e65a5",
+      "title": "CBG Studio | Tartarus Plaid Skirt-AOP",
+      "description": "A versatile fit AOP skater skirt with a cozy, soft touch and a casual look. Inspired by the freedom of creativity, it will instantly become\u00a0your everyday favorite.<div>.:95% Polyester 5% Spandex</div><br /><div>.:Versatile fit</div><br /><div>.:Printed on care label in black color</div><br /><div>.:White thread color</div><br /><div>.:Assembled in the USA from globally sourced parts</div>\n\n<h3>Synthesis Directives:</h3>\n<ul>\n<li>classic tartan plaid repeat, balanced stripe rhythm, seamless tileable textile pattern, uniform repeat, edge-to-edge pattern swatch, surface design</li>\n<li>Cyber-Punk texture overlay, red tartan and glitched fishnets, clean vector lines, high-resolution technical texture</li>\n</ul>",
+      "tags": [],
+      "options": [
+        {
+          "name": "Sizes (garments)",
+          "type": "size",
+          "values": [
+            {
+              "id": 13,
+              "title": "XS"
+            },
+            {
+              "id": 14,
+              "title": "S"
+            },
+            {
+              "id": 15,
+              "title": "M"
+            },
+            {
+              "id": 16,
+              "title": "L"
+            },
+            {
+              "id": 17,
+              "title": "XL"
+            },
+            {
+              "id": 18,
+              "title": "2XL"
+            }
+          ],
+          "display_in_preview": false
+        },
+        {
+          "name": "Fabric weight",
+          "type": "weight",
+          "values": [
+            {
+              "id": 1923,
+              "title": "4 oz."
+            }
+          ],
+          "display_in_preview": false
+        }
+      ],
+      "variants": [
+        {
+          "id": 43199,
+          "sku": "22672561070757875863",
+          "cost": 2517,
+          "price": 5167,
+          "title": "XS / 4 oz.",
+          "grams": 340,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            13,
+            1923
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43201,
+          "sku": "28360098039055836435",
+          "cost": 2568,
+          "price": 5267,
+          "title": "S / 4 oz.",
+          "grams": 380,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            14,
+            1923
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43203,
+          "sku": "42086131395073734264",
+          "cost": 2585,
+          "price": 5302,
+          "title": "M / 4 oz.",
+          "grams": 380,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            15,
+            1923
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43205,
+          "sku": "30632829432549764316",
+          "cost": 2620,
+          "price": 5370,
+          "title": "L / 4 oz.",
+          "grams": 410,
+          "is_enabled": true,
+          "is_default": true,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            16,
+            1923
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43207,
+          "sku": "32419176214108397403",
+          "cost": 2662,
+          "price": 5453,
+          "title": "XL / 4 oz.",
+          "grams": 430,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            17,
+            1923
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43209,
+          "sku": "16830626949527713801",
+          "cost": 2707,
+          "price": 5543,
+          "title": "2XL / 4 oz.",
+          "grams": 450,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            18,
+            1923
+          ],
+          "quantity": 1
+        }
+      ],
+      "images": [
+        {
+          "mockup_id": "69a112757a1c2660540e65a5_43209_699_front",
+          "src": "https://images.printify.com/mockup/69a112757a1c2660540e65a5/43209/699/cbg-studio-tartarus-plaid-skirt-aop.jpg?camera_label=front",
+          "variant_ids": [
+            43199,
+            43201,
+            43203,
+            43205,
+            43207,
+            43209
+          ],
+          "position": "front",
+          "is_default": true,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a112757a1c2660540e65a5_43209_703_back",
+          "src": "https://images.printify.com/mockup/69a112757a1c2660540e65a5/43209/703/cbg-studio-tartarus-plaid-skirt-aop.jpg?camera_label=back",
+          "variant_ids": [
+            43199,
+            43201,
+            43203,
+            43205,
+            43207,
+            43209
+          ],
+          "position": "back",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        }
+      ],
+      "created_at": "2026-02-27 03:41:41+00:00",
+      "updated_at": "2026-02-27 03:41:41+00:00",
+      "visible": true,
+      "is_locked": false,
+      "blueprint_id": 286,
+      "user_id": 15433811,
+      "shop_id": 12043562,
+      "print_provider_id": 10,
+      "print_areas": [
+        {
+          "variant_ids": [
+            43199,
+            43201,
+            43203,
+            43205,
+            43207,
+            43209
+          ],
+          "placeholders": [
+            {
+              "position": "front",
+              "images": [
+                {
+                  "id": "69a10ad45e81378675163a0c",
+                  "name": "fabricated_tile_specimen_20260227_004737_01.png",
+                  "type": "image/png",
+                  "height": 320,
+                  "width": 320,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.2205444419571691,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/7fbaab4b-4983-43e1-a4ad-337413f1099d",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "back",
+              "images": [
+                {
+                  "id": "69a10ad45e81378675163a0c",
+                  "name": "fabricated_tile_specimen_20260227_004737_01.png",
+                  "type": "image/png",
+                  "height": 320,
+                  "width": 320,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.2205444419571691,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/7fbaab4b-4983-43e1-a4ad-337413f1099d",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "waistband",
+              "images": [
+                {
+                  "id": "69a0f0d5b129356a28aa284d",
+                  "name": "fabricated_texture_specimen_20260227_010733_01.png",
+                  "type": "image/png",
+                  "height": 320,
+                  "width": 320,
+                  "x": 0.5000000000000001,
+                  "y": 0.7327003154997866,
+                  "scale": 1,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/2e87fa1e-9577-4846-803a-6731f70efb7a"
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "all",
+              "images": [],
+              "decoration_method": "aop"
+            }
+          ],
+          "background": "#000000"
+        }
+      ],
+      "print_details": [],
+      "sales_channel_properties": [],
+      "is_printify_express_eligible": false,
+      "is_printify_express_enabled": false,
+      "is_economy_shipping_eligible": true,
+      "is_economy_shipping_enabled": false,
+      "is_deleted": false,
+      "original_product_id": "",
+      "views": [
+        {
+          "id": 3633,
+          "label": "Front side",
+          "position": "front",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5a13fb67b8e7e308e027f60d.svg",
+              "variant_ids": [
+                43209
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3634,
+          "label": "Back side",
+          "position": "back",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5a13fbcdb8e7e3087d64fa5f.svg",
+              "variant_ids": [
+                43199,
+                43201,
+                43203,
+                43205,
+                43207,
+                43209
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3635,
+          "label": "Waistband",
+          "position": "waistband",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5a13ff70b8e7e308e13c368f.svg",
+              "variant_ids": [
+                43199,
+                43201,
+                43203,
+                43205,
+                43207,
+                43209
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "69a107d9f78e85bfc0079a5e",
       "title": "[TEMPLATE]: Women's Skater Skirt (AOP)",
       "description": "A versatile fit AOP skater skirt with a cozy, soft touch and a casual look. Inspired by the freedom of creativity, it will instantly become\u00a0your everyday favorite.<div>.:95% Polyester 5% Spandex</div><br /><div>.:Versatile fit</div><br /><div>.:Printed on care label in black color</div><br /><div>.:White thread color</div><br /><div>.:Assembled in the USA from globally sourced parts</div>",
@@ -189,7 +530,7 @@
         }
       ],
       "created_at": "2026-02-27 02:56:25+00:00",
-      "updated_at": "2026-02-27 03:37:22+00:00",
+      "updated_at": "2026-02-27 03:47:15+00:00",
       "visible": true,
       "is_locked": false,
       "blueprint_id": 286,
@@ -227,6 +568,18 @@
                     "angle": 0,
                     "offset": 0
                   }
+                },
+                {
+                  "id": "6995fafee0068a54871a8000",
+                  "name": "fabricated_logo_green_goose.png",
+                  "type": "image/png",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5534786926025221,
+                  "y": 0.4774764066548338,
+                  "scale": 0.1501128964173178,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/eb0ddb19-60bb-4caf-b6b2-c5e461bbfa3c"
                 }
               ],
               "decoration_method": "aop"
@@ -10643,6 +10996,6 @@
   "path": "/",
   "per_page": 50,
   "prev_page_url": null,
-  "to": 18,
+  "to": 19,
   "total": 19
 }

@@ -2,6 +2,7 @@
 
 | Product Name | Product ID | Blueprint ID | Price (MSRP) | Image Previews |
 | :--- | :--- | :--- | :--- | :--- |
+| [CBG Studio &#124; Tartarus Plaid Skirt-AOP](products_md/CBG_Studio___Tartarus_Plaid_Skirt_AOP.md) | `69a112757a1c2660540e65a5` | `286` | $51.67 | ![CBG Studio &#124; Tartarus Plaid Skirt-AOP](Product%20images/CBG_Studio___Tartarus_Plaid_Skirt_AOP_0.jpg) ![CBG Studio &#124; Tartarus Plaid Skirt-AOP](Product%20images/CBG_Studio___Tartarus_Plaid_Skirt_AOP_1.jpg) |
 | [[TEMPLATE]: Women's Skater Skirt (AOP)](products_md/_TEMPLATE___Women_s_Skater_Skirt__AOP_.md) | `69a107d9f78e85bfc0079a5e` | `286` | $51.67 | ![[TEMPLATE]: Women's Skater Skirt (AOP)](Product%20images/_TEMPLATE___Women_s_Skater_Skirt__AOP__0.jpg) ![[TEMPLATE]: Women's Skater Skirt (AOP)](Product%20images/_TEMPLATE___Women_s_Skater_Skirt__AOP__1.jpg) |
 | [[TEMPLATE]: Unisex Cut & Sew Tee (AOP)](products_md/_TEMPLATE___Unisex_Cut___Sew_Tee__AOP_.md) | `69a107d5c66f55502607d33f` | `281` | $46.67 | ![[TEMPLATE]: Unisex Cut & Sew Tee (AOP)](Product%20images/_TEMPLATE___Unisex_Cut___Sew_Tee__AOP__0.jpg) ![[TEMPLATE]: Unisex Cut & Sew Tee (AOP)](Product%20images/_TEMPLATE___Unisex_Cut___Sew_Tee__AOP__1.jpg) |
 | [[TEMPLATE]: Women's Relaxed Shorts (AOP)](products_md/_TEMPLATE___Women_s_Relaxed_Shorts__AOP_.md) | `69a107ce7a1c2660540e62fc` | `925` | $26.25 | ![[TEMPLATE]: Women's Relaxed Shorts (AOP)](Product%20images/_TEMPLATE___Women_s_Relaxed_Shorts__AOP__0.jpg) ![[TEMPLATE]: Women's Relaxed Shorts (AOP)](Product%20images/_TEMPLATE___Women_s_Relaxed_Shorts__AOP__1.jpg) |
