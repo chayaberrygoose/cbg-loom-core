@@ -1,0 +1,327 @@
+<?xml version="1.0" ?>
+<rss version="2.0">
+  <channel>
+    <title>CBG Studio // STANDALONE // DATA_STREAM</title>
+    <link>https://github.com/chayaberrygoose/cbg-loom-core/tree/main/artifacts/graphics/standalone</link>
+    <description>High-fidelity standalone specimens from the Chaya Berry Goose Loom.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Feb 2026 10:41:23 +0000</lastBuildDate>
+    <item>
+      <title>20260227_091552 // cbg studio lifestyle realization a high fidelity lifestyle</title>
+      <link>https://github.com/chayaberrygoose/cbg-loom-core/blob/main/artifacts/graphics/standalone/20260227_091552__cbg-studio-lifestyle-realization-a-high-fidelity-lifestyle/specimen.png</link>
+      <guid isPermaLink="false">artifacts/graphics/standalone/20260227_091552__cbg-studio-lifestyle-realization-a-high-fidelity-lifestyle/specimen.png</guid>
+      <pubDate>Fri, 27 Feb 2026 09:15:52 +0000</pubDate>
+      <description>&lt;img src=&quot;https://raw.githubusercontent.com/chayaberrygoose/cbg-loom-core/main/artifacts/graphics/standalone/20260227_091552__cbg-studio-lifestyle-realization-a-high-fidelity-lifestyle/specimen.png&quot; /&gt;&lt;br/&gt;Prompt: prompt: CBG Studio | Lifestyle Realization: A high-fidelity lifestyle photo of 'CBG Studio | Lattice Module Skirt'. Context: Cyberpunk style. Visual Reference Style: industrial noir techwear aesthetic, high-contrast shadows, clinical warehouse lighting. The shot should be tightly cropped to focus on the product details. Incorporate the visual essence of the provided base image: https://images.printify.com/mockup/69a1d1484ec72e50b10d0336/43209/699/cbg-studio-lattice-module-skirt.jpg?camera_label=front
+model: gemini-3.1-flash-image-preview
+timestamp: 20260227_091552</description>
+    </item>
+    <item>
+      <title>20260227_034115 // industrial noir obsidian phosphor green accents cyber punk</title>
+      <link>https://github.com/chayaberrygoose/cbg-loom-core/blob/main/artifacts/graphics/standalone/20260227_034115__industrial-noir-obsidian-phosphor-green-accents-cyber-punk/specimen_20260227_034115_01.png</link>
+      <guid isPermaLink="false">artifacts/graphics/standalone/20260227_034115__industrial-noir-obsidian-phosphor-green-accents-cyber-punk/specimen_20260227_034115_01.png</guid>
+      <pubDate>Fri, 27 Feb 2026 03:41:15 +0000</pubDate>
+      <description>&lt;img src=&quot;https://raw.githubusercontent.com/chayaberrygoose/cbg-loom-core/main/artifacts/graphics/standalone/20260227_034115__industrial-noir-obsidian-phosphor-green-accents-cyber-punk/specimen_20260227_034115_01.png&quot; /&gt;&lt;br/&gt;Prompt: prompt: industrial noir, obsidian, phosphor green accents, cyber-punk, technical grid, logo, emblem, badge, minimalist
+negative_prompt: 
+
+parameters:
+{
+  &quot;prompt&quot;: &quot;industrial noir, obsidian, phosphor green accents, cyber-punk, technical grid, logo, emblem, badge, minimalist&quot;,
+  &quot;negative_prompt&quot;: &quot;&quot;,
+  &quot;width&quot;: 320,
+  &quot;height&quot;: 320,
+  &quot;steps&quot;: 6,
+  &quot;cfg_scale&quot;: 7.0,
+  &quot;sampler_name&quot;: &quot;Euler a&quot;,
+  &quot;seed&quot;: -1,
+  &quot;batch_size&quot;: 1,
+  &quot;n_iter&quot;: 1
+}</description>
+    </item>
+    <item>
+      <title>20260227_010715 // cbg studio technical mark vibrant modernist bauhaus geometry</title>
+      <link>https://github.com/chayaberrygoose/cbg-loom-core/blob/main/artifacts/graphics/standalone/20260227_010715__cbg-studio-technical-mark-vibrant-modernist-bauhaus-geometry/specimen_20260227_010715_01.png</link>
+      <guid isPermaLink="false">artifacts/graphics/standalone/20260227_010715__cbg-studio-technical-mark-vibrant-modernist-bauhaus-geometry/specimen_20260227_010715_01.png</guid>
+      <pubDate>Fri, 27 Feb 2026 01:07:15 +0000</pubDate>
+      <description>&lt;img src=&quot;https://raw.githubusercontent.com/chayaberrygoose/cbg-loom-core/main/artifacts/graphics/standalone/20260227_010715__cbg-studio-technical-mark-vibrant-modernist-bauhaus-geometry/specimen_20260227_010715_01.png&quot; /&gt;&lt;br/&gt;Prompt: prompt: CBG Studio technical mark, Vibrant Modernist, Bauhaus Geometry and primary shards, clean vector lines, high-resolution technical logo
+negative_prompt: 
+
+parameters:
+{
+  &quot;prompt&quot;: &quot;CBG Studio technical mark, Vibrant Modernist, Bauhaus Geometry and primary shards, clean vector lines, high-resolution technical logo&quot;,
+  &quot;negative_prompt&quot;: &quot;&quot;,
+  &quot;width&quot;: 320,
+  &quot;height&quot;: 320,
+  &quot;steps&quot;: 6,
+  &quot;cfg_scale&quot;: 7.0,
+  &quot;sampler_name&quot;: &quot;Euler a&quot;,
+  &quot;seed&quot;: -1,
+  &quot;batch_size&quot;: 1,
+  &quot;n_iter&quot;: 1
+}</description>
+    </item>
+    <item>
+      <title>20260227_010706 // cbg studio technical mark sacred and profane anatomical</title>
+      <link>https://github.com/chayaberrygoose/cbg-loom-core/blob/main/artifacts/graphics/standalone/20260227_010706__cbg-studio-technical-mark-sacred-and-profane-anatomical/specimen_20260227_010706_01.png</link>
+      <guid isPermaLink="false">artifacts/graphics/standalone/20260227_010706__cbg-studio-technical-mark-sacred-and-profane-anatomical/specimen_20260227_010706_01.png</guid>
+      <pubDate>Fri, 27 Feb 2026 01:07:06 +0000</pubDate>
+      <description>&lt;img src=&quot;https://raw.githubusercontent.com/chayaberrygoose/cbg-loom-core/main/artifacts/graphics/standalone/20260227_010706__cbg-studio-technical-mark-sacred-and-profane-anatomical/specimen_20260227_010706_01.png&quot; /&gt;&lt;br/&gt;Prompt: prompt: CBG Studio technical mark, Sacred and Profane, anatomical sketches and etched poetry on vellum, clean vector lines, high-resolution technical logo
+negative_prompt: 
+
+parameters:
+{
+  &quot;prompt&quot;: &quot;CBG Studio technical mark, Sacred and Profane, anatomical sketches and etched poetry on vellum, clean vector lines, high-resolution technical logo&quot;,
+  &quot;negative_prompt&quot;: &quot;&quot;,
+  &quot;width&quot;: 320,
+  &quot;height&quot;: 320,
+  &quot;steps&quot;: 6,
+  &quot;cfg_scale&quot;: 7.0,
+  &quot;sampler_name&quot;: &quot;Euler a&quot;,
+  &quot;seed&quot;: -1,
+  &quot;batch_size&quot;: 1,
+  &quot;n_iter&quot;: 1
+}</description>
+    </item>
+    <item>
+      <title>20260227_010657 // cbg studio technical mark sub atomic phosphor green</title>
+      <link>https://github.com/chayaberrygoose/cbg-loom-core/blob/main/artifacts/graphics/standalone/20260227_010657__cbg-studio-technical-mark-sub-atomic-phosphor-green/specimen_20260227_010657_01.png</link>
+      <guid isPermaLink="false">artifacts/graphics/standalone/20260227_010657__cbg-studio-technical-mark-sub-atomic-phosphor-green/specimen_20260227_010657_01.png</guid>
+      <pubDate>Fri, 27 Feb 2026 01:06:57 +0000</pubDate>
+      <description>&lt;img src=&quot;https://raw.githubusercontent.com/chayaberrygoose/cbg-loom-core/main/artifacts/graphics/standalone/20260227_010657__cbg-studio-technical-mark-sub-atomic-phosphor-green/specimen_20260227_010657_01.png&quot; /&gt;&lt;br/&gt;Prompt: prompt: CBG Studio technical mark, Sub-Atomic, Phosphor Green on black, TEM Lattices and Moire Fringes, clean vector lines, high-resolution technical logo
+negative_prompt: 
+
+parameters:
+{
+  &quot;prompt&quot;: &quot;CBG Studio technical mark, Sub-Atomic, Phosphor Green on black, TEM Lattices and Moire Fringes, clean vector lines, high-resolution technical logo&quot;,
+  &quot;negative_prompt&quot;: &quot;&quot;,
+  &quot;width&quot;: 320,
+  &quot;height&quot;: 320,
+  &quot;steps&quot;: 6,
+  &quot;cfg_scale&quot;: 7.0,
+  &quot;sampler_name&quot;: &quot;Euler a&quot;,
+  &quot;seed&quot;: -1,
+  &quot;batch_size&quot;: 1,
+  &quot;n_iter&quot;: 1
+}</description>
+    </item>
+    <item>
+      <title>20260227_010648 // cbg studio technical mark cyber punk red tartan</title>
+      <link>https://github.com/chayaberrygoose/cbg-loom-core/blob/main/artifacts/graphics/standalone/20260227_010648__cbg-studio-technical-mark-cyber-punk-red-tartan/specimen_20260227_010648_01.png</link>
+      <guid isPermaLink="false">artifacts/graphics/standalone/20260227_010648__cbg-studio-technical-mark-cyber-punk-red-tartan/specimen_20260227_010648_01.png</guid>
+      <pubDate>Fri, 27 Feb 2026 01:06:48 +0000</pubDate>
+      <description>&lt;img src=&quot;https://raw.githubusercontent.com/chayaberrygoose/cbg-loom-core/main/artifacts/graphics/standalone/20260227_010648__cbg-studio-technical-mark-cyber-punk-red-tartan/specimen_20260227_010648_01.png&quot; /&gt;&lt;br/&gt;Prompt: prompt: CBG Studio technical mark, Cyber-Punk, red tartan and glitched fishnets, clean vector lines, high-resolution technical logo
+negative_prompt: 
+
+parameters:
+{
+  &quot;prompt&quot;: &quot;CBG Studio technical mark, Cyber-Punk, red tartan and glitched fishnets, clean vector lines, high-resolution technical logo&quot;,
+  &quot;negative_prompt&quot;: &quot;&quot;,
+  &quot;width&quot;: 320,
+  &quot;height&quot;: 320,
+  &quot;steps&quot;: 6,
+  &quot;cfg_scale&quot;: 7.0,
+  &quot;sampler_name&quot;: &quot;Euler a&quot;,
+  &quot;seed&quot;: -1,
+  &quot;batch_size&quot;: 1,
+  &quot;n_iter&quot;: 1
+}</description>
+    </item>
+    <item>
+      <title>20260227_010639 // cbg studio technical mark industrial noir obsidian and</title>
+      <link>https://github.com/chayaberrygoose/cbg-loom-core/blob/main/artifacts/graphics/standalone/20260227_010639__cbg-studio-technical-mark-industrial-noir-obsidian-and/specimen_20260227_010639_01.png</link>
+      <guid isPermaLink="false">artifacts/graphics/standalone/20260227_010639__cbg-studio-technical-mark-industrial-noir-obsidian-and/specimen_20260227_010639_01.png</guid>
+      <pubDate>Fri, 27 Feb 2026 01:06:39 +0000</pubDate>
+      <description>&lt;img src=&quot;https://raw.githubusercontent.com/chayaberrygoose/cbg-loom-core/main/artifacts/graphics/standalone/20260227_010639__cbg-studio-technical-mark-industrial-noir-obsidian-and/specimen_20260227_010639_01.png&quot; /&gt;&lt;br/&gt;Prompt: prompt: CBG Studio technical mark, Industrial Noir, obsidian and grey and white, clean vector lines, high-resolution technical logo
+negative_prompt: 
+
+parameters:
+{
+  &quot;prompt&quot;: &quot;CBG Studio technical mark, Industrial Noir, obsidian and grey and white, clean vector lines, high-resolution technical logo&quot;,
+  &quot;negative_prompt&quot;: &quot;&quot;,
+  &quot;width&quot;: 320,
+  &quot;height&quot;: 320,
+  &quot;steps&quot;: 6,
+  &quot;cfg_scale&quot;: 7.0,
+  &quot;sampler_name&quot;: &quot;Euler a&quot;,
+  &quot;seed&quot;: -1,
+  &quot;batch_size&quot;: 1,
+  &quot;n_iter&quot;: 1
+}</description>
+    </item>
+    <item>
+      <title>20260227_010629 // vibrant modernist movement bauhaus geometry and primary shards</title>
+      <link>https://github.com/chayaberrygoose/cbg-loom-core/blob/main/artifacts/graphics/standalone/20260227_010629__vibrant-modernist-movement-bauhaus-geometry-and-primary-shards/specimen_20260227_010629_01.png</link>
+      <guid isPermaLink="false">artifacts/graphics/standalone/20260227_010629__vibrant-modernist-movement-bauhaus-geometry-and-primary-shards/specimen_20260227_010629_01.png</guid>
+      <pubDate>Fri, 27 Feb 2026 01:06:29 +0000</pubDate>
+      <description>&lt;img src=&quot;https://raw.githubusercontent.com/chayaberrygoose/cbg-loom-core/main/artifacts/graphics/standalone/20260227_010629__vibrant-modernist-movement-bauhaus-geometry-and-primary-shards/specimen_20260227_010629_01.png&quot; /&gt;&lt;br/&gt;Prompt: prompt: Vibrant Modernist movement, Bauhaus Geometry and primary shards, clean vector lines, high-resolution technical illustration
+negative_prompt: 
+
+parameters:
+{
+  &quot;prompt&quot;: &quot;Vibrant Modernist movement, Bauhaus Geometry and primary shards, clean vector lines, high-resolution technical illustration&quot;,
+  &quot;negative_prompt&quot;: &quot;&quot;,
+  &quot;width&quot;: 320,
+  &quot;height&quot;: 320,
+  &quot;steps&quot;: 6,
+  &quot;cfg_scale&quot;: 7.0,
+  &quot;sampler_name&quot;: &quot;Euler a&quot;,
+  &quot;seed&quot;: -1,
+  &quot;batch_size&quot;: 1,
+  &quot;n_iter&quot;: 1
+}</description>
+    </item>
+    <item>
+      <title>20260227_010620 // sacred and profane history anatomical sketches and etched</title>
+      <link>https://github.com/chayaberrygoose/cbg-loom-core/blob/main/artifacts/graphics/standalone/20260227_010620__sacred-and-profane-history-anatomical-sketches-and-etched/specimen_20260227_010620_01.png</link>
+      <guid isPermaLink="false">artifacts/graphics/standalone/20260227_010620__sacred-and-profane-history-anatomical-sketches-and-etched/specimen_20260227_010620_01.png</guid>
+      <pubDate>Fri, 27 Feb 2026 01:06:20 +0000</pubDate>
+      <description>&lt;img src=&quot;https://raw.githubusercontent.com/chayaberrygoose/cbg-loom-core/main/artifacts/graphics/standalone/20260227_010620__sacred-and-profane-history-anatomical-sketches-and-etched/specimen_20260227_010620_01.png&quot; /&gt;&lt;br/&gt;Prompt: prompt: Sacred and Profane history, anatomical sketches and etched poetry on vellum, clean vector lines, high-resolution technical illustration
+negative_prompt: 
+
+parameters:
+{
+  &quot;prompt&quot;: &quot;Sacred and Profane history, anatomical sketches and etched poetry on vellum, clean vector lines, high-resolution technical illustration&quot;,
+  &quot;negative_prompt&quot;: &quot;&quot;,
+  &quot;width&quot;: 320,
+  &quot;height&quot;: 320,
+  &quot;steps&quot;: 6,
+  &quot;cfg_scale&quot;: 7.0,
+  &quot;sampler_name&quot;: &quot;Euler a&quot;,
+  &quot;seed&quot;: -1,
+  &quot;batch_size&quot;: 1,
+  &quot;n_iter&quot;: 1
+}</description>
+    </item>
+    <item>
+      <title>20260227_010611 // sub atomic truth analysis phosphor green on black</title>
+      <link>https://github.com/chayaberrygoose/cbg-loom-core/blob/main/artifacts/graphics/standalone/20260227_010611__sub-atomic-truth-analysis-phosphor-green-on-black/specimen_20260227_010611_01.png</link>
+      <guid isPermaLink="false">artifacts/graphics/standalone/20260227_010611__sub-atomic-truth-analysis-phosphor-green-on-black/specimen_20260227_010611_01.png</guid>
+      <pubDate>Fri, 27 Feb 2026 01:06:11 +0000</pubDate>
+      <description>&lt;img src=&quot;https://raw.githubusercontent.com/chayaberrygoose/cbg-loom-core/main/artifacts/graphics/standalone/20260227_010611__sub-atomic-truth-analysis-phosphor-green-on-black/specimen_20260227_010611_01.png&quot; /&gt;&lt;br/&gt;Prompt: prompt: Sub-Atomic truth analysis, Phosphor Green on black, TEM Lattices and Moire Fringes, clean vector lines, high-resolution technical illustration
+negative_prompt: 
+
+parameters:
+{
+  &quot;prompt&quot;: &quot;Sub-Atomic truth analysis, Phosphor Green on black, TEM Lattices and Moire Fringes, clean vector lines, high-resolution technical illustration&quot;,
+  &quot;negative_prompt&quot;: &quot;&quot;,
+  &quot;width&quot;: 320,
+  &quot;height&quot;: 320,
+  &quot;steps&quot;: 6,
+  &quot;cfg_scale&quot;: 7.0,
+  &quot;sampler_name&quot;: &quot;Euler a&quot;,
+  &quot;seed&quot;: -1,
+  &quot;batch_size&quot;: 1,
+  &quot;n_iter&quot;: 1
+}</description>
+    </item>
+    <item>
+      <title>20260227_010602 // cyber punk rebellion symbol red tartan and glitched</title>
+      <link>https://github.com/chayaberrygoose/cbg-loom-core/blob/main/artifacts/graphics/standalone/20260227_010602__cyber-punk-rebellion-symbol-red-tartan-and-glitched/specimen_20260227_010602_01.png</link>
+      <guid isPermaLink="false">artifacts/graphics/standalone/20260227_010602__cyber-punk-rebellion-symbol-red-tartan-and-glitched/specimen_20260227_010602_01.png</guid>
+      <pubDate>Fri, 27 Feb 2026 01:06:02 +0000</pubDate>
+      <description>&lt;img src=&quot;https://raw.githubusercontent.com/chayaberrygoose/cbg-loom-core/main/artifacts/graphics/standalone/20260227_010602__cyber-punk-rebellion-symbol-red-tartan-and-glitched/specimen_20260227_010602_01.png&quot; /&gt;&lt;br/&gt;Prompt: prompt: Cyber-Punk rebellion symbol, red tartan and glitched fishnets, clean vector lines, high-resolution technical illustration
+negative_prompt: 
+
+parameters:
+{
+  &quot;prompt&quot;: &quot;Cyber-Punk rebellion symbol, red tartan and glitched fishnets, clean vector lines, high-resolution technical illustration&quot;,
+  &quot;negative_prompt&quot;: &quot;&quot;,
+  &quot;width&quot;: 320,
+  &quot;height&quot;: 320,
+  &quot;steps&quot;: 6,
+  &quot;cfg_scale&quot;: 7.0,
+  &quot;sampler_name&quot;: &quot;Euler a&quot;,
+  &quot;seed&quot;: -1,
+  &quot;batch_size&quot;: 1,
+  &quot;n_iter&quot;: 1
+}</description>
+    </item>
+    <item>
+      <title>20260227_010553 // industrial noir schematic obsidian and grey and white</title>
+      <link>https://github.com/chayaberrygoose/cbg-loom-core/blob/main/artifacts/graphics/standalone/20260227_010553__industrial-noir-schematic-obsidian-and-grey-and-white/specimen_20260227_010553_01.png</link>
+      <guid isPermaLink="false">artifacts/graphics/standalone/20260227_010553__industrial-noir-schematic-obsidian-and-grey-and-white/specimen_20260227_010553_01.png</guid>
+      <pubDate>Fri, 27 Feb 2026 01:05:53 +0000</pubDate>
+      <description>&lt;img src=&quot;https://raw.githubusercontent.com/chayaberrygoose/cbg-loom-core/main/artifacts/graphics/standalone/20260227_010553__industrial-noir-schematic-obsidian-and-grey-and-white/specimen_20260227_010553_01.png&quot; /&gt;&lt;br/&gt;Prompt: prompt: Industrial Noir schematic, obsidian and grey and white, clean vector lines, high-resolution technical illustration
+negative_prompt: 
+
+parameters:
+{
+  &quot;prompt&quot;: &quot;Industrial Noir schematic, obsidian and grey and white, clean vector lines, high-resolution technical illustration&quot;,
+  &quot;negative_prompt&quot;: &quot;&quot;,
+  &quot;width&quot;: 320,
+  &quot;height&quot;: 320,
+  &quot;steps&quot;: 6,
+  &quot;cfg_scale&quot;: 7.0,
+  &quot;sampler_name&quot;: &quot;Euler a&quot;,
+  &quot;seed&quot;: -1,
+  &quot;batch_size&quot;: 1,
+  &quot;n_iter&quot;: 1
+}</description>
+    </item>
+    <item>
+      <title>20260227_004446 // modern glass office building exterior at dusk photorealistic</title>
+      <link>https://github.com/chayaberrygoose/cbg-loom-core/blob/main/artifacts/graphics/standalone/20260227_004446__modern-glass-office-building-exterior-at-dusk-photorealistic/specimen_20260227_004446_01.png</link>
+      <guid isPermaLink="false">artifacts/graphics/standalone/20260227_004446__modern-glass-office-building-exterior-at-dusk-photorealistic/specimen_20260227_004446_01.png</guid>
+      <pubDate>Fri, 27 Feb 2026 00:44:46 +0000</pubDate>
+      <description>&lt;img src=&quot;https://raw.githubusercontent.com/chayaberrygoose/cbg-loom-core/main/artifacts/graphics/standalone/20260227_004446__modern-glass-office-building-exterior-at-dusk-photorealistic/specimen_20260227_004446_01.png&quot; /&gt;&lt;br/&gt;Prompt: prompt: modern glass office building exterior at dusk, photorealistic, realistic lighting, detailed materials, natural color grading
+negative_prompt: cartoon, anime, illustration, painting, drawing, cgi, 3d render, lowres, blurry, deformed, bad anatomy
+
+parameters:
+{
+  &quot;prompt&quot;: &quot;modern glass office building exterior at dusk, photorealistic, realistic lighting, detailed materials, natural color grading&quot;,
+  &quot;negative_prompt&quot;: &quot;cartoon, anime, illustration, painting, drawing, cgi, 3d render, lowres, blurry, deformed, bad anatomy&quot;,
+  &quot;width&quot;: 320,
+  &quot;height&quot;: 320,
+  &quot;steps&quot;: 6,
+  &quot;cfg_scale&quot;: 6.5,
+  &quot;sampler_name&quot;: &quot;Euler a&quot;,
+  &quot;seed&quot;: -1,
+  &quot;batch_size&quot;: 1,
+  &quot;n_iter&quot;: 1
+}</description>
+    </item>
+    <item>
+      <title>20260227_004210 // minimal standalone icon for cbg</title>
+      <link>https://github.com/chayaberrygoose/cbg-loom-core/blob/main/artifacts/graphics/standalone/20260227_004210__minimal-standalone-icon-for-cbg/specimen_20260227_004210_01.png</link>
+      <guid isPermaLink="false">artifacts/graphics/standalone/20260227_004210__minimal-standalone-icon-for-cbg/specimen_20260227_004210_01.png</guid>
+      <pubDate>Fri, 27 Feb 2026 00:42:10 +0000</pubDate>
+      <description>&lt;img src=&quot;https://raw.githubusercontent.com/chayaberrygoose/cbg-loom-core/main/artifacts/graphics/standalone/20260227_004210__minimal-standalone-icon-for-cbg/specimen_20260227_004210_01.png&quot; /&gt;&lt;br/&gt;Prompt: prompt: minimal standalone icon for CBG
+negative_prompt: 
+
+parameters:
+{
+  &quot;prompt&quot;: &quot;minimal standalone icon for CBG&quot;,
+  &quot;negative_prompt&quot;: &quot;&quot;,
+  &quot;width&quot;: 320,
+  &quot;height&quot;: 320,
+  &quot;steps&quot;: 6,
+  &quot;cfg_scale&quot;: 7.0,
+  &quot;sampler_name&quot;: &quot;Euler a&quot;,
+  &quot;seed&quot;: -1,
+  &quot;batch_size&quot;: 1,
+  &quot;n_iter&quot;: 1
+}</description>
+    </item>
+    <item>
+      <title>20260227_003850 // standalone emblem mark for cbg studio</title>
+      <link>https://github.com/chayaberrygoose/cbg-loom-core/blob/main/artifacts/graphics/standalone/20260227_003850__standalone-emblem-mark-for-cbg-studio/specimen_20260227_003850_01.png</link>
+      <guid isPermaLink="false">artifacts/graphics/standalone/20260227_003850__standalone-emblem-mark-for-cbg-studio/specimen_20260227_003850_01.png</guid>
+      <pubDate>Fri, 27 Feb 2026 00:38:50 +0000</pubDate>
+      <description>&lt;img src=&quot;https://raw.githubusercontent.com/chayaberrygoose/cbg-loom-core/main/artifacts/graphics/standalone/20260227_003850__standalone-emblem-mark-for-cbg-studio/specimen_20260227_003850_01.png&quot; /&gt;&lt;br/&gt;Prompt: prompt: standalone emblem mark for CBG studio
+negative_prompt: 
+
+parameters:
+{
+  &quot;prompt&quot;: &quot;standalone emblem mark for CBG studio&quot;,
+  &quot;negative_prompt&quot;: &quot;&quot;,
+  &quot;width&quot;: 320,
+  &quot;height&quot;: 320,
+  &quot;steps&quot;: 6,
+  &quot;cfg_scale&quot;: 7.0,
+  &quot;sampler_name&quot;: &quot;Euler a&quot;,
+  &quot;seed&quot;: -1,
+  &quot;batch_size&quot;: 1,
+  &quot;n_iter&quot;: 1
+}</description>
+    </item>
+  </channel>
+</rss>
