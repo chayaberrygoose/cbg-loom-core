@@ -13,7 +13,7 @@ def initialize_loom_uplink():
     Establishes connection to the Synthesis Engine (Gemini API).
     Required Env Var: GOOGLE_API_KEY
     """
-    api_key = os.getenv("GOOGLE_API_KEY")
+    api_key = os.getenv("GOOGLE_API_KEY") or os.getenv("googele_api_key")
     
     if not api_key:
         # Fallback: check .env/gemini_api_key in the repo root

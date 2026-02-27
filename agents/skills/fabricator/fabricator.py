@@ -113,12 +113,16 @@ class Fabricator:
                 pass
         return None
 
-    def fabricate_from_template(self, template_id: str, graphics_dir: str = "artifacts/graphics") -> Dict[str, Any]:
+    def fabricate_from_template(self, template_id: str, graphics_dir: str = "artifacts/graphics", role_overrides: Dict[str, str] = None) -> Dict[str, Any]:
         """
-        Clones a template product and replaces its graphics with random ones from the graphics directory.
+        Clones a template product and replaces its graphics with specimens from the graphics directory.
+        By default, it takes the latest specimen for each role (tile, texture, logo).
         Maps tiles to tiled body, textures to trim, logos to logo.
         """
         import random
+        from typing import Dict
+        
+        role_overrides = role_overrides or {}
         
         print(f"--- [FABRICATION_START]: TEMPLATE_{template_id} ---")
         
@@ -150,31 +154,44 @@ class Fabricator:
                         
         print(f"// IDENTIFIED_ROLES: {image_roles}")
         
-        # 3. Pick Random Graphics for Each Role
+        # 3. Secure Graphics for Each Role
         graphics_path = Path(graphics_dir)
         role_to_new_image_id = {}
         chosen_prompts = []
         
+        # Cache for role consistency (one image per unique role per template)
+        role_instance_map = {} # role -> (path, id)
+        
         for original_id, role in image_roles.items():
-            # Pick a random image from the corresponding folder
-            folder_name = role + "s" # tiles, textures, logos
-            folder_path = graphics_path / folder_name
-            
-            if not folder_path.exists():
-                print(f"!! [WARNING]: Folder {folder_path} does not exist. Skipping replacement for {original_id}.")
+            if role in role_instance_map:
+                role_to_new_image_id[original_id] = role_instance_map[role][1]
                 continue
+
+            # Check for explicit override
+            if role in role_overrides:
+                chosen_image = Path(role_overrides[role])
+                print(f"// FORCING_ARTIFACT for {role}: {chosen_image.name}")
+            else:
+                folder_name = role + "s" # tiles, textures, logos
+                folder_path = graphics_path / folder_name
                 
-            # Get all images in the folder (including subdirectories)
-            images = []
-            for ext in ('*.png', '*.jpg', '*.jpeg'):
-                images.extend(folder_path.rglob(ext))
-                
-            if not images:
-                print(f"!! [WARNING]: No images found in {folder_path}. Skipping replacement for {original_id}.")
-                continue
-                
-            chosen_image = random.choice(images)
-            print(f"// SELECTED_ARTIFACT for {role}: {chosen_image.name}")
+                if not folder_path.exists():
+                    print(f"!! [WARNING]: Folder {folder_path} does not exist. Skipping.")
+                    continue
+                    
+                # Get all images in the folder (including subdirectories)
+                images = []
+                for ext in ('*.png', '*.jpg', '*.jpeg'):
+                    images.extend(folder_path.rglob(ext))
+                    
+                if not images:
+                    print(f"!! [WARNING]: Folder {folder_path} exists but is void of specimens. Skipping.")
+                    continue
+                    
+                # Sort by modification time (descending) to prioritize the latest synthesis
+                images.sort(key=lambda x: x.stat().st_mtime, reverse=True)
+                chosen_image = images[0]
+                print(f"// SELECTED_ARTIFACT (LATEST) for {role}: {chosen_image.name}")
             
             # Extract prompt if available
             prompt = self._get_prompt_from_path(str(chosen_image))
@@ -184,6 +201,7 @@ class Fabricator:
             # Upload the chosen image
             new_image_id = self.upload_image(local_path=str(chosen_image), file_name=f"fabricated_{role}_{chosen_image.name}")
             role_to_new_image_id[original_id] = new_image_id
+            role_instance_map[role] = (str(chosen_image), new_image_id)
             
         # 4. Construct Payload
         print_areas = source.get('print_areas', [])
@@ -285,6 +303,13 @@ class Fabricator:
         except requests.exceptions.HTTPError as e:
             print(f"!! [SYSTEM_FAILURE]: {response.text}")
             raise e
+
+    def update_product(self, product_id: str, payload: Dict[str, Any]) -> Dict[str, Any]:
+        """Updates an existing product's metadata or configuration."""
+        url = f"{self.BASE_URL}/shops/{self.shop_id}/products/{product_id}.json"
+        response = requests.put(url, json=payload, headers=self.headers)
+        response.raise_for_status()
+        return response.json()
 
     def clone_product(self, source_product_id: str, new_image_url: str = None, title_suffix: str = " [CLONE]", preserve_logo_only: bool = False, logo_id: str = None, trim_image_url: str = None, new_image_local_path: str = None, trim_image_local_path: str = None) -> Dict[str, Any]:
         """

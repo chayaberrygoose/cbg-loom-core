@@ -1,4 +1,5 @@
-# [FILE_ID]: stable_diffusion_skill/stable_diffusion_skill.py // VERSION: 1.0 // STATUS: STABLE
+# [FILE_ID]: stable_diffusion_skill/stable_diffusion_skill.py // VERSION: 2.0 // STATUS: STABLE
+# // SIGNAL_RECOVERY: COMFYUI API INTEGRATION
 
 import base64
 import json
@@ -8,6 +9,7 @@ import shlex
 import subprocess
 import threading
 import time
+import uuid
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
@@ -15,17 +17,8 @@ from urllib import request
 from urllib.error import HTTPError, URLError
 
 
-def _build_webui_url(base_url: str, route: str) -> str:
+def _build_comfy_url(base_url: str, route: str) -> str:
     return f"{base_url.rstrip('/')}/{route.lstrip('/')}"
-
-
-def _build_auth_header() -> Dict[str, str]:
-    auth = os.getenv("SD_WEBUI_AUTH", "").strip()
-    if not auth:
-        return {}
-
-    encoded = base64.b64encode(auth.encode("utf-8")).decode("utf-8")
-    return {"Authorization": f"Basic {encoded}"}
 
 
 def _http_json(
@@ -40,7 +33,6 @@ def _http_json(
 
     headers = {
         "Content-Type": "application/json",
-        **_build_auth_header(),
     }
 
     req = request.Request(url=url, data=body, headers=headers, method=method)
@@ -53,16 +45,16 @@ def _http_json(
 
 def _api_healthcheck(base_url: str, timeout: int = 5) -> bool:
     try:
-        url = _build_webui_url(base_url, "/sdapi/v1/options")
+        url = _build_comfy_url(base_url, "system_stats")
         _http_json(url=url, method="GET", timeout=timeout)
         return True
     except (HTTPError, URLError, TimeoutError, ValueError):
         return False
 
 
-def _resolve_webui_dir() -> Path:
-    default_dir = Path.home() / "repos" / "stable-diffusion-webui"
-    return Path(os.getenv("SD_WEBUI_DIR", str(default_dir))).expanduser()
+def _resolve_comfy_dir() -> Path:
+    default_dir = Path.home() / "repos" / "ComfyUI"
+    return Path(os.getenv("COMFYUI_DIR", str(default_dir))).expanduser()
 
 
 def _sanitize_log_line(line: str, use_tilde_paths: bool) -> str:
@@ -72,7 +64,7 @@ def _sanitize_log_line(line: str, use_tilde_paths: bool) -> str:
     return line.replace(home_prefix, "~")
 
 
-def _stream_webui_output_to_log(
+def _stream_output_to_log(
     process: subprocess.Popen,
     log_path: Path,
     use_tilde_paths: bool,
@@ -87,42 +79,42 @@ def _stream_webui_output_to_log(
             log_file.flush()
 
 
-def start_diffusion_webui_if_needed(
+def start_comfy_if_needed(
     base_url: Optional[str] = None,
     startup_timeout: Optional[int] = None,
 ) -> Tuple[bool, str]:
     """
-    Starts Stable Diffusion WebUI in the background if API is not reachable.
+    Starts ComfyUI in the background if API is not reachable.
 
     Env vars:
-    - SD_WEBUI_DIR (default: ~/repos/stable-diffusion-webui)
-    - SD_WEBUI_START_CMD (default: ./webui.sh --api)
-    - SD_WEBUI_START_TIMEOUT (default: 240)
-    - SD_WEBUI_START_LOG (default: artifacts/generated/stable-diffusion/webui.log)
-    - SD_WEBUI_LOG_TILDE_PATHS (default: 1)
+    - COMFYUI_DIR (default: ~/repos/ComfyUI)
+    - COMFYUI_START_CMD (default: ./start_comfy.sh)
+    - COMFYUI_START_TIMEOUT (default: 240)
+    - COMFYUI_START_LOG (default: artifacts/generated/stable-diffusion/comfy.log)
+    - COMFY_LOG_TILDE_PATHS (default: 1)
     """
-    resolved_base_url = (base_url or os.getenv("SD_WEBUI_URL") or "http://127.0.0.1:7860").strip()
-    resolved_startup_timeout = startup_timeout or int(os.getenv("SD_WEBUI_START_TIMEOUT", "240"))
+    resolved_base_url = (base_url or os.getenv("COMFYUI_URL") or "http://127.0.0.1:8188").strip()
+    resolved_startup_timeout = startup_timeout or int(os.getenv("COMFYUI_START_TIMEOUT", "240"))
 
     if _api_healthcheck(resolved_base_url, timeout=5):
-        return True, f"[SYSTEM_LOG]: Diffusion API already online at {resolved_base_url}"
+        return True, f"[SYSTEM_LOG]: ComfyUI API already online at {resolved_base_url}"
 
-    webui_dir = _resolve_webui_dir()
-    if not webui_dir.exists():
-        return False, f"[SYSTEM_ERROR]: SD_WEBUI_DIR not found: {webui_dir}"
+    comfy_dir = _resolve_comfy_dir()
+    if not comfy_dir.exists():
+        return False, f"[SYSTEM_ERROR]: COMFYUI_DIR not found: {comfy_dir}"
 
-    command = os.getenv("SD_WEBUI_START_CMD", "./webui.sh --api").strip()
+    command = os.getenv("COMFYUI_START_CMD", "./start_comfy.sh").strip()
     if not command:
-        return False, "[SYSTEM_ERROR]: SD_WEBUI_START_CMD is empty."
+        return False, "[SYSTEM_ERROR]: COMFYUI_START_CMD is empty."
 
     log_path = Path(
         os.getenv(
-            "SD_WEBUI_START_LOG",
-            str(Path("artifacts") / "generated" / "stable-diffusion" / "webui.log"),
+            "COMFYUI_START_LOG",
+            str(Path("artifacts") / "generated" / "stable-diffusion" / "comfy.log"),
         )
     )
     log_path.parent.mkdir(parents=True, exist_ok=True)
-    use_tilde_paths = os.getenv("SD_WEBUI_LOG_TILDE_PATHS", "1").strip().lower() in {
+    use_tilde_paths = os.getenv("COMFY_LOG_TILDE_PATHS", "1").strip().lower() in {
         "1",
         "true",
         "yes",
@@ -131,7 +123,7 @@ def start_diffusion_webui_if_needed(
 
     process = subprocess.Popen(
         shlex.split(command),
-        cwd=str(webui_dir),
+        cwd=str(comfy_dir),
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
         text=True,
@@ -140,7 +132,7 @@ def start_diffusion_webui_if_needed(
     )
 
     thread = threading.Thread(
-        target=_stream_webui_output_to_log,
+        target=_stream_output_to_log,
         args=(process, log_path, use_tilde_paths),
         daemon=True,
     )
@@ -149,48 +141,47 @@ def start_diffusion_webui_if_needed(
     deadline = time.time() + resolved_startup_timeout
     while time.time() < deadline:
         if _api_healthcheck(resolved_base_url, timeout=5):
-            return True, f"[SYSTEM_LOG]: Diffusion API online at {resolved_base_url}"
+            return True, f"[SYSTEM_LOG]: ComfyUI API online at {resolved_base_url}"
         time.sleep(2)
 
     return False, (
-        f"[SYSTEM_ERROR]: Timed out waiting for Diffusion API at {resolved_base_url}. "
+        f"[SYSTEM_ERROR]: Timed out waiting for ComfyUI at {resolved_base_url}. "
         f"Check startup log: {log_path}"
     )
 
 
-def initialize_diffusion_uplink(
+def initialize_comfy_uplink(
     base_url: Optional[str] = None,
     timeout: Optional[int] = None,
     auto_start: Optional[bool] = None,
 ) -> Tuple[bool, str]:
     """
-    Validates Stable Diffusion WebUI API connectivity.
+    Validates ComfyUI API connectivity.
 
     Env vars:
-    - SD_WEBUI_URL (default: http://127.0.0.1:7860)
-    - SD_WEBUI_TIMEOUT (default: 180)
-    - SD_WEBUI_AUTH (optional basic auth string: username:password)
-    - SD_WEBUI_AUTO_START (default: 1)
+    - COMFYUI_URL (default: http://127.0.0.1:8188)
+    - COMFYUI_TIMEOUT (default: 180)
+    - COMFYUI_AUTO_START (default: 1)
     """
-    resolved_base_url = (base_url or os.getenv("SD_WEBUI_URL") or "http://127.0.0.1:7860").strip()
-    resolved_timeout = timeout or int(os.getenv("SD_WEBUI_TIMEOUT", "180"))
+    resolved_base_url = (base_url or os.getenv("COMFYUI_URL") or "http://127.0.0.1:8188").strip()
+    resolved_timeout = timeout or int(os.getenv("COMFYUI_TIMEOUT", "180"))
     resolved_auto_start = (
         auto_start
         if auto_start is not None
-        else os.getenv("SD_WEBUI_AUTO_START", "1").strip().lower() in {"1", "true", "yes", "on"}
+        else os.getenv("COMFYUI_AUTO_START", "1").strip().lower() in {"1", "true", "yes", "on"}
     )
 
     if not _api_healthcheck(resolved_base_url, timeout=5) and resolved_auto_start:
-        started, status = start_diffusion_webui_if_needed(base_url=resolved_base_url)
+        started, status = start_comfy_if_needed(base_url=resolved_base_url)
         if not started:
             return False, status
 
     try:
-        url = _build_webui_url(resolved_base_url, "/sdapi/v1/options")
+        url = _build_comfy_url(resolved_base_url, "system_stats")
         _http_json(url=url, method="GET", timeout=resolved_timeout)
-        return True, f"[SYSTEM_LOG]: Diffusion Uplink Established at {resolved_base_url}"
+        return True, f"[SYSTEM_LOG]: ComfyUI Uplink Established at {resolved_base_url}"
     except (HTTPError, URLError, TimeoutError, ValueError) as exc:
-        return False, f"[SYSTEM_ERROR]: Diffusion Uplink failed: {exc}"
+        return False, f"[SYSTEM_ERROR]: ComfyUI Uplink failed: {exc}"
 
 
 def _decode_b64_image(image_b64: str) -> bytes:
@@ -339,64 +330,175 @@ def _round_to_64(value: int) -> int:
     return max(64, (value // 64) * 64)
 
 
-def _build_oom_fallback_ladder(width: int, height: int, steps: int) -> List[Tuple[int, int, int]]:
-    rung_1 = (
-        min(max(_round_to_64(width), 256), 384),
-        min(max(_round_to_64(height), 256), 384),
-        min(max(steps, 4), 8),
-    )
-    rung_2 = (
-        min(max(_round_to_64(width), 256), 320),
-        min(max(_round_to_64(height), 256), 320),
-        min(max(steps, 4), 6),
-    )
-    rung_3 = (256, 256, min(max(steps, 4), 6))
-    rung_4 = (256, 256, 4)
-    return [rung_1, rung_2, rung_3, rung_4]
+def _get_flux_workflow(
+    prompt: str,
+    width: int,
+    height: int,
+    steps: int,
+    seed: int,
+    model_name: str = "flux1-schnell-fp8.safetensors",
+    clip_name: str = "clip_l.safetensors",
+    t5_name: str = "t5xxl_fp8_e4m3fn.safetensors",
+    vae_name: str = "ae.safetensors",
+) -> Dict[str, Any]:
+    # Specialized FLUX.1 Schnell workflow for ComfyUI API (Low-VRAM optimized)
+    return {
+        "1": {
+            "class_type": "UNETLoader",
+            "inputs": {"unet_name": model_name, "weight_dtype": "default"},
+        },
+        "2": {
+            "class_type": "DualCLIPLoader",
+            "inputs": {
+                "clip_name1": clip_name,
+                "clip_name2": t5_name,
+                "type": "flux",
+            },
+        },
+        "3": {
+            "class_type": "CLIPTextEncode",
+            "inputs": {"clip": ["2", 0], "text": prompt},
+        },
+        "4": {
+            "class_type": "EmptyLatentImage",
+            "inputs": {
+                "batch_size": 1,
+                "height": _round_to_64(height),
+                "width": _round_to_64(width),
+            },
+        },
+        "5": {
+            "class_type": "SamplerCustomAdvanced",
+            "inputs": {
+                "guider": ["6", 0],
+                "latent_image": ["4", 0],
+                "noise": ["7", 0],
+                "sampler": ["8", 0],
+                "sigmas": ["9", 0],
+            },
+        },
+        "6": {
+            "class_type": "BasicGuider",
+            "inputs": {"conditioning": ["3", 0]},
+        },
+        "7": {
+            "class_type": "RandomNoise",
+            "inputs": {"noise_seed": seed if seed >= 0 else int(uuid.uuid4().int >> 96)},
+        },
+        "8": {
+            "class_type": "KSamplerSelect",
+            "inputs": {"sampler_name": "euler"},
+        },
+        "9": {
+            "class_type": "FluxDirectAlphaSchedule",
+            "inputs": {
+                "denoise": 1.0,
+                "max_shift": 1.15,
+                "model": ["1", 0],
+                "steps": steps,
+            },
+        },
+        "10": {
+            "class_type": "VAELoader",
+            "inputs": {"vae_name": vae_name},
+        },
+        "11": {
+            "class_type": "VAEDecode",
+            "inputs": {"samples": ["5", 0], "vae": ["10", 0]},
+        },
+        "12": {
+            "class_type": "SaveImage",
+            "inputs": {"filename_prefix": "FluxSpecimen", "images": ["11", 0]},
+        },
+    }
 
 
-def _txt2img_request(
-    base_url: str,
-    payload: Dict[str, Any],
-    timeout: int,
-) -> Tuple[Optional[Dict[str, Any]], str, bool]:
-    txt2img_url = _build_webui_url(base_url, "/sdapi/v1/txt2img")
-    try:
-        response = _http_json(
-            url=txt2img_url,
-            method="POST",
-            payload=payload,
-            timeout=timeout,
-        )
-        return response, "", False
-    except HTTPError as exc:
-        error_payload = ""
-        error_text = str(exc)
-        try:
-            error_payload = exc.read().decode("utf-8", errors="ignore")
-            parsed = json.loads(error_payload) if error_payload else {}
-            if isinstance(parsed, dict):
-                error_text = parsed.get("errors") or parsed.get("error") or error_payload or error_text
-            elif error_payload:
-                error_text = error_payload
-        except Exception:
-            pass
+def _get_default_workflow(
+    prompt: str,
+    negative_prompt: str,
+    width: int,
+    height: int,
+    steps: int,
+    cfg_scale: float,
+    sampler_name: str,
+    seed: int,
+    batch_size: int,
+    ckpt_name: str = "v1-5-pruned-emaonly.safetensors",
+) -> Dict[str, Any]:
+    # Standard SD 1.5 / SDXL workflow structure for ComfyUI API
+    return {
+        "3": {
+            "class_type": "KSampler",
+            "inputs": {
+                "cfg": cfg_scale,
+                "denoise": 1,
+                "latent_image": ["5", 0],
+                "model": ["4", 0],
+                "negative": ["7", 0],
+                "positive": ["6", 0],
+                "sampler_name": sampler_name.lower().replace(" ", "_"),
+                "scheduler": "normal",
+                "seed": seed if seed >= 0 else int(uuid.uuid4().int >> 96),
+                "steps": steps,
+            },
+        },
+        "4": {
+            "class_type": "CheckpointLoaderSimple",
+            "inputs": {"ckpt_name": ckpt_name},
+        },
+        "5": {
+            "class_type": "EmptyLatentImage",
+            "inputs": {
+                "batch_size": batch_size,
+                "height": _round_to_64(height),
+                "width": _round_to_64(width),
+            },
+        },
+        "6": {
+            "class_type": "CLIPTextEncode",
+            "inputs": {"clip": ["4", 1], "text": prompt},
+        },
+        "7": {
+            "class_type": "CLIPTextEncode",
+            "inputs": {"clip": ["4", 1], "text": negative_prompt},
+        },
+        "8": {
+            "class_type": "VAEDecode",
+            "inputs": {"samples": ["3", 0], "vae": ["4", 2]},
+        },
+        "9": {
+            "class_type": "SaveImage",
+            "inputs": {"filename_prefix": "LoomSpecimen", "images": ["8", 0]},
+        },
+    }
 
-        combined = f"{error_text} {error_payload}".lower()
-        is_oom = "outofmemoryerror" in combined or "cuda out of memory" in combined
-        return None, error_text, is_oom
-    except (URLError, TimeoutError, ValueError) as exc:
-        return None, str(exc), False
+
+def _queue_prompt(base_url: str, prompt_workflow: Dict[str, Any]) -> str:
+    url = _build_comfy_url(base_url, "prompt")
+    payload = {"prompt": prompt_workflow, "client_id": str(uuid.uuid4())}
+    res = _http_json(url, "POST", payload)
+    return res.get("prompt_id", "")
+
+
+def _poll_history(base_url: str, prompt_id: str, timeout: int) -> Optional[Dict[str, Any]]:
+    deadline = time.time() + timeout
+    while time.time() < deadline:
+        url = _build_comfy_url(base_url, f"history/{prompt_id}")
+        history = _http_json(url, "GET")
+        if prompt_id in history:
+            return history[prompt_id]
+        time.sleep(2)
+    return None
 
 
 def generate_specimen_image(
     prompt: str,
     negative_prompt: str = "",
-    width: int = 320,
-    height: int = 320,
-    steps: int = 6,
+    width: int = 512,
+    height: int = 512,
+    steps: int = 20,
     cfg_scale: float = 7.0,
-    sampler_name: str = "Euler a",
+    sampler_name: str = "euler_ancestral",
     seed: int = -1,
     batch_size: int = 1,
     n_iter: int = 1,
@@ -405,17 +507,10 @@ def generate_specimen_image(
     auto_start: Optional[bool] = None,
     auto_fallback_on_oom: Optional[bool] = None,
     graphic_type_override: Optional[str] = None,
+    model_type: str = "sd15",  # Options: "sd15", "sdxl", "flux"
 ) -> Dict[str, Any]:
     """
-    Sends a txt2img prompt to Stable Diffusion WebUI API and saves generated image(s).
-
-    Returns:
-      {
-        "ok": bool,
-        "files": ["/path/to/image.png", ...],
-        "message": str,
-        "info": dict | str
-      }
+    Sends a prompt to ComfyUI API and saves generated image(s).
     """
     if not prompt or not prompt.strip():
         return {
@@ -425,15 +520,10 @@ def generate_specimen_image(
             "info": {},
         }
 
-    resolved_base_url = (base_url or os.getenv("SD_WEBUI_URL") or "http://127.0.0.1:7860").strip()
-    resolved_timeout = timeout or int(os.getenv("SD_WEBUI_TIMEOUT", "180"))
-    resolved_auto_fallback_on_oom = (
-        auto_fallback_on_oom
-        if auto_fallback_on_oom is not None
-        else os.getenv("SD_WEBUI_AUTO_FALLBACK_OOM", "1").strip().lower() in {"1", "true", "yes", "on"}
-    )
+    resolved_base_url = (base_url or os.getenv("COMFYUI_URL") or "http://127.0.0.1:8188").strip()
+    resolved_timeout = timeout or int(os.getenv("COMFYUI_TIMEOUT", "300"))
 
-    uplink_ok, uplink_status = initialize_diffusion_uplink(
+    uplink_ok, uplink_status = initialize_comfy_uplink(
         base_url=resolved_base_url,
         timeout=resolved_timeout,
         auto_start=auto_start,
@@ -446,106 +536,104 @@ def generate_specimen_image(
             "info": {},
         }
 
-    attempt_dims: List[Tuple[int, int, int]] = [(width, height, steps)]
-    if resolved_auto_fallback_on_oom:
-        attempt_dims.extend(_build_oom_fallback_ladder(width=width, height=height, steps=steps))
+    # Model selection from env or default based on model_type
+    ckpt_name = os.getenv("COMFYUI_CKPT")
+    if not ckpt_name:
+        if model_type == "flux":
+            ckpt_name = "flux1-schnell-fp8.safetensors"
+        elif model_type == "sdxl":
+            ckpt_name = "sd_xl_base_1.0.safetensors"
+        else:
+            ckpt_name = "v1-5-pruned-emaonly.safetensors"
 
-    unique_attempts: List[Tuple[int, int, int]] = []
-    for dims in attempt_dims:
-        if dims not in unique_attempts:
-            unique_attempts.append(dims)
-
-    last_error = ""
-    last_info: Any = {}
-
-    for attempt_index, (attempt_width, attempt_height, attempt_steps) in enumerate(unique_attempts, start=1):
-        payload: Dict[str, Any] = {
-            "prompt": prompt,
-            "negative_prompt": negative_prompt,
-            "width": attempt_width,
-            "height": attempt_height,
-            "steps": attempt_steps,
-            "cfg_scale": cfg_scale,
-            "sampler_name": sampler_name,
-            "seed": seed,
-            "batch_size": batch_size,
-            "n_iter": n_iter,
-        }
-
-        response, error_text, is_oom = _txt2img_request(
-            base_url=resolved_base_url,
-            payload=payload,
-            timeout=resolved_timeout,
+    if model_type == "flux":
+        workflow = _get_flux_workflow(
+            prompt=prompt,
+            width=width,
+            height=height,
+            steps=steps or 4,  # Schnell usually only needs 4 steps
+            seed=seed,
+            model_name=ckpt_name,
+        )
+    else:
+        workflow = _get_default_workflow(
+            prompt=prompt,
+            negative_prompt=negative_prompt,
+            width=width,
+            height=height,
+            steps=steps,
+            cfg_scale=cfg_scale,
+            sampler_name=sampler_name,
+            seed=seed,
+            batch_size=batch_size,
+            ckpt_name=ckpt_name,
         )
 
-        if response is None:
-            last_error = error_text
-            if is_oom and resolved_auto_fallback_on_oom and attempt_index < len(unique_attempts):
-                continue
+    try:
+        prompt_id = _queue_prompt(resolved_base_url, workflow)
+        if not prompt_id:
             return {
                 "ok": False,
                 "files": [],
-                "message": f"[SYSTEM_ERROR]: txt2img request failed: {error_text}",
+                "message": "[SYSTEM_ERROR]: Failed to queue prompt in ComfyUI.",
                 "info": {},
             }
 
-        image_blobs = response.get("images", [])
-        if not image_blobs:
-            last_info = response.get("info", {})
+        history = _poll_history(resolved_base_url, prompt_id, resolved_timeout)
+        if not history:
             return {
                 "ok": False,
                 "files": [],
-                "message": "[SYSTEM_ERROR]: txt2img returned no images.",
-                "info": last_info,
+                "message": "[SYSTEM_ERROR]: Timed out waiting for ComfyUI task completion.",
+                "info": {},
             }
 
+        # Retrieve images from history
+        saved_files: List[str] = []
+        outputs = history.get("outputs", {})
+        
         graphic_type, output_dir = _resolve_run_output_dir(
             prompt,
             graphic_type_override=graphic_type_override,
         )
-        _write_prompt_file(
-            run_dir=output_dir,
-            prompt=prompt,
-            negative_prompt=negative_prompt,
-            payload=payload,
-        )
 
-        stamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
-        saved_files: List[str] = []
+        for node_id, output in outputs.items():
+            if "images" in output:
+                for img_info in output["images"]:
+                    filename = img_info["filename"]
+                    subfolder = img_info["subfolder"]
+                    img_type = img_info["type"]
+                    
+                    # Fetch binary from /view
+                    view_url = _build_comfy_url(
+                        resolved_base_url, 
+                        f"view?filename={filename}&subfolder={subfolder}&type={img_type}"
+                    )
+                    
+                    req = request.Request(view_url)
+                    with request.urlopen(req) as response:
+                        img_data = response.read()
+                        
+                    file_path = output_dir / f"specimen_{prompt_id}_{filename}"
+                    file_path.write_bytes(img_data)
+                    saved_files.append(str(file_path))
 
-        for index, image_b64 in enumerate(image_blobs, start=1):
-            image_bytes = _decode_b64_image(image_b64)
-            file_name = f"specimen_{stamp}_{index:02d}.png"
-            file_path = output_dir / file_name
-            file_path.write_bytes(image_bytes)
-            saved_files.append(str(file_path))
-
-        parsed_info: Any = response.get("info", {})
-        if isinstance(parsed_info, str):
-            try:
-                parsed_info = json.loads(parsed_info)
-            except json.JSONDecodeError:
-                pass
-
-        fallback_note = ""
-        if attempt_index > 1:
-            fallback_note = (
-                f" Fallback profile used: {attempt_width}x{attempt_height} @ {attempt_steps} steps."
-            )
+        _write_prompt_file(output_dir, prompt, negative_prompt, workflow)
 
         return {
             "ok": True,
             "files": saved_files,
-            "message": f"[SYSTEM_LOG]: Generated {len(saved_files)} specimen image(s) in {graphic_type}/{output_dir.name}.{fallback_note}",
-            "info": parsed_info,
+            "message": f"[SYSTEM_LOG]: Generated {len(saved_files)} specimen image(s) via ComfyUI.",
+            "info": history,
         }
 
-    return {
-        "ok": False,
-        "files": [],
-        "message": f"[SYSTEM_ERROR]: txt2img failed after fallback attempts. Last error: {last_error}",
-        "info": last_info,
-    }
+    except Exception as exc:
+        return {
+            "ok": False,
+            "files": [],
+            "message": f"[SYSTEM_ERROR]: ComfyUI generation failed: {exc}",
+            "info": {},
+        }
 
 
 if __name__ == "__main__":
@@ -554,10 +642,19 @@ if __name__ == "__main__":
         "high-detail technical weave, seamless tile"
     )
 
-    healthy, status = initialize_diffusion_uplink()
+    use_flux = os.getenv("USE_FLUX", "0") in {"1", "true", "yes"}
+    model_type = "flux" if use_flux else "sd15"
+
+    healthy, status = initialize_comfy_uplink()
     print(status)
     if healthy:
-        result = generate_specimen_image(prompt=sample_prompt)
+        result = generate_specimen_image(
+            prompt=sample_prompt,
+            model_type=model_type,
+            width=1024 if use_flux else 512,
+            height=1024 if use_flux else 512,
+            steps=4 if use_flux else 20
+        )
         print(result["message"])
         for file_path in result["files"]:
             print(f"[SYSTEM_LOG]: {file_path}")
