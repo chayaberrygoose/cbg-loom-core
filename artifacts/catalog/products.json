@@ -189,7 +189,7 @@
         }
       ],
       "created_at": "2026-02-27 02:56:25+00:00",
-      "updated_at": "2026-02-27 02:56:25+00:00",
+      "updated_at": "2026-02-27 03:37:22+00:00",
       "visible": true,
       "is_locked": false,
       "blueprint_id": 286,
@@ -259,24 +259,6 @@
               "position": "waistband",
               "images": [
                 {
-                  "id": "6992293d49bd9f6524474bb6",
-                  "name": "IMG_1812.jpeg",
-                  "type": "image/jpeg",
-                  "height": 1024,
-                  "width": 1024,
-                  "x": 0.5,
-                  "y": 0.7327003154997862,
-                  "scale": 0.11000574974882237,
-                  "angle": 0,
-                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/d801c4e9-1cc4-41b8-9df7-74e7b8c61cd3",
-                  "pattern": {
-                    "spacing_x": 1,
-                    "spacing_y": 1,
-                    "angle": 0,
-                    "offset": 0
-                  }
-                },
-                {
                   "id": "6996b04f14989f756a298f50",
                   "name": "IMG_1941.jpeg",
                   "type": "image/jpeg",
@@ -287,18 +269,6 @@
                   "scale": 1,
                   "angle": 0,
                   "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/d8428bfe-cec8-4022-acde-fa06d370ae20"
-                },
-                {
-                  "id": "6995fafee0068a54871a8000",
-                  "name": "IMG_1936.png",
-                  "type": "image/png",
-                  "height": 1024,
-                  "width": 1024,
-                  "x": 0.7349974397550231,
-                  "y": 0.7404230356951155,
-                  "scale": 0.11365655539282389,
-                  "angle": 0,
-                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/eb0ddb19-60bb-4caf-b6b2-c5e461bbfa3c"
                 }
               ],
               "decoration_method": "aop"
@@ -10674,5 +10644,5 @@
   "per_page": 50,
   "prev_page_url": null,
   "to": 18,
-  "total": 18
+  "total": 19
 }
