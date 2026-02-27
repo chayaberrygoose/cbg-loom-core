@@ -34,10 +34,14 @@ class Fabricator:
         token_path = root_dir / ".env" / "printify_api_token.txt"
         if not token_path.exists():
             token_path = root_dir / ".env" / "prinitfy_api_token.txt"
+        if not token_path.exists():
+            token_path = root_dir / ".env" / "printify_api_key.txt"
         
         if not token_path.exists():
              # Fallback: try to find it in the current working directory or standard locations
              token_path = Path(".env/printify_api_token.txt")
+        if not token_path.exists():
+             token_path = Path(".env/printify_api_key.txt")
         
         if not token_path.exists():
             raise FileNotFoundError(f"EARTH_BREACH: Token not found at {token_path}")
@@ -51,24 +55,38 @@ class Fabricator:
         response.raise_for_status()
         return response.json()
 
-    def upload_image(self, image_url: str, file_name: str = "fabricated_specimen.png") -> str:
+    def upload_image(self, image_url: str = None, file_name: str = "fabricated_specimen.png", local_path: str = None) -> str:
         """
-        Uploads an image via URL to Printify Media Library.
+        Uploads an image via URL or local file to Printify Media Library.
         Returns the new image ID.
         """
         url = f"{self.BASE_URL}/uploads/images.json"
-        payload = {
-            "file_name": file_name,
-            "url": image_url
-        }
-        print(f"// UPLOADING_ARTIFACT: {image_url}")
+        
+        if local_path:
+            import base64
+            with open(local_path, "rb") as f:
+                encoded_string = base64.b64encode(f.read()).decode("utf-8")
+            payload = {
+                "file_name": file_name,
+                "contents": encoded_string
+            }
+            print(f"// UPLOADING_ARTIFACT_LOCAL: {local_path}")
+        elif image_url:
+            payload = {
+                "file_name": file_name,
+                "url": image_url
+            }
+            print(f"// UPLOADING_ARTIFACT_URL: {image_url}")
+        else:
+            raise ValueError("Must provide either image_url or local_path")
+            
         response = requests.post(url, json=payload, headers=self.headers)
         response.raise_for_status()
         data = response.json()
         print(f"// ARTIFACT_SECURED: ID {data['id']}")
         return data['id']
 
-    def clone_product(self, source_product_id: str, new_image_url: str, title_suffix: str = " [CLONE]", preserve_logo_only: bool = False, logo_id: str = None, trim_image_url: str = None) -> Dict[str, Any]:
+    def clone_product(self, source_product_id: str, new_image_url: str = None, title_suffix: str = " [CLONE]", preserve_logo_only: bool = False, logo_id: str = None, trim_image_url: str = None, new_image_local_path: str = None, trim_image_local_path: str = None) -> Dict[str, Any]:
         """
         Clones a product's positioning but swaps the image.
         
@@ -79,8 +97,8 @@ class Fabricator:
             preserve_logo_only: If True, operates in aggressive mode replacing everything except logo_id.
             logo_id: The specific image ID to treat as the protected logo.
             trim_image_url: [OPTIONAL] URL of a second texture for trim (cuffs, waistband, etc.).
-                            If provided, any artifact that is NOT the Main Swatch and NOT the Logo gets this texture.
-                            If NOT provided, trim gets the Main Swatch (in aggressive mode) or is preserved (in conservative mode).
+            new_image_local_path: [OPTIONAL] Local path to the new texture/swatch (Body).
+            trim_image_local_path: [OPTIONAL] Local path to the trim texture.
         """
         print(f"--- [FABRICATION_START]: SOURCE_{source_product_id} ---")
         
@@ -88,17 +106,20 @@ class Fabricator:
         source = self.get_product(source_product_id)
         
         # 2. Upload Artifacts
-        new_image_id = self.upload_image(new_image_url, "fabricated_body.png")
+        new_image_id = self.upload_image(image_url=new_image_url, file_name="fabricated_body.png", local_path=new_image_local_path)
         trim_image_id = None
-        if trim_image_url:
-            trim_image_id = self.upload_image(trim_image_url, "fabricated_trim.png")
+        if trim_image_url or trim_image_local_path:
+            trim_image_id = self.upload_image(image_url=trim_image_url, file_name="fabricated_trim.png", local_path=trim_image_local_path)
             print(f"// SECONDARY_ARTIFACT_SECURED: TRIM_ID_{trim_image_id}")
         
         # [PROTOCOL_UPDATE]: Genetic Marker Logic (Universal Scanner)
         source_main_id = None
         
         # Identification Logic: Scan ALL areas to find the most frequent Image ID (The Dominant Gene)
+        # We also need to consider the z-index (layer order). The base fabric is usually the first image (index 0)
+        # or the one that appears in the most placeholders.
         image_frequency = {}
+        base_layer_candidates = {}
         
         for area in source.get('print_areas', []):
             for ph in area.get('placeholders', []):
@@ -106,15 +127,30 @@ class Fabricator:
                 if not images:
                     continue
                 
-                # Assume the first image (Layer 0) is the base fabric in most cases
-                base_img_id = images[0]['id']
-                image_frequency[base_img_id] = image_frequency.get(base_img_id, 0) + 1
+                # Track frequency of all images
+                for img in images:
+                    img_id = img['id']
+                    image_frequency[img_id] = image_frequency.get(img_id, 0) + 1
+                
+                # Track the first image in each placeholder as a strong candidate for base fabric
+                # BUT only if it's a main body part (not just a waistband or trim)
+                pos = ph.get('position', '').lower()
+                if 'waistband' not in pos and 'trim' not in pos and 'collar' not in pos:
+                    # If there are multiple full-coverage layers, the user might have left an old one underneath.
+                    # We should probably consider the TOP-MOST full-coverage layer as the intended base, 
+                    # or just replace ALL full-coverage layers.
+                    # For now, let's track all images in the main body parts to find the most frequent one.
+                    for img in images:
+                        img_id = img['id']
+                        base_layer_candidates[img_id] = base_layer_candidates.get(img_id, 0) + 1
         
-        # The ID with the highest frequency is likely the main body fabric
-        if image_frequency:
+        # The ID with the highest frequency among base layer candidates is the most likely main body fabric
+        if base_layer_candidates:
+             source_main_id = max(base_layer_candidates, key=base_layer_candidates.get)
+        elif image_frequency:
              source_main_id = max(image_frequency, key=image_frequency.get)
         
-        print(f"// GENETIC_MARKER_IDENTIFIED: MAIN_ID_{source_main_id} (Frequency: {image_frequency.get(source_main_id, 0)})")
+        print(f"// GENETIC_MARKER_IDENTIFIED: MAIN_ID_{source_main_id} (Frequency: {base_layer_candidates.get(source_main_id, image_frequency.get(source_main_id, 0))})")
         if preserve_logo_only and logo_id:
              print(f"// SELECTIVE_PRESERVATION: PROTECTING_LOGO_ID_{logo_id}")
 
@@ -136,6 +172,9 @@ class Fabricator:
                 images = placeholder.get('images', [])
                 if not images:
                     continue
+                
+                pos = placeholder.get('position', '').lower()
+                is_trim_area = 'waistband' in pos or 'trim' in pos or 'collar' in pos
                 
                 # [PROTOCOL_UPDATE]: Multi-Layer & Distinct Artifact Logic
                 new_images_list = []
@@ -160,8 +199,16 @@ class Fabricator:
 
                     else:
                         # CONSERVATIVE MODE
+                        # If it's the main ID, replace it.
+                        # If it's a full-coverage layer (scale > 0.4) in a main body part, replace it too, 
+                        # to handle cases where there are hidden layers underneath.
+                        is_full_coverage = original_img.get('scale', 0) > 0.4
+                        
                         if original_id == source_main_id:
                             # Main Body -> New Body Texture
+                            replacement_id = new_image_id
+                        elif is_full_coverage and not is_trim_area:
+                            # Replace any full-coverage layer in a main body part
                             replacement_id = new_image_id
                         else:
                             # Trim/Logos -> Preserve Original
@@ -178,6 +225,10 @@ class Fabricator:
                         }
                         if 'pattern' in original_img:
                             new_base_obj['pattern'] = original_img['pattern']
+                        if 'height' in original_img:
+                            new_base_obj['height'] = original_img['height']
+                        if 'width' in original_img:
+                            new_base_obj['width'] = original_img['width']
                         new_images_list.append(new_base_obj)
                     
                     else:
@@ -203,8 +254,12 @@ class Fabricator:
             if v.get('is_enabled', True):
                 variants.append({"id": v['id'], "price": v['price'], "is_enabled": True})
 
+        new_title = source.get('title') + title_suffix
+        if len(new_title) > 100:
+            new_title = new_title[:97] + "..."
+
         payload = {
-            "title": source.get('title') + title_suffix,
+            "title": new_title,
             "description": source.get('description'),
             "blueprint_id": source.get('blueprint_id'),
             "print_provider_id": source.get('print_provider_id'),
