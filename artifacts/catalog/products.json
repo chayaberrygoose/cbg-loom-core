@@ -2,6 +2,4855 @@
   "current_page": 1,
   "data": [
     {
+      "id": "69a107d9f78e85bfc0079a5e",
+      "title": "[TEMPLATE]: Women's Skater Skirt (AOP)",
+      "description": "A versatile fit AOP skater skirt with a cozy, soft touch and a casual look. Inspired by the freedom of creativity, it will instantly become\u00a0your everyday favorite.<div>.:95% Polyester 5% Spandex</div><br /><div>.:Versatile fit</div><br /><div>.:Printed on care label in black color</div><br /><div>.:White thread color</div><br /><div>.:Assembled in the USA from globally sourced parts</div>",
+      "tags": [],
+      "options": [
+        {
+          "name": "Sizes (garments)",
+          "type": "size",
+          "values": [
+            {
+              "id": 13,
+              "title": "XS"
+            },
+            {
+              "id": 14,
+              "title": "S"
+            },
+            {
+              "id": 15,
+              "title": "M"
+            },
+            {
+              "id": 16,
+              "title": "L"
+            },
+            {
+              "id": 17,
+              "title": "XL"
+            },
+            {
+              "id": 18,
+              "title": "2XL"
+            }
+          ],
+          "display_in_preview": false
+        },
+        {
+          "name": "Fabric weight",
+          "type": "weight",
+          "values": [
+            {
+              "id": 1923,
+              "title": "4 oz."
+            }
+          ],
+          "display_in_preview": false
+        }
+      ],
+      "variants": [
+        {
+          "id": 43199,
+          "sku": "31761514617564476452",
+          "cost": 2517,
+          "price": 5167,
+          "title": "XS / 4 oz.",
+          "grams": 340,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            13,
+            1923
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43201,
+          "sku": "90314660818284215434",
+          "cost": 2568,
+          "price": 5267,
+          "title": "S / 4 oz.",
+          "grams": 380,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            14,
+            1923
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43203,
+          "sku": "11219978376037263362",
+          "cost": 2585,
+          "price": 5302,
+          "title": "M / 4 oz.",
+          "grams": 380,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            15,
+            1923
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43205,
+          "sku": "11105060737266031326",
+          "cost": 2620,
+          "price": 5370,
+          "title": "L / 4 oz.",
+          "grams": 410,
+          "is_enabled": true,
+          "is_default": true,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            16,
+            1923
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43207,
+          "sku": "65616993494571010029",
+          "cost": 2662,
+          "price": 5453,
+          "title": "XL / 4 oz.",
+          "grams": 430,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            17,
+            1923
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43209,
+          "sku": "25364860530560961687",
+          "cost": 2707,
+          "price": 5543,
+          "title": "2XL / 4 oz.",
+          "grams": 450,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            18,
+            1923
+          ],
+          "quantity": 1
+        }
+      ],
+      "images": [
+        {
+          "mockup_id": "69a107d9f78e85bfc0079a5e_43209_699_front",
+          "src": "https://images.printify.com/mockup/69a107d9f78e85bfc0079a5e/43209/699/template-womens-skater-skirt-aop.jpg?camera_label=front",
+          "variant_ids": [
+            43199,
+            43201,
+            43203,
+            43205,
+            43207,
+            43209
+          ],
+          "position": "front",
+          "is_default": true,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107d9f78e85bfc0079a5e_43209_703_back",
+          "src": "https://images.printify.com/mockup/69a107d9f78e85bfc0079a5e/43209/703/template-womens-skater-skirt-aop.jpg?camera_label=back",
+          "variant_ids": [
+            43199,
+            43201,
+            43203,
+            43205,
+            43207,
+            43209
+          ],
+          "position": "back",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        }
+      ],
+      "created_at": "2026-02-27 02:56:25+00:00",
+      "updated_at": "2026-02-27 02:56:25+00:00",
+      "visible": true,
+      "is_locked": false,
+      "blueprint_id": 286,
+      "user_id": 15433811,
+      "shop_id": 12043562,
+      "print_provider_id": 10,
+      "print_areas": [
+        {
+          "variant_ids": [
+            43199,
+            43201,
+            43203,
+            43205,
+            43207,
+            43209
+          ],
+          "placeholders": [
+            {
+              "position": "front",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.2205444419571691,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "back",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.2205444419571691,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "waistband",
+              "images": [
+                {
+                  "id": "6992293d49bd9f6524474bb6",
+                  "name": "IMG_1812.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.7327003154997862,
+                  "scale": 0.11000574974882237,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/d801c4e9-1cc4-41b8-9df7-74e7b8c61cd3",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                },
+                {
+                  "id": "6996b04f14989f756a298f50",
+                  "name": "IMG_1941.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5000000000000001,
+                  "y": 0.7327003154997866,
+                  "scale": 1,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/d8428bfe-cec8-4022-acde-fa06d370ae20"
+                },
+                {
+                  "id": "6995fafee0068a54871a8000",
+                  "name": "IMG_1936.png",
+                  "type": "image/png",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.7349974397550231,
+                  "y": 0.7404230356951155,
+                  "scale": 0.11365655539282389,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/eb0ddb19-60bb-4caf-b6b2-c5e461bbfa3c"
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "all",
+              "images": [],
+              "decoration_method": "aop"
+            }
+          ],
+          "background": "#000000"
+        }
+      ],
+      "print_details": [],
+      "sales_channel_properties": [],
+      "is_printify_express_eligible": false,
+      "is_printify_express_enabled": false,
+      "is_economy_shipping_eligible": true,
+      "is_economy_shipping_enabled": false,
+      "is_deleted": false,
+      "original_product_id": "",
+      "views": [
+        {
+          "id": 3633,
+          "label": "Front side",
+          "position": "front",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5a13fb67b8e7e308e027f60d.svg",
+              "variant_ids": [
+                43209
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3634,
+          "label": "Back side",
+          "position": "back",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5a13fbcdb8e7e3087d64fa5f.svg",
+              "variant_ids": [
+                43199,
+                43201,
+                43203,
+                43205,
+                43207,
+                43209
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3635,
+          "label": "Waistband",
+          "position": "waistband",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5a13ff70b8e7e308e13c368f.svg",
+              "variant_ids": [
+                43199,
+                43201,
+                43203,
+                43205,
+                43207,
+                43209
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "69a107d5c66f55502607d33f",
+      "title": "[TEMPLATE]: Unisex Cut & Sew Tee (AOP)",
+      "description": "This tee was created to be a versatile and stylish companion for all your casual appearances. With its uniquely textured, thick, microfiber-knit fabric, this t-shirt bears a premium, soft feel that remains lightweight and highly breathable \u2013 the perfect combo for a hot day or layering.<div>.:100% Polyester</div><br /><div>.:Two choices of fabric weight ((4.0 oz/yd\u00b2 (113 g/m\u00b2) and (6.0 oz/yd\u00b2 (170 g/m\u00b2))</div><br /><div>.:Regular fit</div><br /><div>.:Tagless</div><br /><div>.:Runs true to size</div><br /><div>.:Assembled in the USA from globally sourced parts</div>",
+      "tags": [],
+      "options": [
+        {
+          "name": "Seam Colors",
+          "type": "color",
+          "values": [
+            {
+              "id": 1878,
+              "title": "White stitching",
+              "colors": [
+                "#FFFFFF"
+              ]
+            },
+            {
+              "id": 1879,
+              "title": "Black stitching",
+              "colors": [
+                "#000000"
+              ]
+            }
+          ],
+          "display_in_preview": true
+        },
+        {
+          "name": "Fabric weight",
+          "type": "weight",
+          "values": [
+            {
+              "id": 1923,
+              "title": "4 oz."
+            },
+            {
+              "id": 1924,
+              "title": "6 oz."
+            }
+          ],
+          "display_in_preview": false
+        },
+        {
+          "name": "Sizes",
+          "type": "size",
+          "values": [
+            {
+              "id": 14,
+              "title": "S"
+            },
+            {
+              "id": 15,
+              "title": "M"
+            },
+            {
+              "id": 16,
+              "title": "L"
+            },
+            {
+              "id": 17,
+              "title": "XL"
+            },
+            {
+              "id": 18,
+              "title": "2XL"
+            },
+            {
+              "id": 19,
+              "title": "3XL"
+            }
+          ],
+          "display_in_preview": false
+        }
+      ],
+      "variants": [
+        {
+          "id": 43100,
+          "sku": "72968072446908301228",
+          "cost": 2312,
+          "price": 4667,
+          "title": "Black stitching / 4 oz. / S",
+          "grams": 140,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1879,
+            1923,
+            14
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43101,
+          "sku": "31345301738906698812",
+          "cost": 2504,
+          "price": 5047,
+          "title": "Black stitching / 6 oz. / S",
+          "grams": 160,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1879,
+            1924,
+            14
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43102,
+          "sku": "17736557193140092111",
+          "cost": 2312,
+          "price": 4760,
+          "title": "White stitching / 4 oz. / S",
+          "grams": 140,
+          "is_enabled": true,
+          "is_default": true,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1878,
+            1923,
+            14
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43103,
+          "sku": "33384739361630001942",
+          "cost": 2504,
+          "price": 5140,
+          "title": "White stitching / 6 oz. / S",
+          "grams": 160,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1878,
+            1924,
+            14
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43104,
+          "sku": "24352402309392739762",
+          "cost": 2412,
+          "price": 4865,
+          "title": "Black stitching / 4 oz. / M",
+          "grams": 150,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1879,
+            1923,
+            15
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43105,
+          "sku": "23740472190609306578",
+          "cost": 2729,
+          "price": 5493,
+          "title": "Black stitching / 6 oz. / M",
+          "grams": 170,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1879,
+            1924,
+            15
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43106,
+          "sku": "25164023700903454394",
+          "cost": 2412,
+          "price": 4958,
+          "title": "White stitching / 4 oz. / M",
+          "grams": 150,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1878,
+            1923,
+            15
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43107,
+          "sku": "27422325540079659535",
+          "cost": 2729,
+          "price": 5587,
+          "title": "White stitching / 6 oz. / M",
+          "grams": 170,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1878,
+            1924,
+            15
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43108,
+          "sku": "15421680947631557544",
+          "cost": 2488,
+          "price": 5015,
+          "title": "Black stitching / 4 oz. / L",
+          "grams": 160,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1879,
+            1923,
+            16
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43109,
+          "sku": "28312679986023088219",
+          "cost": 2800,
+          "price": 5633,
+          "title": "Black stitching / 6 oz. / L",
+          "grams": 180,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1879,
+            1924,
+            16
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43110,
+          "sku": "18734985240293643630",
+          "cost": 2488,
+          "price": 5108,
+          "title": "White stitching / 4 oz. / L",
+          "grams": 160,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1878,
+            1923,
+            16
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43111,
+          "sku": "27847326862261712706",
+          "cost": 2800,
+          "price": 5727,
+          "title": "White stitching / 6 oz. / L",
+          "grams": 180,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1878,
+            1924,
+            16
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43112,
+          "sku": "54506771618228593925",
+          "cost": 2581,
+          "price": 5200,
+          "title": "Black stitching / 4 oz. / XL",
+          "grams": 180,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1879,
+            1923,
+            17
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43113,
+          "sku": "33692851281428756981",
+          "cost": 2824,
+          "price": 5682,
+          "title": "Black stitching / 6 oz. / XL",
+          "grams": 200,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1879,
+            1924,
+            17
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43114,
+          "sku": "71799751328869451813",
+          "cost": 2581,
+          "price": 5293,
+          "title": "White stitching / 4 oz. / XL",
+          "grams": 180,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1878,
+            1923,
+            17
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43115,
+          "sku": "26196474828321593053",
+          "cost": 2824,
+          "price": 5775,
+          "title": "White stitching / 6 oz. / XL",
+          "grams": 200,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1878,
+            1924,
+            17
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43116,
+          "sku": "20988262657581530704",
+          "cost": 2631,
+          "price": 5298,
+          "title": "Black stitching / 4 oz. / 2XL",
+          "grams": 200,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1879,
+            1923,
+            18
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43117,
+          "sku": "28460456193484997528",
+          "cost": 2890,
+          "price": 5812,
+          "title": "Black stitching / 6 oz. / 2XL",
+          "grams": 230,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1879,
+            1924,
+            18
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43118,
+          "sku": "23154314406347992939",
+          "cost": 2631,
+          "price": 5392,
+          "title": "White stitching / 4 oz. / 2XL",
+          "grams": 200,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1878,
+            1923,
+            18
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43119,
+          "sku": "32614552773995841002",
+          "cost": 2890,
+          "price": 5905,
+          "title": "White stitching / 6 oz. / 2XL",
+          "grams": 230,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1878,
+            1924,
+            18
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43120,
+          "sku": "26774466659430731123",
+          "cost": 2726,
+          "price": 5487,
+          "title": "Black stitching / 4 oz. / 3XL",
+          "grams": 200,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1879,
+            1923,
+            19
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43121,
+          "sku": "89566319328118186929",
+          "cost": 2995,
+          "price": 6020,
+          "title": "Black stitching / 6 oz. / 3XL",
+          "grams": 230,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1879,
+            1924,
+            19
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43122,
+          "sku": "42881445906149508366",
+          "cost": 2726,
+          "price": 5580,
+          "title": "White stitching / 4 oz. / 3XL",
+          "grams": 200,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1878,
+            1923,
+            19
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 43123,
+          "sku": "12742321663933599855",
+          "cost": 2995,
+          "price": 6113,
+          "title": "White stitching / 6 oz. / 3XL",
+          "grams": 230,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1878,
+            1924,
+            19
+          ],
+          "quantity": 1
+        }
+      ],
+      "images": [
+        {
+          "mockup_id": "69a107d5c66f55502607d33f_43110_634_flat-front",
+          "src": "https://images.printify.com/mockup/69a107d5c66f55502607d33f/43110/634/template-unisex-cut-sew-tee-aop.jpg?camera_label=flat-front",
+          "variant_ids": [
+            43100,
+            43101,
+            43102,
+            43103,
+            43104,
+            43105,
+            43106,
+            43107,
+            43108,
+            43109,
+            43110,
+            43111,
+            43112,
+            43113,
+            43114,
+            43115,
+            43116,
+            43117,
+            43118,
+            43119,
+            43120,
+            43121,
+            43122,
+            43123
+          ],
+          "position": "front",
+          "is_default": true,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107d5c66f55502607d33f_43108_610_flat-front",
+          "src": "https://images.printify.com/mockup/69a107d5c66f55502607d33f/43108/610/template-unisex-cut-sew-tee-aop.jpg?camera_label=flat-front",
+          "variant_ids": [
+            43100,
+            43101,
+            43102,
+            43103,
+            43104,
+            43105,
+            43106,
+            43107,
+            43108,
+            43109,
+            43110,
+            43111,
+            43112,
+            43113,
+            43114,
+            43115,
+            43116,
+            43117,
+            43118,
+            43119,
+            43120,
+            43121,
+            43122,
+            43123
+          ],
+          "position": "front",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        }
+      ],
+      "created_at": "2026-02-27 02:56:21+00:00",
+      "updated_at": "2026-02-27 02:56:21+00:00",
+      "visible": true,
+      "is_locked": false,
+      "blueprint_id": 281,
+      "user_id": 15433811,
+      "shop_id": 12043562,
+      "print_provider_id": 10,
+      "print_areas": [
+        {
+          "variant_ids": [
+            43100,
+            43101,
+            43102,
+            43103,
+            43104,
+            43105,
+            43106,
+            43107,
+            43108,
+            43109,
+            43110,
+            43111,
+            43112,
+            43113,
+            43114,
+            43115,
+            43116,
+            43117,
+            43118,
+            43119,
+            43120,
+            43121,
+            43122,
+            43123
+          ],
+          "placeholders": [
+            {
+              "position": "front",
+              "images": [
+                {
+                  "id": "699a623b0a45b6d240908580",
+                  "name": "IMG_2018.png",
+                  "type": "image/png",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 1.2489542249312777,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/cbacd08b-df09-4e74-8240-21c368102bc2"
+                },
+                {
+                  "id": "6996b04f14989f756a298f50",
+                  "name": "IMG_1941.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.6302741654160755,
+                  "y": 0.3142866031190368,
+                  "scale": 0.1335731079032022,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/d8428bfe-cec8-4022-acde-fa06d370ae20"
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "back",
+              "images": [
+                {
+                  "id": "699a623b0a45b6d240908580",
+                  "name": "IMG_2018.png",
+                  "type": "image/png",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 1.252085486214075,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/cbacd08b-df09-4e74-8240-21c368102bc2"
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "right_sleeve",
+              "images": [
+                {
+                  "id": "6992380bb5aa87a4d29149d4",
+                  "name": "IMG_1826.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.39809474831331343,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/36f504f8-b887-4c4f-90cb-8a3393412bea",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "left_sleeve",
+              "images": [
+                {
+                  "id": "6992380bb5aa87a4d29149d4",
+                  "name": "IMG_1826.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.39809474831331343,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/36f504f8-b887-4c4f-90cb-8a3393412bea",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "Collar",
+              "images": [],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "all",
+              "images": [],
+              "decoration_method": "aop"
+            }
+          ],
+          "background": "#000000"
+        }
+      ],
+      "print_details": [],
+      "sales_channel_properties": [],
+      "is_printify_express_eligible": false,
+      "is_printify_express_enabled": false,
+      "is_economy_shipping_eligible": true,
+      "is_economy_shipping_enabled": false,
+      "is_deleted": false,
+      "original_product_id": "",
+      "views": [
+        {
+          "id": 3425,
+          "label": "Front side",
+          "position": "front",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5a01d4b4b8e7e32813350528.svg",
+              "variant_ids": [
+                43100,
+                43101,
+                43102,
+                43103,
+                43104,
+                43105,
+                43106,
+                43107,
+                43108,
+                43109,
+                43110,
+                43111,
+                43112,
+                43113,
+                43114,
+                43115,
+                43116,
+                43117,
+                43118,
+                43119,
+                43120,
+                43121,
+                43122,
+                43123
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3427,
+          "label": "Back side",
+          "position": "back",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5a01d4ceb8e7e3281f2da8e7.svg",
+              "variant_ids": [
+                43100,
+                43101,
+                43102,
+                43103,
+                43104,
+                43105,
+                43106,
+                43107,
+                43108,
+                43109,
+                43110,
+                43111,
+                43112,
+                43113,
+                43114,
+                43115,
+                43116,
+                43117,
+                43118,
+                43119,
+                43120,
+                43121,
+                43122,
+                43123
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3428,
+          "label": "Right sleeve",
+          "position": "right_sleeve",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5a01d4e9b8e7e328437d1915.svg",
+              "variant_ids": [
+                43100,
+                43101,
+                43102,
+                43103,
+                43104,
+                43105,
+                43106,
+                43107,
+                43108,
+                43109,
+                43110,
+                43111,
+                43112,
+                43113,
+                43114,
+                43115,
+                43116,
+                43117,
+                43118,
+                43119,
+                43120,
+                43121,
+                43122,
+                43123
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3429,
+          "label": "Left sleeve",
+          "position": "left_sleeve",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5a01d4f5b8e7e32820243b54.svg",
+              "variant_ids": [
+                43100,
+                43101,
+                43102,
+                43103,
+                43104,
+                43105,
+                43106,
+                43107,
+                43108,
+                43109,
+                43110,
+                43111,
+                43112,
+                43113,
+                43114,
+                43115,
+                43116,
+                43117,
+                43118,
+                43119,
+                43120,
+                43121,
+                43122,
+                43123
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3430,
+          "label": "Collar",
+          "position": "Collar",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5a01d514b8e7e344a42925c6.svg",
+              "variant_ids": [
+                43100,
+                43101,
+                43102,
+                43103,
+                43104,
+                43105,
+                43106,
+                43107,
+                43108,
+                43109,
+                43110,
+                43111,
+                43112,
+                43113,
+                43114,
+                43115,
+                43116,
+                43117,
+                43118,
+                43119,
+                43120,
+                43121,
+                43122,
+                43123
+              ]
+            }
+          ]
+        },
+        {
+          "id": 3424,
+          "label": "All areas",
+          "position": "all",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/631b30f03140e5d4b30fb8e2.svg",
+              "variant_ids": [
+                43100,
+                43101,
+                43102,
+                43103,
+                43104,
+                43105,
+                43106,
+                43107,
+                43108,
+                43109,
+                43110,
+                43111,
+                43112,
+                43113,
+                43114,
+                43115,
+                43116,
+                43117,
+                43118,
+                43119,
+                43120,
+                43121,
+                43122,
+                43123
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "69a107ce7a1c2660540e62fc",
+      "title": "[TEMPLATE]: Women's Relaxed Shorts (AOP)",
+      "description": "With a casual style and a relaxed fit for those easy-going days, these women's custom-printed shorts are a highly versatile staple meant to be enjoyed on a daily basis. With a drawstring and edge-trim in black or white color, these shorts provide extra style points and custom comfort. Made with top-tier polyester material through and through, these shorts remain comfy throughout the entire day. <div>.:Material: 100% polyester</div><br /><div>.:Medium fabric (7.76 oz/yd\u00b2(263 g/m\u00b2))</div><br /><div>.:Relaxed fit</div><br /><div>.:Drawstring and edge trim in black or white color</div><br /><div>.:Curved bottom hem</div>",
+      "tags": [],
+      "options": [
+        {
+          "name": "Sizes",
+          "type": "size",
+          "values": [
+            {
+              "id": 1545,
+              "title": "XS"
+            },
+            {
+              "id": 1546,
+              "title": "S"
+            },
+            {
+              "id": 1547,
+              "title": "M"
+            },
+            {
+              "id": 1548,
+              "title": "L"
+            },
+            {
+              "id": 1549,
+              "title": "XL"
+            },
+            {
+              "id": 18,
+              "title": "2XL"
+            }
+          ],
+          "display_in_preview": false
+        },
+        {
+          "name": "Drawstring and edge trim color",
+          "type": "color",
+          "values": [
+            {
+              "id": 2583,
+              "title": "White",
+              "colors": [
+                "#ffffff"
+              ]
+            },
+            {
+              "id": 2695,
+              "title": "Black",
+              "colors": [
+                "#070709"
+              ]
+            }
+          ],
+          "display_in_preview": true
+        }
+      ],
+      "variants": [
+        {
+          "id": 77614,
+          "sku": "24800592323020998987",
+          "cost": 2625,
+          "price": 2625,
+          "title": "XS / Black",
+          "grams": 150,
+          "is_enabled": false,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1545,
+            2695
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 77615,
+          "sku": "16930716293864944120",
+          "cost": 2625,
+          "price": 5287,
+          "title": "XS / White",
+          "grams": 150,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1545,
+            2583
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 77616,
+          "sku": "25470785470404228330",
+          "cost": 2625,
+          "price": 2625,
+          "title": "S / Black",
+          "grams": 167,
+          "is_enabled": false,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1546,
+            2695
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 77617,
+          "sku": "15506704907778702988",
+          "cost": 2625,
+          "price": 5287,
+          "title": "S / White",
+          "grams": 167,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1546,
+            2583
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 77618,
+          "sku": "87015651905643568941",
+          "cost": 2625,
+          "price": 2625,
+          "title": "M / Black",
+          "grams": 171,
+          "is_enabled": false,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1547,
+            2695
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 77619,
+          "sku": "51729932425068986847",
+          "cost": 2625,
+          "price": 5287,
+          "title": "M / White",
+          "grams": 171,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1547,
+            2583
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 77620,
+          "sku": "62732863672333381934",
+          "cost": 2625,
+          "price": 2625,
+          "title": "L / Black",
+          "grams": 182,
+          "is_enabled": false,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1548,
+            2695
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 77621,
+          "sku": "21538799708909733098",
+          "cost": 2625,
+          "price": 5287,
+          "title": "L / White",
+          "grams": 182,
+          "is_enabled": true,
+          "is_default": true,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1548,
+            2583
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 77622,
+          "sku": "27817745240688313576",
+          "cost": 2625,
+          "price": 2625,
+          "title": "XL / Black",
+          "grams": 192,
+          "is_enabled": false,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1549,
+            2695
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 77623,
+          "sku": "94981627384444525766",
+          "cost": 2625,
+          "price": 5287,
+          "title": "XL / White",
+          "grams": 192,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1549,
+            2583
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 77624,
+          "sku": "29002595260298475665",
+          "cost": 2625,
+          "price": 2625,
+          "title": "2XL / Black",
+          "grams": 209,
+          "is_enabled": false,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            18,
+            2695
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 77625,
+          "sku": "16647503922170985200",
+          "cost": 2625,
+          "price": 5287,
+          "title": "2XL / White",
+          "grams": 209,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            18,
+            2583
+          ],
+          "quantity": 1
+        }
+      ],
+      "images": [
+        {
+          "mockup_id": "69a107ce7a1c2660540e62fc_77621_40606_front",
+          "src": "https://images.printify.com/mockup/69a107ce7a1c2660540e62fc/77621/40606/template-womens-relaxed-shorts-aop.jpg?camera_label=front",
+          "variant_ids": [
+            77615,
+            77617,
+            77619,
+            77621,
+            77623,
+            77625
+          ],
+          "position": "front",
+          "is_default": true,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107ce7a1c2660540e62fc_77621_40602_back",
+          "src": "https://images.printify.com/mockup/69a107ce7a1c2660540e62fc/77621/40602/template-womens-relaxed-shorts-aop.jpg?camera_label=back",
+          "variant_ids": [
+            77615,
+            77617,
+            77619,
+            77621,
+            77623,
+            77625
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107ce7a1c2660540e62fc_77621_38134_front-on-person",
+          "src": "https://images.printify.com/mockup/69a107ce7a1c2660540e62fc/77621/38134/template-womens-relaxed-shorts-aop.jpg?camera_label=front-on-person",
+          "variant_ids": [
+            77615,
+            77617,
+            77619,
+            77621,
+            77623,
+            77625
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107ce7a1c2660540e62fc_77621_40352_back-on-person",
+          "src": "https://images.printify.com/mockup/69a107ce7a1c2660540e62fc/77621/40352/template-womens-relaxed-shorts-aop.jpg?camera_label=back-on-person",
+          "variant_ids": [
+            77615,
+            77617,
+            77619,
+            77621,
+            77623,
+            77625
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107ce7a1c2660540e62fc_77621_39481_right-on-person",
+          "src": "https://images.printify.com/mockup/69a107ce7a1c2660540e62fc/77621/39481/template-womens-relaxed-shorts-aop.jpg?camera_label=right-on-person",
+          "variant_ids": [
+            77615,
+            77617,
+            77619,
+            77621,
+            77623,
+            77625
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107ce7a1c2660540e62fc_77621_39480_left-on-person",
+          "src": "https://images.printify.com/mockup/69a107ce7a1c2660540e62fc/77621/39480/template-womens-relaxed-shorts-aop.jpg?camera_label=left-on-person",
+          "variant_ids": [
+            77615,
+            77617,
+            77619,
+            77621,
+            77623,
+            77625
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107ce7a1c2660540e62fc_77621_39483_on-person",
+          "src": "https://images.printify.com/mockup/69a107ce7a1c2660540e62fc/77621/39483/template-womens-relaxed-shorts-aop.jpg?camera_label=on-person",
+          "variant_ids": [
+            77615,
+            77617,
+            77619,
+            77621,
+            77623,
+            77625
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        }
+      ],
+      "created_at": "2026-02-27 02:56:14+00:00",
+      "updated_at": "2026-02-27 02:56:14+00:00",
+      "visible": true,
+      "is_locked": false,
+      "blueprint_id": 925,
+      "user_id": 15433811,
+      "shop_id": 12043562,
+      "print_provider_id": 14,
+      "print_areas": [
+        {
+          "variant_ids": [
+            77614,
+            77615,
+            77616,
+            77617,
+            77618,
+            77619,
+            77620,
+            77621,
+            77622,
+            77623,
+            77624,
+            77625
+          ],
+          "placeholders": [
+            {
+              "position": "front_right_leg",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.5856909953972671,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "front_left_leg",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.5856909953972671,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                },
+                {
+                  "id": "6995fafee0068a54871a8000",
+                  "name": "IMG_1936.png",
+                  "type": "image/png",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5992346708903084,
+                  "y": 0.6091432981883886,
+                  "scale": 0.2428546863311453,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/eb0ddb19-60bb-4caf-b6b2-c5e461bbfa3c"
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "back_left_leg",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.46556118796001944,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "back_right_leg",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.46556118796001944,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "waistband",
+              "images": [
+                {
+                  "id": "69925c3af359c075a9167b61",
+                  "name": "IMG_1849.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5348034923527873,
+                  "y": 2.496128628855712,
+                  "scale": 1.0014704886543635,
+                  "angle": 271,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/06118a3e-57e4-4246-b99d-5451f756aafa"
+                }
+              ],
+              "decoration_method": "aop"
+            }
+          ],
+          "background": "#ffffff"
+        }
+      ],
+      "print_details": [],
+      "sales_channel_properties": [],
+      "is_printify_express_eligible": false,
+      "is_printify_express_enabled": false,
+      "is_economy_shipping_eligible": false,
+      "is_economy_shipping_enabled": false,
+      "is_deleted": false,
+      "original_product_id": "",
+      "views": [
+        {
+          "id": 50067,
+          "label": "Front right leg",
+          "position": "front_right_leg",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/621216e85c2f48241d2dc142.svg",
+              "variant_ids": [
+                77614,
+                77615,
+                77616,
+                77617,
+                77618,
+                77619,
+                77620,
+                77621,
+                77622,
+                77623,
+                77624,
+                77625
+              ]
+            }
+          ]
+        },
+        {
+          "id": 50066,
+          "label": "Front left leg",
+          "position": "front_left_leg",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/621216d3daaded3713409e4f.svg",
+              "variant_ids": [
+                77614,
+                77615,
+                77616,
+                77617,
+                77618,
+                77619,
+                77620,
+                77621,
+                77622,
+                77623,
+                77624,
+                77625
+              ]
+            }
+          ]
+        },
+        {
+          "id": 50065,
+          "label": "Back left leg",
+          "position": "back_left_leg",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/621216aad128f362a16503de.svg",
+              "variant_ids": [
+                77614,
+                77615,
+                77616,
+                77617,
+                77618,
+                77619,
+                77620,
+                77621,
+                77622,
+                77623,
+                77624,
+                77625
+              ]
+            }
+          ]
+        },
+        {
+          "id": 50064,
+          "label": "Back right leg",
+          "position": "back_right_leg",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/6212168edaaded3713409e4c.svg",
+              "variant_ids": [
+                77614,
+                77615,
+                77616,
+                77617,
+                77618,
+                77619,
+                77620,
+                77621,
+                77622,
+                77623,
+                77624,
+                77625
+              ]
+            }
+          ]
+        },
+        {
+          "id": 50068,
+          "label": "Waistband",
+          "position": "waistband",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/6212170ad128f362a16503e4.svg",
+              "variant_ids": [
+                77614,
+                77615,
+                77616,
+                77617,
+                77618,
+                77619,
+                77620,
+                77621,
+                77622,
+                77623,
+                77624,
+                77625
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "69a107ca5e738c7d73001de7",
+      "title": "[TEMPLATE]: Unisex Pullover Hoodie (AOP)",
+      "description": "This Pullover Hoodie is made for warmth and comfort. Made to be easily customizable without white lines at the seams, this all-over print pullover hoodie is waiting for you to add a great design and it instantly becomes fashionable. It features a large front pocket, a hood with a drawstring, and is custom cut and sewn. <div>.:100% polyester</div><br /><div>.:Medium weight fabric: 7.4 oz/yd\u00b2 (250 g/m\u00b2)</div><br /><div>.:Classic Fit</div><br /><div>.:White thread color</div><br /><div>.:Custom cut and sewn</div><br /><div>.:Assembled in the USA from globally sourced parts</div>",
+      "tags": [],
+      "options": [
+        {
+          "name": "Sizes",
+          "type": "size",
+          "values": [
+            {
+              "id": 13,
+              "title": "XS"
+            },
+            {
+              "id": 14,
+              "title": "S"
+            },
+            {
+              "id": 15,
+              "title": "M"
+            },
+            {
+              "id": 16,
+              "title": "L"
+            },
+            {
+              "id": 17,
+              "title": "XL"
+            },
+            {
+              "id": 18,
+              "title": "2XL"
+            }
+          ],
+          "display_in_preview": false
+        }
+      ],
+      "variants": [
+        {
+          "id": 63240,
+          "sku": "23497326535124297746",
+          "cost": 5929,
+          "price": 11830,
+          "title": "XS",
+          "grams": 952,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            13
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 63241,
+          "sku": "32276589061513549490",
+          "cost": 6016,
+          "price": 12002,
+          "title": "S",
+          "grams": 1043,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            14
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 63242,
+          "sku": "14432933408715359025",
+          "cost": 6076,
+          "price": 12120,
+          "title": "M",
+          "grams": 1134,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            15
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 63243,
+          "sku": "22962815982611495143",
+          "cost": 6180,
+          "price": 12468,
+          "title": "L",
+          "grams": 1224,
+          "is_enabled": true,
+          "is_default": true,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            16
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 63244,
+          "sku": "20644601296335261921",
+          "cost": 6300,
+          "price": 12565,
+          "title": "XL",
+          "grams": 1361,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            17
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 63245,
+          "sku": "90802456761073167703",
+          "cost": 6684,
+          "price": 13325,
+          "title": "2XL",
+          "grams": 1497,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            18
+          ],
+          "quantity": 1
+        }
+      ],
+      "images": [
+        {
+          "mockup_id": "69a107ca5e738c7d73001de7_63245_101818_front",
+          "src": "https://images.printify.com/mockup/69a107ca5e738c7d73001de7/63245/101818/template-unisex-pullover-hoodie-aop.jpg?camera_label=front",
+          "variant_ids": [
+            63240,
+            63241,
+            63242,
+            63243,
+            63244,
+            63245
+          ],
+          "position": "other",
+          "is_default": true,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107ca5e738c7d73001de7_63245_4761_back",
+          "src": "https://images.printify.com/mockup/69a107ca5e738c7d73001de7/63245/4761/template-unisex-pullover-hoodie-aop.jpg?camera_label=back",
+          "variant_ids": [
+            63240,
+            63241,
+            63242,
+            63243,
+            63244,
+            63245
+          ],
+          "position": "all",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107ca5e738c7d73001de7_63245_101819_person-front-1",
+          "src": "https://images.printify.com/mockup/69a107ca5e738c7d73001de7/63245/101819/template-unisex-pullover-hoodie-aop.jpg?camera_label=person-front-1",
+          "variant_ids": [
+            63240,
+            63241,
+            63242,
+            63243,
+            63244,
+            63245
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107ca5e738c7d73001de7_63245_101820_person-front-2",
+          "src": "https://images.printify.com/mockup/69a107ca5e738c7d73001de7/63245/101820/template-unisex-pullover-hoodie-aop.jpg?camera_label=person-front-2",
+          "variant_ids": [
+            63240,
+            63241,
+            63242,
+            63243,
+            63244,
+            63245
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107ca5e738c7d73001de7_63245_101821_lifestyle",
+          "src": "https://images.printify.com/mockup/69a107ca5e738c7d73001de7/63245/101821/template-unisex-pullover-hoodie-aop.jpg?camera_label=lifestyle",
+          "variant_ids": [
+            63240,
+            63241,
+            63242,
+            63243,
+            63244,
+            63245
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        }
+      ],
+      "created_at": "2026-02-27 02:56:10+00:00",
+      "updated_at": "2026-02-27 02:56:10+00:00",
+      "visible": true,
+      "is_locked": false,
+      "blueprint_id": 450,
+      "user_id": 15433811,
+      "shop_id": 12043562,
+      "print_provider_id": 10,
+      "print_areas": [
+        {
+          "variant_ids": [
+            63240,
+            63241,
+            63242,
+            63243,
+            63244,
+            63245
+          ],
+          "placeholders": [
+            {
+              "position": "front",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5204111724199706,
+                  "scale": 0.3076646462925899,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                },
+                {
+                  "id": "6995fafee0068a54871a8000",
+                  "name": "IMG_1936.png",
+                  "type": "image/png",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.6978767325440831,
+                  "y": 0.4026023467519439,
+                  "scale": 0.14252604068239208,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/eb0ddb19-60bb-4caf-b6b2-c5e461bbfa3c"
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "back",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.3205126309303758,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "right_sleeve",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.3616482850293939,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "left_sleeve",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.3616482850293939,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "pocket",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.4639468013756296,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "waistband",
+              "images": [
+                {
+                  "id": "6996b04f14989f756a298f50",
+                  "name": "IMG_1941.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.3192202505285797,
+                  "scale": 1,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/d8428bfe-cec8-4022-acde-fa06d370ae20"
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "right_hood",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.5887775151893805,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "left_hood",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.5887775151893805,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "right_cuff_panel",
+              "images": [
+                {
+                  "id": "6996b04f14989f756a298f50",
+                  "name": "IMG_1941.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.33763371896183203,
+                  "scale": 1,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/d8428bfe-cec8-4022-acde-fa06d370ae20"
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "left_cuff_panel",
+              "images": [
+                {
+                  "id": "6996b04f14989f756a298f50",
+                  "name": "IMG_1941.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.3309382022179904,
+                  "scale": 1,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/d8428bfe-cec8-4022-acde-fa06d370ae20"
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "all",
+              "images": [],
+              "decoration_method": "aop"
+            }
+          ],
+          "background": "#ffffff"
+        }
+      ],
+      "print_details": [],
+      "sales_channel_properties": [],
+      "is_printify_express_eligible": false,
+      "is_printify_express_enabled": false,
+      "is_economy_shipping_eligible": true,
+      "is_economy_shipping_enabled": false,
+      "is_deleted": false,
+      "original_product_id": "",
+      "views": [
+        {
+          "id": 10750,
+          "label": "Front side",
+          "position": "front",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d971d7ad69994742d3a03fb.svg",
+              "variant_ids": [
+                63240,
+                63241,
+                63242,
+                63243,
+                63244,
+                63245
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10754,
+          "label": "Back side",
+          "position": "back",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d971dfcc4c83a05fc3a5492.svg",
+              "variant_ids": [
+                63240,
+                63241,
+                63242,
+                63243,
+                63244,
+                63245
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10752,
+          "label": "Right sleeve",
+          "position": "right_sleeve",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d971ddfc4c83a05fc3a548c.svg",
+              "variant_ids": [
+                63240,
+                63241,
+                63242,
+                63243,
+                63244,
+                63245
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10753,
+          "label": "Left sleeve",
+          "position": "left_sleeve",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d971df2c4c83a05fc3a548f.svg",
+              "variant_ids": [
+                63240,
+                63241,
+                63242,
+                63243,
+                63244,
+                63245
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10751,
+          "label": "Pocket",
+          "position": "pocket",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d971d9ed69994742d3a03fe.svg",
+              "variant_ids": [
+                63240,
+                63241,
+                63242,
+                63243,
+                63244,
+                63245
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10755,
+          "label": "Waistband",
+          "position": "waistband",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d971e0a2947a61bef6f40cd.svg",
+              "variant_ids": [
+                63240,
+                63241,
+                63242,
+                63243,
+                63244,
+                63245
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10756,
+          "label": "Right hood",
+          "position": "right_hood",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d971e4ed69994742d3a0401.svg",
+              "variant_ids": [
+                63240,
+                63241,
+                63242,
+                63243,
+                63244,
+                63245
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10757,
+          "label": "Left hood",
+          "position": "left_hood",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d971e6171b6ec3c711a8ed7.svg",
+              "variant_ids": [
+                63240,
+                63241,
+                63242,
+                63243,
+                63244,
+                63245
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10758,
+          "label": "Right cuff panel",
+          "position": "right_cuff_panel",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d971e8b2947a61bef6f40d6.svg",
+              "variant_ids": [
+                63240,
+                63241,
+                63242,
+                63243,
+                63244,
+                63245
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10759,
+          "label": "Left cuff panel",
+          "position": "left_cuff_panel",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d971e9c2947a61bef6f40d9.svg",
+              "variant_ids": [
+                63240,
+                63241,
+                63242,
+                63243,
+                63244,
+                63245
+              ]
+            }
+          ]
+        },
+        {
+          "id": 20162,
+          "label": "All areas",
+          "position": "all",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d96fefa40e8da18a2274ad9.svg",
+              "variant_ids": [
+                63240,
+                63241,
+                63242,
+                63243,
+                63244,
+                63245
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "69a107c7a5806a08a10f0767",
+      "title": "[TEMPLATE]: Athletic Joggers (AOP)",
+      "description": "These personalized jogging pants come to add a custom style to your lounging as well as your workouts. Ensuring a cozy, unisex fit, these all-over-print joggers are cut & sew, meaning higher quality across the board both in materials used and in terms of production quality.<br/><br/>NB! Please refer to the size guide for ankle cuff measurements. The fabric is tighter and not particulary stretchy in this area.<div>.:Material: 95% polyester, 5% spandex</div><br /><div>.:Seam thread color automatically matched to design</div><br /><div>.:Medium fabric (7.5 oz /yd\u00b2 (250 g/m\u00b2))</div><br /><div>.:Double layer side insert pockets</div><br /><div>.:Soft fabric</div><br /><div>.:Printed care label inside</div><br /><div>.:White drawstring</div>",
+      "tags": [],
+      "options": [
+        {
+          "name": "Size",
+          "type": "size",
+          "values": [
+            {
+              "id": 1546,
+              "title": "S"
+            },
+            {
+              "id": 1547,
+              "title": "M"
+            },
+            {
+              "id": 1548,
+              "title": "L"
+            },
+            {
+              "id": 1549,
+              "title": "XL"
+            },
+            {
+              "id": 18,
+              "title": "2XL"
+            },
+            {
+              "id": 19,
+              "title": "3XL"
+            }
+          ],
+          "display_in_preview": false
+        },
+        {
+          "name": "Seam color",
+          "type": "color",
+          "values": [
+            {
+              "id": 2669,
+              "title": "Seam thread color automatically matched to design",
+              "colors": [
+                "#ffffff"
+              ]
+            }
+          ],
+          "display_in_preview": false
+        }
+      ],
+      "variants": [
+        {
+          "id": 72926,
+          "sku": "25106881399251811183",
+          "cost": 3462,
+          "price": 7262,
+          "title": "S / Seam thread color automatically matched to design",
+          "grams": 403,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1546,
+            2669
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 72927,
+          "sku": "21854530152351867034",
+          "cost": 3462,
+          "price": 7262,
+          "title": "M / Seam thread color automatically matched to design",
+          "grams": 442,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1547,
+            2669
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 72928,
+          "sku": "28069063813410870344",
+          "cost": 3462,
+          "price": 7262,
+          "title": "L / Seam thread color automatically matched to design",
+          "grams": 481,
+          "is_enabled": true,
+          "is_default": true,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1548,
+            2669
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 72929,
+          "sku": "30150850841817085877",
+          "cost": 3462,
+          "price": 7262,
+          "title": "XL / Seam thread color automatically matched to design",
+          "grams": 520,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1549,
+            2669
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 72930,
+          "sku": "20192019203693012762",
+          "cost": 3462,
+          "price": 7262,
+          "title": "2XL / Seam thread color automatically matched to design",
+          "grams": 552,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            18,
+            2669
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 72931,
+          "sku": "72441072674956931672",
+          "cost": 3462,
+          "price": 7262,
+          "title": "3XL / Seam thread color automatically matched to design",
+          "grams": 598,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            19,
+            2669
+          ],
+          "quantity": 1
+        }
+      ],
+      "images": [
+        {
+          "mockup_id": "69a107c7a5806a08a10f0767_72931_16656_front",
+          "src": "https://images.printify.com/mockup/69a107c7a5806a08a10f0767/72931/16656/template-athletic-joggers-aop.jpg?camera_label=front",
+          "variant_ids": [
+            72926,
+            72927,
+            72928,
+            72929,
+            72930,
+            72931
+          ],
+          "position": "other",
+          "is_default": true,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107c7a5806a08a10f0767_72931_16657_back",
+          "src": "https://images.printify.com/mockup/69a107c7a5806a08a10f0767/72931/16657/template-athletic-joggers-aop.jpg?camera_label=back",
+          "variant_ids": [
+            72926,
+            72927,
+            72928,
+            72929,
+            72930,
+            72931
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107c7a5806a08a10f0767_72931_16871_man-front",
+          "src": "https://images.printify.com/mockup/69a107c7a5806a08a10f0767/72931/16871/template-athletic-joggers-aop.jpg?camera_label=man-front",
+          "variant_ids": [
+            72926,
+            72927,
+            72928,
+            72929,
+            72930,
+            72931
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107c7a5806a08a10f0767_72931_16872_man-back",
+          "src": "https://images.printify.com/mockup/69a107c7a5806a08a10f0767/72931/16872/template-athletic-joggers-aop.jpg?camera_label=man-back",
+          "variant_ids": [
+            72926,
+            72927,
+            72928,
+            72929,
+            72930,
+            72931
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107c7a5806a08a10f0767_72931_16873_woman-front",
+          "src": "https://images.printify.com/mockup/69a107c7a5806a08a10f0767/72931/16873/template-athletic-joggers-aop.jpg?camera_label=woman-front",
+          "variant_ids": [
+            72926,
+            72927,
+            72928,
+            72929,
+            72930,
+            72931
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107c7a5806a08a10f0767_72931_16874_woman-side",
+          "src": "https://images.printify.com/mockup/69a107c7a5806a08a10f0767/72931/16874/template-athletic-joggers-aop.jpg?camera_label=woman-side",
+          "variant_ids": [
+            72926,
+            72927,
+            72928,
+            72929,
+            72930,
+            72931
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107c7a5806a08a10f0767_72931_16875_woman-back",
+          "src": "https://images.printify.com/mockup/69a107c7a5806a08a10f0767/72931/16875/template-athletic-joggers-aop.jpg?camera_label=woman-back",
+          "variant_ids": [
+            72926,
+            72927,
+            72928,
+            72929,
+            72930,
+            72931
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        }
+      ],
+      "created_at": "2026-02-27 02:56:07+00:00",
+      "updated_at": "2026-02-27 02:56:07+00:00",
+      "visible": true,
+      "is_locked": false,
+      "blueprint_id": 591,
+      "user_id": 15433811,
+      "shop_id": 12043562,
+      "print_provider_id": 83,
+      "print_areas": [
+        {
+          "variant_ids": [
+            72926,
+            72927,
+            72928,
+            72929,
+            72930,
+            72931
+          ],
+          "placeholders": [
+            {
+              "position": "right_leg",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.15996063960639603,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "left_leg",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.15996063960639603,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                },
+                {
+                  "id": "6995fafee0068a54871a8000",
+                  "name": "IMG_1936.png",
+                  "type": "image/png",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.39816403075738993,
+                  "y": 0.1782621326981025,
+                  "scale": 0.09773463842124025,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/eb0ddb19-60bb-4caf-b6b2-c5e461bbfa3c"
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "pocket",
+              "images": [
+                {
+                  "id": "699633fd8868eb60bc8be332",
+                  "name": "IMG_1887.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.2558992522628886,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/69ec6337-abdc-49bf-b14b-b5832d4dc50a",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "waistband",
+              "images": [
+                {
+                  "id": "6996b04f14989f756a298f50",
+                  "name": "IMG_1941.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.4943995649006922,
+                  "y": 0.6181023958616729,
+                  "scale": 0.9887991298013844,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/d8428bfe-cec8-4022-acde-fa06d370ae20"
+                }
+              ],
+              "decoration_method": "aop"
+            }
+          ],
+          "background": "#ffffff"
+        }
+      ],
+      "print_details": [],
+      "sales_channel_properties": [],
+      "is_printify_express_eligible": false,
+      "is_printify_express_enabled": false,
+      "is_economy_shipping_eligible": false,
+      "is_economy_shipping_enabled": false,
+      "is_deleted": false,
+      "original_product_id": "",
+      "views": [
+        {
+          "id": 25572,
+          "label": "Right leg",
+          "position": "right_leg",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/60f69f4286529f36fe6c641e.svg",
+              "variant_ids": [
+                72926,
+                72927,
+                72928,
+                72929,
+                72930,
+                72931
+              ]
+            }
+          ]
+        },
+        {
+          "id": 25571,
+          "label": "Left leg",
+          "position": "left_leg",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/60f69f3450ffea42b21d41f2.svg",
+              "variant_ids": [
+                72926,
+                72927,
+                72928,
+                72929,
+                72930,
+                72931
+              ]
+            }
+          ]
+        },
+        {
+          "id": 25577,
+          "label": "Pocket",
+          "position": "pocket",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/60f6a03d6da58d172861a542.svg",
+              "variant_ids": [
+                72926,
+                72927,
+                72928,
+                72929,
+                72930,
+                72931
+              ]
+            }
+          ]
+        },
+        {
+          "id": 25579,
+          "label": "Waistband",
+          "position": "waistband",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/60f6a0ae6da58d172861a545.svg",
+              "variant_ids": [
+                72926,
+                72927,
+                72928,
+                72929,
+                72930,
+                72931
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "69a107c54ef258adaa016ef5",
+      "title": "[TEMPLATE]: Sports Bra (AOP)",
+      "description": "On the lookout for a comfortable sports bra that comes packed with style? This is the one - with an all-over-print that is yours to customize, a compression fit that delivers incredible support during peak activity, and a double-layer front - this sports bra has it all: custom style, support, and 360-degree comfort. <div>.:Material: 83% moisture-wicking polyester, 17% spandex</div><br /><div>.:Medium fabric (6.5 oz/yd\u00b2 (210 g/m\u00b2))</div><br /><div>.:Compression fit</div><br /><div>.:Tear-away neck label</div><br /><div>.:Assembled in the USA from globally sourced parts</div>",
+      "tags": [],
+      "options": [
+        {
+          "name": "Sizes",
+          "type": "size",
+          "values": [
+            {
+              "id": 1546,
+              "title": "S"
+            },
+            {
+              "id": 1547,
+              "title": "M"
+            },
+            {
+              "id": 1548,
+              "title": "L"
+            },
+            {
+              "id": 1549,
+              "title": "XL"
+            },
+            {
+              "id": 18,
+              "title": "2XL"
+            }
+          ],
+          "display_in_preview": false
+        },
+        {
+          "name": "Seam colors",
+          "type": "color",
+          "values": [
+            {
+              "id": 1878,
+              "title": "White stitching",
+              "colors": [
+                "#ffffff"
+              ]
+            },
+            {
+              "id": 1879,
+              "title": "Black stitching",
+              "colors": [
+                "#000000"
+              ]
+            }
+          ],
+          "display_in_preview": true
+        }
+      ],
+      "variants": [
+        {
+          "id": 73130,
+          "sku": "23041138903297267619",
+          "cost": 2536,
+          "price": 5198,
+          "title": "S / Black stitching",
+          "grams": 58,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1546,
+            1879
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 73131,
+          "sku": "53362755096705783505",
+          "cost": 2536,
+          "price": 5198,
+          "title": "M / Black stitching",
+          "grams": 72,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1547,
+            1879
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 73132,
+          "sku": "25105904588869603684",
+          "cost": 2536,
+          "price": 5198,
+          "title": "L / Black stitching",
+          "grams": 86,
+          "is_enabled": true,
+          "is_default": true,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1548,
+            1879
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 73133,
+          "sku": "81854773666435160687",
+          "cost": 2536,
+          "price": 5198,
+          "title": "XL / Black stitching",
+          "grams": 100,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1549,
+            1879
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 73134,
+          "sku": "30383045448575340014",
+          "cost": 2657,
+          "price": 5437,
+          "title": "2XL / Black stitching",
+          "grams": 114,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            18,
+            1879
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 73136,
+          "sku": "30081135809603485424",
+          "cost": 2536,
+          "price": 2536,
+          "title": "S / White stitching",
+          "grams": 58,
+          "is_enabled": false,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1546,
+            1878
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 73137,
+          "sku": "47734987286639083155",
+          "cost": 2536,
+          "price": 2536,
+          "title": "M / White stitching",
+          "grams": 72,
+          "is_enabled": false,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1547,
+            1878
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 73138,
+          "sku": "46768347922725409945",
+          "cost": 2536,
+          "price": 2536,
+          "title": "L / White stitching",
+          "grams": 86,
+          "is_enabled": false,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1548,
+            1878
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 73139,
+          "sku": "25814122558281270247",
+          "cost": 2536,
+          "price": 2536,
+          "title": "XL / White stitching",
+          "grams": 100,
+          "is_enabled": false,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            1549,
+            1878
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 73140,
+          "sku": "29947369789162206555",
+          "cost": 2657,
+          "price": 2657,
+          "title": "2XL / White stitching",
+          "grams": 114,
+          "is_enabled": false,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            18,
+            1878
+          ],
+          "quantity": 1
+        }
+      ],
+      "images": [
+        {
+          "mockup_id": "69a107c54ef258adaa016ef5_73132_18080_front",
+          "src": "https://images.printify.com/mockup/69a107c54ef258adaa016ef5/73132/18080/template-sports-bra-aop.jpg?camera_label=front",
+          "variant_ids": [
+            73130,
+            73131,
+            73132,
+            73133,
+            73134
+          ],
+          "position": "other",
+          "is_default": true,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107c54ef258adaa016ef5_73132_18082_back",
+          "src": "https://images.printify.com/mockup/69a107c54ef258adaa016ef5/73132/18082/template-sports-bra-aop.jpg?camera_label=back",
+          "variant_ids": [
+            73130,
+            73131,
+            73132,
+            73133,
+            73134
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107c54ef258adaa016ef5_73132_18283_on-person-front",
+          "src": "https://images.printify.com/mockup/69a107c54ef258adaa016ef5/73132/18283/template-sports-bra-aop.jpg?camera_label=on-person-front",
+          "variant_ids": [
+            73130,
+            73131,
+            73132,
+            73133,
+            73134
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107c54ef258adaa016ef5_73132_18285_on-person-back",
+          "src": "https://images.printify.com/mockup/69a107c54ef258adaa016ef5/73132/18285/template-sports-bra-aop.jpg?camera_label=on-person-back",
+          "variant_ids": [
+            73130,
+            73131,
+            73132,
+            73133,
+            73134
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        }
+      ],
+      "created_at": "2026-02-27 02:56:05+00:00",
+      "updated_at": "2026-02-27 02:58:12+00:00",
+      "visible": true,
+      "is_locked": false,
+      "blueprint_id": 700,
+      "user_id": 15433811,
+      "shop_id": 12043562,
+      "print_provider_id": 51,
+      "print_areas": [
+        {
+          "variant_ids": [
+            73130,
+            73131,
+            73132,
+            73133,
+            73134,
+            73136,
+            73137,
+            73138,
+            73139,
+            73140
+          ],
+          "placeholders": [
+            {
+              "position": "front",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.3897550244855634,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                },
+                {
+                  "id": "6995fafee0068a54871a8000",
+                  "name": "IMG_1936.png",
+                  "type": "image/png",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.7087508787280602,
+                  "y": 0.5878462255814378,
+                  "scale": 0.12708276451437475,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/eb0ddb19-60bb-4caf-b6b2-c5e461bbfa3c"
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "back",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.6349317944361444,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "all",
+              "images": [],
+              "decoration_method": "aop"
+            }
+          ],
+          "background": "#ffffff"
+        }
+      ],
+      "print_details": [],
+      "sales_channel_properties": [],
+      "is_printify_express_eligible": false,
+      "is_printify_express_enabled": false,
+      "is_economy_shipping_eligible": false,
+      "is_economy_shipping_enabled": false,
+      "is_deleted": false,
+      "original_product_id": "",
+      "views": [
+        {
+          "id": 28958,
+          "label": "Front side",
+          "position": "front",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/61405a1138c19905a84f385e.svg",
+              "variant_ids": [
+                73130,
+                73131,
+                73132,
+                73133,
+                73134,
+                73136,
+                73137,
+                73138,
+                73139,
+                73140
+              ]
+            }
+          ]
+        },
+        {
+          "id": 28959,
+          "label": "Back side",
+          "position": "back",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/61405a246e1525500245ef46.svg",
+              "variant_ids": [
+                73130,
+                73131,
+                73132,
+                73133,
+                73134,
+                73136,
+                73137,
+                73138,
+                73139,
+                73140
+              ]
+            }
+          ]
+        },
+        {
+          "id": 29001,
+          "label": "All areas",
+          "position": "all",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/61405a3238c19905a84f3864.svg",
+              "variant_ids": [
+                73130,
+                73131,
+                73132,
+                73133,
+                73134,
+                73136,
+                73137,
+                73138,
+                73139,
+                73140
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "69a107c0f78e85bfc0079a58",
+      "title": "[TEMPLATE]: High Waisted Yoga Leggings (AOP)",
+      "description": "These skinny fitting high-waisted yoga leggings will take you from workout to store run in comfort and style. They are fully customizable with an all-over print that adds an instant pop to any athleisure wardrobe.<br/><br/>Note: Runs small, consider sizing up!<div>.:83% Polyester, 17% Spandex</div><br /><div>.:Skinny fit</div><br /><div>.:Outside seam thread is color-matched to design</div><br /><div>.:Interior white seam thread</div><br /><div>.:Double layer waistband</div><br /><div>.:Please note: Slightly see-through when stretched. Some of the undyed white underneath material may become visible at the seams or where sewn.</div><br /><div>.:Assembled in the USA from globally sourced parts</div>",
+      "tags": [],
+      "options": [
+        {
+          "name": "Sizes",
+          "type": "size",
+          "values": [
+            {
+              "id": 13,
+              "title": "XS"
+            },
+            {
+              "id": 14,
+              "title": "S"
+            },
+            {
+              "id": 15,
+              "title": "M"
+            },
+            {
+              "id": 16,
+              "title": "L"
+            },
+            {
+              "id": 17,
+              "title": "XL"
+            },
+            {
+              "id": 18,
+              "title": "2XL"
+            }
+          ],
+          "display_in_preview": false
+        }
+      ],
+      "variants": [
+        {
+          "id": 67982,
+          "sku": "11246846988627326728",
+          "cost": 3462,
+          "price": 6945,
+          "title": "XS",
+          "grams": 149,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            13
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 67983,
+          "sku": "32219769333175940846",
+          "cost": 3462,
+          "price": 6945,
+          "title": "S",
+          "grams": 154,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            14
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 67984,
+          "sku": "27718389282054752675",
+          "cost": 3462,
+          "price": 6945,
+          "title": "M",
+          "grams": 176,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            15
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 67985,
+          "sku": "14091099811777695372",
+          "cost": 3462,
+          "price": 7042,
+          "title": "L",
+          "grams": 204,
+          "is_enabled": true,
+          "is_default": true,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            16
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 67986,
+          "sku": "15886000578625179962",
+          "cost": 3462,
+          "price": 6945,
+          "title": "XL",
+          "grams": 235,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            17
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 67987,
+          "sku": "14432492882847284658",
+          "cost": 3784,
+          "price": 7582,
+          "title": "2XL",
+          "grams": 249,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            18
+          ],
+          "quantity": 1
+        }
+      ],
+      "images": [
+        {
+          "mockup_id": "69a107c0f78e85bfc0079a58_67987_7991_front",
+          "src": "https://images.printify.com/mockup/69a107c0f78e85bfc0079a58/67987/7991/template-high-waisted-yoga-leggings-aop.jpg?camera_label=front",
+          "variant_ids": [
+            67982,
+            67983,
+            67984,
+            67985,
+            67986,
+            67987
+          ],
+          "position": "all",
+          "is_default": true,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107c0f78e85bfc0079a58_67987_7992_back",
+          "src": "https://images.printify.com/mockup/69a107c0f78e85bfc0079a58/67987/7992/template-high-waisted-yoga-leggings-aop.jpg?camera_label=back",
+          "variant_ids": [
+            67982,
+            67983,
+            67984,
+            67985,
+            67986,
+            67987
+          ],
+          "position": "all",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107c0f78e85bfc0079a58_67987_7993_left-side",
+          "src": "https://images.printify.com/mockup/69a107c0f78e85bfc0079a58/67987/7993/template-high-waisted-yoga-leggings-aop.jpg?camera_label=left-side",
+          "variant_ids": [
+            67982,
+            67983,
+            67984,
+            67985,
+            67986,
+            67987
+          ],
+          "position": "all",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107c0f78e85bfc0079a58_67987_7994_right-side",
+          "src": "https://images.printify.com/mockup/69a107c0f78e85bfc0079a58/67987/7994/template-high-waisted-yoga-leggings-aop.jpg?camera_label=right-side",
+          "variant_ids": [
+            67982,
+            67983,
+            67984,
+            67985,
+            67986,
+            67987
+          ],
+          "position": "all",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        }
+      ],
+      "created_at": "2026-02-27 02:56:00+00:00",
+      "updated_at": "2026-02-27 02:56:00+00:00",
+      "visible": true,
+      "is_locked": false,
+      "blueprint_id": 516,
+      "user_id": 15433811,
+      "shop_id": 12043562,
+      "print_provider_id": 47,
+      "print_areas": [
+        {
+          "variant_ids": [
+            67982,
+            67983,
+            67984,
+            67985,
+            67986,
+            67987
+          ],
+          "placeholders": [
+            {
+              "position": "left_leg",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.4046196734368777,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                },
+                {
+                  "id": "6995fafee0068a54871a8000",
+                  "name": "IMG_1936.png",
+                  "type": "image/png",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.3186961636685012,
+                  "y": 0.3142257589550895,
+                  "scale": 0.2371833454964549,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/eb0ddb19-60bb-4caf-b6b2-c5e461bbfa3c"
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "right_leg",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.4046196734368777,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "front_waistband",
+              "images": [
+                {
+                  "id": "6996b04f14989f756a298f50",
+                  "name": "IMG_1941.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.4173187196853101,
+                  "y": 0.733277669771044,
+                  "scale": 1.8901207299688496,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/d8428bfe-cec8-4022-acde-fa06d370ae20"
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "back_waistband",
+              "images": [
+                {
+                  "id": "6996b04f14989f756a298f50",
+                  "name": "IMG_1941.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.40109017781858564,
+                  "y": 0.7269765692263476,
+                  "scale": 1.7121278659634203,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/d8428bfe-cec8-4022-acde-fa06d370ae20"
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "gusset",
+              "images": [
+                {
+                  "id": "69923b2bf359c075a9167672",
+                  "name": "IMG_1830.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.8529162348063696,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/a3c8aae6-6d65-4d35-960e-b7477d29b068"
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "all",
+              "images": [],
+              "decoration_method": "aop"
+            }
+          ],
+          "background": "#000000"
+        }
+      ],
+      "print_details": [],
+      "sales_channel_properties": [],
+      "is_printify_express_eligible": false,
+      "is_printify_express_enabled": false,
+      "is_economy_shipping_eligible": false,
+      "is_economy_shipping_enabled": false,
+      "is_deleted": false,
+      "original_product_id": "",
+      "views": [
+        {
+          "id": 15595,
+          "label": "Left leg",
+          "position": "left_leg",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5f8942faa4c4ba52e957e39b.svg",
+              "variant_ids": [
+                67982,
+                67983,
+                67984,
+                67985,
+                67986,
+                67987
+              ]
+            }
+          ]
+        },
+        {
+          "id": 14781,
+          "label": "Right leg",
+          "position": "right_leg",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5f564c5ba5802c76dc27be33.svg",
+              "variant_ids": [
+                67982,
+                67983,
+                67984,
+                67985,
+                67986,
+                67987
+              ]
+            }
+          ]
+        },
+        {
+          "id": 14778,
+          "label": "Front waistband",
+          "position": "front_waistband",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5f5649ebb61b906e7d65c45e.svg",
+              "variant_ids": [
+                67982,
+                67983,
+                67984,
+                67985,
+                67986,
+                67987
+              ]
+            }
+          ]
+        },
+        {
+          "id": 15590,
+          "label": "Back waistband",
+          "position": "back_waistband",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5f87036b7fbd9402de1c7f6c.svg",
+              "variant_ids": [
+                67982,
+                67983,
+                67984,
+                67985,
+                67986,
+                67987
+              ]
+            }
+          ]
+        },
+        {
+          "id": 14786,
+          "label": "Gusset",
+          "position": "gusset",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5f571f6ce8bc3173c5435079.svg",
+              "variant_ids": [
+                67982,
+                67983,
+                67984,
+                67985,
+                67986,
+                67987
+              ]
+            }
+          ]
+        },
+        {
+          "id": 16252,
+          "label": "All areas",
+          "position": "all",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5f87037fe833bd61782df895.svg",
+              "variant_ids": [
+                67982,
+                67983,
+                67984,
+                67985,
+                67986,
+                67987
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "69a107bb04332d30370eb176",
+      "title": "[TEMPLATE]: Unisex Zip Hoodie (AOP)",
+      "description": "This zipped fleece jacket will keep you nice and toasty through the cold. It\u2019s a great all-over print zip hoodie that is easy to customize without fear of visible white lines at the seams. It has a large front pocket, black zipper, a roomy hood and is custom cut and sewn. It\u2019s your perfect pick this winter. <div>.:100% polyester</div><br /><div>.:Medium weight fabric: 7.4 oz/yd\u00b2 (250 g/m\u00b2)</div><br /><div>.:Classic Fit</div><br /><div>.:Black zipper</div><br /><div>.:White thread color</div><br /><div>.:Custom cut and sewn</div><br /><div>.:Assembled in the USA from globally sourced parts</div>",
+      "tags": [],
+      "options": [
+        {
+          "name": "Sizes",
+          "type": "size",
+          "values": [
+            {
+              "id": 13,
+              "title": "XS"
+            },
+            {
+              "id": 14,
+              "title": "S"
+            },
+            {
+              "id": 15,
+              "title": "M"
+            },
+            {
+              "id": 16,
+              "title": "L"
+            },
+            {
+              "id": 17,
+              "title": "XL"
+            },
+            {
+              "id": 18,
+              "title": "2XL"
+            }
+          ],
+          "display_in_preview": false
+        }
+      ],
+      "variants": [
+        {
+          "id": 63246,
+          "sku": "31617832444850737361",
+          "cost": 6391,
+          "price": 12745,
+          "title": "XS",
+          "grams": 771,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            13
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 63247,
+          "sku": "31260701788213205576",
+          "cost": 6496,
+          "price": 12952,
+          "title": "S",
+          "grams": 862,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            14
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 63248,
+          "sku": "55363737572654137307",
+          "cost": 6586,
+          "price": 13130,
+          "title": "M",
+          "grams": 952,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            15
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 63249,
+          "sku": "33513196335067515510",
+          "cost": 6702,
+          "price": 13503,
+          "title": "L",
+          "grams": 1000,
+          "is_enabled": true,
+          "is_default": true,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            16
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 63250,
+          "sku": "27806287764837243630",
+          "cost": 6882,
+          "price": 13717,
+          "title": "XL",
+          "grams": 1000,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            17
+          ],
+          "quantity": 1
+        },
+        {
+          "id": 63251,
+          "sku": "18675038837599245296",
+          "cost": 7301,
+          "price": 14547,
+          "title": "2XL",
+          "grams": 1000,
+          "is_enabled": true,
+          "is_default": false,
+          "is_available": true,
+          "is_printify_express_eligible": false,
+          "options": [
+            18
+          ],
+          "quantity": 1
+        }
+      ],
+      "images": [
+        {
+          "mockup_id": "69a107bb04332d30370eb176_63251_5051_front",
+          "src": "https://images.printify.com/mockup/69a107bb04332d30370eb176/63251/5051/template-unisex-zip-hoodie-aop.jpg?camera_label=front",
+          "variant_ids": [
+            63246,
+            63247,
+            63248,
+            63249,
+            63250,
+            63251
+          ],
+          "position": "other",
+          "is_default": true,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107bb04332d30370eb176_63251_5052_back",
+          "src": "https://images.printify.com/mockup/69a107bb04332d30370eb176/63251/5052/template-unisex-zip-hoodie-aop.jpg?camera_label=back",
+          "variant_ids": [
+            63246,
+            63247,
+            63248,
+            63249,
+            63250,
+            63251
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107bb04332d30370eb176_63251_5053_lifestyle",
+          "src": "https://images.printify.com/mockup/69a107bb04332d30370eb176/63251/5053/template-unisex-zip-hoodie-aop.jpg?camera_label=lifestyle",
+          "variant_ids": [
+            63246,
+            63247,
+            63248,
+            63249,
+            63250,
+            63251
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107bb04332d30370eb176_63251_81341_on-person-1-front",
+          "src": "https://images.printify.com/mockup/69a107bb04332d30370eb176/63251/81341/template-unisex-zip-hoodie-aop.jpg?camera_label=on-person-1-front",
+          "variant_ids": [
+            63246,
+            63247,
+            63248,
+            63249,
+            63250,
+            63251
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        },
+        {
+          "mockup_id": "69a107bb04332d30370eb176_63251_81342_on-person-2-front",
+          "src": "https://images.printify.com/mockup/69a107bb04332d30370eb176/63251/81342/template-unisex-zip-hoodie-aop.jpg?camera_label=on-person-2-front",
+          "variant_ids": [
+            63246,
+            63247,
+            63248,
+            63249,
+            63250,
+            63251
+          ],
+          "position": "other",
+          "is_default": false,
+          "is_selected_for_publishing": true,
+          "order": null
+        }
+      ],
+      "created_at": "2026-02-27 02:55:55+00:00",
+      "updated_at": "2026-02-27 02:55:55+00:00",
+      "visible": true,
+      "is_locked": false,
+      "blueprint_id": 451,
+      "user_id": 15433811,
+      "shop_id": 12043562,
+      "print_provider_id": 10,
+      "print_areas": [
+        {
+          "variant_ids": [
+            63246,
+            63247,
+            63248,
+            63249,
+            63250,
+            63251
+          ],
+          "placeholders": [
+            {
+              "position": "front_right",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.620020214733871,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "front_left",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.620020214733871,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                },
+                {
+                  "id": "6995fafee0068a54871a8000",
+                  "name": "IMG_1936.png",
+                  "type": "image/png",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.35867992822130673,
+                  "y": 0.37099341942877684,
+                  "scale": 0.2826401435573861,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/eb0ddb19-60bb-4caf-b6b2-c5e461bbfa3c"
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "back",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.3196382047878877,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "right_sleeve",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.3616482850293939,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "left_sleeve",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.3616482850293939,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "right_hood",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.6793501541033274,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "left_hood",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.6793501541033274,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "pocket_right",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.9310423825887741,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "pocket_left",
+              "images": [
+                {
+                  "id": "6992280438f2ee2cc65ca3c5",
+                  "name": "IMG_1810.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.5,
+                  "scale": 0.9310423825887741,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/f17b87b3-5be4-4d95-b7c5-0fd751d24b26",
+                  "pattern": {
+                    "spacing_x": 1,
+                    "spacing_y": 1,
+                    "angle": 0,
+                    "offset": 0
+                  }
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "right_cuff_panel",
+              "images": [
+                {
+                  "id": "6996b04f14989f756a298f50",
+                  "name": "IMG_1941.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.46557995581754885,
+                  "y": 0.3767145143400794,
+                  "scale": 2.3088419843583217,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/d8428bfe-cec8-4022-acde-fa06d370ae20"
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "left_cuff_panel",
+              "images": [
+                {
+                  "id": "6996b04f14989f756a298f50",
+                  "name": "IMG_1941.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.4999999999999999,
+                  "y": 0.3866117086408327,
+                  "scale": 2.5,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/d8428bfe-cec8-4022-acde-fa06d370ae20"
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "waistband",
+              "images": [
+                {
+                  "id": "6996b04f14989f756a298f50",
+                  "name": "IMG_1941.jpeg",
+                  "type": "image/jpeg",
+                  "height": 1024,
+                  "width": 1024,
+                  "x": 0.5,
+                  "y": 0.2790469728682643,
+                  "scale": 1,
+                  "angle": 0,
+                  "src": "https://pfy-prod-image-storage.s3.us-east-2.amazonaws.com/15433811/d8428bfe-cec8-4022-acde-fa06d370ae20"
+                }
+              ],
+              "decoration_method": "aop"
+            },
+            {
+              "position": "all",
+              "images": [],
+              "decoration_method": "aop"
+            }
+          ],
+          "background": "#ffffff"
+        }
+      ],
+      "print_details": [],
+      "sales_channel_properties": [],
+      "is_printify_express_eligible": false,
+      "is_printify_express_enabled": false,
+      "is_economy_shipping_eligible": true,
+      "is_economy_shipping_enabled": false,
+      "is_deleted": false,
+      "original_product_id": "",
+      "views": [
+        {
+          "id": 83393,
+          "label": "Front right",
+          "position": "front_right",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/631b2116174f5066ca0759d4.svg",
+              "variant_ids": [
+                63246,
+                63247,
+                63248,
+                63249,
+                63250,
+                63251
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10846,
+          "label": "Front left",
+          "position": "front_left",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d9c8b82c92a2a02ac3662dd.svg",
+              "variant_ids": [
+                63246,
+                63247,
+                63248,
+                63249,
+                63250,
+                63251
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10779,
+          "label": "Back side",
+          "position": "back",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d9ae61ccf4e077eb561b028.svg",
+              "variant_ids": [
+                63246,
+                63247,
+                63248,
+                63249,
+                63250,
+                63251
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10769,
+          "label": "Right sleeve",
+          "position": "right_sleeve",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d9ae1d58bb77340c7729745.svg",
+              "variant_ids": [
+                63246,
+                63247,
+                63248,
+                63249,
+                63250,
+                63251
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10768,
+          "label": "Left sleeve",
+          "position": "left_sleeve",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d9ae1b44e699c71a202db03.svg",
+              "variant_ids": [
+                63246,
+                63247,
+                63248,
+                63249,
+                63250,
+                63251
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10770,
+          "label": "Right hood",
+          "position": "right_hood",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d9ae1e932345a5ce56f1e1c.svg",
+              "variant_ids": [
+                63246,
+                63247,
+                63248,
+                63249,
+                63250,
+                63251
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10771,
+          "label": "Left hood",
+          "position": "left_hood",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d9ae1fa4e699c71a202db06.svg",
+              "variant_ids": [
+                63246,
+                63247,
+                63248,
+                63249,
+                63250,
+                63251
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10849,
+          "label": "Pocket right",
+          "position": "pocket_right",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d9c8e76c92a2a02ac3662e3.svg",
+              "variant_ids": [
+                63246,
+                63247,
+                63248,
+                63249,
+                63250,
+                63251
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10848,
+          "label": "Pocket left",
+          "position": "pocket_left",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d9c8e67c92a2a02ac3662e0.svg",
+              "variant_ids": [
+                63246,
+                63247,
+                63248,
+                63249,
+                63250,
+                63251
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10844,
+          "label": "Right cuff panel",
+          "position": "right_cuff_panel",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d9c8335c92a2a02ac3662d4.svg",
+              "variant_ids": [
+                63246,
+                63247,
+                63248,
+                63249,
+                63250,
+                63251
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10775,
+          "label": "Left cuff panel",
+          "position": "left_cuff_panel",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d9ae385cf4e077eb561b01c.svg",
+              "variant_ids": [
+                63246,
+                63247,
+                63248,
+                63249,
+                63250,
+                63251
+              ]
+            }
+          ]
+        },
+        {
+          "id": 10780,
+          "label": "Waistband",
+          "position": "waistband",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/5d9b0eda32345a5ce56f1e37.svg",
+              "variant_ids": [
+                63246,
+                63247,
+                63248,
+                63249,
+                63250,
+                63251
+              ]
+            }
+          ]
+        },
+        {
+          "id": 20148,
+          "label": "All areas",
+          "position": "all",
+          "files": [
+            {
+              "src": "https://images.printify.com/api/catalog/631b228a41ea4705d50d352f.svg",
+              "variant_ids": [
+                63246,
+                63247,
+                63248,
+                63249,
+                63250,
+                63251
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "699abcd0c7c3be94ff0c20ad",
       "title": "Red Black Plaid Glitch Zip Hoodie | All-Over Print Hoodie",
       "description": "A bold, all-over zip hoodie that walks the line between grunge and cabin-core. The red-and-black distorted plaid wraps every seam, giving a lived-in, layered look that feels like a favorite flannel reimagined in streetwear form. The roomy hood and front pockets make it easy to slide into on a chilly morning commute or after a day chopping wood at the lake. Subtle cuff and hem lettering and a contrasting black zipper add an urban edge while the medium-weight knit keeps the silhouette structured without feeling bulky. Wear it pulled up for quiet warmth or unzipped over a tee when the sun comes out \u2014 it blends city grit and rustic comfort in one wearable statement.\n\nProduct features\n- All-over print with bright, intense colors\n- Durable 100% polyester; medium weight (7.4 oz/yd\u00b2)\n- Spacious front pockets for hand warmth\n- Classic fit with custom cut-and-sewn construction\n- Black zipper, white thread accents, assembled in the USA\n\nCare instructions\n- Do not dryclean\n- Do not iron\n- Tumble dry: low heat\n- Do not bleach\n- Machine wash: cold (max 30C or 90F)\n",
@@ -5824,6 +10673,6 @@
   "path": "/",
   "per_page": 50,
   "prev_page_url": null,
-  "to": 10,
-  "total": 10
+  "to": 18,
+  "total": 18
 }
