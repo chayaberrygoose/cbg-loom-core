@@ -21,16 +21,17 @@ class Fabricator:
         }
 
     def _load_token(self) -> str:
-        """Loads the Printify API token from the environment file."""
-        # Assuming run from repo root or similar structure
-        # Adjust path logic as needed based on where this script is called
+        """Loads the Printify API token from the environment file or environment variables."""
+        from dotenv import load_dotenv
+        load_dotenv()
+        
+        token = os.getenv("printify_api_key") or os.getenv("PRINTIFY_API_KEY") or os.getenv("printify_api_token")
+        if token:
+            return token
+
+        # Fallback to legacy file-based loading
         current_file = Path(__file__)
-        # Walk up to finding .env or similar. 
-        # Based on previous context: ~/repos/cbg-loom-core/.env/printify_api_token.txt
-        # If this file is in agents/skills/fabricator/fabricator.py
-        # root is 3 levels up
         root_dir = current_file.parent.parent.parent.parent
-        # Check for both spellings (typo handling)
         token_path = root_dir / ".env" / "printify_api_token.txt"
         if not token_path.exists():
             token_path = root_dir / ".env" / "prinitfy_api_token.txt"
