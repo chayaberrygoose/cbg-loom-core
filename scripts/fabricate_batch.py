@@ -20,16 +20,23 @@ def main():
         
     print(f"Found {len(templates)} templates.")
     
-    # Pick a random template
-    template = random.choice(templates)
-    print(f"Selected template: {template['title']} ({template['id']})")
+    # Find the shorts template
+    shorts_template = next((t for t in templates if "Shorts" in t['title']), None)
     
-    # Fabricate
-    try:
-        fab.fabricate_from_template(template['id'])
-        print("Fabrication successful!")
-    except Exception as e:
-        print(f"Fabrication failed: {e}")
+    if not shorts_template:
+        print("Could not find a template for Shorts.")
+        return
+        
+    print(f"Selected template: {shorts_template['title']} ({shorts_template['id']})")
+    
+    # Fabricate 5 times
+    for i in range(5):
+        print(f"\n--- Fabricating Short {i+1}/5 ---")
+        try:
+            fab.fabricate_from_template(shorts_template['id'])
+            print(f"Fabrication {i+1} successful!")
+        except Exception as e:
+            print(f"Fabrication {i+1} failed: {e}")
 
 if __name__ == "__main__":
     main()
