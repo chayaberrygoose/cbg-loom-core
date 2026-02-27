@@ -81,10 +81,16 @@ def _classify_graphic_type(prompt: str) -> str:
     
     return list(definitions.keys())[0] if definitions else "standalone"
 
-def generate_nano_banana_image(prompt, output_path=None, graphic_type_override=None):
+def generate_nano_banana_image(prompt, output_path=None, graphic_type_override=None, image_context=None):
     """
     Synthesizes visual specimens via the Nanobanana (Gemini 3.1 Flash Image) protocol.
     Directs output to the appropriate artifact routing directory.
+    
+    Args:
+        prompt (str): The synthesis directive.
+        output_path (str, optional): Manual output path override.
+        graphic_type_override (str, optional): Role-based routing override (tiles/textures/mockups).
+        image_context (PIL.Image.Image, optional): Reference image to guide synthesis.
     """
     print(f"🎨 [SIGNAL_BROADCAST]: Sending prompt to Nanobanana: {prompt}")
     
@@ -103,9 +109,13 @@ def generate_nano_banana_image(prompt, output_path=None, graphic_type_override=N
     
     try:
         # 2. Call the Model
+        contents = [prompt]
+        if image_context:
+            contents.append(image_context)
+            
         response = client.models.generate_content(
             model="gemini-3.1-flash-image-preview",
-            contents=prompt,
+            contents=contents,
             config=types.GenerateContentConfig(
                 response_modalities=["IMAGE", "TEXT"],
                 image_config=types.ImageConfig(
