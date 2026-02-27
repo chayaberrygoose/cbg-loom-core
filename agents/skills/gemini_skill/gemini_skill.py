@@ -23,7 +23,7 @@ def initialize_loom_uplink():
             # __file__ is /.../agents/skills/gemini_skill/gemini_skill.py
             current_dir = os.path.dirname(os.path.abspath(__file__))
             repo_root = os.path.dirname(os.path.dirname(os.path.dirname(current_dir)))
-            key_path = os.path.join(repo_root, ".env", "gemini_api_key")
+            key_path = os.path.join(repo_root, ".env", "gemini_api_key.txt")
             
             if os.path.exists(key_path):
                 with open(key_path, "r") as f:
@@ -32,7 +32,7 @@ def initialize_loom_uplink():
             pass
 
     if not api_key:
-        print("[SYSTEM_ERROR]: GOOGLE_API_KEY not found in environment or .env/gemini_api_key.")
+        print("[SYSTEM_ERROR]: GOOGLE_API_KEY not found in environment or .env/gemini_api_key.txt.")
         return None
     
     genai.configure(api_key=api_key)

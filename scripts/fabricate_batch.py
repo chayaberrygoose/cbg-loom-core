@@ -20,23 +20,19 @@ def main():
         
     print(f"Found {len(templates)} templates.")
     
-    # Find the shorts template
-    shorts_template = next((t for t in templates if "Shorts" in t['title']), None)
-    
-    if not shorts_template:
-        print("Could not find a template for Shorts.")
-        return
+    # Fabricate 5 times for each template
+    for template in templates:
+        print(f"\n==================================================")
+        print(f"Processing Template: {template['title']} ({template['id']})")
+        print(f"==================================================")
         
-    print(f"Selected template: {shorts_template['title']} ({shorts_template['id']})")
-    
-    # Fabricate 5 times
-    for i in range(5):
-        print(f"\n--- Fabricating Short {i+1}/5 ---")
-        try:
-            fab.fabricate_from_template(shorts_template['id'])
-            print(f"Fabrication {i+1} successful!")
-        except Exception as e:
-            print(f"Fabrication {i+1} failed: {e}")
+        for i in range(5):
+            print(f"\n--- Fabricating Specimen {i+1}/5 ---")
+            try:
+                fab.fabricate_from_template(template['id'])
+                print(f"Fabrication {i+1} successful!")
+            except Exception as e:
+                print(f"Fabrication {i+1} failed: {e}")
 
 if __name__ == "__main__":
     main()

@@ -135,6 +135,7 @@ class Fabricator:
         # 3. Pick Random Graphics for Each Role
         graphics_path = Path(graphics_dir)
         role_to_new_image_id = {}
+        chosen_prompts = []
         
         for original_id, role in image_roles.items():
             # Pick a random image from the corresponding folder
@@ -156,6 +157,18 @@ class Fabricator:
                 
             chosen_image = random.choice(images)
             print(f"// SELECTED_ARTIFACT for {role}: {chosen_image.name}")
+            
+            # Try to read prompt.txt
+            prompt_file = chosen_image.parent / "prompt.txt"
+            if prompt_file.exists():
+                try:
+                    content = prompt_file.read_text()
+                    for line in content.splitlines():
+                        if line.startswith("prompt:"):
+                            chosen_prompts.append(line.replace("prompt:", "").strip())
+                            break
+                except Exception:
+                    pass
             
             # Upload the chosen image
             new_image_id = self.upload_image(local_path=str(chosen_image), file_name=f"fabricated_{role}_{chosen_image.name}")
@@ -214,6 +227,20 @@ class Fabricator:
         # Generate a new title
         base_title = source.get('title', '').replace('[TEMPLATE]: ', '').strip()
         new_title = f"CBG Studio | {base_title} - Fabricated"
+        
+        if chosen_prompts:
+            try:
+                from agents.skills.gemini_skill.gemini_skill import initialize_loom_uplink, generate_specimen_data
+                loom_model = initialize_loom_uplink()
+                if loom_model:
+                    prompts_str = " | ".join(chosen_prompts)
+                    sys_prompt = f"You are a naming assistant for Chaya Berry Goose (CBG), an Industrial Noir/Tech-Wear brand. Generate a product name for a '{base_title}'. The design incorporates the following visual elements: {prompts_str}. Keep the name concise, clinical, and high-fidelity (e.g., 'Obsidian ISO AOP Shirt', 'Sanctuary Schematic Hoodie'). Return ONLY the name, nothing else. Do not use quotes."
+                    generated_name = generate_specimen_data(loom_model, sys_prompt).strip().strip('"').strip("'")
+                    if generated_name and not generated_name.startswith("["):
+                        new_title = f"CBG Studio | {generated_name}"
+            except Exception as e:
+                print(f"!! [WARNING]: Failed to generate title with Gemini: {e}")
+
         if len(new_title) > 100:
             new_title = new_title[:97] + "..."
 
