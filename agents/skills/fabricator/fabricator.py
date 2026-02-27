@@ -257,18 +257,29 @@ class Fabricator:
         base_title = source.get('title', '').replace('[TEMPLATE]: ', '').strip()
         new_title = f"CBG Studio | {base_title} - Fabricated"
         
+        # [PROTOCOL_UPDATE]: Re-enabling Title Generation via Nanobanana Synthesis Logic
         if chosen_prompts:
             try:
-                from agents.skills.gemini_skill.gemini_skill import initialize_loom_uplink, generate_specimen_data
-                loom_model = initialize_loom_uplink()
-                if loom_model:
-                    prompts_str = " | ".join(chosen_prompts)
-                    sys_prompt = f"You are a naming assistant for Chaya Berry Goose (CBG), an Industrial Noir/Tech-Wear brand. Generate a product name for a '{base_title}'. The design incorporates the following visual elements: {prompts_str}. Keep the name concise, clinical, and high-fidelity (e.g., 'Obsidian ISO AOP Shirt', 'Sanctuary Schematic Hoodie'). Return ONLY the name, nothing else. Do not use quotes."
-                    generated_name = generate_specimen_data(loom_model, sys_prompt).strip().strip('"').strip("'")
-                    if generated_name and not generated_name.startswith("["):
-                        new_title = f"CBG Studio | {generated_name}"
+                # Use the new prompt-based naming ritual
+                from google import genai
+                from google.genai import types
+                
+                api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY") or os.getenv("gemini_api_key")
+                client = genai.Client(api_key=api_key)
+                
+                prompts_str = " | ".join(chosen_prompts)
+                sys_prompt = f"You are a naming architect for Chaya Berry Goose (CBG), an Industrial Noir/Tech-Wear brand. Generate a product name for a '{base_title}'. Narrative Context: {prompts_str}. Requirements: Concise, clinical, high-fidelity (e.g., 'Obsidian ISO Hoodie', 'Sanctuary Schematic Joggers'). Output ONLY the name."
+                
+                response = client.models.generate_content(
+                    model="gemini-2.5-flash", # Confirmed reachable by list_models
+                    contents=sys_prompt
+                )
+                
+                generated_name = response.text.strip().strip('"').strip("'")
+                if generated_name and len(generated_name) < 50:
+                    new_title = f"CBG Studio | {generated_name}"
             except Exception as e:
-                print(f"!! [WARNING]: Failed to generate title with Gemini: {e}")
+                print(f"!! [WARNING]: Narrative synthesis failed: {e}. Using fallback title.")
 
         if len(new_title) > 100:
             new_title = new_title[:97] + "..."

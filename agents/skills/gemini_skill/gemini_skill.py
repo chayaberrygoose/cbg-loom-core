@@ -2,73 +2,109 @@
 # [RESTRICTION]: NO_NANO_BANANA_GENERATION in effect
 
 import os
+import time
+from typing import Optional
 import google.generativeai as genai
 from dotenv import load_dotenv
 
 # Load environment variables
 load_dotenv()
 
-def initialize_loom_uplink():
+def initialize_loom_uplink(model_name: Optional[str] = None):
     """
     Establishes connection to the Synthesis Engine (Gemini API).
-    Required Env Var: GOOGLE_API_KEY
+    Required Env Var: GOOGLE_API_KEY or gemini_api_key
     """
-    api_key = os.getenv("GOOGLE_API_KEY") or os.getenv("googele_api_key")
+    api_key = os.getenv("GOOGLE_API_KEY") or os.getenv("gemini_api_key") or os.getenv("googele_api_key")
     
     if not api_key:
-        # Fallback: check .env/gemini_api_key in the repo root
+        # Fallback: check .env file if load_dotenv didn't work as expected or for direct file read
         try:
-            # Check absolute path from repo root
-            # This file is in agents/skills/gemini_skill/, so repo root is 3 levels up
-            # __file__ is /.../agents/skills/gemini_skill/gemini_skill.py
             current_dir = os.path.dirname(os.path.abspath(__file__))
             repo_root = os.path.dirname(os.path.dirname(os.path.dirname(current_dir)))
-            key_path = os.path.join(repo_root, ".env", "gemini_api_key.txt")
+            env_path = os.path.join(repo_root, ".env")
             
-            if os.path.exists(key_path):
-                with open(key_path, "r") as f:
-                    api_key = f.read().strip()
+            if os.path.exists(env_path):
+                with open(env_path, "r") as f:
+                    for line in f:
+                        if "gemini_api_key=" in line:
+                            api_key = line.split("=", 1)[1].strip().strip('"').strip("'")
+                            break
         except Exception:
             pass
 
     if not api_key:
-        print("[SYSTEM_ERROR]: GOOGLE_API_KEY not found in environment or .env/gemini_api_key.txt.")
+        print("[SYSTEM_ERROR]: GOOGLE_API_KEY or gemini_api_key not found.")
         return None
     
     genai.configure(api_key=api_key)
     
-    # Initialize the model for text generation
-    # Try a list of models in order of likelihood to work/cost
+    # Initialize the model
+    # Priority: User requested model if specified, else flash 2.0
+    if model_name:
+        try:
+            print(f"[SYSTEM_LOG]: Attempting connection to requested model: {model_name}")
+            return genai.GenerativeModel(model_name)
+        except Exception:
+            print(f"[SYSTEM_WARNING]: Failed to connect to {model_name}. Falling back.")
+
     models_to_try = [
         'gemini-2.0-flash', 
         'gemini-1.5-flash',
-        'gemini-1.5-flash-latest',
-        'gemini-pro',
-        'nano-banana-pro-preview' # Last resort per protocol
+        'nano-banana-pro-preview'
     ]
     
-    model = None
-    for model_name in models_to_try:
+    for m_name in models_to_try:
         try:
-           print(f"[SYSTEM_LOG]: Attempting connection to model: {model_name}")
-           # Just initializing doesn't hit the API, need to return the model with the name attached
-           # We will let the generation function handle the fallback or we can test here.
-           # But for now, let's just pick one. 
-           # Actually, standard practice is to configure the model object.
-           model = genai.GenerativeModel(model_name)
-           # We break on the first one that successfully initializes (which is all of them usually)
-           # The error happens at generation time. 
-           # So we need to pass the list to the generation function or store it.
-           break 
+           print(f"[SYSTEM_LOG]: Attempting connection to model: {m_name}")
+           model = genai.GenerativeModel(m_name)
+           print(f"[SYSTEM_LOG]: Loom Uplink Established with {m_name}. Ready for Synthesis.")
+           return model
         except Exception:
             continue
             
-    # Sticking with the simplest change: specific model for now.
-    # Let's hardcode a known free-tier friendly model: gemini-2.0-flash
-    model = genai.GenerativeModel('gemini-2.0-flash')
+    return None
+
+def generate_specimen_image(model, prompt):
+    """
+    Attempts to generate an image using the Gemini model.
+    """
+    if "nanobanana" in prompt.lower() or "nano banana" in prompt.lower():
+        if "override" not in prompt.lower():
+             return "[ACCESS_DENIED]: Protocol [NO_NANO_BANANA_GENERATION] Active. Use override code."
     
-    print("[SYSTEM_LOG]: Loom Uplink Established. Ready for Synthesis.")
-    return model
+    print(f"[SYSTEM_LOG]: Engaging Image Synthesis for Specimen: {prompt}")
+    try:
+        # For Gemini 2.0 Flash, we might need to be specific about the prompt
+        # but usually generate_content handles it if the model supports it.
+        # However, as of now, standard generate_content is text-to-text or multimodal-to-text.
+        # Some experimental versions support text-to-image.
+        response = model.generate_content(prompt)
+        
+        image_saved = False
+        saved_paths = []
+        
+        if response.parts:
+            for i, part in enumerate(response.parts):
+                if hasattr(part, 'inline_data') and part.inline_data:
+                    if 'image' in part.inline_data.mime_type:
+                        data = part.inline_data.data
+                        output_dir = os.path.join("artifacts", "graphics", "specimens")
+                        os.makedirs(output_dir, exist_ok=True)
+                        filename = f"gemini_specimen_{int(time.time())}_{i}.png"
+                        file_path = os.path.join(output_dir, filename)
+                        with open(file_path, "wb") as f:
+                            f.write(data)
+                        saved_paths.append(file_path)
+                        image_saved = True
+        
+        if image_saved:
+            return f"[SYSTEM_SUCCESS]: Image(s) generated: {', '.join(saved_paths)}"
+        else:
+            return f"[SYSTEM_WARNING]: No image data found in response. Text output: {response.text[:200]}"
+            
+    except Exception as e:
+        return f"[SYSTEM_FAILURE]: Image generation failed: {e}"
 
 def generate_specimen_data(model, prompt):
     """

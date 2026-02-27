@@ -1,0 +1,3 @@
+prompt: CBG Studio | Industrial Noir Aesthetics: macro material detail, industrial surface texture, weathered finish, high-fidelity map, industrial noir color palette, phosphor green accents, sharp details, high contrast.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260227_081409
