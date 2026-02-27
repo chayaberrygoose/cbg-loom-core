@@ -39,6 +39,13 @@ STYLE_PRESETS = {
         "sampler": "Euler a",
         "default_type": "tiles",
     },
+    "gritty": {
+        "prompt_suffix": "industrial noir, low-key lighting, deep shadows, gritty texture, high contrast, muted colors, moody atmosphere, heavy grain, clinical precision",
+        "negative": "bright, glowing, neon, white, overexposed, bloom, soft lighting, vibrant, saturated, colorful, cartoonish, illustration",
+        "cfg_scale": 7.5,
+        "sampler": "Euler a",
+        "default_type": "auto",
+    },
 }
 
 
