@@ -1,0 +1,16 @@
+prompt: industrial noir, obsidian, phosphor green accents, cyber-punk, technical grid, logo, emblem, badge, minimalist
+negative_prompt: 
+
+parameters:
+{
+  "prompt": "industrial noir, obsidian, phosphor green accents, cyber-punk, technical grid, logo, emblem, badge, minimalist",
+  "negative_prompt": "",
+  "width": 320,
+  "height": 320,
+  "steps": 6,
+  "cfg_scale": 7.0,
+  "sampler_name": "Euler a",
+  "seed": -1,
+  "batch_size": 1,
+  "n_iter": 1
+}
