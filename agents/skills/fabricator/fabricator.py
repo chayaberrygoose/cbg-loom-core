@@ -95,6 +95,23 @@ class Fabricator:
         templates = [p for p in products if p.get('title', '').startswith('[TEMPLATE]:')]
         return templates
 
+    def _get_prompt_from_path(self, local_path: str) -> Optional[str]:
+        """Looks for a prompt.txt file adjacent to the provided image path."""
+        if not local_path:
+            return None
+        
+        path = Path(local_path)
+        prompt_file = path.parent / "prompt.txt"
+        if prompt_file.exists():
+            try:
+                content = prompt_file.read_text(encoding="utf-8")
+                for line in content.splitlines():
+                    if line.strip().startswith("prompt:"):
+                        return line.replace("prompt:", "", 1).strip()
+            except Exception:
+                pass
+        return None
+
     def fabricate_from_template(self, template_id: str, graphics_dir: str = "artifacts/graphics") -> Dict[str, Any]:
         """
         Clones a template product and replaces its graphics with random ones from the graphics directory.
@@ -158,17 +175,10 @@ class Fabricator:
             chosen_image = random.choice(images)
             print(f"// SELECTED_ARTIFACT for {role}: {chosen_image.name}")
             
-            # Try to read prompt.txt
-            prompt_file = chosen_image.parent / "prompt.txt"
-            if prompt_file.exists():
-                try:
-                    content = prompt_file.read_text()
-                    for line in content.splitlines():
-                        if line.startswith("prompt:"):
-                            chosen_prompts.append(line.replace("prompt:", "").strip())
-                            break
-                except Exception:
-                    pass
+            # Extract prompt if available
+            prompt = self._get_prompt_from_path(str(chosen_image))
+            if prompt:
+                chosen_prompts.append(prompt)
             
             # Upload the chosen image
             new_image_id = self.upload_image(local_path=str(chosen_image), file_name=f"fabricated_{role}_{chosen_image.name}")
@@ -294,6 +304,15 @@ class Fabricator:
         # 1. Get Source
         source = self.get_product(source_product_id)
         
+        # Extract prompts if available
+        cloned_prompts = []
+        body_prompt = self._get_prompt_from_path(new_image_local_path)
+        if body_prompt:
+             cloned_prompts.append(body_prompt)
+        trim_prompt = self._get_prompt_from_path(trim_image_local_path)
+        if trim_prompt:
+             cloned_prompts.append(trim_prompt)
+
         # 2. Upload Artifacts
         new_image_id = self.upload_image(image_url=new_image_url, file_name="fabricated_body.png", local_path=new_image_local_path)
         trim_image_id = None
@@ -447,9 +466,17 @@ class Fabricator:
         if len(new_title) > 100:
             new_title = new_title[:97] + "..."
 
+        # Append prompts to description
+        new_description = source.get('description', '')
+        if cloned_prompts:
+            new_description += "\n\n<h3>Synthesis Directives:</h3>\n<ul>\n"
+            for prompt in cloned_prompts:
+                new_description += f"<li>{prompt}</li>\n"
+            new_description += "</ul>"
+
         payload = {
             "title": new_title,
-            "description": source.get('description'),
+            "description": new_description,
             "blueprint_id": source.get('blueprint_id'),
             "print_provider_id": source.get('print_provider_id'),
             "variants": variants,
