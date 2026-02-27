@@ -6,6 +6,7 @@ This module handles the cloning of Printify products with new swatches.
 import os
 import json
 import requests
+import time
 from pathlib import Path
 from typing import Optional, Dict, Any
 
@@ -89,7 +90,16 @@ class Fabricator:
         else:
             raise ValueError("Must provide either image_url or local_path")
             
-        response = requests.post(url, json=payload, headers=self.headers)
+        # [SIGNAL_RECOVERY]: Handle transient 500/502/504 during file upload
+        max_retries = 3
+        for attempt in range(max_retries):
+            response = requests.post(url, json=payload, headers=self.headers)
+            if response.status_code in [500, 502, 503, 504]:
+                print(f"!! [SIGNAL_WARPING]: {response.status_code} Error. Attempt {attempt+1}/{max_retries}. Retrying in 5s...")
+                time.sleep(5)
+                continue
+            break
+
         response.raise_for_status()
         data = response.json()
         print(f"// ARTIFACT_SECURED: ID {data['id']}")
@@ -102,7 +112,16 @@ class Fabricator:
     def get_templates(self) -> list:
         """Retrieves all products that are marked as templates."""
         url = f"{self.BASE_URL}/shops/{self.shop_id}/products.json"
-        response = requests.get(url, headers=self.headers)
+        
+        # [SIGNAL_RECOVERY]: Handle transient 500/502/504
+        for attempt in range(3):
+            response = requests.get(url, headers=self.headers)
+            if response.status_code >= 500:
+                print(f"!! [SIGNAL_WARPING]: {response.status_code} Error on Template Fetch. Retrying...")
+                time.sleep(5)
+                continue
+            break
+            
         response.raise_for_status()
         products = response.json().get('data', [])
         templates = [p for p in products if p.get('title', '').startswith('[TEMPLATE]:')]

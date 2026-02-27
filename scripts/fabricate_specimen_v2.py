@@ -8,6 +8,7 @@ import random
 import time
 import requests
 import io
+import json
 from pathlib import Path
 from PIL import Image
 from dotenv import load_dotenv
@@ -182,6 +183,19 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None):
                         # [NEW_PROTOCOL]: Injecting into description as gallery upload is restricted for external images
                         fab.add_lifestyle_to_description(product_id, lifestyle_media_id)
                         print(f"✅ [SYSTEM_SUCCESS]: Lifestyle mockup realized and injected into {product_id} description.")
+                        
+                        # [LINKAGE_STAMP]: Archive the relationship between Printify Product and Lifestyle Specimen
+                        mapping_file = Path(lifestyle_path).parent / "product_link.json"
+                        link_data = {
+                            "product_id": product_id,
+                            "product_title": product_title,
+                            "conduit_url": f"https://printify.com/app/store/{fab.shop_id}/products/{product_id}",
+                            "lifestyle_media_id": lifestyle_media_id,
+                            "lifestyle_local_path": lifestyle_path,
+                            "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+                        }
+                        mapping_file.write_text(json.dumps(link_data, indent=4))
+                        print(f"✅ [SYSTEM_LOG]: Linkage secured: {mapping_file}")
                     else:
                         print(f"❌ [SYSTEM_ERROR]: Media upload failed to return ID.")
                 else:
