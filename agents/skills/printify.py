@@ -25,7 +25,7 @@ def run_sync():
     token_path = ROOT_DIR / ".env" / "printify_api_token.txt"
     # The actual folder in artifacts
     local_catalog = ROOT_DIR / "artifacts" / "catalog"
-    remote_mount = Path("/home/cbg/repos/cbg-share/catalog")
+    remote_mount = Path(os.getenv("CBG_SHARE_CATALOG_PATH", "~/repos/cbg-share/catalog")).expanduser()
 
     print(f"--- [SYNC_START]: SHOP_{shop_id} ---")
     

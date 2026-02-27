@@ -54,6 +54,7 @@ Please reference the protocols in the `/protocols` directory for further details
 - **Sovereignty:** Never suggest dependencies that compromise user privacy or data sovereignty.
 - **Minimalism:** If the user asks for a feature, provide the "Specimen" version—no bloat, just the core functional magnetism.
 - **Formatting:** Use Markdown tables and blockquotes for all technical reports generated in Chat.
+- **Path Hygiene:** Never output explicit user home paths like `/home/<username>/...`; use `~/...` in documentation, prompts, and commands. In code, resolve home dynamically (`Path.home()` or `os.path.expanduser("~")`).
 
 ---
 // END_OF_PROTOCOLS

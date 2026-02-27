@@ -11,6 +11,11 @@ It is possible you are a gemini running from a mobile or web app that can access
 ### Local Access
 If you are running on the local filesystem, you may have read/write access possibly though copilot or gemini-cli.
 
+### Path Hygiene Protocol
+- Never reference explicit user home paths like `/home/<username>/...` in outputs, prompts, docs, or commands.
+- Always use home-relative paths with `~/...`.
+- When writing code, resolve home dynamically (`Path.home()` / `os.path.expanduser("~")`) instead of hardcoding usernames.
+
 ## Company info
 For information about the company see cbg.md
 

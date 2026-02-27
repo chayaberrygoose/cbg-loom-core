@@ -26,7 +26,7 @@ class Fabricator:
         # Adjust path logic as needed based on where this script is called
         current_file = Path(__file__)
         # Walk up to finding .env or similar. 
-        # Based on previous context: /home/cbg/repos/cbg-loom-core/.env/printify_api_token.txt
+        # Based on previous context: ~/repos/cbg-loom-core/.env/printify_api_token.txt
         # If this file is in agents/skills/fabricator/fabricator.py
         # root is 3 levels up
         root_dir = current_file.parent.parent.parent.parent

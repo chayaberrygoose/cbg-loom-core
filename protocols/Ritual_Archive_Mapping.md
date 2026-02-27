@@ -12,7 +12,7 @@ This Ritual defines the process for anchoring an external cloud storage (The Arc
 To anchor a new section of The Archive, use the `setup_rclone_mount.sh` script:
 
 ```bash
-/home/cbg/repos/cbg-loom-core/scripts/setup_rclone_mount.sh <remote_name> <mount_path>
+~/repos/cbg-loom-core/scripts/setup_rclone_mount.sh <remote_name> <mount_path>
 ```
 
 ### Example
@@ -20,7 +20,7 @@ To anchor a new section of The Archive, use the `setup_rclone_mount.sh` script:
 Mapping the `cbg-share` remote to `~/repos/cbg-drive`:
 
 ```bash
-/home/cbg/repos/cbg-loom-core/scripts/setup_rclone_mount.sh cbg-share /home/cbg/repos/cbg-drive
+~/repos/cbg-loom-core/scripts/setup_rclone_mount.sh cbg-share ~/repos/cbg-drive
 ```
 
 ## How It Works

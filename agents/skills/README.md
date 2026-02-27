@@ -34,5 +34,6 @@ Incremental behavior
 
 *   **[docx_to_md_skill](./docx_to_md_skill/)**: Convert Word documents to Markdown.
 *   **[rclone_mount_skill](./rclone_mount_skill/)**: Anchor cloud Archives to the local filesystem.
+*   **[stable_diffusion_skill](./stable_diffusion_skill/)**: Send text prompts to Stable Diffusion WebUI (`txt2img`) and save generated specimen images.
 
 ````

@@ -19,7 +19,7 @@ python3 agents/skills/rclone_mount_skill/rclone_mount_skill.py --remote <remote_
 ## Example
 
 ```bash
-python3 agents/skills/rclone_mount_skill/rclone_mount_skill.py --remote cbg-share --path /home/cbg/repos/cbg-share
+python3 agents/skills/rclone_mount_skill/rclone_mount_skill.py --remote cbg-share --path ~/repos/cbg-share
 ```
 
 ## Logic (The Ritual)

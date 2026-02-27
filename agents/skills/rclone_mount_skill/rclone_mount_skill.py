@@ -31,7 +31,7 @@ def setup_rclone_mount(remote_name, mount_path):
     path.mkdir(parents=True, exist_ok=True)
 
     # 2. Define Service Name and File
-    # Convert path to a safe string for service naming: /home/cbg/repos/drive -> home-cbg-repos-drive
+    # Convert path to a safe string for service naming: ~/repos/drive -> home-user-repos-drive
     safe_path = str(path).strip("/").replace("/", "-")
     service_name = f"rclone-{safe_path}"
     service_file = Path(f"~/.config/systemd/user/{service_name}.service").expanduser()
