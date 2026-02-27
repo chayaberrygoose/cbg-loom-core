@@ -17,7 +17,7 @@ if ok:
         width=320,
         height=320,
         steps=6,
-        graphic_type_override="tiles",  # optional: standalone|logos|textures|tiles
+        graphic_type_override="tiles",  # optional: standalone|textures|tiles
     )
     print(result["message"])
     print(result["files"])
@@ -30,7 +30,7 @@ Outputs are routed into `artifacts/graphics/<type>/...` based on graphic type de
 Each generation run creates a subfolder that includes generated image file(s) and `prompt.txt` containing the prompt and parameters.
 You can force the type explicitly using `graphic_type_override`.
 
-CLI note: `scripts/generate_sd_image.py` supports `--type auto|standalone|logos|textures|tiles` (default: `auto`).
+CLI note: `scripts/generate_sd_image.py` supports `--type auto|standalone|textures|tiles` (default: `auto`).
 
 Style notes:
 - `--style realism` for photoreal scenes.

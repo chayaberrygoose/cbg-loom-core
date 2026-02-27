@@ -6,10 +6,6 @@ These are the types of images based on their function in the clothing design. Th
 
 These are standalone images.
 
-## logos
-
-These are logos
-
 ## textures
 
 These are textures that can be used for trim or overlaid on top of other graphics

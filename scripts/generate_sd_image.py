@@ -15,7 +15,7 @@ QUALITY_PRESETS = {
     "balanced": {"width": 384, "height": 384, "steps": 8},
 }
 
-GRAPHIC_TYPES = ["standalone", "logos", "textures", "tiles"]
+GRAPHIC_TYPES = ["standalone", "textures", "tiles"]
 
 STYLE_PRESETS = {
     "none": {

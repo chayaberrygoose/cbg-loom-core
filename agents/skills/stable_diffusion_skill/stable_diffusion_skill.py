@@ -211,7 +211,6 @@ def _load_graphic_type_definitions() -> Dict[str, str]:
     if not readme_path.exists():
         return {
             "standalone": "standalone images",
-            "logos": "logos",
             "textures": "textures for trim or overlays",
             "tiles": "graphics meant to be tiled",
         }
@@ -239,13 +238,16 @@ def _load_graphic_type_definitions() -> Dict[str, str]:
     if not definitions:
         definitions = {
             "standalone": "standalone images",
-            "logos": "logos",
             "textures": "textures for trim or overlays",
             "tiles": "graphics meant to be tiled",
         }
 
     if "anchors" in definitions and "standalone" not in definitions:
         definitions["standalone"] = definitions["anchors"]
+
+    # Ensure we never write to the logos folder
+    if "logos" in definitions:
+        del definitions["logos"]
 
     return definitions
 
@@ -263,11 +265,6 @@ def _classify_graphic_type(prompt: str) -> str:
     if prompt_tokens.intersection(forced_tiles):
         if "tiles" in definitions:
             return "tiles"
-
-    forced_logos = {"logo", "wordmark", "logomark", "brandmark", "emblem", "badge"}
-    if prompt_tokens.intersection(forced_logos):
-        if "logos" in definitions:
-            return "logos"
 
     scored: List[Tuple[str, int]] = []
     for graphic_type, description in definitions.items():
