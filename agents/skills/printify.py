@@ -21,8 +21,11 @@ except ImportError:
 
 def run_sync():
     # Configuration
-    # Shop id is configurable via environment variable `PRINTIFY_SHOP_ID`
-    shop_id = os.getenv("PRINTIFY_SHOP_ID", "12043562")
+    # Shop id must be provided via environment variable `PRINTIFY_SHOP_ID`.
+    shop_id = os.getenv("PRINTIFY_SHOP_ID")
+    if not shop_id:
+        print("ERROR: PRINTIFY_SHOP_ID is not set. Please set PRINTIFY_SHOP_ID in your .env or environment and rerun the sync.")
+        return
     token_path = ROOT_DIR / ".env" / "printify_api_token.txt"
     # The actual folder in artifacts
     local_catalog = ROOT_DIR / "artifacts" / "catalog"

@@ -15,8 +15,10 @@ class Fabricator:
     
     def __init__(self, shop_id: Optional[str] = None):
         # Allow overriding the shop id via argument, otherwise read from environment.
-        # Fallback to legacy shop id for backward compatibility.
-        self.shop_id = shop_id or os.getenv("PRINTIFY_SHOP_ID", "12043562")
+        # Do not fall back to a hardcoded legacy id — require configuration.
+        self.shop_id = shop_id or os.getenv("PRINTIFY_SHOP_ID")
+        if not self.shop_id:
+            raise ValueError("PRINTIFY_SHOP_ID is not set. Please set PRINTIFY_SHOP_ID in your .env or pass shop_id to Fabricator.")
         self.token = self._load_token()
         self.headers = {
             "Authorization": f"Bearer {self.token}",

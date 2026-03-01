@@ -29,7 +29,11 @@ def main():
         "Content-Type": "application/json"
     }
     # Shop id is configurable via environment variable `PRINTIFY_SHOP_ID`
-    shop_id = os.getenv("PRINTIFY_SHOP_ID", "12043562")
+    # Require the shop id to be set via environment variable `PRINTIFY_SHOP_ID`.
+    shop_id = os.getenv("PRINTIFY_SHOP_ID")
+    if not shop_id:
+        print("ERROR: PRINTIFY_SHOP_ID is not set. Please set PRINTIFY_SHOP_ID in your .env or environment and try again.")
+        return
 
     # Load products
     products_path = "artifacts/catalog/products.json"
