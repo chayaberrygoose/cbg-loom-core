@@ -11,7 +11,7 @@ This skill automates the process of fetching products from Printify, downloading
 ## Workflow
 
 1.  **Identify Shop ID and Output path**:
-    *   Default Shop ID: `12043562`
+    *   Shop ID is configurable via the `PRINTIFY_SHOP_ID` environment variable (example: `export PRINTIFY_SHOP_ID=26643316`).
     *   Default Output Directory: `~/repos/cbg-loom-core/artifacts/catalog`
     *   Requires `PRINTIFY_API_TOKEN` environment variable.
 
@@ -20,7 +20,8 @@ This skill automates the process of fetching products from Printify, downloading
 
     ```bash
     export PRINTIFY_API_TOKEN="your_token_here"
-    python3 agents/skills/printify-catalog/scripts/sync_catalog.py <shop_id> artifacts/catalog
+    export PRINTIFY_SHOP_ID="26643316"
+    python3 agents/skills/printify-catalog/scripts/sync_catalog.py $PRINTIFY_SHOP_ID artifacts/catalog
     ```
 
 3.  **Resulting Structure**:

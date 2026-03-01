@@ -28,7 +28,8 @@ def main():
         "Authorization": f"Bearer {token}",
         "Content-Type": "application/json"
     }
-    shop_id = "12043562"
+    # Shop id is configurable via environment variable `PRINTIFY_SHOP_ID`
+    shop_id = os.getenv("PRINTIFY_SHOP_ID", "12043562")
 
     # Load products
     products_path = "artifacts/catalog/products.json"

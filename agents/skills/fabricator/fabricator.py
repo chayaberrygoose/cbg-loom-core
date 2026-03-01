@@ -13,8 +13,10 @@ from typing import Optional, Dict, Any
 class Fabricator:
     BASE_URL = "https://api.printify.com/v1"
     
-    def __init__(self, shop_id: str = "12043562"):
-        self.shop_id = shop_id
+    def __init__(self, shop_id: Optional[str] = None):
+        # Allow overriding the shop id via argument, otherwise read from environment.
+        # Fallback to legacy shop id for backward compatibility.
+        self.shop_id = shop_id or os.getenv("PRINTIFY_SHOP_ID", "12043562")
         self.token = self._load_token()
         self.headers = {
             "Authorization": f"Bearer {self.token}",
