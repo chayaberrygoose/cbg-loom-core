@@ -492,37 +492,14 @@ if __name__ == "__main__":
             print("[SYSTEM_WARNING]: No combos parsed from Remix Protocol.")
         sys.exit(0)
     
-    # --- Resolve target templates (1 iteration per template) ---
-    load_dotenv()
-    fab = Fabricator()
-    all_templates = fab.get_templates()
-    
-    if args.template:
-        target_templates = [t for t in all_templates if args.template.lower() in t['title'].lower()]
-        if not target_templates:
-            print(f"[SYSTEM_ERROR]: No templates matching '{args.template}'.")
-            sys.exit(1)
-    else:
-        target_templates = all_templates
-    
-    total = len(target_templates)
-    random.shuffle(target_templates)
-    print(f"[SYSTEM_LOG]: {total} template(s) queued — 1 specimen per template.")
-    for t in target_templates:
-        print(f"  - {t['title']}")
-    
     # --- Single-theme mode (legacy) ---
     if args.theme:
-        print(f"\n[SYSTEM_LOG]: Single-theme mode: {args.theme}")
-        for i, tmpl in enumerate(target_templates):
-            print(f"\n{'='*60}")
-            print(f"[ITERATION {i+1}/{total}] Template: {tmpl['title']}")
-            print(f"{'='*60}")
-            fabricate_specimen(
-                args.theme,
-                prompt_override=args.prompt,
-                template_id=tmpl['id']
-            )
+        print(f"[SYSTEM_LOG]: Single-theme mode: {args.theme}")
+        fabricate_specimen(
+            args.theme,
+            template_search=args.template,
+            prompt_override=args.prompt,
+        )
         sys.exit(0)
     
     # --- Remix Protocol mode (default) ---
@@ -531,21 +508,16 @@ if __name__ == "__main__":
         print("[SYSTEM_ERROR]: No lore files available. Add .md files to artifacts/lore/.")
         sys.exit(1)
     
-    for i, tmpl in enumerate(target_templates):
-        print(f"\n{'='*60}")
-        print(f"[ITERATION {i+1}/{total}] Template: {tmpl['title']}")
-        print(f"{'='*60}")
-        
-        base_name, breach_name, remix_desc = select_remix_pair(
-            base_override=args.base, breach_override=args.breach
-        )
-        display_theme = f"{base_name} x {breach_name}"
-        
-        fabricate_specimen(
-            theme=display_theme,
-            prompt_override=args.prompt,
-            base_name=base_name,
-            breach_name=breach_name,
-            remix_desc=remix_desc,
-            template_id=tmpl['id']
-        )
+    base_name, breach_name, remix_desc = select_remix_pair(
+        base_override=args.base, breach_override=args.breach
+    )
+    display_theme = f"{base_name} x {breach_name}"
+    
+    fabricate_specimen(
+        theme=display_theme,
+        template_search=args.template,
+        prompt_override=args.prompt,
+        base_name=base_name,
+        breach_name=breach_name,
+        remix_desc=remix_desc,
+    )
