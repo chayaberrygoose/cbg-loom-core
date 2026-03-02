@@ -406,6 +406,14 @@ class Fabricator:
 
             body_html = f"<p>{description}</p>" if description else ""
 
+            # Append blog footer template if available
+            footer_path = os.path.join(os.path.dirname(__file__), "..", "..", "..", "artifacts", "templates", "blog_footer.html")
+            footer_path = os.path.normpath(footer_path)
+            if os.path.exists(footer_path):
+                with open(footer_path, "r") as f:
+                    body_html += f.read()
+                print(f"// BLOG_FOOTER_APPENDED: {footer_path}")
+
             conduit.create_article(
                 blog_id=blog_id,
                 title=title,
