@@ -1,13 +1,13 @@
-# Thermal Breach
+# Brutalist Mesh
 
 ## Description
-Visualizing the extreme heat of a server room on the verge of a meltdown. Infrared gradients and "overheating" artifacts reveal the physical stress of the machine.
+Raw, unpolished architectural data. The sterile side of the Lab—concrete, steel, and unyielding grids. Heavy structural elements providing a foundation for the chaotic signal.
 
 ## Palette
-Molten orange, infrared blue, sulfur yellow, deep manganese
+Concrete Grey, Rebar Rust, Safety Orange, Ink Black
 
 ## Motifs
-Isothermic heat maps, topographical distortion, sensor flares, chemical burns, thermal noise
+Structural blueprints, heavy mesh overlays, warning stripes, raw concrete textures, industrial stencils.
 
 ## Prompt Modifiers
-infrared heat-map gradients, topographical thermal patterns, overheated circuitry glow, sensor-flare artifacts, chemical-wash textures, molten digital noise
+brutalist architectural lines, industrial mesh textures, safety-hazard stenciling, raw concrete substrate, high-contrast structural grid, weathered industrial markings.
