@@ -21,7 +21,42 @@ from google.genai import types
 from agents.skills.nanobanana_skill.nanobanana_skill import generate_nano_banana_image
 from agents.skills.fabricator.fabricator import Fabricator
 
-def generate_context_prompt(theme, role, base_prompt=None):
+LORE_DIR = Path("artifacts/lore")
+
+def load_theme(theme_name: str) -> dict:
+    """
+    Loads a theme from artifacts/lore/<theme_name>.md.
+    Returns dict with keys: name, description, palette, motifs, prompt_modifiers.
+    """
+    theme_file = LORE_DIR / f"{theme_name}.md"
+    if not theme_file.exists():
+        print(f"!! [WARNING]: No lore file for '{theme_name}'. Using name-only fallback.")
+        return {"name": theme_name, "prompt_modifiers": ""}
+
+    content = theme_file.read_text(encoding="utf-8")
+    theme = {"name": theme_name, "description": "", "palette": "", "motifs": "", "prompt_modifiers": ""}
+    current_section = None
+
+    for line in content.splitlines():
+        stripped = line.strip()
+        if stripped.startswith("## "):
+            current_section = stripped[3:].strip().lower().replace(" ", "_")
+            continue
+        if current_section and stripped:
+            existing = theme.get(current_section, "")
+            theme[current_section] = (existing + " " + stripped).strip() if existing else stripped
+
+    return theme
+
+
+def list_available_themes() -> list:
+    """Lists all theme names from artifacts/lore/*.md files."""
+    if not LORE_DIR.exists():
+        return []
+    return sorted([f.stem for f in LORE_DIR.glob("*.md")])
+
+
+def generate_context_prompt(theme, role, base_prompt=None, theme_data=None):
     """
     Synthesizes a role-specific Nanobanana prompt based on the target theme.
     """
@@ -37,7 +72,12 @@ def generate_context_prompt(theme, role, base_prompt=None):
     
     modifier = role_modifiers.get(role, role_modifiers["standalone"])
     
-    return f"CBG Studio | {theme} Aesthetics: {modifier}, industrial noir color palette, phosphor green accents, sharp details, high contrast."
+    # Inject lore-specific prompt modifiers if available
+    lore_modifiers = ""
+    if theme_data and theme_data.get("prompt_modifiers"):
+        lore_modifiers = f", {theme_data['prompt_modifiers']}"
+    
+    return f"CBG Studio | {theme} Aesthetics: {modifier}{lore_modifiers}, industrial noir color palette, phosphor green accents, sharp details, high contrast."
 
 def synthesize_lifestyle_mockup(theme, product_title, mockup_url, style_ref_dir="artifacts/Lifestyle Photo Reference"):
     """
@@ -84,7 +124,11 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None):
     load_dotenv()
     fab = Fabricator()
     
+    # Load theme lore from artifacts/lore/
+    theme_data = load_theme(theme)
     print(f"[SYSTEM_LOG]: Initializing Fabrication Ritual for Theme: {theme}")
+    if theme_data.get("description"):
+        print(f"[SYSTEM_LOG]: Lore loaded — {theme_data['description'][:120]}...")
     
     # 1. Resolve Template
     templates = fab.get_templates()
@@ -107,7 +151,7 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None):
     artifact_paths = {}
 
     for role in roles_to_generate:
-        prompt = generate_context_prompt(theme, role[:-1], base_prompt=prompt_override)
+        prompt = generate_context_prompt(theme, role[:-1], base_prompt=prompt_override, theme_data=theme_data)
         print(f"[SIGNAL_BROADCAST]: Requesting '{role}' synthesis for theme '{theme}'...")
         
         # This will use the updated nanobanana_skill routing to artifacts/graphics/<role>/...
@@ -198,6 +242,24 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None):
                         }
                         mapping_file.write_text(json.dumps(link_data, indent=4))
                         print(f"✅ [SYSTEM_LOG]: Linkage secured: {mapping_file}")
+                        
+                        # [PROTOCOL_UPDATE]: Rename mockup folder to include product ID
+                        old_folder = Path(lifestyle_path).parent
+                        new_folder_name = f"{old_folder.name}__{product_id}"
+                        new_folder = old_folder.parent / new_folder_name
+                        try:
+                            old_folder.rename(new_folder)
+                            print(f"// FOLDER_RENAMED: {new_folder_name}")
+                        except Exception as rename_err:
+                            print(f"!! [WARNING]: Folder rename failed: {rename_err}")
+                        
+                        # [PROTOCOL_UPDATE]: Post blog entry to STATUS: UNVERIFIED
+                        fab.post_blog_for_product(
+                            product_id=product_id,
+                            title=product_title,
+                            description=product.get('description', ''),
+                            mockups_dir=str(new_folder.parent) if new_folder.exists() else "artifacts/graphics/mockups"
+                        )
                     else:
                         print(f"❌ [SYSTEM_ERROR]: Media upload failed to return ID.")
                 else:
@@ -213,10 +275,30 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="CBG Agile Specimen Fabrication Protocol")
-    parser.add_argument("--theme", type=str, required=True, help="Theme for Nanobanana synthesis")
+    parser.add_argument("--theme", type=str, help="Theme for Nanobanana synthesis (omit to pick randomly from artifacts/lore/)")
     parser.add_argument("--template", type=str, help="Search string for target template")
     parser.add_argument("--prompt", type=str, help="Optional manual prompt override")
+    parser.add_argument("--list-themes", action="store_true", help="List available themes and exit")
     
     args = parser.parse_args()
     
-    fabricate_specimen(args.theme, template_search=args.template, prompt_override=args.prompt)
+    if args.list_themes:
+        themes = list_available_themes()
+        if themes:
+            print(f"[SYSTEM_ECHO]: {len(themes)} theme(s) available:")
+            for t in themes:
+                print(f"  - {t}")
+        else:
+            print("[SYSTEM_WARNING]: No theme files found in artifacts/lore/")
+        sys.exit(0)
+    
+    theme = args.theme
+    if not theme:
+        available = list_available_themes()
+        if not available:
+            print("[SYSTEM_ERROR]: No themes available. Add .md files to artifacts/lore/ or pass --theme.")
+            sys.exit(1)
+        theme = random.choice(available)
+        print(f"[SYSTEM_LOG]: Random theme selected: {theme}")
+    
+    fabricate_specimen(theme, template_search=args.template, prompt_override=args.prompt)

@@ -290,44 +290,14 @@ class Fabricator:
             if v.get('is_enabled', True):
                 variants.append({"id": v['id'], "price": v['price'], "is_enabled": True})
 
-        # Generate a new title
-        base_title = source.get('title', '').replace('[TEMPLATE]: ', '').strip()
-        new_title = f"CBG Studio | {base_title} - Fabricated"
-        
-        # [PROTOCOL_UPDATE]: Re-enabling Title Generation via Nanobanana Synthesis Logic
-        if chosen_prompts:
-            try:
-                # Use the new prompt-based naming ritual
-                from google import genai
-                from google.genai import types
-                
-                api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY") or os.getenv("gemini_api_key")
-                client = genai.Client(api_key=api_key)
-                
-                prompts_str = " | ".join(chosen_prompts)
-                sys_prompt = f"You are a naming architect for Chaya Berry Goose (CBG), an Industrial Noir/Tech-Wear brand. Generate a product name for a '{base_title}'. Narrative Context: {prompts_str}. Requirements: Concise, clinical, high-fidelity (e.g., 'Obsidian ISO Hoodie', 'Sanctuary Schematic Joggers'). Output ONLY the name."
-                
-                response = client.models.generate_content(
-                    model="gemini-2.5-flash", # Confirmed reachable by list_models
-                    contents=sys_prompt
-                )
-                
-                generated_name = response.text.strip().strip('"').strip("'")
-                if generated_name and len(generated_name) < 50:
-                    new_title = f"CBG Studio | {generated_name}"
-            except Exception as e:
-                print(f"!! [WARNING]: Narrative synthesis failed: {e}. Using fallback title.")
+        # [PROTOCOL_UPDATE]: Skip lore-based naming — products will be tagged as
+        # UNVERIFIED SPECIMENs and renamed during the curation ritual.
+        new_title = "UNVERIFIED SPECIMEN"  # Placeholder until product ID is known
 
-        if len(new_title) > 100:
-            new_title = new_title[:97] + "..."
-
-        # Append prompts to description
-        new_description = source.get('description', '')
+        # Description = prompts only
+        new_description = ""
         if chosen_prompts:
-            new_description += "\n\n<h3>Synthesis Directives:</h3>\n<ul>\n"
-            for prompt in chosen_prompts:
-                new_description += f"<li>{prompt}</li>\n"
-            new_description += "</ul>"
+            new_description = "\n".join(chosen_prompts)
 
         payload = {
             "title": new_title,
@@ -346,11 +316,107 @@ class Fabricator:
         try:
             response.raise_for_status()
             product = response.json()
-            print(f"--- [FABRICATION_COMPLETE]: ID_{product['id']} ---")
+            product_id = product['id']
+            
+            # [PROTOCOL_UPDATE]: Stamp with UNVERIFIED SPECIMEN tag using product ID
+            specimen_title = f"UNVERIFIED SPECIMEN: {product_id}"
+            self.update_product(product_id, {"title": specimen_title})
+            product['title'] = specimen_title
+            print(f"// SPECIMEN_TAGGED: {specimen_title}")
+            
+            print(f"--- [FABRICATION_COMPLETE]: ID_{product_id} ---")
             return product
         except requests.exceptions.HTTPError as e:
             print(f"!! [SYSTEM_FAILURE]: {response.text}")
             raise e
+
+    def _find_lifestyle_mockup(self, product_id: str, mockups_dir: str = "artifacts/graphics/mockups") -> Optional[str]:
+        """
+        Scans mockup directories for a product_link.json whose product_id matches.
+        Returns the local path to the lifestyle specimen.png, or None.
+        """
+        mockups_path = Path(mockups_dir)
+        if not mockups_path.exists():
+            return None
+
+        # Prefer folders that contain the product ID in their name (new convention)
+        for folder in sorted(mockups_path.iterdir(), key=lambda p: p.name, reverse=True):
+            if not folder.is_dir():
+                continue
+            if product_id in folder.name:
+                specimen = folder / "specimen.png"
+                if specimen.exists():
+                    return str(specimen)
+
+        # Fallback: scan product_link.json files
+        for folder in sorted(mockups_path.iterdir(), key=lambda p: p.name, reverse=True):
+            if not folder.is_dir():
+                continue
+            link_file = folder / "product_link.json"
+            if link_file.exists():
+                try:
+                    data = json.loads(link_file.read_text(encoding="utf-8"))
+                    if data.get("product_id") == product_id:
+                        specimen = folder / "specimen.png"
+                        if specimen.exists():
+                            return str(specimen)
+                except Exception:
+                    continue
+        return None
+
+    def post_blog_for_product(self, product_id: str, title: str = None, description: str = None, mockups_dir: str = "artifacts/graphics/mockups") -> None:
+        """
+        Posts a blog article to the Shopify 'STATUS: UNVERIFIED' blog
+        using the lifestyle mockup image from artifacts/graphics/mockups/ for the given product.
+        """
+        try:
+            from agents.skills.shopify_skill.shopify_skill import ShopifyConduit
+            conduit = ShopifyConduit()
+
+            # Resolve title & description from product if not provided
+            if not title:
+                title = f"UNVERIFIED SPECIMEN: {product_id}"
+            if description is None:
+                description = ""
+
+            # Find (or create) the UNVERIFIED blog
+            blogs = conduit.list_blogs()
+            blog_id = None
+            for b in blogs:
+                if b.get('title', '').strip() == 'STATUS: UNVERIFIED':
+                    blog_id = b['id']
+                    break
+
+            if not blog_id:
+                result = conduit._post('blogs.json', {'blog': {'title': 'STATUS: UNVERIFIED'}})
+                blog_id = result.get('blog', {}).get('id')
+                print(f"// BLOG_CREATED: STATUS: UNVERIFIED (ID {blog_id})")
+
+            # Locate the lifestyle mockup by product ID
+            lifestyle_path = self._find_lifestyle_mockup(product_id, mockups_dir)
+            image_url = None
+
+            if lifestyle_path:
+                print(f"// LIFESTYLE_FOUND: {lifestyle_path}")
+                # Upload to Printify media to get a CDN URL for Shopify
+                media_id = self.upload_image(local_path=lifestyle_path, file_name=f"blog_lifestyle_{product_id}.png")
+                image_url = self.last_upload_src
+            else:
+                print(f"!! [WARNING]: No lifestyle mockup found for product {product_id}. Blog will have no image.")
+
+            body_html = f"<p>{description}</p>" if description else ""
+
+            conduit.create_article(
+                blog_id=blog_id,
+                title=title,
+                body_html=body_html,
+                image_url=image_url,
+                author="Unknown",
+                published=True,
+            )
+            print(f"// BLOG_ENTRY_POSTED: '{title}'")
+        except Exception as e:
+            print(f"!! [WARNING]: Blog post failed: {e}. Fabrication still succeeded.")
 
     def update_product(self, product_id: str, payload: Dict[str, Any]) -> Dict[str, Any]:
         """Updates an existing product's metadata or configuration."""
@@ -536,17 +602,13 @@ class Fabricator:
             if v.get('is_enabled', True):
                 variants.append({"id": v['id'], "price": v['price'], "is_enabled": True})
 
-        new_title = source.get('title') + title_suffix
-        if len(new_title) > 100:
-            new_title = new_title[:97] + "..."
+        # [PROTOCOL_UPDATE]: Skip lore-based naming — tag as UNVERIFIED SPECIMEN after creation
+        new_title = "UNVERIFIED SPECIMEN"  # Placeholder until product ID is known
 
-        # Append prompts to description
-        new_description = source.get('description', '')
+        # Description = prompts only
+        new_description = ""
         if cloned_prompts:
-            new_description += "\n\n<h3>Synthesis Directives:</h3>\n<ul>\n"
-            for prompt in cloned_prompts:
-                new_description += f"<li>{prompt}</li>\n"
-            new_description += "</ul>"
+            new_description = "\n".join(cloned_prompts)
 
         payload = {
             "title": new_title,
@@ -565,7 +627,15 @@ class Fabricator:
         try:
             response.raise_for_status()
             product = response.json()
-            print(f"--- [FABRICATION_COMPLETE]: ID_{product['id']} ---")
+            product_id = product['id']
+            
+            # [PROTOCOL_UPDATE]: Stamp with UNVERIFIED SPECIMEN tag using product ID
+            specimen_title = f"UNVERIFIED SPECIMEN: {product_id}"
+            self.update_product(product_id, {"title": specimen_title})
+            product['title'] = specimen_title
+            print(f"// SPECIMEN_TAGGED: {specimen_title}")
+            
+            print(f"--- [FABRICATION_COMPLETE]: ID_{product_id} ---")
             return product
         except requests.exceptions.HTTPError as e:
             print(f"!! [SYSTEM_FAILURE]: {response.text}")
