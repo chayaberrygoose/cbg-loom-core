@@ -127,6 +127,31 @@ class BlueprintExplorer:
 
         return info
 
+    def get_positions_from_api(self, blueprint_id: int, provider_id: int) -> list:
+        """
+        Fetches actual placeholder positions from the Printify API.
+        Extracts unique positions from variant placeholders.
+        """
+        resp = requests.get(
+            f"{self.BASE_URL}/catalog/blueprints/{blueprint_id}/print_providers/{provider_id}/variants.json",
+            headers=self.headers
+        )
+        if resp.status_code != 200:
+            return []
+        
+        data = resp.json()
+        variants = data.get("variants", [])
+        
+        # Collect unique positions from all variants
+        positions = set()
+        for v in variants:
+            for ph in v.get("placeholders", []):
+                pos = ph.get("position")
+                if pos:
+                    positions.add(pos)
+        
+        return list(positions)
+
     def get_known_positions(self, blueprint_id: int) -> list:
         """
         Returns known placeholder positions for common AOP blueprints.
@@ -164,27 +189,41 @@ class BlueprintExplorer:
         tile_path: str = None,
         texture_path: str = None,
         logo_path: str = None,
-        provider_id: int = 10,  # MWW On Demand is common for AOP
+        provider_id: int = None,  # Auto-detect if not specified
         price_cents: int = 4500
     ) -> dict:
         """
-        Creates a new [TEMPLATE] product from a blueprint.
+        Creates a new [DRAFT] product from a blueprint.
 
         Args:
             blueprint_id: Printify blueprint ID
             tile_path: Path to tiled pattern image (for body)
             texture_path: Path to texture image (for trim)
             logo_path: Path to logo image
-            provider_id: Print provider ID (default: 10 = MWW On Demand)
+            provider_id: Print provider ID (auto-detected if not specified)
             price_cents: Price in cents (default: $45.00)
         """
         bp = self.get_blueprint(blueprint_id)
+        
+        # Auto-detect provider if not specified
+        if provider_id is None:
+            providers = self.get_print_providers(blueprint_id)
+            if not providers:
+                raise ValueError(f"No print providers available for blueprint {blueprint_id}")
+            provider_id = providers[0]["id"]
+            print(f"[SYSTEM_LOG]: Auto-selected provider [{provider_id}] {providers[0].get('title', 'Unknown')}")
+        
         variants = self.get_variants(blueprint_id, provider_id)
-        positions = self.get_known_positions(blueprint_id)
+        
+        # Get actual positions from API
+        positions = self.get_positions_from_api(blueprint_id, provider_id)
+        if not positions:
+            print(f"[SYSTEM_WARNING]: No positions from API, using fallback")
+            positions = self.get_known_positions(blueprint_id)
 
         print(f"[SYSTEM_LOG]: Creating template from Blueprint [{blueprint_id}] {bp['title']}")
         print(f"[SYSTEM_LOG]: Provider ID: {provider_id}, Variants: {len(variants)}")
-        print(f"[SYSTEM_LOG]: Known positions: {positions}")
+        print(f"[SYSTEM_LOG]: Available positions: {positions}")
 
         # Upload images
         tile_id = None
@@ -203,56 +242,20 @@ class BlueprintExplorer:
             print(f"// UPLOADING_LOGO: {logo_path}")
             logo_id = self.upload_image(logo_path, f"template_logo_{blueprint_id}.png")
 
-        # Build print_areas
-        # Strategy: tile on body positions, texture on trim positions, logo on front
-        body_positions = {"front", "back", "left_leg", "right_leg", "front_left", "front_right",
-                          "front_left_leg", "front_right_leg", "back_left_leg", "back_right_leg",
-                          "left_sleeve", "right_sleeve", "pocket", "pocket_left", "pocket_right",
-                          "left_hood", "right_hood"}
-        trim_positions = {"waistband", "front_waistband", "back_waistband", "gusset",
-                          "Collar", "left_cuff_panel", "right_cuff_panel"}
-
+        # Build print_areas - apply tile to ALL positions from API
         placeholders = []
-        for pos in positions:
-            if pos == "all":
-                continue  # Skip "all" - it's a fallback
 
-            images = []
-
-            # Determine what to put in this position
-            if pos in body_positions and tile_id:
-                images.append({
-                    "id": tile_id,
-                    "x": 0.5,
-                    "y": 0.5,
-                    "scale": 0.25,
-                    "angle": 0,
-                    "pattern": {"spacing_x": 1, "spacing_y": 1, "angle": 0, "offset": 0}
-                })
-
-            if pos in trim_positions and texture_id:
-                images.append({
-                    "id": texture_id,
-                    "x": 0.5,
-                    "y": 0.5,
-                    "scale": 1,
-                    "angle": 0
-                })
-
-            # Add logo to front position
-            if pos == "front" and logo_id:
-                images.append({
-                    "id": logo_id,
-                    "x": 0.55,
-                    "y": 0.48,
-                    "scale": 0.15,
-                    "angle": 0
-                })
-
-            if images:
+        if tile_id:
+            for pos in positions:
                 placeholders.append({
                     "position": pos,
-                    "images": images
+                    "images": [{
+                        "id": tile_id,
+                        "x": 0.5,
+                        "y": 0.5,
+                        "scale": 1,
+                        "angle": 0
+                    }]
                 })
 
         # Build variants list
@@ -306,7 +309,7 @@ def main():
     parser.add_argument("--tile", type=str, help="Path to tile image for template creation")
     parser.add_argument("--texture", type=str, help="Path to texture image for template creation")
     parser.add_argument("--logo", type=str, help="Path to logo image for template creation")
-    parser.add_argument("--provider", type=int, default=10, help="Print provider ID (default: 10)")
+    parser.add_argument("--provider", type=int, default=None, help="Print provider ID (auto-detects if not specified)")
     parser.add_argument("--price", type=int, default=4500, help="Price in cents (default: 4500)")
 
     args = parser.parse_args()
@@ -335,10 +338,12 @@ def main():
         print(f"\n=== Blueprint {info['id']}: {info['title']} ===")
         print(f"Brand: {info['brand']}")
         print(f"Description: {info['description']}...")
-        print(f"\nKnown positions: {explorer.get_known_positions(args.inspect)}")
         print(f"\nPrint Providers:")
         for p in info["providers"]:
+            # Get actual positions from API for this provider
+            api_positions = explorer.get_positions_from_api(args.inspect, p['id'])
             print(f"  [{p['id']}] {p['title']} ({p['variant_count']} variants)")
+            print(f"       Positions: {api_positions}")
             for v in p["sample_variants"]:
                 print(f"       - {v.get('title', v.get('id'))}")
         return
