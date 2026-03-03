@@ -57,11 +57,11 @@ product = run()  # zero-config
 
 ## 04_AUTOMATED_FABRICATION
 
-The Loom can run autonomously via cron, extruding one specimen per hour:
+The Loom can run autonomously via cron, extruding specimens every 20 minutes:
 
 ```bash
-# Install hourly cron job
-(crontab -l 2>/dev/null | grep -v fabricate_cron; echo "0 * * * * ~/repos/cbg-loom-core/scripts/fabricate_cron.sh") | crontab -
+# Install cron job (every 20 minutes)
+(crontab -l 2>/dev/null | grep -v fabricate_cron; echo "*/20 * * * * ~/repos/cbg-loom-core/scripts/fabricate_cron.sh") | crontab -
 
 # Verify
 crontab -l
