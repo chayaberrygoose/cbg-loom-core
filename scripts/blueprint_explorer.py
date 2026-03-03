@@ -51,19 +51,34 @@ class BlueprintExplorer:
         return [b for b in blueprints if "AOP" in b.get("title", "") or "All Over" in b.get("title", "")]
 
     def get_used_blueprint_ids(self) -> set:
-        """Returns set of blueprint IDs already in use in the shop."""
+        """
+        Returns set of blueprint IDs already in use in the shop.
+        Only considers products with [DRAFT] or [TEMPLATE] in the title
+        and excludes deleted products.
+        """
         resp = requests.get(f"{self.BASE_URL}/shops/{self.shop_id}/products.json", headers=self.headers)
         resp.raise_for_status()
         products = resp.json().get("data", [])
         
         used = set()
         for p in products:
+            title = p.get("title", "")
+            # Only consider [DRAFT] or [TEMPLATE] products
+            if "[DRAFT]" not in title and "[TEMPLATE]" not in title:
+                continue
+            
             resp2 = requests.get(
                 f"{self.BASE_URL}/shops/{self.shop_id}/products/{p['id']}.json",
                 headers=self.headers
             )
             if resp2.status_code == 200:
-                bp_id = resp2.json().get("blueprint_id")
+                product_data = resp2.json()
+                # Skip deleted products
+                if product_data.get("is_deleted", False):
+                    continue
+                if not product_data.get("visible", True):
+                    continue
+                bp_id = product_data.get("blueprint_id")
                 if bp_id:
                     used.add(bp_id)
         return used
