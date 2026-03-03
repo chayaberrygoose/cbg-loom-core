@@ -12,29 +12,57 @@ This repository serves as the central nervous system for **Chaya Berry Goose**. 
 Here, the process is the product. Every commit is a layer of digital amber.
 
 ## 02_THE_LOOM_PIPELINE
-The CBG workflow is a recursive loop between AI synthesis and physical extrusion:
-1. **SYNTHESIS:** Gemini-driven prototype generation & swatch engineering.
-2. **EXTRUSION:** Manual Midjourney execution and Printify product mapping.
-3. **VALIDATION:** JSON-based technical audit and terminal copy generation.
+The fabrication pipeline is fully automated — a single command extrudes an UNVERIFIED SPECIMEN from lore to storefront:
 
-## 03_TECHNICAL_LOGS
-* **Inventory Feed:** Live tracking of the 14+ initial specimens via `products.json`.
-* **Hardware:** Raspberry Pi polling station (Printify API > G-Drive Sync).
-* **Environment:** GCP Cloud Run (Narrative Terminal).
+```bash
+python3 scripts/fabricate.py
+```
 
-## 04_BRAND_METADATA
-| Field | Value |
+**Pipeline sequence:**
+1. **REMIX PROTOCOL:** Two lore themes are selected as Base (Structure) and Breach (Interference) and fused via the [Remix Protocol](protocols/Remix%20Protocol.md).
+2. **SYNTHESIS:** Gemini generates seamless tiles and textures from the fused lore prompt.
+3. **EXTRUSION:** Graphics are mapped onto a Printify garment template (Hoodie, Joggers, Leggings, Sports Bra, Shorts, Tee, etc.) and published as a product.
+4. **LIFESTYLE REALIZATION:** A lifestyle mockup is synthesized via Gemini, stamped with the STATUS: UNVERIFIED mark, and uploaded.
+5. **BLOG DISPATCH:** An article is posted to the `STATUS: UNVERIFIED` Shopify blog with the lifestyle image and a call for external field analysts.
+
+**Options:**
+```bash
+# Specific remix pair:
+python3 scripts/fabricate.py --base "Obsidian Circuit" --breach "Thermal Breach"
+
+# Specific garment:
+python3 scripts/fabricate.py --template "Hoodie"
+
+# Single lore theme (legacy):
+python3 scripts/fabricate.py --theme "Phantom Grid"
+```
+
+**Programmatic (for agents):**
+```python
+from scripts.fabricate import run
+product = run()  # zero-config
+```
+
+## 04_LORE_ARCHIVE
+Lore themes drive every specimen's visual language. Each theme defines a palette, motifs, and prompt modifiers consumed by the Remix Protocol.
+
+| Theme | File |
 | :--- | :--- |
-| **Identity** | Chaya Berry Goose (Master) // CBG Studio (Lab) |
-| **Aesthetic** | Industrial Noir / Sub-Atomic Logic |
-| **Palette** | Obsidian #000000 / Phosphor #39FF14 / Ash #E5E5E5 |
-| **Typography** | Roboto Mono / Space Mono (Clinical Interface) |
+| Brutalist Mesh | `artifacts/lore/Brutalist Mesh.md` |
+| Gilded Jitter | `artifacts/lore/Gilded Jitter.md` |
+| Neon Siphon | `artifacts/lore/Neon Siphon.md` |
+| Obsidian Circuit | `artifacts/lore/Obsidian Circuit.md` |
+| Phantom Grid | `artifacts/lore/Phantom Grid.md` |
+| Sub-Atomic Bloom | `artifacts/lore/Sub-Atomic Bloom.md` |
+| Thermal Breach | `artifacts/lore/Thermal Breach.md` |
+
+Add new themes by dropping a `.md` file into `artifacts/lore/` with `## Description`, `## Palette`, `## Motifs`, and `## Prompt Modifiers` sections.
 
 ---
 
 ## 05_ACCESS_PROTOCOL
 * [ ] **Public Terminal:** [chayaberrygoose.com](https://www.chayaberrygoose.com)
-* [ ] **Commerce Probe:** [Etsy Storefront](https://etsy.com/shop/chayaberrygoose)
+* [ ] **Commerce Probe:** [CBG Studio Shopify](https://cbg.studio)
 * [ ] **Visual Archive:** [Pinterest](https://pinterest.com/chayaberrygoose)
 
 ---
