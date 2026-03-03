@@ -25,6 +25,7 @@ from agents.skills.fabricator.fabricator import Fabricator
 LORE_DIR = Path("artifacts/lore")
 PROTOCOL_DIR = Path("protocols")
 STAMP_PATH = Path("artifacts/graphics/logos/repo_portal_qr.png")
+TEMPLATE_HISTORY_PATH = Path("artifacts/.last_template_id")
 
 def load_theme(theme_name: str) -> dict:
     """
@@ -295,6 +296,12 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
     
     # 1. Resolve Template
     templates = fab.get_templates()
+
+    # Load last-used template to avoid repeats
+    last_template_id = None
+    if TEMPLATE_HISTORY_PATH.exists():
+        last_template_id = TEMPLATE_HISTORY_PATH.read_text().strip()
+
     if template_id:
         # Direct template ID provided (e.g. from per-template iteration)
         template = next((t for t in templates if t['id'] == template_id), None)
@@ -305,12 +312,21 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
         target_templates = [t for t in templates if template_search.lower() in t['title'].lower()]
         if not target_templates:
             print(f"[SYSTEM_WARNING]: No template matching '{template_search}' found. Selecting random.")
-            template = random.choice(templates)
-        else:
-            template = random.choice(target_templates)
+            target_templates = templates
+        # Exclude last-used from candidates when possible
+        filtered = [t for t in target_templates if t['id'] != last_template_id]
+        template = random.choice(filtered if filtered else target_templates)
     else:
-        template = random.choice(templates)
-    
+        # Exclude last-used from random pool when possible
+        filtered = [t for t in templates if t['id'] != last_template_id]
+        template = random.choice(filtered if filtered else templates)
+
+    # Persist this selection to prevent immediate repeats
+    try:
+        TEMPLATE_HISTORY_PATH.write_text(template['id'])
+    except Exception:
+        pass  # Non-critical
+
     print(f"[SYSTEM_LOG]: Selected Template: {template['title']} (ID: {template['id']})")
     
     # 2. Analyze Roles for the Template
