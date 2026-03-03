@@ -11,10 +11,22 @@ This repository serves as the central nervous system for **Chaya Berry Goose**. 
 
 Here, the process is the product. Every commit is a layer of digital amber.
 
-## 02_THE_LOOM_PIPELINE
+## 02_SETUP
+
+**Create virtual environment and install dependencies:**
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+**Required environment variables** (add to `.env` file):
+
+## 03_THE_LOOM_PIPELINE
 The fabrication pipeline is fully automated — a single command extrudes an UNVERIFIED SPECIMEN from lore to storefront:
 
 ```bash
+source .venv/bin/activate
 python3 scripts/fabricate.py
 ```
 
@@ -43,7 +55,7 @@ from scripts.fabricate import run
 product = run()  # zero-config
 ```
 
-## 04_LORE_ARCHIVE
+## 05_LORE_ARCHIVE
 Lore themes drive every specimen's visual language. Each theme defines a palette, motifs, and prompt modifiers consumed by the Remix Protocol.
 
 | Theme | File |
@@ -60,7 +72,7 @@ Add new themes by dropping a `.md` file into `artifacts/lore/` with `## Descript
 
 ---
 
-## 05_ACCESS_PROTOCOL
+## 06_ACCESS_PROTOCOL
 * [ ] **Public Terminal:** [chayaberrygoose.com](https://www.chayaberrygoose.com)
 * [ ] **Commerce Probe:** [CBG Studio Shopify](https://cbg.studio)
 * [ ] **Visual Archive:** [Pinterest](https://pinterest.com/chayaberrygoose)
