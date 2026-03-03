@@ -55,7 +55,25 @@ from scripts.fabricate import run
 product = run()  # zero-config
 ```
 
-## 05_LORE_ARCHIVE
+## 04_AUTOMATED_FABRICATION
+
+The Loom can run autonomously via cron, extruding one specimen per hour:
+
+```bash
+# Install hourly cron job
+(crontab -l 2>/dev/null | grep -v fabricate_cron; echo "0 * * * * ~/repos/cbg-loom-core/scripts/fabricate_cron.sh") | crontab -
+
+# Verify
+crontab -l
+
+# Remove the job
+crontab -l | grep -v fabricate_cron | crontab -
+
+# Monitor logs
+tail -f /tmp/cbg_fabricate.log
+```
+
+## 06_LORE_ARCHIVE
 Lore themes drive every specimen's visual language. Each theme defines a palette, motifs, and prompt modifiers consumed by the Remix Protocol.
 
 | Theme | File |
@@ -72,7 +90,7 @@ Add new themes by dropping a `.md` file into `artifacts/lore/` with `## Descript
 
 ---
 
-## 06_ACCESS_PROTOCOL
+## 07_ACCESS_PROTOCOL
 * [ ] **Public Terminal:** [chayaberrygoose.com](https://www.chayaberrygoose.com)
 * [ ] **Commerce Probe:** [CBG Studio Shopify](https://cbg.studio)
 * [ ] **Visual Archive:** [Pinterest](https://pinterest.com/chayaberrygoose)
