@@ -73,6 +73,38 @@ crontab -l | grep -v fabricate_cron | crontab -
 tail -f /tmp/cbg_fabricate.log
 ```
 
+## 05_BLUEPRINT_EXPLORATION
+
+Expand the catalog by creating draft templates from unused Printify AOP blueprints:
+
+```bash
+source .venv/bin/activate
+
+# Create a random draft from an unused blueprint
+python3 scripts/random_draft.py
+
+# Preview without creating
+python3 scripts/random_draft.py --dry-run
+
+# Override graphics selection
+python3 scripts/random_draft.py --tile path/to/tile.png --logo path/to/logo.png
+```
+
+**Explore available blueprints:**
+```bash
+# List all AOP blueprints
+python3 scripts/blueprint_explorer.py --list
+
+# List only unused blueprints
+python3 scripts/blueprint_explorer.py --unused
+
+# Inspect a specific blueprint (positions, providers, variants)
+python3 scripts/blueprint_explorer.py --inspect 740
+
+# Create template from specific blueprint
+python3 scripts/blueprint_explorer.py --create 740 --tile path/to/tile.png
+```
+
 ## 06_LORE_ARCHIVE
 Lore themes drive every specimen's visual language. Each theme defines a palette, motifs, and prompt modifiers consumed by the Remix Protocol.
 
