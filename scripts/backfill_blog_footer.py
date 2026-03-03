@@ -10,13 +10,17 @@ Usage:
 """
 
 import argparse
+import importlib.util
 import os
 import re
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
-
-from agents.skills.shopify_skill.shopify_skill import ShopifyConduit
+# Direct import to avoid triggering agents/skills/__init__.py which pulls heavy deps
+_skill_path = os.path.join(os.path.dirname(__file__), "..", "agents", "skills", "shopify_skill", "shopify_skill.py")
+_spec = importlib.util.spec_from_file_location("shopify_skill", _skill_path)
+_shopify_module = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_shopify_module)
+ShopifyConduit = _shopify_module.ShopifyConduit
 
 BLOG_TITLE = "STATUS: UNVERIFIED"
 FOOTER_PATH = os.path.join(os.path.dirname(__file__), "..", "artifacts", "templates", "blog_footer.html")
@@ -29,7 +33,41 @@ FOOTER_STRIP_RE = re.compile(r'\s*<hr>\s*<p><strong>\[NOTICE: EXTERNAL_LAB_ANALY
 def main():
     parser = argparse.ArgumentParser(description="Backfill blog footer on STATUS: UNVERIFIED articles")
     parser.add_argument("--force", action="store_true", help="Replace existing footer with current version")
+    parser.add_argument("--strip-only", action="store_true", help="Remove footer from all articles without re-adding")
     args = parser.parse_args()
+
+    conduit = ShopifyConduit()
+    blogs = conduit.list_blogs()
+    blog_id = None
+    for b in blogs:
+        if b.get("title", "").strip() == BLOG_TITLE:
+            blog_id = b["id"]
+            break
+
+    if not blog_id:
+        print(f"!! BLOG_NOT_FOUND: '{BLOG_TITLE}'")
+        sys.exit(1)
+
+    print(f"// TARGET_BLOG: {BLOG_TITLE} (ID {blog_id})")
+
+    if args.strip_only:
+        print("// MODE: STRIP_ONLY — removing footers from all articles")
+        articles = conduit.list_articles(blog_id, limit=250)
+        print(f"// ARTICLES_FOUND: {len(articles)}")
+        stripped = 0
+        for article in articles:
+            aid = article["id"]
+            title = article.get("title", "?")
+            body = article.get("body_html", "") or ""
+            if FOOTER_MARKER in body:
+                new_body = FOOTER_STRIP_RE.sub("", body)
+                conduit.update_article(blog_id, aid, {"body_html": new_body})
+                print(f"   [STRIPPED] {aid} — '{title}'")
+                stripped += 1
+            else:
+                print(f"   [SKIP] {aid} — '{title}' (no footer)")
+        print(f"\n// STRIP_COMPLETE: {stripped} articles updated")
+        return
 
     footer_path = os.path.normpath(FOOTER_PATH)
     if not os.path.exists(footer_path):
