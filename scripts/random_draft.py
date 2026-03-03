@@ -109,7 +109,11 @@ def main():
     print(f"\n--- SELECTING_GRAPHICS ---")
     tile_path = args.tile or pick_random_graphic(str(tiles_dir), "tile")
     texture_path = args.texture or pick_random_graphic(str(textures_dir), "texture")
-    logo_path = args.logo or pick_random_graphic(str(logos_dir), "logo")
+    
+    # Always use QR code for logo
+    qr_path = logos_dir / "repo_portal_qr.png"
+    logo_path = args.logo or str(qr_path)
+    print(f"// SELECTED_LOGO: {Path(logo_path).name}")
     
     if args.dry_run:
         print(f"\n[DRY_RUN]: Would create template with:")

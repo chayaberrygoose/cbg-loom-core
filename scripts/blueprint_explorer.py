@@ -242,20 +242,50 @@ class BlueprintExplorer:
             print(f"// UPLOADING_LOGO: {logo_path}")
             logo_id = self.upload_image(logo_path, f"template_logo_{blueprint_id}.png")
 
-        # Build print_areas - apply tile to ALL positions from API
+        # Build print_areas - apply tiled pattern to ALL positions from API
         placeholders = []
+        
+        # Identify a "front" position for logo placement
+        front_positions = {"front", "front_left", "front_right", "front_left_leg", "front_right_leg"}
+        logo_position = None
+        for pos in positions:
+            if pos in front_positions:
+                logo_position = pos
+                break
+        # Fallback: use first position if no "front" found
+        if not logo_position and positions:
+            logo_position = positions[0]
 
         if tile_id:
             for pos in positions:
+                images = [{
+                    "id": tile_id,
+                    "x": 0.5,
+                    "y": 0.5,
+                    "scale": 0.25,
+                    "angle": 0,
+                    "pattern": {
+                        "spacing_x": 1,
+                        "spacing_y": 1,
+                        "angle": 0,
+                        "offset": 0
+                    }
+                }]
+                
+                # Add logo to the front position
+                if logo_id and pos == logo_position:
+                    images.append({
+                        "id": logo_id,
+                        "x": 0.5,
+                        "y": 0.35,
+                        "scale": 0.12,
+                        "angle": 0
+                    })
+                    print(f"// LOGO_PLACED on position: {pos}")
+                
                 placeholders.append({
                     "position": pos,
-                    "images": [{
-                        "id": tile_id,
-                        "x": 0.5,
-                        "y": 0.5,
-                        "scale": 1,
-                        "angle": 0
-                    }]
+                    "images": images
                 })
 
         # Build variants list
