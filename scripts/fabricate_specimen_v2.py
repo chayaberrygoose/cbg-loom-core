@@ -26,6 +26,82 @@ LORE_DIR = Path("artifacts/lore")
 PROTOCOL_DIR = Path("protocols")
 STAMP_PATH = Path("artifacts/graphics/logos/repo_portal_qr.png")
 TEMPLATE_HISTORY_PATH = Path("artifacts/.last_template_id")
+RECOMMENDATIONS_PATH = Path("artifacts/recommendations/pipeline_recommendations.json")
+
+
+def load_recommendations() -> dict:
+    """
+    Load pipeline recommendations from feedback analysis.
+    Returns empty config if file doesn't exist.
+    """
+    if not RECOMMENDATIONS_PATH.exists():
+        return {}
+    
+    try:
+        with open(RECOMMENDATIONS_PATH, "r", encoding="utf-8") as f:
+            recs = json.load(f)
+        print("[SYSTEM_LOG]: Pipeline recommendations loaded.")
+        return recs
+    except Exception as e:
+        print(f"[SYSTEM_WARNING]: Failed to load recommendations: {e}")
+        return {}
+
+
+def filter_templates_by_recommendations(templates: list, recs: dict) -> list:
+    """
+    Apply recommendation-based filtering to template list.
+    Deprioritizes avoided templates, prioritizes preferred ones.
+    Returns reordered/filtered list.
+    """
+    config = recs.get("pipeline_config_suggestions", {})
+    avoid_terms = [t.lower() for t in config.get("avoid_garments", [])]
+    prefer_terms = [t.lower() for t in config.get("prefer_garments", [])]
+    
+    if not avoid_terms and not prefer_terms:
+        return templates
+    
+    def score_template(t):
+        title_lower = t.get("title", "").lower()
+        score = 0
+        # Boost for preferred templates
+        for term in prefer_terms:
+            if term in title_lower:
+                score += 10
+        # Penalty for avoided templates (but don't exclude entirely)
+        for term in avoid_terms:
+            if term in title_lower:
+                score -= 5
+        return score
+    
+    # Sort by score descending, then shuffle within same score for variety
+    scored = [(t, score_template(t)) for t in templates]
+    scored.sort(key=lambda x: x[1], reverse=True)
+    
+    # Group by score and shuffle within groups
+    from itertools import groupby
+    result = []
+    for _, group in groupby(scored, key=lambda x: x[1]):
+        group_list = [t for t, _ in group]
+        random.shuffle(group_list)
+        result.extend(group_list)
+    
+    if prefer_terms or avoid_terms:
+        top_template = result[0] if result else None
+        if top_template:
+            print(f"[SYSTEM_LOG]: Template prioritization active. Top candidates favor: {', '.join(prefer_terms) or 'any'}")
+    
+    return result
+
+
+def get_recommendation_prompt_modifiers(recs: dict) -> tuple:
+    """
+    Extract prompt modifiers from recommendations.
+    Returns (modifiers_to_add: list, modifiers_to_avoid: list)
+    """
+    config = recs.get("pipeline_config_suggestions", {})
+    add_mods = config.get("prompt_modifiers_add", [])
+    avoid_mods = config.get("prompt_modifiers_avoid", [])
+    return (add_mods, avoid_mods)
 
 def load_theme(theme_name: str) -> dict:
     """
@@ -268,6 +344,10 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
     load_dotenv()
     fab = Fabricator()
     
+    # Load community feedback recommendations
+    recommendations = load_recommendations()
+    rec_add_mods, rec_avoid_mods = get_recommendation_prompt_modifiers(recommendations)
+    
     # Determine mode: Remix Protocol (Base & Breach) vs. Single Theme
     is_remix = base_name is not None and breach_name is not None
     base_data = None
@@ -294,8 +374,9 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
         if theme_data.get("description"):
             print(f"[SYSTEM_LOG]: Lore loaded — {theme_data['description'][:120]}...")
     
-    # 1. Resolve Template
+    # 1. Resolve Template (with recommendation-based filtering)
     templates = fab.get_templates()
+    templates = filter_templates_by_recommendations(templates, recommendations)
 
     # Load last-used template to avoid repeats
     last_template_id = None
@@ -343,6 +424,14 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
             base_data=base_data,
             breach_data=breach_data
         )
+        
+        # Apply recommendation-based prompt modifiers
+        if rec_add_mods:
+            prompt += ", " + ", ".join(rec_add_mods)
+        if rec_avoid_mods:
+            # Add as negative guidance
+            prompt += f", avoid: {', '.join(rec_avoid_mods)}"
+        
         print(f"[SIGNAL_BROADCAST]: Requesting '{role}' synthesis for '{display_theme}'...")
         
         # This will use the updated nanobanana_skill routing to artifacts/graphics/<role>/...

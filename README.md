@@ -163,6 +163,34 @@ python scripts/generate_lore_from_comments.py --list-blogs
 python scripts/generate_lore_from_comments.py --list-articles <BLOG_ID>
 ```
 
+### Feedback Analysis & Pipeline Recommendations
+
+Analyze community feedback from STATUS: UNVERIFIED blog comments to generate actionable recommendations for the fabrication pipeline:
+
+```bash
+source .venv/bin/activate
+
+# Run full analysis with Gemini
+python scripts/analyze_feedback.py
+
+# Preview without saving
+python scripts/analyze_feedback.py --dry-run
+
+# Basic classification only (skip Gemini)
+python scripts/analyze_feedback.py --basic
+
+# Output raw JSON
+python scripts/analyze_feedback.py --json
+```
+
+**Analyzes:**
+- Lifestyle image issues (anatomy, proportions, rendering artifacts)
+- Garment/blueprint requests (e.g., "would like this in men's tank top")
+- Aesthetic feedback (color, trim, pattern preferences)
+- Product engagement (most-commented specimens)
+
+**Outputs:** `artifacts/recommendations/pipeline_recommendations.json` with structured suggestions for template priorities, prompt modifiers, and products to transpose.
+
 ---
 
 ## 08_ACCESS_PROTOCOL
