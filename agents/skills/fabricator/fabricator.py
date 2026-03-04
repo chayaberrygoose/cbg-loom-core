@@ -116,21 +116,41 @@ class Fabricator:
         return data['id']
 
     def get_templates(self) -> list:
-        """Retrieves all products that are marked as templates."""
-        url = f"{self.BASE_URL}/shops/{self.shop_id}/products.json"
+        """Retrieves all products that are marked as templates (paginated)."""
+        all_products = []
+        page = 1
         
-        # [SIGNAL_RECOVERY]: Handle transient 500/502/504
-        for attempt in range(3):
-            response = requests.get(url, headers=self.headers)
-            if response.status_code >= 500:
-                print(f"!! [SIGNAL_WARPING]: {response.status_code} Error on Template Fetch. Retrying...")
-                time.sleep(5)
-                continue
-            break
+        while True:
+            url = f"{self.BASE_URL}/shops/{self.shop_id}/products.json?page={page}"
             
-        response.raise_for_status()
-        products = response.json().get('data', [])
-        templates = [p for p in products if p.get('title', '').startswith('[TEMPLATE]:')]
+            # [SIGNAL_RECOVERY]: Handle transient 500/502/504
+            for attempt in range(3):
+                response = requests.get(url, headers=self.headers)
+                if response.status_code >= 500:
+                    print(f"!! [SIGNAL_WARPING]: {response.status_code} Error on Template Fetch (page {page}). Retrying...")
+                    time.sleep(5)
+                    continue
+                break
+                
+            response.raise_for_status()
+            data = response.json()
+            products = data.get('data', [])
+            
+            if not products:
+                break
+                
+            all_products.extend(products)
+            
+            # Check if we've reached the last page
+            current_page = data.get('current_page', page)
+            last_page = data.get('last_page', page)
+            if current_page >= last_page:
+                break
+            
+            page += 1
+        
+        templates = [p for p in all_products if p.get('title', '').startswith('[TEMPLATE]:')]
+        print(f"// TEMPLATES_LOADED: {len(templates)} (from {len(all_products)} total products)")
         return templates
 
     def _get_prompt_from_path(self, local_path: str) -> Optional[str]:
