@@ -55,13 +55,36 @@ class BlueprintExplorer:
         Returns set of blueprint IDs already in use in the shop.
         Only considers products with [DRAFT] or [TEMPLATE] in the title
         and excludes deleted products.
+        Paginates through all products to ensure complete coverage.
         """
-        resp = requests.get(f"{self.BASE_URL}/shops/{self.shop_id}/products.json", headers=self.headers)
-        resp.raise_for_status()
-        products = resp.json().get("data", [])
+        all_products = []
+        page = 1
+        
+        while True:
+            resp = requests.get(
+                f"{self.BASE_URL}/shops/{self.shop_id}/products.json?page={page}",
+                headers=self.headers
+            )
+            resp.raise_for_status()
+            data = resp.json()
+            products = data.get("data", [])
+            
+            if not products:
+                break
+            
+            all_products.extend(products)
+            
+            current_page = data.get("current_page", page)
+            last_page = data.get("last_page", page)
+            if current_page >= last_page:
+                break
+            
+            page += 1
+        
+        print(f"// SCANNED: {len(all_products)} total products across {page} page(s)")
         
         used = set()
-        for p in products:
+        for p in all_products:
             title = p.get("title", "")
             # Only consider [DRAFT] or [TEMPLATE] products
             if "[DRAFT]" not in title and "[TEMPLATE]" not in title:
