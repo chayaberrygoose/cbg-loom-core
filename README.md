@@ -142,6 +142,27 @@ Lore themes drive every specimen's visual language. Each theme defines a palette
 
 Add new themes by dropping a `.md` file into `artifacts/lore/` with `## Description`, `## Palette`, `## Motifs`, and `## Prompt Modifiers` sections.
 
+### Lore Generation from Community Input
+
+Generate new lore files from Shopify blog comments (defaults to the Lore Feed post):
+
+```bash
+source .venv/bin/activate
+
+# Generate new lore (auto-generates name via Gemini)
+python scripts/generate_lore_from_comments.py
+
+# Preview without saving
+python scripts/generate_lore_from_comments.py --dry-run
+
+# Override specimen name
+python scripts/generate_lore_from_comments.py --specimen-name "Custom Name"
+
+# List available blogs/articles
+python scripts/generate_lore_from_comments.py --list-blogs
+python scripts/generate_lore_from_comments.py --list-articles <BLOG_ID>
+```
+
 ---
 
 ## 08_ACCESS_PROTOCOL
