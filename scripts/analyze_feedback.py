@@ -10,7 +10,7 @@ import re
 import argparse
 from pathlib import Path
 from datetime import datetime
-from typing import List, Dict, Optional, Any
+from typing import List, Dict, Optional, Any, Tuple
 from collections import defaultdict
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -25,6 +25,7 @@ load_dotenv()
 STATUS_UNVERIFIED_BLOG_ID = 104482537684
 RECOMMENDATIONS_DIR = Path(__file__).resolve().parent.parent / "artifacts" / "recommendations"
 RECOMMENDATIONS_FILE = RECOMMENDATIONS_DIR / "pipeline_recommendations.json"
+LAST_COMMENT_TRACKER = RECOMMENDATIONS_DIR / ".last_comment_id"
 
 # Feedback category patterns (basic classification before Gemini)
 APPROVAL_PATTERNS = [
@@ -369,17 +370,114 @@ def analyze_with_gemini(aggregated: Dict[str, Any], comments: List[Dict]) -> Dic
         }
 
 
-def save_recommendations(recommendations: Dict) -> Path:
+def save_recommendations(recommendations: Dict, latest_comment_id: Optional[int] = None) -> Path:
     """
     Save recommendations to JSON file.
+    Optionally tracks the latest comment ID for change detection.
     """
     RECOMMENDATIONS_DIR.mkdir(parents=True, exist_ok=True)
     
     with open(RECOMMENDATIONS_FILE, "w", encoding="utf-8") as f:
         json.dump(recommendations, f, indent=2, default=str)
     
+    # Track latest comment ID for future change detection
+    if latest_comment_id:
+        try:
+            LAST_COMMENT_TRACKER.write_text(str(latest_comment_id))
+        except Exception:
+            pass
+    
     print(f"[SYSTEM_ECHO]: Recommendations written → {RECOMMENDATIONS_FILE}")
     return RECOMMENDATIONS_FILE
+
+
+def get_last_analyzed_comment_id() -> Optional[int]:
+    """
+    Retrieve the ID of the last comment that was analyzed.
+    Returns None if no tracking file exists.
+    """
+    if not LAST_COMMENT_TRACKER.exists():
+        return None
+    try:
+        return int(LAST_COMMENT_TRACKER.read_text().strip())
+    except (ValueError, Exception):
+        return None
+
+
+def check_for_new_comments(conduit: ShopifyConduit) -> Tuple[bool, int, int]:
+    """
+    Check if there are new comments since the last analysis.
+    Returns (has_new_comments, latest_comment_id, comment_count).
+    """
+    comments = conduit.list_comments(
+        blog_id=STATUS_UNVERIFIED_BLOG_ID,
+        status="published",
+        limit=1,  # Just need the latest
+    )
+    
+    if not comments:
+        return False, 0, 0
+    
+    latest_id = comments[0].get("id", 0)
+    last_analyzed = get_last_analyzed_comment_id()
+    
+    # Also get total count for reporting
+    all_comments = conduit.list_comments(
+        blog_id=STATUS_UNVERIFIED_BLOG_ID,
+        status="published",
+        limit=250,
+    )
+    total_count = len(all_comments)
+    
+    if last_analyzed is None:
+        # First run - consider as "new"
+        return True, latest_id, total_count
+    
+    has_new = latest_id > last_analyzed
+    return has_new, latest_id, total_count
+
+
+def refresh_recommendations_if_needed(force: bool = False) -> bool:
+    """
+    Pipeline-callable function to refresh recommendations only if new comments exist.
+    
+    Args:
+        force: If True, regenerate even if no new comments.
+    
+    Returns:
+        True if recommendations were refreshed, False if skipped.
+    """
+    print("[SYSTEM_LOG]: Checking for new community feedback...")
+    
+    try:
+        conduit = ShopifyConduit()
+    except Exception as e:
+        print(f"[SYSTEM_WARNING]: Shopify connection failed: {e}. Using existing recommendations.")
+        return False
+    
+    has_new, latest_id, total_count = check_for_new_comments(conduit)
+    
+    if not has_new and not force:
+        print(f"[SYSTEM_LOG]: No new comments detected. Skipping feedback refresh.")
+        return False
+    
+    if has_new:
+        print(f"[SYSTEM_LOG]: New comments detected! Refreshing recommendations...")
+    else:
+        print(f"[SYSTEM_LOG]: Forced refresh requested.")
+    
+    # Run full analysis
+    comments = fetch_all_feedback(conduit)
+    if not comments:
+        print("[SYSTEM_WARNING]: No comments to analyze.")
+        return False
+    
+    aggregated = aggregate_feedback(comments)
+    recommendations = analyze_with_gemini(aggregated, comments)
+    save_recommendations(recommendations, latest_comment_id=latest_id)
+    
+    print(f"[SYSTEM_SUCCESS]: Recommendations refreshed with {total_count} comments.")
+    return True
 
 
 def print_summary(recommendations: Dict):
@@ -457,6 +555,9 @@ def main():
         print("[SYSTEM_WARNING]: No comments found. Cannot generate recommendations.")
         sys.exit(1)
     
+    # Get latest comment ID for tracking
+    latest_comment_id = max(c.get("comment_id", 0) for c in comments) if comments else 0
+    
     print(f"[SYSTEM_LOG]: Fetched {len(comments)} comment(s) for analysis.")
     
     # Aggregate
@@ -479,7 +580,7 @@ def main():
         print_summary(recommendations)
     
     if not args.dry_run:
-        save_recommendations(recommendations)
+        save_recommendations(recommendations, latest_comment_id=latest_comment_id)
         print(f"\n[SYSTEM_SUCCESS]: Feedback analysis complete.")
         print(f"  Recommendations saved to: {RECOMMENDATIONS_FILE}")
 

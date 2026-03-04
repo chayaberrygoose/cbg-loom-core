@@ -31,7 +31,7 @@ from scripts.fabricate_specimen_v2 import (
 )
 
 
-def run(theme=None, base=None, breach=None, template=None, prompt=None):
+def run(theme=None, base=None, breach=None, template=None, prompt=None, skip_feedback_refresh=False):
     """
     Kick off a single fabrication run.
 
@@ -41,6 +41,7 @@ def run(theme=None, base=None, breach=None, template=None, prompt=None):
         breach:   Explicit Breach (Interference) lore name for remix.
         template: Search string to filter garment templates (e.g. "Hoodie", "Joggers").
         prompt:   Manual prompt override — bypasses lore-driven generation.
+        skip_feedback_refresh: Skip auto-refresh of community feedback recommendations.
 
     Returns:
         The created Printify product dict, or None on failure.
@@ -52,7 +53,7 @@ def run(theme=None, base=None, breach=None, template=None, prompt=None):
 
     # Single-theme legacy path
     if theme:
-        return fabricate_specimen(theme=theme, template_search=template, prompt_override=prompt)
+        return fabricate_specimen(theme=theme, template_search=template, prompt_override=prompt, skip_feedback_refresh=skip_feedback_refresh)
 
     # Remix Protocol (default)
     base_name, breach_name, remix_desc = select_remix_pair(
@@ -66,6 +67,7 @@ def run(theme=None, base=None, breach=None, template=None, prompt=None):
         base_name=base_name,
         breach_name=breach_name,
         remix_desc=remix_desc,
+        skip_feedback_refresh=skip_feedback_refresh,
     )
 
 
@@ -78,6 +80,7 @@ if __name__ == "__main__":
     parser.add_argument("--breach", help="Remix Breach lore name")
     parser.add_argument("--template", help="Filter garment template (e.g. 'Hoodie')")
     parser.add_argument("--prompt", help="Manual prompt override")
+    parser.add_argument("--skip-feedback-refresh", action="store_true", help="Skip auto-refresh of community feedback recommendations")
     args = parser.parse_args()
 
     result = run(
@@ -86,5 +89,6 @@ if __name__ == "__main__":
         breach=args.breach,
         template=args.template,
         prompt=args.prompt,
+        skip_feedback_refresh=args.skip_feedback_refresh,
     )
     sys.exit(0 if result else 1)

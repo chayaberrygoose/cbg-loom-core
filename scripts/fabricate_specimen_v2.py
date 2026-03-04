@@ -1,5 +1,6 @@
-# [FILE_ID]: scripts/FABRICATE_SPECIMEN_V2 // VERSION: 2.0 // STATUS: STABLE
+# [FILE_ID]: scripts/FABRICATE_SPECIMEN_V2 // VERSION: 2.1 // STATUS: STABLE
 # [SYSTEM_LOG]: AGILE_NANOBANANA_FABRICATION_PROTOCOL_V2 // REMIX_PROTOCOL_ONLINE
+# [SYSTEM_LOG]: AUTO_FEEDBACK_REFRESH_ENABLED
 
 import sys
 import os
@@ -340,9 +341,17 @@ def synthesize_lifestyle_mockup(theme, product_title, mockup_url, style_ref_dir=
 
 def fabricate_specimen(theme, template_search=None, prompt_override=None,
                        base_name=None, breach_name=None, remix_desc=None,
-                       template_id=None):
+                       template_id=None, skip_feedback_refresh=False):
     load_dotenv()
     fab = Fabricator()
+    
+    # Auto-refresh recommendations if new community feedback exists
+    if not skip_feedback_refresh:
+        try:
+            from scripts.analyze_feedback import refresh_recommendations_if_needed
+            refresh_recommendations_if_needed()
+        except Exception as e:
+            print(f"[SYSTEM_WARNING]: Feedback refresh failed: {e}. Using existing recommendations.")
     
     # Load community feedback recommendations
     recommendations = load_recommendations()
