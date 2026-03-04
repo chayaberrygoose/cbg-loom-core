@@ -47,6 +47,9 @@ python3 scripts/fabricate.py --template "Hoodie"
 
 # Single lore theme (legacy):
 python3 scripts/fabricate.py --theme "Phantom Grid"
+
+# Skip community feedback refresh (faster, uses cached recommendations):
+python3 scripts/fabricate.py --skip-feedback-refresh
 ```
 
 **Programmatic (for agents):**
@@ -54,6 +57,8 @@ python3 scripts/fabricate.py --theme "Phantom Grid"
 from scripts.fabricate import run
 product = run()  # zero-config
 ```
+
+**Note:** The pipeline auto-refreshes community feedback recommendations at the start of each run (only if new comments exist). Use `--skip-feedback-refresh` to bypass this check.
 
 ## 04_AUTOMATED_FABRICATION
 
