@@ -22,7 +22,7 @@ _shopify_module = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_shopify_module)
 ShopifyConduit = _shopify_module.ShopifyConduit
 
-BLOG_TITLE = "STATUS: UNVERIFIED"
+BLOG_TITLE = "[STATUS: UNVERIFIED]"
 FOOTER_PATH = os.path.join(os.path.dirname(__file__), "..", "artifacts", "templates", "blog_footer.html")
 # Unique marker to detect if footer is already present
 FOOTER_MARKER = "[NOTICE: EXTERNAL_LAB_ANALYSIS_REQUIRED]"

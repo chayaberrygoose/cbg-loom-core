@@ -403,14 +403,14 @@ class Fabricator:
             blogs = conduit.list_blogs()
             blog_id = None
             for b in blogs:
-                if b.get('title', '').strip() == 'STATUS: UNVERIFIED':
+                if b.get('title', '').strip() == '[STATUS: UNVERIFIED]':
                     blog_id = b['id']
                     break
 
             if not blog_id:
-                result = conduit._post('blogs.json', {'blog': {'title': 'STATUS: UNVERIFIED'}})
+                result = conduit._post('blogs.json', {'blog': {'title': '[STATUS: UNVERIFIED]'}})
                 blog_id = result.get('blog', {}).get('id')
-                print(f"// BLOG_CREATED: STATUS: UNVERIFIED (ID {blog_id})")
+                print(f"// BLOG_CREATED: [STATUS: UNVERIFIED] (ID {blog_id})")
 
             # Locate the lifestyle mockup by product ID
             lifestyle_path = self._find_lifestyle_mockup(product_id, mockups_dir)

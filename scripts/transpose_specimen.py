@@ -53,7 +53,7 @@ def get_shopify_conduit():
 STAMP_PATH = Path("artifacts/graphics/logos/repo_portal_qr.png")
 TEMPLATE_HISTORY_PATH = Path("artifacts/.last_template_id")
 TRANSPOSE_CACHE_DIR = Path("artifacts/graphics/.transpose_cache")
-UNVERIFIED_BLOG_TITLE = "STATUS: UNVERIFIED"
+UNVERIFIED_BLOG_TITLE = "[STATUS: UNVERIFIED]"
 
 
 def extract_product_images(fab: Fabricator, product_id: str) -> dict:
