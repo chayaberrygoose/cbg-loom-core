@@ -291,18 +291,21 @@ def transpose_specimen(
     
     # 3. Select target template
     print("\n[PHASE_3]: SELECTING TARGET TEMPLATE")
-    templates = fab.get_templates()
     
     last_template_id = None
     if TEMPLATE_HISTORY_PATH.exists():
         last_template_id = TEMPLATE_HISTORY_PATH.read_text().strip()
     
     if template_id:
-        template = next((t for t in templates if t['id'] == template_id), None)
-        if not template:
-            print(f"[WARNING]: Template ID not found. Selecting random.")
-            template = random.choice(templates)
+        # Direct product ID provided - use it as template even if not marked as [TEMPLATE]
+        try:
+            template = fab.get_product(template_id)
+            print(f"// USING_PRODUCT_AS_TEMPLATE: {template.get('title')} (ID: {template_id})")
+        except Exception as e:
+            print(f"[ERROR]: Could not fetch product {template_id}: {e}")
+            return None
     elif template_search:
+        templates = fab.get_templates()
         matches = [t for t in templates if template_search.lower() in t['title'].lower()]
         if not matches:
             print(f"[WARNING]: No template matching '{template_search}'. Selecting random.")
@@ -310,21 +313,24 @@ def transpose_specimen(
         filtered = [t for t in matches if t['id'] != last_template_id]
         template = random.choice(filtered if filtered else matches)
     else:
+        templates = fab.get_templates()
         filtered = [t for t in templates if t['id'] != last_template_id]
         template = random.choice(filtered if filtered else templates)
     
-    # Don't transpose onto the same product's template
+    # Don't transpose onto the same product's template (skip if explicit template_id was provided)
     source_product = fab.get_product(source_product_id)
     source_blueprint = source_product.get('blueprint_id')
     template_blueprint = template.get('blueprint_id')
     
-    if source_blueprint == template_blueprint:
+    if source_blueprint == template_blueprint and not template_id:
         print(f"[WARNING]: Source and template use same blueprint. Selecting different template.")
         alternatives = [t for t in templates if t.get('blueprint_id') != source_blueprint and t['id'] != last_template_id]
         if alternatives:
             template = random.choice(alternatives)
         else:
             print(f"[WARNING]: No alternative blueprints available.")
+    elif source_blueprint == template_blueprint:
+        print(f"[NOTICE]: Source and template use same blueprint (explicit selection honored).")
     
     print(f"// TARGET_TEMPLATE: {template['title']} (ID: {template['id']})")
     
