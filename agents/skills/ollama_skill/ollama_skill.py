@@ -14,14 +14,14 @@ OLLAMA_TIMEOUT = int(os.getenv("OLLAMA_TIMEOUT", "900"))  # 15 min default for R
 
 
 # Recommended models for Raspberry Pi 5 (8GB RAM)
-# Ordered by capability/size trade-off (gemma3:4b is now default)
+# Ordered by capability/size trade-off (gemma2:2b is now default)
 RECOMMENDED_MODELS = [
-    "gemma3:4b",        # Default: Google's efficient 4B model
-    "llama3.2:3b",     # Good balance of capability and resource usage
-    "gemma2:2b",       # Google's efficient 2B model
-    "phi3:mini",       # Microsoft's small but capable model
-    "tinyllama:1.1b",  # Minimal footprint for constrained systems
-    "qwen2.5:3b",      # Alibaba's efficient model
+    "gemma2:2b",       # Default: Google's efficient 2B model
+    "llama3.2:3b",    # Good balance of capability and resource usage
+    "phi3:mini",      # Microsoft's small but capable model
+    "tinyllama:1.1b", # Minimal footprint for constrained systems
+    "qwen2.5:3b",     # Alibaba's efficient model
+    "gemma3:4b",      # Larger, but may not fit in 8GB
 ]
 
 
