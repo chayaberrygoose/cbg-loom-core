@@ -78,6 +78,26 @@ crontab -l | grep -v fabricate_cron | crontab -
 tail -f /tmp/cbg_fabricate.log
 ```
 
+### Backfill Missing Blog Posts
+
+If the pipeline fails mid-run (e.g., API errors), some products may exist without corresponding blog posts. The backfill script audits and repairs these gaps:
+
+```bash
+source .venv/bin/activate
+
+# Audit what's missing since 5am today (dry run)
+python scripts/backfill_blog_posts.py --dry-run
+
+# Backfill with lifestyle image generation
+python scripts/backfill_blog_posts.py
+
+# Faster: skip lifestyle synthesis, use Printify mockup
+python scripts/backfill_blog_posts.py --skip-lifestyle
+
+# Custom cutoff time
+python scripts/backfill_blog_posts.py --since "2026-03-05 05:00:00"
+```
+
 ## 05_BLUEPRINT_EXPLORATION
 
 Expand the catalog by creating draft templates from unused Printify AOP blueprints:
