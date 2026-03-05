@@ -1,5 +1,6 @@
-# [FILE_ID]: skills/GEMINI_SKILL // VERSION: 2.0 // STATUS: STABLE
+# [FILE_ID]: skills/GEMINI_SKILL // VERSION: 2.1 // STATUS: STABLE
 # [RESTRICTION]: NO_NANO_BANANA_GENERATION in effect
+# [UPDATE]: Ollama fallback support for local inference
 
 import os
 import time
@@ -8,6 +9,17 @@ from typing import Optional
 from google import genai
 from google.genai import types
 from dotenv import load_dotenv
+
+# Ollama fallback imports
+try:
+    from agents.skills.ollama_skill.ollama_skill import (
+        initialize_local_loom,
+        generate_local_specimen_data,
+        check_ollama_connection,
+    )
+    OLLAMA_AVAILABLE = True
+except ImportError:
+    OLLAMA_AVAILABLE = False
 
 # Load environment variables
 load_dotenv()
@@ -142,6 +154,19 @@ def generate_specimen_data(model_name: str, prompt: str):
             except Exception as e_fb:
                 _log(f"[SYSTEM_WARNING]: Fallback {fb_name} failed: {e_fb}")
                 continue
+        
+        # ── OLLAMA LOCAL FALLBACK ────────────────────────────────
+        if OLLAMA_AVAILABLE:
+            _log("[SYSTEM_LOG]: Gemini exhausted. Attempting local Ollama fallback...")
+            if check_ollama_connection():
+                local_model = initialize_local_loom()
+                if local_model:
+                    _log(f"[SYSTEM_LOG]: Switching to local model: {local_model}")
+                    return generate_local_specimen_data(local_model, prompt)
+            else:
+                _log("[SYSTEM_WARNING]: Ollama not available for fallback.")
+        else:
+            _log("[SYSTEM_WARNING]: Ollama skill not installed for fallback.")
                 
         return "[SYSTEM_FAILURE]: All generation attempts failed. Quota exceeded or models unavailable."
 

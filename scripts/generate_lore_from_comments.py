@@ -1,15 +1,19 @@
-# /* [FILE_ID]: scripts/GENERATE_LORE_FROM_COMMENTS // VERSION: 1.1 // STATUS: STABLE */
+# /* [FILE_ID]: scripts/GENERATE_LORE_FROM_COMMENTS // VERSION: 2.0 // STATUS: STABLE */
 # [NARRATIVE]: Extracts Specimen Lore from Shopify blog comments,
-#              synthesizes structured lore.md files via Gemini.
+#              synthesizes structured lore.md files via local Ollama (default) or Gemini.
+#              Tracks processed comments to avoid re-processing.
 # [USAGE]: python scripts/generate_lore_from_comments.py
-#          (defaults to Lore Feed post, auto-generates specimen name)
+#          python scripts/generate_lore_from_comments.py --gemini
+#          python scripts/generate_lore_from_comments.py --all  # Process all, ignore tracking
 
 import os
 import sys
 import argparse
 import re
+import json
 from pathlib import Path
-from typing import List, Dict, Optional
+from datetime import datetime
+from typing import List, Dict, Optional, Tuple
 
 # Ensure the project root is in the path for imports
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -18,6 +22,18 @@ from agents.skills.shopify_skill.shopify_skill import ShopifyConduit
 from agents.skills.gemini_skill.gemini_skill import initialize_loom_uplink, generate_specimen_data
 from dotenv import load_dotenv
 
+# Ollama support (default)
+try:
+    from agents.skills.ollama_skill.ollama_skill import (
+        initialize_local_loom,
+        generate_local_specimen_data,
+        check_ollama_connection,
+        RECOMMENDED_MODELS,
+    )
+    OLLAMA_AVAILABLE = True
+except ImportError:
+    OLLAMA_AVAILABLE = False
+
 load_dotenv()
 
 # ─── DEFAULT LORE FEED POST ────────────────────────────────────
@@ -25,8 +41,55 @@ load_dotenv()
 DEFAULT_BLOG_ID = 104538177748
 DEFAULT_ARTICLE_ID = 593820188884
 
-# ─── OUTPUT DIRECTORY ──────────────────────────────────────────
+# ─── OUTPUT & TRACKING DIRECTORIES ─────────────────────────────
 LORE_OUTPUT_DIR = Path(__file__).resolve().parent.parent / "artifacts" / "lore"
+LORE_TRACKER_FILE = LORE_OUTPUT_DIR / ".lore_comment_tracker.json"
+
+# ─── BATCH SETTINGS ────────────────────────────────────────────
+# Minimum comments needed to generate a lore file
+MIN_COMMENTS_PER_LORE = 3
+# Maximum comments to use per lore file  
+MAX_COMMENTS_PER_LORE = 8
+
+
+# ─── TRACKING FUNCTIONS ────────────────────────────────────────
+def load_tracker() -> Dict:
+    """Load the comment tracking data."""
+    if not LORE_TRACKER_FILE.exists():
+        return {"last_comment_id": None, "processed_ids": [], "last_run": None}
+    try:
+        with open(LORE_TRACKER_FILE, "r") as f:
+            return json.load(f)
+    except (json.JSONDecodeError, Exception):
+        return {"last_comment_id": None, "processed_ids": [], "last_run": None}
+
+
+def save_tracker(tracker: Dict) -> None:
+    """Save the comment tracking data."""
+    LORE_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    tracker["last_run"] = datetime.now().isoformat()
+    with open(LORE_TRACKER_FILE, "w") as f:
+        json.dump(tracker, f, indent=2)
+
+
+def get_unprocessed_comments(comments: List[Dict], tracker: Dict) -> List[Dict]:
+    """Filter out comments that have already been processed."""
+    processed_ids = set(tracker.get("processed_ids", []))
+    return [c for c in comments if c.get("id") not in processed_ids]
+
+
+def mark_comments_processed(tracker: Dict, comments: List[Dict]) -> Dict:
+    """Mark comments as processed in the tracker."""
+    processed_ids = set(tracker.get("processed_ids", []))
+    for c in comments:
+        processed_ids.add(c.get("id"))
+    tracker["processed_ids"] = list(processed_ids)
+    if comments:
+        # Track the highest comment ID
+        max_id = max(c.get("id", 0) for c in comments)
+        if not tracker.get("last_comment_id") or max_id > tracker["last_comment_id"]:
+            tracker["last_comment_id"] = max_id
+    return tracker
 
 
 def fetch_comments(
@@ -112,11 +175,14 @@ def sanitize_filename(name: str) -> str:
     return sanitized.strip()
 
 
-def generate_specimen_name(model, seed_text: str) -> str:
+def generate_specimen_name(model, seed_text: str, generate_fn=None) -> str:
     """
-    Use Gemini to generate a creative Industrial Noir specimen name.
+    Use LLM (Gemini or Ollama) to generate a creative Industrial Noir specimen name.
     Returns a two-word name in Title Case.
     """
+    if generate_fn is None:
+        generate_fn = generate_specimen_data
+        
     prompt = """You are naming a new textile pattern for "Chaya Berry Goose", an Industrial Noir / Tech-Wear brand.
 
 Based on the following community input, generate ONE unique two-word specimen name.
@@ -139,7 +205,7 @@ Examples of good names: Neon Siphon, Void Mantle, Signal Flare, Kinetic Residue,
 Your specimen name:"""
 
     try:
-        result = generate_specimen_data(model, prompt)
+        result = generate_fn(model, prompt)
         # Clean up the result - extract just the name
         name = result.strip().split('\n')[0].strip()
         # Remove any quotes or extra punctuation
@@ -268,8 +334,48 @@ def main():
         action="store_true",
         help="Show generated lore without writing to file",
     )
+    parser.add_argument(
+        "--gemini",
+        action="store_true",
+        help="Use Gemini API instead of local Ollama (Ollama is default)",
+    )
+    parser.add_argument(
+        "--model",
+        type=str,
+        help="Specify model name (for Ollama: llama3.2:3b, gemma2:2b, etc.)",
+    )
+    parser.add_argument(
+        "--all",
+        action="store_true",
+        help="Process all comments, ignoring tracking (reprocess everything)",
+    )
+    parser.add_argument(
+        "--status",
+        action="store_true",
+        help="Show tracking status and exit",
+    )
+    parser.add_argument(
+        "--reset-tracking",
+        action="store_true",
+        help="Reset the comment tracker (start fresh)",
+    )
 
     args = parser.parse_args()
+
+    # ── Tracking Status/Reset ───────────────────────────────────
+    if args.status:
+        tracker = load_tracker()
+        print("[SYSTEM_LOG]: Lore Comment Tracker Status")
+        print("-" * 40)
+        print(f"  Last run:        {tracker.get('last_run', 'Never')}")
+        print(f"  Last comment ID: {tracker.get('last_comment_id', 'None')}")
+        print(f"  Processed count: {len(tracker.get('processed_ids', []))}")
+        return
+
+    if args.reset_tracking:
+        save_tracker({"last_comment_id": None, "processed_ids": [], "last_run": None})
+        print("[SYSTEM_LOG]: Tracker reset. All comments will be treated as new.")
+        return
 
     # ── Initialize Shopify Conduit ──────────────────────────────
     print("[SYSTEM_INIT]: Establishing Shopify Uplink...")
@@ -316,47 +422,155 @@ def main():
         print("[SYSTEM_WARNING]: No comments retrieved. Cannot generate lore.")
         sys.exit(1)
 
-    # ── Extract Seeds ───────────────────────────────────────────
-    seed_text = extract_lore_seeds(comments)
-    print(f"[SYSTEM_LOG]: Extracted {len(comments)} comment(s) as seed data.")
+    print(f"[SYSTEM_LOG]: Retrieved {len(comments)} total comment(s).")
 
-    # ── Initialize Gemini ───────────────────────────────────────
-    print("[SYSTEM_INIT]: Establishing Gemini Loom Uplink...")
-    model = initialize_loom_uplink()
-    if not model:
-        print("[SYSTEM_DISSONANCE]: Failed to initialize Gemini. Check GOOGLE_API_KEY.")
-        sys.exit(1)
-
-    # ── Determine Specimen Name ─────────────────────────────────
-    if args.specimen_name:
-        specimen_name = args.specimen_name
+    # ── Filter Unprocessed Comments ─────────────────────────────
+    tracker = load_tracker()
+    
+    if args.all:
+        print("[SYSTEM_LOG]: --all flag set, processing all comments.")
+        unprocessed = comments
     else:
-        print("[SYSTEM_LOG]: Generating specimen name via Gemini...")
-        specimen_name = generate_specimen_name(model, seed_text)
-    print(f"[SYSTEM_LOG]: Specimen Name → {specimen_name}")
+        unprocessed = get_unprocessed_comments(comments, tracker)
+        if not unprocessed:
+            print("[SYSTEM_LOG]: No new comments to process. Use --all to reprocess.")
+            return
+        print(f"[SYSTEM_LOG]: {len(unprocessed)} new comment(s) to process.")
 
-    # ── Generate Lore ───────────────────────────────────────────
-    prompt = generate_lore_prompt(seed_text, specimen_name)
-    print("[SYSTEM_LOG]: Synthesizing lore via Gemini...")
-
-    lore_content = generate_specimen_data(model, prompt)
-
-    if lore_content.startswith("[SYSTEM_FAILURE]") or lore_content.startswith("[ACCESS_DENIED]"):
-        print(f"[SYSTEM_DISSONANCE]: Lore generation failed — {lore_content}")
-        sys.exit(1)
-
-    # ── Output ──────────────────────────────────────────────────
-    if args.dry_run:
-        print("\n" + "=" * 60)
-        print("[DRY_RUN]: Generated Lore Preview")
-        print("=" * 60)
-        print(lore_content)
-        print("=" * 60)
+    # ── Initialize Model (Ollama default) ───────────────────────
+    use_gemini = args.gemini
+    model = None
+    generate_fn = None
+    
+    if use_gemini:
+        print("[SYSTEM_INIT]: Establishing Gemini Loom Uplink...")
+        model = initialize_loom_uplink(args.model)
+        if not model:
+            print("[SYSTEM_DISSONANCE]: Failed to initialize Gemini. Check GOOGLE_API_KEY.")
+            # Try Ollama fallback
+            if OLLAMA_AVAILABLE and check_ollama_connection():
+                print("[SYSTEM_LOG]: Falling back to Ollama...")
+                model = initialize_local_loom(args.model)
+                if model:
+                    use_gemini = False
+                    generate_fn = generate_local_specimen_data
+            if not model:
+                sys.exit(1)
+        else:
+            generate_fn = generate_specimen_data
     else:
-        filepath = write_lore_file(specimen_name, lore_content)
+        # Default: Use Ollama
+        if not OLLAMA_AVAILABLE:
+            print("[SYSTEM_WARNING]: Ollama skill not installed. Trying Gemini...")
+            model = initialize_loom_uplink(args.model)
+            if model:
+                use_gemini = True
+                generate_fn = generate_specimen_data
+            else:
+                print("[SYSTEM_DISSONANCE]: No inference backend available.")
+                sys.exit(1)
+        elif not check_ollama_connection():
+            print("[SYSTEM_WARNING]: Ollama not running. Trying Gemini...")
+            model = initialize_loom_uplink(args.model)
+            if model:
+                use_gemini = True
+                generate_fn = generate_specimen_data
+            else:
+                print("[SYSTEM_DISSONANCE]: Ollama not running and Gemini not configured.")
+                print("[SYSTEM_HINT]: Start Ollama with: ollama serve")
+                sys.exit(1)
+        else:
+            print("[SYSTEM_INIT]: Establishing Local Loom Uplink (Ollama)...")
+            model = initialize_local_loom(args.model)
+            if not model:
+                print("[SYSTEM_DISSONANCE]: No Ollama models available.")
+                print(f"[SYSTEM_HINT]: Pull a model with: ollama pull {RECOMMENDED_MODELS[0]}")
+                sys.exit(1)
+            generate_fn = generate_local_specimen_data
+
+    backend = "Gemini" if use_gemini else "Ollama"
+
+    # ── Batch Process Comments into Lore Files ──────────────────
+    # Group comments into batches for lore generation
+    batches = []
+    current_batch = []
+    
+    for comment in unprocessed:
+        current_batch.append(comment)
+        if len(current_batch) >= MAX_COMMENTS_PER_LORE:
+            batches.append(current_batch)
+            current_batch = []
+    
+    # Handle remaining comments
+    if current_batch:
+        if len(current_batch) >= MIN_COMMENTS_PER_LORE:
+            batches.append(current_batch)
+        elif batches:
+            # Add to last batch if exists
+            batches[-1].extend(current_batch)
+        else:
+            # Not enough comments for a lore file
+            print(f"[SYSTEM_WARNING]: Only {len(current_batch)} comment(s). Need at least {MIN_COMMENTS_PER_LORE}.")
+            print("[SYSTEM_HINT]: Wait for more comments or use --all with existing comments.")
+            return
+
+    print(f"[SYSTEM_LOG]: Will generate {len(batches)} lore file(s).")
+
+    generated_files = []
+    processed_comments = []
+
+    for batch_idx, batch in enumerate(batches, 1):
+        print(f"\n[SYSTEM_LOG]: Processing batch {batch_idx}/{len(batches)} ({len(batch)} comments)...")
+        
+        # Extract seeds from this batch
+        seed_text = extract_lore_seeds(batch)
+        
+        # Generate specimen name
+        if args.specimen_name and len(batches) == 1:
+            specimen_name = args.specimen_name
+        else:
+            print(f"[SYSTEM_LOG]: Generating specimen name via {backend}...")
+            specimen_name = generate_specimen_name(model, seed_text, generate_fn)
+        print(f"[SYSTEM_LOG]: Specimen Name → {specimen_name}")
+
+        # Generate lore content
+        prompt = generate_lore_prompt(seed_text, specimen_name)
+        print(f"[SYSTEM_LOG]: Synthesizing lore via {backend}...")
+        
+        lore_content = generate_fn(model, prompt)
+
+        if lore_content.startswith("[SYSTEM_FAILURE]") or lore_content.startswith("[ACCESS_DENIED]"):
+            print(f"[SYSTEM_WARNING]: Batch {batch_idx} failed — {lore_content}")
+            continue
+
+        # Output
+        if args.dry_run:
+            print("\n" + "=" * 60)
+            print(f"[DRY_RUN]: Lore Preview (Batch {batch_idx})")
+            print("=" * 60)
+            print(lore_content)
+            print("=" * 60)
+        else:
+            filepath = write_lore_file(specimen_name, lore_content)
+            generated_files.append((specimen_name, filepath))
+
+        # Track these comments as processed
+        processed_comments.extend(batch)
+
+    # ── Update Tracker ──────────────────────────────────────────
+    if not args.dry_run and processed_comments:
+        tracker = mark_comments_processed(tracker, processed_comments)
+        save_tracker(tracker)
+        print(f"\n[SYSTEM_LOG]: Tracker updated. {len(processed_comments)} comments marked processed.")
+
+    # ── Summary ─────────────────────────────────────────────────
+    if generated_files:
         print(f"\n[SYSTEM_SUCCESS]: Lore extraction complete.")
-        print(f"  Specimen: {specimen_name}")
-        print(f"  Output:   {filepath}")
+        print(f"  Files generated: {len(generated_files)}")
+        for name, path in generated_files:
+            print(f"    • {name}: {path}")
+    elif args.dry_run:
+        print(f"\n[SYSTEM_LOG]: Dry run complete. {len(batches)} lore file(s) previewed.")
 
 
 if __name__ == "__main__":
