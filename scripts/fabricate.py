@@ -19,6 +19,7 @@ Usage:
     python3 scripts/fabricate.py --theme "Phantom Grid"
 """
 
+import random
 import sys
 from pathlib import Path
 
@@ -51,24 +52,46 @@ def run(theme=None, base=None, breach=None, template=None, prompt=None, skip_fee
         print("[SYSTEM_ERROR]: No lore files in artifacts/lore/. Cannot fabricate.")
         return None
 
-    # Single-theme legacy path
+    # Single-theme legacy path (explicit)
     if theme:
         return fabricate_specimen(theme=theme, template_search=template, prompt_override=prompt, skip_feedback_refresh=skip_feedback_refresh)
 
-    # Remix Protocol (default)
-    base_name, breach_name, remix_desc = select_remix_pair(
-        base_override=base, breach_override=breach
-    )
-    display = f"{base_name} x {breach_name}"
-    return fabricate_specimen(
-        theme=display,
-        template_search=template,
-        prompt_override=prompt,
-        base_name=base_name,
-        breach_name=breach_name,
-        remix_desc=remix_desc,
-        skip_feedback_refresh=skip_feedback_refresh,
-    )
+    # Explicit remix path (base/breach specified)
+    if base or breach:
+        base_name, breach_name, remix_desc = select_remix_pair(
+            base_override=base, breach_override=breach
+        )
+        display = f"{base_name} x {breach_name}"
+        return fabricate_specimen(
+            theme=display,
+            template_search=template,
+            prompt_override=prompt,
+            base_name=base_name,
+            breach_name=breach_name,
+            remix_desc=remix_desc,
+            skip_feedback_refresh=skip_feedback_refresh,
+        )
+
+    # Random mode selection: 50/50 remix vs single theme
+    if random.choice([True, False]):
+        # Remix Protocol
+        base_name, breach_name, remix_desc = select_remix_pair()
+        display = f"{base_name} x {breach_name}"
+        print(f"[SYSTEM_LOG]: Random mode selected REMIX — {display}")
+        return fabricate_specimen(
+            theme=display,
+            template_search=template,
+            prompt_override=prompt,
+            base_name=base_name,
+            breach_name=breach_name,
+            remix_desc=remix_desc,
+            skip_feedback_refresh=skip_feedback_refresh,
+        )
+    else:
+        # Single theme (random selection)
+        theme = random.choice(available)
+        print(f"[SYSTEM_LOG]: Random mode selected SINGLE THEME — {theme}")
+        return fabricate_specimen(theme=theme, template_search=template, prompt_override=prompt, skip_feedback_refresh=skip_feedback_refresh)
 
 
 if __name__ == "__main__":
