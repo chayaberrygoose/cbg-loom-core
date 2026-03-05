@@ -30,6 +30,16 @@ TEMPLATE_HISTORY_PATH = Path("artifacts/.last_template_id")
 RECOMMENDATIONS_PATH = Path("artifacts/recommendations/pipeline_recommendations.json")
 
 
+def _ts() -> str:
+    """Returns current timestamp for logging."""
+    return time.strftime("%Y-%m-%d %H:%M:%S")
+
+
+def _log(msg: str) -> None:
+    """Prints a timestamped log message."""
+    print(f"[{_ts()}] {msg}")
+
+
 def load_recommendations() -> dict:
     """
     Load pipeline recommendations from feedback analysis.
@@ -351,7 +361,7 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
             from scripts.analyze_feedback import refresh_recommendations_if_needed
             refresh_recommendations_if_needed()
         except Exception as e:
-            print(f"[SYSTEM_WARNING]: Feedback refresh failed: {e}. Using existing recommendations.")
+            _log(f"[SYSTEM_WARNING]: Feedback refresh failed: {e}. Using existing recommendations.")
     
     # Load community feedback recommendations
     recommendations = load_recommendations()
@@ -367,21 +377,21 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
         base_data = load_theme(base_name)
         breach_data = load_theme(breach_name)
         display_theme = f"{base_name} x {breach_name}"
-        print(f"[SYSTEM_LOG]: ═══ REMIX PROTOCOL ACTIVE ═══")
-        print(f"[SYSTEM_LOG]: Base (Structure): {base_name}")
+        _log(f"[SYSTEM_LOG]: ═══ REMIX PROTOCOL ACTIVE ═══")
+        _log(f"[SYSTEM_LOG]: Base (Structure): {base_name}")
         if base_data.get("description"):
             print(f"  └─ {base_data['description'][:100]}")
-        print(f"[SYSTEM_LOG]: Breach (Interference): {breach_name}")
+        _log(f"[SYSTEM_LOG]: Breach (Interference): {breach_name}")
         if breach_data.get("description"):
             print(f"  └─ {breach_data['description'][:100]}")
         if remix_desc:
-            print(f"[SYSTEM_LOG]: Fusion: {remix_desc}")
+            _log(f"[SYSTEM_LOG]: Fusion: {remix_desc}")
     else:
         theme_data = load_theme(theme)
         display_theme = theme
-        print(f"[SYSTEM_LOG]: Initializing Fabrication Ritual for Theme: {theme}")
+        _log(f"[SYSTEM_LOG]: Initializing Fabrication Ritual for Theme: {theme}")
         if theme_data.get("description"):
-            print(f"[SYSTEM_LOG]: Lore loaded — {theme_data['description'][:120]}...")
+            _log(f"[SYSTEM_LOG]: Lore loaded — {theme_data['description'][:120]}...")
     
     # 1. Resolve Template (with recommendation-based filtering)
     templates = fab.get_templates()
@@ -396,12 +406,12 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
         # Direct template ID provided (e.g. from per-template iteration)
         template = next((t for t in templates if t['id'] == template_id), None)
         if not template:
-            print(f"[SYSTEM_WARNING]: Template ID '{template_id}' not found. Selecting random.")
+            _log(f"[SYSTEM_WARNING]: Template ID '{template_id}' not found. Selecting random.")
             template = random.choice(templates)
     elif template_search:
         target_templates = [t for t in templates if template_search.lower() in t['title'].lower()]
         if not target_templates:
-            print(f"[SYSTEM_WARNING]: No template matching '{template_search}' found. Selecting random.")
+            _log(f"[SYSTEM_WARNING]: No template matching '{template_search}' found. Selecting random.")
             target_templates = templates
         # Exclude last-used from candidates when possible
         filtered = [t for t in target_templates if t['id'] != last_template_id]
@@ -417,7 +427,7 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
     except Exception:
         pass  # Non-critical
 
-    print(f"[SYSTEM_LOG]: Selected Template: {template['title']} (ID: {template['id']})")
+    _log(f"[SYSTEM_LOG]: Selected Template: {template['title']} (ID: {template['id']})")
     
     # 2. Analyze Roles for the Template
     source = fab.get_product(template['id'])
@@ -441,32 +451,32 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
             # Add as negative guidance
             prompt += f", avoid: {', '.join(rec_avoid_mods)}"
         
-        print(f"[SIGNAL_BROADCAST]: Requesting '{role}' synthesis for '{display_theme}'...")
+        _log(f"[SIGNAL_BROADCAST]: Requesting '{role}' synthesis for '{display_theme}'...")
         
         # This will use the updated nanobanana_skill routing to artifacts/graphics/<role>/...
         result_path = generate_nano_banana_image(prompt, graphic_type_override=role)
         
         if result_path:
             artifact_paths[role] = result_path
-            print(f"✅ [SYSTEM_LOG]: Artifact secured: {result_path}")
+            _log(f"✅ [SYSTEM_LOG]: Artifact secured: {result_path}")
         else:
-            print(f"❌ [SYSTEM_ERROR]: Failed to synthesize {role}")
+            _log(f"❌ [SYSTEM_ERROR]: Failed to synthesize {role}")
 
     if not artifact_paths:
-        print("[SYSTEM_ERROR]: No artifacts stabilized. Aborting ritual.")
+        _log("[SYSTEM_ERROR]: No artifacts stabilized. Aborting ritual.")
         return
 
     # Identifiers for the fabricator
     role_overrides = {}
     
     # We'll pass the local paths to the fabricator via role_overrides.
-    print("[SYSTEM_LOG]: Preparing artifact mapping for the Fabricator...")
+    _log("[SYSTEM_LOG]: Preparing artifact mapping for the Fabricator...")
     for role, path in artifact_paths.items():
         role_type = "tile" if role == "tiles" else "texture"
         role_overrides[role_type] = path
 
     # 3. Realize Product
-    print("[SYSTEM_LOG]: Realizing specimen...")
+    _log("[SYSTEM_LOG]: Realizing specimen...")
     
     try:
         # Use fabricate_from_template which handles the cloning and role mapping
@@ -476,16 +486,22 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
         )
         product_id = product.get('id')
         product_title = product.get('title')
-        print(f"\n--- [FABRICATION_COMPLETE]: ID_{product_id} ---")
-        print(f"SPECIMEN: {product_title}")
+        _log(f"--- [FABRICATION_COMPLETE]: ID_{product_id} ---")
+        _log(f"SPECIMEN: {product_title}")
         
         # 4. Lifestyle Realization Step
-        print("[SYSTEM_LOG]: Protocol Initiation: LIFESTYLE_REALIZATION")
+        _log("[SYSTEM_LOG]: Protocol Initiation: LIFESTYLE_REALIZATION")
         
         # We need to RE-FETCH the product to get the mockups generated by Printify after cloning
         time.sleep(5)  # Brief pause for Printify to initialize the specimen
         product = fab.get_product(product_id)
         images = product.get('images', [])
+        
+        # Track lifestyle state for graceful failure handling
+        lifestyle_path = None
+        lifestyle_media_id = None
+        lifestyle_src_url = None
+        mockup_folder = None
         
         if images:
             # Look for 'front' mockup specifically if possible, else default to first
@@ -500,12 +516,12 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
             if lifestyle_path:
                 # [REMIX_PROTOCOL]: Apply STATUS: UNVERIFIED stamp as final layer
                 apply_unverified_stamp(lifestyle_path)
-                print(f"[SYSTEM_LOG]: Lifestyle artifact stabilized. Injecting into Conduit...")
+                _log("[SYSTEM_LOG]: Lifestyle artifact stabilized. Injecting into Conduit...")
                 # Ensure the file exists before upload
                 if os.path.exists(lifestyle_path):
                     # [SIGNAL_RECOVERY]: Re-check file integrity and ensure binary read if needed
                     file_size = os.path.getsize(lifestyle_path)
-                    print(f"// UPLOADING_LIFESTYLE: {lifestyle_path} ({file_size} bytes)")
+                    _log(f"// UPLOADING_LIFESTYLE: {lifestyle_path} ({file_size} bytes)")
                     
                     # Printify upload ritual
                     lifestyle_media_id = fab.upload_image(local_path=lifestyle_path, file_name=f"lifestyle_{product_id}.png")
@@ -513,12 +529,12 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
                     lifestyle_src_url = fab.last_upload_src
                     
                     if lifestyle_media_id:
-                        print(f"// ARTIFACT_SECURED: ID_{lifestyle_media_id}")
-                        print(f"// LIFESTYLE_CDN: {lifestyle_src_url}")
+                        _log(f"// ARTIFACT_SECURED: ID_{lifestyle_media_id}")
+                        _log(f"// LIFESTYLE_CDN: {lifestyle_src_url}")
                         
                         # [SYSTEM_NOTE]: Printify product gallery only accepts auto-generated mockups.
                         # Lifestyle image is archived locally with CDN URL for use in external channels.
-                        print(f"✅ [SYSTEM_SUCCESS]: Lifestyle mockup realized for {product_id}.")
+                        _log(f"✅ [SYSTEM_SUCCESS]: Lifestyle mockup realized for {product_id}.")
                         
                         # [LINKAGE_STAMP]: Archive the relationship between Printify Product and Lifestyle Specimen
                         mapping_file = Path(lifestyle_path).parent / "product_link.json"
@@ -532,7 +548,7 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
                             "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
                         }
                         mapping_file.write_text(json.dumps(link_data, indent=4))
-                        print(f"✅ [SYSTEM_LOG]: Linkage secured: {mapping_file}")
+                        _log(f"✅ [SYSTEM_LOG]: Linkage secured: {mapping_file}")
                         
                         # [PROTOCOL_UPDATE]: Rename mockup folder to include product ID
                         old_folder = Path(lifestyle_path).parent
@@ -540,26 +556,36 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
                         new_folder = old_folder.parent / new_folder_name
                         try:
                             old_folder.rename(new_folder)
-                            print(f"// FOLDER_RENAMED: {new_folder_name}")
+                            mockup_folder = str(new_folder)
+                            _log(f"// FOLDER_RENAMED: {new_folder_name}")
                         except Exception as rename_err:
-                            print(f"!! [WARNING]: Folder rename failed: {rename_err}")
+                            _log(f"!! [WARNING]: Folder rename failed: {rename_err}")
+                            mockup_folder = str(old_folder)
                         
-                        # [PROTOCOL_UPDATE]: Post blog entry to STATUS: UNVERIFIED
-                        fab.post_blog_for_product(
-                            product_id=product_id,
-                            title=product_title,
-                            description=product.get('description', ''),
-                            mockups_dir=str(new_folder.parent) if new_folder.exists() else "artifacts/graphics/mockups"
-                        )
+                        # 5. Blog Post Step — only if lifestyle image succeeded
+                        _log("[SYSTEM_LOG]: Protocol Initiation: BLOG_PUBLICATION")
+                        try:
+                            fab.post_blog_for_product(
+                                product_id=product_id,
+                                title=product_title,
+                                description=product.get('description', ''),
+                                mockups_dir=mockup_folder
+                            )
+                        except Exception as blog_err:
+                            _log(f"⚠️ [SYSTEM_WARNING]: Blog post failed: {blog_err}. Product still created.")
                     else:
-                        print(f"❌ [SYSTEM_ERROR]: Media upload failed to return ID.")
+                        _log(f"❌ [SYSTEM_ERROR]: Media upload failed to return ID. Skipping blog post.")
                 else:
-                    print(f"❌ [SYSTEM_ERROR]: Lifestyle path {lifestyle_path} not found.")
+                    _log(f"❌ [SYSTEM_ERROR]: Lifestyle path {lifestyle_path} not found. Skipping blog post.")
+            else:
+                _log(f"❌ [SYSTEM_ERROR]: Lifestyle synthesis failed. Skipping blog post.")
+        else:
+            _log(f"⚠️ [SYSTEM_WARNING]: No product images found for lifestyle synthesis. Skipping blog post.")
         
-        print(f"CONDUIT: https://printify.com/app/store/{fab.shop_id}/products/{product_id}")
+        _log(f"CONDUIT: https://printify.com/app/store/{fab.shop_id}/products/{product_id}")
         return product
     except Exception as e:
-        print(f"[SYSTEM_ERROR]: Realization failed: {e}")
+        _log(f"[SYSTEM_ERROR]: Realization failed: {e}")
         import traceback
         traceback.print_exc()
         return None

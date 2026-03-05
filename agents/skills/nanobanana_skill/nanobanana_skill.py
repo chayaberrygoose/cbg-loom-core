@@ -21,6 +21,16 @@ load_dotenv()
 api_key = os.getenv("GEMINI_API_KEY") or os.getenv("GOOGLE_API_KEY") or os.getenv("gemini_api_key")
 client = genai.Client(api_key=api_key)
 
+
+def _ts() -> str:
+    """Returns current timestamp for logging."""
+    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+
+def _log(msg: str) -> None:
+    """Prints a timestamped log message."""
+    print(f"[{_ts()}] {msg}")
+
 def _tokenize(text: str) -> list:
     return re.findall(r"[a-z0-9]+", text.lower())
 
@@ -81,7 +91,7 @@ def _classify_graphic_type(prompt: str) -> str:
     
     return list(definitions.keys())[0] if definitions else "standalone"
 
-def generate_nano_banana_image(prompt, output_path=None, graphic_type_override=None, image_context=None):
+def generate_nano_banana_image(prompt, output_path=None, graphic_type_override=None, image_context=None, max_retries=3, retry_delay=5):
     """
     Synthesizes visual specimens via the Nanobanana (Gemini 3.1 Flash Image) protocol.
     Directs output to the appropriate artifact routing directory.
@@ -91,8 +101,10 @@ def generate_nano_banana_image(prompt, output_path=None, graphic_type_override=N
         output_path (str, optional): Manual output path override.
         graphic_type_override (str, optional): Role-based routing override (tiles/textures/mockups).
         image_context (PIL.Image.Image, optional): Reference image to guide synthesis.
+        max_retries (int): Maximum retry attempts for transient errors (default: 3).
+        retry_delay (int): Base delay in seconds between retries (exponential backoff).
     """
-    print(f"🎨 [SIGNAL_BROADCAST]: Sending prompt to Nanobanana: {prompt}")
+    _log(f"🎨 [SIGNAL_BROADCAST]: Sending prompt to Nanobanana: {prompt}")
     
     # Artifact Routing
     graphic_type = graphic_type_override if graphic_type_override else _classify_graphic_type(prompt)
@@ -107,46 +119,67 @@ def generate_nano_banana_image(prompt, output_path=None, graphic_type_override=N
 
     final_output_path = Path(output_path) if output_path else run_dir / "specimen.png"
     
-    try:
-        # 2. Call the Model
-        contents = [prompt]
-        if image_context:
-            contents.append(image_context)
-            
-        response = client.models.generate_content(
-            model="gemini-3.1-flash-image-preview",
-            contents=contents,
-            config=types.GenerateContentConfig(
-                response_modalities=["IMAGE", "TEXT"],
-                image_config=types.ImageConfig(
-                    aspect_ratio="1:1"
+    # Build request contents
+    contents = [prompt]
+    if image_context:
+        contents.append(image_context)
+    
+    last_error = None
+    for attempt in range(1, max_retries + 1):
+        try:
+            response = client.models.generate_content(
+                model="gemini-3.1-flash-image-preview",
+                contents=contents,
+                config=types.GenerateContentConfig(
+                    response_modalities=["IMAGE", "TEXT"],
+                    image_config=types.ImageConfig(
+                        aspect_ratio="1:1"
+                    )
                 )
             )
-        )
 
-        # 3. Process and Save
-        image_saved = False
-        for part in response.candidates[0].content.parts:
-            if part.inline_data:
-                img = part.as_image()
-                img.save(final_output_path)
-                print(f"✅ [SYSTEM_LOG]: Specimen stabilized at: {final_output_path}")
+            # Process and Save
+            image_saved = False
+            for part in response.candidates[0].content.parts:
+                if part.inline_data:
+                    img = part.as_image()
+                    img.save(final_output_path)
+                    _log(f"✅ [SYSTEM_LOG]: Specimen stabilized at: {final_output_path}")
+                    
+                    # Write prompt metadata
+                    prompt_file = run_dir / "prompt.txt"
+                    prompt_file.write_text(f"prompt: {prompt}\nmodel: gemini-3.1-flash-image-preview\ntimestamp: {stamp}", encoding="utf-8")
+                    image_saved = True
+                    break
                 
-                # Write prompt metadata
-                prompt_file = run_dir / "prompt.txt"
-                prompt_file.write_text(f"prompt: {prompt}\nmodel: gemini-3.1-flash-image-preview\ntimestamp: {stamp}", encoding="utf-8")
-                image_saved = True
-                break
-            
-            if part.text:
-                print(f"📝 [NANO_BANANA_LOG]: {part.text}")
+                if part.text:
+                    _log(f"📝 [NANO_BANANA_LOG]: {part.text}")
 
-        if image_saved:
-            return str(final_output_path)
+            if image_saved:
+                return str(final_output_path)
+            else:
+                _log(f"⚠️ [SYSTEM_WARNING]: No image data in response (attempt {attempt}/{max_retries})")
+                last_error = "No image data returned"
+                
+        except Exception as e:
+            last_error = e
+            error_str = str(e)
+            # Check for transient/retryable errors (500, 503, rate limits)
+            is_retryable = any(code in error_str for code in ['500', '503', '429', 'INTERNAL', 'UNAVAILABLE', 'RESOURCE_EXHAUSTED'])
             
-    except Exception as e:
-        print(f"❌ [SYSTEM_ERROR]: Image synthesis failed: {e}")
-        return None
+            if is_retryable and attempt < max_retries:
+                wait_time = retry_delay * (2 ** (attempt - 1))  # Exponential backoff
+                _log(f"⚠️ [SYSTEM_WARNING]: Transient error (attempt {attempt}/{max_retries}): {e}")
+                _log(f"// RETRY_BACKOFF: Waiting {wait_time}s before retry...")
+                time.sleep(wait_time)
+                continue
+            else:
+                _log(f"❌ [SYSTEM_ERROR]: Image synthesis failed after {attempt} attempt(s): {e}")
+                return None
+    
+    # All retries exhausted
+    _log(f"❌ [SYSTEM_ERROR]: Image synthesis failed after {max_retries} attempts. Last error: {last_error}")
+    return None
 
 if __name__ == "__main__":
     # Test for Chaya Berry Goose Lore
