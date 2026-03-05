@@ -1,0 +1,3 @@
+prompt: CBG Studio | LORE FEED FEED THE PROTOCOL Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, Industrial Noir textile design, extreme texture contrast between smooth absorption and crystalline fragmentation, hyper-detailed rendering of bio-synthetic luminescence bleeding through segmented seams, 8K technical specification., industrial noir color palette, phosphor green accents, sharp details, high contrast., Black trim details, High-fidelity pattern mapping, avoid: Hands emerging from interior pockets, Abstract leg confluence
+model: gemini-3.1-flash-image-preview
+timestamp: 20260305_084018
