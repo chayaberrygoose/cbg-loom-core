@@ -44,9 +44,10 @@ if model:
 
 ## Configuration
 
-| Environment Variable | Default                  | Description          |
-|---------------------|--------------------------|----------------------|
-| `OLLAMA_HOST`       | `http://localhost:11434` | Ollama API endpoint |
+| Environment Variable | Default                  | Description               |
+|---------------------|--------------------------|---------------------------|
+| `OLLAMA_HOST`       | `http://localhost:11434` | Ollama API endpoint       |
+| `OLLAMA_TIMEOUT`    | `900`                    | Request timeout (seconds) |
 
 ## Recommended Models for RPi 5 (8GB)
 

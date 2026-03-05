@@ -10,15 +10,18 @@ from typing import Optional, List, Dict
 
 # ─── CONFIGURATION ─────────────────────────────────────────────
 OLLAMA_HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
+OLLAMA_TIMEOUT = int(os.getenv("OLLAMA_TIMEOUT", "900"))  # 15 min default for RPi
+
 
 # Recommended models for Raspberry Pi 5 (8GB RAM)
-# Ordered by capability/size trade-off
+# Ordered by capability/size trade-off (gemma3:4b is now default)
 RECOMMENDED_MODELS = [
-    "llama3.2:3b",      # Best balance of capability and resource usage
-    "gemma2:2b",        # Google's efficient 2B model
-    "phi3:mini",        # Microsoft's small but capable model
-    "tinyllama:1.1b",   # Minimal footprint for constrained systems
-    "qwen2.5:3b",       # Alibaba's efficient model
+    "gemma3:4b",        # Default: Google's efficient 4B model
+    "llama3.2:3b",     # Good balance of capability and resource usage
+    "gemma2:2b",       # Google's efficient 2B model
+    "phi3:mini",       # Microsoft's small but capable model
+    "tinyllama:1.1b",  # Minimal footprint for constrained systems
+    "qwen2.5:3b",      # Alibaba's efficient model
 ]
 
 
@@ -103,12 +106,16 @@ def generate_local_specimen_data(
     model_name: str,
     prompt: str,
     temperature: float = 0.7,
-    max_tokens: int = 2048,
+    max_tokens: int = 1024,
+    timeout: int = None,
 ) -> str:
     """
     Generate text using local Ollama model.
     Respects NO_NANO_BANANA_GENERATION protocol.
     """
+    if timeout is None:
+        timeout = OLLAMA_TIMEOUT
+        
     # Protocol enforcement
     if "nano banana" in prompt.lower() and "override" not in prompt.lower():
         return "[ACCESS_DENIED]: Protocol [NO_NANO_BANANA_GENERATION] Active. Use override code."
@@ -129,7 +136,7 @@ def generate_local_specimen_data(
         response = requests.post(
             f"{OLLAMA_HOST}/api/generate",
             json=payload,
-            timeout=300,  # 5 min timeout for slow inference on RPi
+            timeout=timeout,
         )
 
         if response.status_code == 200:

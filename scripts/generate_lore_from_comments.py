@@ -134,37 +134,34 @@ def extract_lore_seeds(comments: List[Dict]) -> str:
 
 def generate_lore_prompt(seed_text: str, specimen_name: str) -> str:
     """
-    Construct the Gemini prompt for lore synthesis.
+    Construct the prompt for lore synthesis.
+    Truncates seed text to keep prompt manageable for local models.
     """
-    return f"""You are a Digital Architect for "Chaya Berry Goose" (CBG Studio), an Industrial Noir / Tech-Wear brand.
-Your task is to generate a textile lore document for a new design pattern called "{specimen_name}".
+    # Truncate seed text to ~2000 chars for faster inference
+    truncated_seed = seed_text[:2000] if len(seed_text) > 2000 else seed_text
+    
+    return f"""Generate a textile lore document for "{specimen_name}" (Industrial Noir / Tech-Wear brand).
 
-Use the following community input as inspiration:
----
-{seed_text}
----
+Community input:
+{truncated_seed}
 
-Generate a lore document in this exact Markdown format:
+Output in this exact Markdown format:
 
 # {specimen_name}
 
 ## Description
-(Write 2-3 sentences describing the visual aesthetic and concept. Use technical, clinical language with industrial noir undertones.)
+(2-3 sentences, technical/clinical language, industrial noir aesthetic)
 
 ## Palette
-(List 4-6 colors as comma-separated values, including hex codes where appropriate. Examples: "Neon green (#39FF14), deep violet, surgical steel, void black")
+(4-6 colors with hex codes, e.g., "Neon green (#39FF14), void black (#0A0A0A)")
 
 ## Motifs
-(List 4-6 visual motifs/patterns as comma-separated values. Examples: "Motion blur streaks, digital progress bars, pixel-fall, fiber-optic bundles")
+(4-6 visual patterns, e.g., "circuit traces, data streams, glitch effects")
 
 ## Prompt Modifiers
-(Write 1-2 sentences of comma-separated prompt modifiers for MidJourney/Stable Diffusion image generation. Keep technical and specific.)
+(comma-separated image generation keywords)
 
-IMPORTANT:
-- Keep the tone clinical, high-fidelity, and technical.
-- Reference concepts like: circuitry, data streams, glitches, industrial textures, technical fabrics.
-- Do NOT include emojis or casual language.
-- The output should be usable directly as a .md file.
+Keep tone clinical and technical. No emojis.
 """
 
 
@@ -182,27 +179,20 @@ def generate_specimen_name(model, seed_text: str, generate_fn=None) -> str:
     """
     if generate_fn is None:
         generate_fn = generate_specimen_data
+    
+    # Use only first 500 chars for faster inference
+    seed_sample = seed_text[:500]
         
-    prompt = """You are naming a new textile pattern for "Chaya Berry Goose", an Industrial Noir / Tech-Wear brand.
+    prompt = f"""Generate ONE two-word name for an Industrial Noir textile pattern.
 
-Based on the following community input, generate ONE unique two-word specimen name.
-The name should evoke industrial, technical, or scientific concepts.
-
-Community input:
----
-""" + seed_text[:1500] + """
----
+Input themes: {seed_sample}
 
 Rules:
-- Exactly TWO words, Title Case (e.g., "Thermal Breach", "Obsidian Circuit", "Phantom Grid")
-- Industrial Noir aesthetic: dark, technical, clinical
-- Reference concepts like: circuitry, data, signals, voids, glitches, machinery, textiles
-- NO emojis, NO punctuation, NO explanations
-- Just output the two-word name, nothing else
+- TWO words only, Title Case
+- Dark/technical aesthetic (e.g., "Thermal Breach", "Void Circuit", "Signal Decay")
+- Output ONLY the name, nothing else
 
-Examples of good names: Neon Siphon, Void Mantle, Signal Flare, Kinetic Residue, Cryptic Weave
-
-Your specimen name:"""
+Name:"""
 
     try:
         result = generate_fn(model, prompt)
@@ -210,6 +200,8 @@ Your specimen name:"""
         name = result.strip().split('\n')[0].strip()
         # Remove any quotes or extra punctuation
         name = re.sub(r'["\']', '', name)
+        # Remove any trailing punctuation
+        name = re.sub(r'[.,!?:;]+$', '', name)
         # Validate it's roughly two words
         words = name.split()
         if 1 <= len(words) <= 4:
