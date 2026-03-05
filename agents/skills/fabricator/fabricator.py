@@ -384,10 +384,17 @@ class Fabricator:
                     continue
         return None
 
-    def post_blog_for_product(self, product_id: str, title: str = None, description: str = None, mockups_dir: str = "artifacts/graphics/mockups") -> None:
+    def post_blog_for_product(self, product_id: str, title: str = None, description: str = None, mockups_dir: str = "artifacts/graphics/mockups", image_url: str = None) -> None:
         """
         Posts a blog article to the Shopify 'STATUS: UNVERIFIED' blog
         using the lifestyle mockup image from artifacts/graphics/mockups/ for the given product.
+        
+        Args:
+            product_id: Printify product ID
+            title: Article title (defaults to "UNVERIFIED SPECIMEN: {product_id}")
+            description: Article body text
+            mockups_dir: Directory to search for lifestyle mockups (fallback)
+            image_url: Direct CDN URL for the lifestyle image (preferred - skips search/upload)
         """
         try:
             from agents.skills.shopify_skill.shopify_skill import ShopifyConduit
@@ -412,17 +419,20 @@ class Fabricator:
                 blog_id = result.get('blog', {}).get('id')
                 print(f"// BLOG_CREATED: [STATUS: UNVERIFIED] (ID {blog_id})")
 
-            # Locate the lifestyle mockup by product ID
-            lifestyle_path = self._find_lifestyle_mockup(product_id, mockups_dir)
-            image_url = None
-
-            if lifestyle_path:
-                print(f"// LIFESTYLE_FOUND: {lifestyle_path}")
-                # Upload to Printify media to get a CDN URL for Shopify
-                media_id = self.upload_image(local_path=lifestyle_path, file_name=f"blog_lifestyle_{product_id}.png")
-                image_url = self.last_upload_src
+            # Use provided image_url if available, otherwise search for lifestyle mockup
+            if image_url:
+                print(f"// LIFESTYLE_URL_PROVIDED: {image_url[:80]}...")
             else:
-                print(f"!! [WARNING]: No lifestyle mockup found for product {product_id}. Blog will have no image.")
+                # Fallback: Locate the lifestyle mockup by product ID
+                lifestyle_path = self._find_lifestyle_mockup(product_id, mockups_dir)
+
+                if lifestyle_path:
+                    print(f"// LIFESTYLE_FOUND: {lifestyle_path}")
+                    # Upload to Printify media to get a CDN URL for Shopify
+                    media_id = self.upload_image(local_path=lifestyle_path, file_name=f"blog_lifestyle_{product_id}.png")
+                    image_url = self.last_upload_src
+                else:
+                    print(f"!! [WARNING]: No lifestyle mockup found for product {product_id}. Blog will have no image.")
 
             body_html = f"<p>{description}</p>" if description else ""
 

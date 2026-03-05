@@ -569,7 +569,7 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
                                 product_id=product_id,
                                 title=product_title,
                                 description=product.get('description', ''),
-                                mockups_dir=mockup_folder
+                                image_url=lifestyle_src_url  # Pass the already-uploaded CDN URL
                             )
                         except Exception as blog_err:
                             _log(f"⚠️ [SYSTEM_WARNING]: Blog post failed: {blog_err}. Product still created.")
