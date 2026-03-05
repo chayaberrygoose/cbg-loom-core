@@ -187,6 +187,26 @@ python scripts/generate_lore_from_comments.py --specimen-name "Custom Name"
 python scripts/generate_lore_from_comments.py --list-blogs
 python scripts/generate_lore_from_comments.py --list-articles <BLOG_ID>
 ```
+#### AUTOMATED_LORE GENERATION
+
+To generate lore files from Shopify blog comments automatically (one file per comment, up to 3 per run):
+
+1. Create the cron script:
+	```bash
+	echo '#!/bin/bash\ncd ~/repos/cbg-loom-core || exit 1\nsource .venv/bin/activate\npython scripts/generate_lore_from_comments.py --max-comments 3' > ~/repos/cbg-loom-core/scripts/generate_lore_cron.sh
+	chmod +x ~/repos/cbg-loom-core/scripts/generate_lore_cron.sh
+	```
+
+2. Add to your crontab (edit with `crontab -e`):
+	```cron
+	30 * * * * ~/repos/cbg-loom-core/scripts/generate_lore_cron.sh
+	```
+
+This will run the script at 30 minutes past every hour, processing up to 3 new comments (one file per comment).
+**To adjust:**
+- Change the `--max-comments` value in the script for a different batch size.
+- Change the cron schedule (e.g., `15 * * * *` for 15 minutes past the hour).
+- For one file per comment, keep `MIN_COMMENTS_PER_LORE = 1` and `MAX_COMMENTS_PER_LORE = 1` in the script (default as of v2.0).
 
 ### Feedback Analysis & Pipeline Recommendations
 

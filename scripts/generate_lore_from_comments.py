@@ -326,6 +326,12 @@ def main():
         help="Show generated lore without writing to file",
     )
     parser.add_argument(
+        "--max-comments",
+        type=int,
+        default=None,
+        help="Maximum number of comments to process in this run (default: all new)",
+    )
+    parser.add_argument(
         "--gemini",
         action="store_true",
         help="Use Gemini API instead of local Ollama (Ollama is default)",
@@ -427,6 +433,11 @@ def main():
             print("[SYSTEM_LOG]: No new comments to process. Use --all to reprocess.")
             return
         print(f"[SYSTEM_LOG]: {len(unprocessed)} new comment(s) to process.")
+
+    # Limit number of comments processed per run if requested
+    if args.max_comments is not None and len(unprocessed) > args.max_comments:
+        unprocessed = unprocessed[:args.max_comments]
+        print(f"[SYSTEM_LOG]: Limiting to {args.max_comments} comment(s) this run.")
 
     # ── Initialize Model (Ollama default) ───────────────────────
     use_gemini = args.gemini
