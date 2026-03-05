@@ -46,10 +46,9 @@ LORE_OUTPUT_DIR = Path(__file__).resolve().parent.parent / "artifacts" / "lore"
 LORE_TRACKER_FILE = LORE_OUTPUT_DIR / ".lore_comment_tracker.json"
 
 # ─── BATCH SETTINGS ────────────────────────────────────────────
-# Minimum comments needed to generate a lore file
-MIN_COMMENTS_PER_LORE = 3
-# Maximum comments to use per lore file  
-MAX_COMMENTS_PER_LORE = 8
+# One comment per lore file
+MIN_COMMENTS_PER_LORE = 1
+MAX_COMMENTS_PER_LORE = 1
 
 
 # ─── TRACKING FUNCTIONS ────────────────────────────────────────
