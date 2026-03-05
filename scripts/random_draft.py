@@ -2,14 +2,17 @@
 # [FILE_ID]: scripts/RANDOM_DRAFT // VERSION: 1.0 // STATUS: STABLE
 # [SYSTEM_LOG]: AUTOMATED_DRAFT_TEMPLATE_GENERATION
 """
-Automatically creates a draft template from a random unused blueprint.
+Automatically creates draft templates from random unused blueprints.
 
-Picks a random unused AOP blueprint, selects random graphics from available
-tiles/textures/logos, and creates a [DRAFT] product in Printify.
+Picks random unused AOP blueprints, selects random graphics from available
+tiles/textures/logos, and creates [DRAFT] products in Printify.
 
 Usage:
     # Create a random draft template
     python3 scripts/random_draft.py
+
+    # Create multiple random drafts (pulls products once, creates N drafts)
+    python3 scripts/random_draft.py --count 5
 
     # Dry run (show what would be created)
     python3 scripts/random_draft.py --dry-run
@@ -56,6 +59,7 @@ def pick_random_graphic(graphics_dir: str, category: str) -> str:
 
 def main():
     parser = argparse.ArgumentParser(description="Create random draft template from unused blueprint")
+    parser.add_argument("--count", "-n", type=int, default=1, help="Number of drafts to create (default: 1)")
     parser.add_argument("--dry-run", action="store_true", help="Show what would be created without creating")
     parser.add_argument("--tile", type=str, help="Override tile selection with specific path")
     parser.add_argument("--texture", type=str, help="Override texture selection with specific path")
@@ -76,7 +80,7 @@ def main():
     # Initialize explorer
     explorer = BlueprintExplorer()
     
-    # Get unused blueprints
+    # Get unused blueprints (pulled once upfront)
     print("\n// SCANNING_SHOP for used blueprints...")
     used = explorer.get_used_blueprint_ids()
     blueprints = explorer.list_aop_blueprints()
@@ -89,60 +93,85 @@ def main():
     
     print(f"// FOUND: {len(unused)} unused AOP blueprints (out of {len(blueprints)} total)")
     
-    # Pick random blueprint
-    selected_bp = random.choice(unused)
-    print(f"\n--- SELECTED_BLUEPRINT ---")
-    print(f"    ID: {selected_bp['id']}")
-    print(f"    Title: {selected_bp['title']}")
+    # Adjust count if more than available
+    count = min(args.count, len(unused))
+    if count < args.count:
+        print(f"// [SYSTEM_WARNING]: Requested {args.count}, but only {len(unused)} unused blueprints available.")
     
-    # Inspect for more details
-    info = explorer.inspect_blueprint(selected_bp['id'])
-    if info['providers']:
-        provider = info['providers'][0]
-        print(f"    Provider: [{provider['id']}] {provider['title']}")
-        print(f"    Variants: {provider['variant_count']}")
+    print(f"// CREATING: {count} draft(s)")
     
-    positions = explorer.get_known_positions(selected_bp['id'])
-    print(f"    Positions: {positions}")
+    created = 0
+    failed = 0
     
-    # Select graphics
-    print(f"\n--- SELECTING_GRAPHICS ---")
-    tile_path = args.tile or pick_random_graphic(str(tiles_dir), "tile")
-    texture_path = args.texture or pick_random_graphic(str(textures_dir), "texture")
-    
-    # Always use QR code for logo
-    qr_path = logos_dir / "repo_portal_qr.png"
-    logo_path = args.logo or str(qr_path)
-    print(f"// SELECTED_LOGO: {Path(logo_path).name}")
-    
-    if args.dry_run:
-        print(f"\n[DRY_RUN]: Would create template with:")
-        print(f"    Blueprint: [{selected_bp['id']}] {selected_bp['title']}")
-        print(f"    Tile: {tile_path}")
-        print(f"    Texture: {texture_path}")
-        print(f"    Logo: {logo_path}")
-        print(f"    Price: ${args.price / 100:.2f}")
-        return 0
-    
-    # Create the template
-    print(f"\n--- CREATING_TEMPLATE ---")
-    try:
-        product = explorer.create_template(
-            blueprint_id=selected_bp['id'],
-            tile_path=tile_path,
-            texture_path=texture_path,
-            logo_path=logo_path,
-            provider_id=None,  # Auto-detect
-            price_cents=args.price
-        )
+    for i in range(count):
+        print(f"\n{'=' * 60}")
+        print(f"[DRAFT {i + 1}/{count}]")
+        print("=" * 60)
         
-        print(f"\n[SIGNAL_STABLE]: Draft template created successfully!")
-        print(f"// CONDUIT: https://printify.com/app/store/{explorer.shop_id}/products/{product['id']}")
-        return 0
+        # Pick random blueprint from remaining unused
+        selected_bp = random.choice(unused)
+        unused.remove(selected_bp)  # Remove so we don't pick it again
         
-    except Exception as e:
-        print(f"\n!! [SYSTEM_FAILURE]: {e}")
-        return 1
+        print(f"\n--- SELECTED_BLUEPRINT ---")
+        print(f"    ID: {selected_bp['id']}")
+        print(f"    Title: {selected_bp['title']}")
+        
+        # Inspect for more details
+        info = explorer.inspect_blueprint(selected_bp['id'])
+        if info['providers']:
+            provider = info['providers'][0]
+            print(f"    Provider: [{provider['id']}] {provider['title']}")
+            print(f"    Variants: {provider['variant_count']}")
+        
+        positions = explorer.get_known_positions(selected_bp['id'])
+        print(f"    Positions: {positions}")
+        
+        # Select graphics (random each time unless overridden)
+        print(f"\n--- SELECTING_GRAPHICS ---")
+        tile_path = args.tile or pick_random_graphic(str(tiles_dir), "tile")
+        texture_path = args.texture or pick_random_graphic(str(textures_dir), "texture")
+        
+        # Always use QR code for logo
+        qr_path = logos_dir / "repo_portal_qr.png"
+        logo_path = args.logo or str(qr_path)
+        print(f"// SELECTED_LOGO: {Path(logo_path).name}")
+        
+        if args.dry_run:
+            print(f"\n[DRY_RUN]: Would create template with:")
+            print(f"    Blueprint: [{selected_bp['id']}] {selected_bp['title']}")
+            print(f"    Tile: {tile_path}")
+            print(f"    Texture: {texture_path}")
+            print(f"    Logo: {logo_path}")
+            print(f"    Price: ${args.price / 100:.2f}")
+            created += 1
+            continue
+        
+        # Create the template
+        print(f"\n--- CREATING_TEMPLATE ---")
+        try:
+            product = explorer.create_template(
+                blueprint_id=selected_bp['id'],
+                tile_path=tile_path,
+                texture_path=texture_path,
+                logo_path=logo_path,
+                provider_id=None,  # Auto-detect
+                price_cents=args.price
+            )
+            
+            print(f"\n[SIGNAL_STABLE]: Draft template created successfully!")
+            print(f"// CONDUIT: https://printify.com/app/store/{explorer.shop_id}/products/{product['id']}")
+            created += 1
+            
+        except Exception as e:
+            print(f"\n!! [SYSTEM_FAILURE]: {e}")
+            failed += 1
+    
+    # Summary
+    print(f"\n{'=' * 60}")
+    print(f"[SUMMARY] Created: {created} | Failed: {failed}")
+    print("=" * 60)
+    
+    return 0 if failed == 0 else 1
 
 
 if __name__ == "__main__":
