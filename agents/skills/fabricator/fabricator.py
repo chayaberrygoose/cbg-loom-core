@@ -170,6 +170,35 @@ class Fabricator:
                 pass
         return None
 
+    def analyze_template_roles(self, template_id: str) -> set:
+        """
+        Analyzes a template product's print areas to determine which image roles are needed.
+        
+        Returns a set of roles: {'tile', 'texture', 'logo'}
+        This allows callers to generate only the images that will actually be used.
+        """
+        source = self.get_product(template_id)
+        required_roles = set()
+        
+        for area in source.get('print_areas', []):
+            for ph in area.get('placeholders', []):
+                pos = ph.get('position', '').lower()
+                is_trim_area = 'waistband' in pos or 'trim' in pos or 'collar' in pos or 'cuff' in pos
+                
+                for img in ph.get('images', []):
+                    # Determine role
+                    if 'pattern' in img:
+                        required_roles.add('tile')
+                    elif is_trim_area:
+                        required_roles.add('texture')
+                    elif img.get('scale', 1) < 0.4:
+                        required_roles.add('logo')
+                    else:
+                        required_roles.add('texture')
+        
+        print(f"// TEMPLATE_ROLES_REQUIRED: {required_roles}")
+        return required_roles
+
     def fabricate_from_template(self, template_id: str, graphics_dir: str = "artifacts/graphics", role_overrides: Dict[str, str] = None) -> Dict[str, Any]:
         """
         Clones a template product and replaces its graphics with specimens from the graphics directory.

@@ -429,10 +429,19 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
 
     _log(f"[SYSTEM_LOG]: Selected Template: {template['title']} (ID: {template['id']})")
     
-    # 2. Analyze Roles for the Template
-    source = fab.get_product(template['id'])
+    # 2. Analyze Roles for the Template — only generate images that will actually be used
+    required_roles = fab.analyze_template_roles(template['id'])
     
-    roles_to_generate = ["tiles", "textures"]
+    # Map role names to folder names: tile -> tiles, texture -> textures
+    role_to_folder = {'tile': 'tiles', 'texture': 'textures', 'logo': 'logos'}
+    roles_to_generate = [role_to_folder[r] for r in required_roles if r in role_to_folder and r != 'logo']
+    
+    if not roles_to_generate:
+        _log("[SYSTEM_WARNING]: Template has no tile/texture roles. Defaulting to tiles.")
+        roles_to_generate = ["tiles"]
+    
+    _log(f"[SYSTEM_LOG]: Generating {len(roles_to_generate)} image(s): {roles_to_generate}")
+    
     artifact_paths = {}
 
     for role in roles_to_generate:
