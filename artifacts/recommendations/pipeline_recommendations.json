@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-03-05T10:00:21.926353",
+  "generated_at": "2026-03-05T11:00:21.425803",
   "summary": "Analysis failed.",
   "raw_stats": {
-    "total_comments": 61,
-    "approvals": 44,
+    "total_comments": 67,
+    "approvals": 50,
     "lifestyle_issues": [
       {
         "product_id": "69a904e1747d22c05504e17e",
@@ -84,6 +84,12 @@
       }
     ],
     "product_popularity": {
+      "69a9928c3b8a23674c00d795": 1,
+      "69a996453b8a23674c00d8ba": 1,
+      "69a99abaa5bf1d258704eb22": 1,
+      "69a99fa6248a5f2e700660b4": 1,
+      "69a9a477e16e28abb309e2d3": 1,
+      "69a9c568243d707398048f00": 1,
       "69a97095c334ddc088097de7": 1,
       "69a9464cc30285508c02a3c0": 1,
       "69a93dc3df929fb3e300ba59": 1,
@@ -142,6 +148,24 @@
       "69a619d677484873b2092326": 1
     },
     "product_feedback": {
+      "69a9928c3b8a23674c00d795": [
+        "I like this"
+      ],
+      "69a996453b8a23674c00d8ba": [
+        "I like this"
+      ],
+      "69a99abaa5bf1d258704eb22": [
+        "I like this"
+      ],
+      "69a99fa6248a5f2e700660b4": [
+        "I like this"
+      ],
+      "69a9a477e16e28abb309e2d3": [
+        "I like this"
+      ],
+      "69a9c568243d707398048f00": [
+        "I like this"
+      ],
       "69a97095c334ddc088097de7": [
         "The holes in these crocs might make the qr code unreadable. that's ok, we fixed it in the template"
       ],
