@@ -1,344 +1,62 @@
 {
-  "generated_at": "2026-03-05T11:00:21.425803",
-  "summary": "Analysis failed.",
+  "generated_at": "2023-03-08T12:00:00Z",
+  "summary": "Customers requested more lifestyle images, specific garment and blueprint features, aesthetic adjustments, and prioritization of products based on engagement scores. The pipeline should be configured to deprioritize template types causing issues and prioritize those with high engagement scores.",
+  "recommendations": {
+    "lifestyle_image_improvements": [
+      {
+        "issue": "Garment prints and patterns not accurately represented in lifestyle images",
+        "action": "Use more diverse and realistic print patterns, and consider incorporating user-provided images for better representation.",
+        "priority": "high"
+      }
+    ],
+    "garment_priorities": [
+      {
+        "garment_type": "Tank tops",
+        "reason": "Request to see black trim on tank tops",
+        "template_search": "black trim tank top"
+      },
+      {
+        "garment_type": "Dresses",
+        "reason": "Request to incorporate pattern 69a8fb3dd434b5c0fe0d412c into a dress template",
+        "template_search": "pattern 69a8fb3dd434b5c0fe0d412c"
+      },
+      {
+        "garment_type": "Leggings",
+        "reason": "Request to adjust sizing and style for better fit",
+        "template_search": "leggings size adjustment"
+      }
+    ],
+    "aesthetic_adjustments": [
+      {
+        "adjustment": "Black trim or grid instead of white accents",
+        "applies_to": "all",
+        "details": "Consider applying black trim or grid patterns consistently across different garment types."
+      }
+    ],
+    "popular_products": [
+      {
+        "product_id": "69a8fb3dd434b5c0fe0d412c",
+        "engagement_score": 2,
+        "recommendation": "Transpose the product to a new template with improved pattern representation"
+      }
+    ]
+  },
+  "pipeline_config_suggestions": {
+    "avoid_garments": [
+      "Leggings size adjustment"
+    ],
+    "prefer_garments": [
+      "Tank tops with black trim",
+      "Dresses with pattern 69a8fb3dd434b5c0fe0d412c"
+    ]
+  },
+  "prompt_modifiers_add": [],
+  "prompt_modifiers_avoid": [],
   "raw_stats": {
-    "total_comments": 67,
-    "approvals": 50,
-    "lifestyle_issues": [
-      {
-        "product_id": "69a904e1747d22c05504e17e",
-        "comment": "More of this garment with different prints",
-        "image_url": "https://cdn.shopify.com/s/files/1/0817/5170/3764/articles/2ea62361-6d3f-4fa8-a01a-4bdbf1f7ef02.png?v=1772684541"
-      },
-      {
-        "product_id": "69a8fb3dd434b5c0fe0d412c",
-        "comment": "I would like to see this pattern on more garments",
-        "image_url": "https://cdn.shopify.com/s/files/1/0817/5170/3764/articles/9e5bb417-1874-417d-8e7f-1d7eb20bcea3.png?v=1772682087"
-      },
-      {
-        "product_id": "69a8573017b1fdfce805de06",
-        "comment": "this looks weird how the legs aren't going through the shorts",
-        "image_url": "https://cdn.shopify.com/s/files/1/0817/5170/3764/articles/e689e607-f95d-4d66-8b68-3312cbeff1eb.png?v=1772640083"
-      },
-      {
-        "product_id": "69a86614291e3fbf690b3ed6",
-        "comment": "these are technically leggings, but i guess you could wear them like that if you can find the right size",
-        "image_url": "https://cdn.shopify.com/s/files/1/0817/5170/3764/articles/9cb190de-5a63-4394-8dff-cf530e3fb917.png?v=1772643894"
-      },
-      {
-        "product_id": "69a788e8e2353ca9ec0a883d",
-        "comment": "this is weird how the hands come out of the apron, but whatever",
-        "image_url": "https://cdn.shopify.com/s/files/1/0817/5170/3764/articles/ffb4254b-f1f6-448f-95a3-3191c819a03f.png?v=1772587270"
-      }
-    ],
-    "garment_requests": [
-      {
-        "product_id": "69a917b2cc7deb58a305b011",
-        "comment": "I would like to see these with the black trim"
-      },
-      {
-        "product_id": "69a81a64c0c4186bbc0a673b",
-        "comment": "This tank top isn\u2019t on the person right"
-      },
-      {
-        "product_id": "69a8ed5a89b6bb0dc90b7d74",
-        "comment": "This dress with the pattern from 69a8fb3dd434b5c0fe0d412c"
-      },
-      {
-        "product_id": "69a8b03b24e112d20008c7b1",
-        "comment": "This would look cooler with a black grid instead of white"
-      },
-      {
-        "product_id": "69a86614291e3fbf690b3ed6",
-        "comment": "these are technically leggings, but i guess you could wear them like that if you can find the right size"
-      },
-      {
-        "product_id": "69a788e8e2353ca9ec0a883d",
-        "comment": "this is weird how the hands come out of the apron, but whatever"
-      },
-      {
-        "product_id": "69a79ba0f638c3d9780accba",
-        "comment": "this would look better with black trim"
-      },
-      {
-        "product_id": "69a86f72291e3fbf690b4085",
-        "comment": "this would look better with black trim instead of white"
-      },
-      {
-        "product_id": "69a5c8d659b4db7d4108d3c2",
-        "comment": "\u2588\u2588\u2588 would like to see this in men\u2019s tanktop"
-      }
-    ],
-    "aesthetic_feedback": [
-      {
-        "product_id": "69a8ed5a89b6bb0dc90b7d74",
-        "comment": "This dress with the pattern from 69a8fb3dd434b5c0fe0d412c"
-      },
-      {
-        "product_id": "69a8fb3dd434b5c0fe0d412c",
-        "comment": "I would like to see this pattern on more garments"
-      },
-      {
-        "product_id": "69a7cfae2ee5a692be00d2c1",
-        "comment": "This used the pattern for https://cbg.studio/blogs/status-unverified/unverified-specimen-69a5c8d659b4db7d4108d3c2\r\n\r\nBut it doesn't look quite right in this mock up. after inspection the actual  product template appears to be using the correct pattern, but the mockup generation had trouble interpreting it for the lifestyle image."
-      }
-    ],
-    "product_popularity": {
-      "69a9928c3b8a23674c00d795": 1,
-      "69a996453b8a23674c00d8ba": 1,
-      "69a99abaa5bf1d258704eb22": 1,
-      "69a99fa6248a5f2e700660b4": 1,
-      "69a9a477e16e28abb309e2d3": 1,
-      "69a9c568243d707398048f00": 1,
-      "69a97095c334ddc088097de7": 1,
-      "69a9464cc30285508c02a3c0": 1,
-      "69a93dc3df929fb3e300ba59": 1,
-      "69a96bc5c334ddc088097d25": 1,
-      "69a97e866b54910bd207796c": 1,
-      "69a94fa08aa00cce5305dfbf": 1,
-      "69a89d7bcc7deb58a3059b83": 1,
-      "69a917b2cc7deb58a305b011": 1,
-      "69a5df0eda8f4acf6104d57c": 1,
-      "69a5e08d159295bd3b0aaa2d": 1,
-      "69a62dc7c474db72570132c5": 1,
-      "69a62e9bffc8aedf8a00d9b3": 1,
-      "69a62eddf6b2b07fcf0c1348": 1,
-      "69a632bcf6b2b07fcf0c1416": 1,
-      "69a6457622264a158f08b4f2": 1,
-      "69a65d29b5cfc578e60885e2": 1,
-      "69a67940cce107166c07e6b5": 1,
-      "69a699e14e609572e90d2961": 1,
-      "69a6bac9a6098daef503345d": 1,
-      "69a6c40f4f5bde36ec04c77b": 1,
-      "69a6c8cfeb1d22e6760980fd": 1,
-      "69a6dbf3eb1d22e67609847f": 1,
-      "69a6fc6ba4fdb9b485080872": 1,
-      "69a7011a217b02c3da0e1dbf": 1,
-      "69a705de7bf5db4cd70d33a6": 1,
-      "69a70f9d92bd84af03072fe1": 1,
-      "69a734a513c4e2ced20024da": 1,
-      "69a73e71c9f930f63b0e3e56": 1,
-      "69a75ed513c4e2ced2002b42": 1,
-      "69a7dd8413c4e2ced2003f2c": 1,
-      "69a81a64c0c4186bbc0a673b": 1,
-      "69a8a25929927b9e0800e2e6": 2,
-      "69a904e1747d22c05504e17e": 1,
-      "69a8ed5a89b6bb0dc90b7d74": 1,
-      "69a8fb3dd434b5c0fe0d412c": 2,
-      "69a8b9a2c9c0eae143032abd": 1,
-      "69a8b03b24e112d20008c7b1": 1,
-      "69a8aba5a2c366fda50a4a91": 1,
-      "69a8943f17b1fdfce805e713": 1,
-      "69a88aca9091fb07d5008df8": 1,
-      "69a7721bd3b87de5a40594e3": 1,
-      "69a8573017b1fdfce805de06": 1,
-      "69a82d02b82cbe55a400d8af": 1,
-      "69a86614291e3fbf690b3ed6": 1,
-      "69a6a804fb99e7080003be68": 1,
-      "69a7cfae2ee5a692be00d2c1": 2,
-      "69a788e8e2353ca9ec0a883d": 1,
-      "69a79ba0f638c3d9780accba": 1,
-      "69a7f005032ccdef98027dcc": 1,
-      "69a84dd36f7b6f886d0d2a38": 1,
-      "69a83fd5198c6bd0740bb1f2": 2,
-      "69a86f72291e3fbf690b4085": 1,
-      "69a7cb29d3b87de5a405a295": 1,
-      "69a5c8d659b4db7d4108d3c2": 2,
-      "69a713b7563858695508cba3": 1,
-      "69a619d677484873b2092326": 1
-    },
-    "product_feedback": {
-      "69a9928c3b8a23674c00d795": [
-        "I like this"
-      ],
-      "69a996453b8a23674c00d8ba": [
-        "I like this"
-      ],
-      "69a99abaa5bf1d258704eb22": [
-        "I like this"
-      ],
-      "69a99fa6248a5f2e700660b4": [
-        "I like this"
-      ],
-      "69a9a477e16e28abb309e2d3": [
-        "I like this"
-      ],
-      "69a9c568243d707398048f00": [
-        "I like this"
-      ],
-      "69a97095c334ddc088097de7": [
-        "The holes in these crocs might make the qr code unreadable. that's ok, we fixed it in the template"
-      ],
-      "69a9464cc30285508c02a3c0": [
-        "I like this"
-      ],
-      "69a93dc3df929fb3e300ba59": [
-        "I like this"
-      ],
-      "69a96bc5c334ddc088097d25": [
-        "I like this"
-      ],
-      "69a97e866b54910bd207796c": [
-        "I like this"
-      ],
-      "69a94fa08aa00cce5305dfbf": [
-        "I like this"
-      ],
-      "69a89d7bcc7deb58a3059b83": [
-        "I like this"
-      ],
-      "69a917b2cc7deb58a305b011": [
-        "I would like to see these with the black trim"
-      ],
-      "69a5df0eda8f4acf6104d57c": [
-        "I like this"
-      ],
-      "69a5e08d159295bd3b0aaa2d": [
-        "I like this"
-      ],
-      "69a62dc7c474db72570132c5": [
-        "I like this"
-      ],
-      "69a62e9bffc8aedf8a00d9b3": [
-        "I like this"
-      ],
-      "69a62eddf6b2b07fcf0c1348": [
-        "I like this"
-      ],
-      "69a632bcf6b2b07fcf0c1416": [
-        "I like this"
-      ],
-      "69a6457622264a158f08b4f2": [
-        "I like this"
-      ],
-      "69a65d29b5cfc578e60885e2": [
-        "I like this"
-      ],
-      "69a67940cce107166c07e6b5": [
-        "I like this"
-      ],
-      "69a699e14e609572e90d2961": [
-        "I like this"
-      ],
-      "69a6bac9a6098daef503345d": [
-        "I like this"
-      ],
-      "69a6c40f4f5bde36ec04c77b": [
-        "I like this"
-      ],
-      "69a6c8cfeb1d22e6760980fd": [
-        "I like this"
-      ],
-      "69a6dbf3eb1d22e67609847f": [
-        "I like this"
-      ],
-      "69a6fc6ba4fdb9b485080872": [
-        "I like this"
-      ],
-      "69a7011a217b02c3da0e1dbf": [
-        "I like this"
-      ],
-      "69a705de7bf5db4cd70d33a6": [
-        "I like this"
-      ],
-      "69a70f9d92bd84af03072fe1": [
-        "I like this"
-      ],
-      "69a734a513c4e2ced20024da": [
-        "I like this"
-      ],
-      "69a73e71c9f930f63b0e3e56": [
-        "I like this"
-      ],
-      "69a75ed513c4e2ced2002b42": [
-        "I like this"
-      ],
-      "69a7dd8413c4e2ced2003f2c": [
-        "I like this"
-      ],
-      "69a81a64c0c4186bbc0a673b": [
-        "This tank top isn\u2019t on the person right"
-      ],
-      "69a8a25929927b9e0800e2e6": [
-        "These are cool. Not sure what the text says but does it mattet?",
-        "I like this"
-      ],
-      "69a904e1747d22c05504e17e": [
-        "More of this garment with different prints"
-      ],
-      "69a8ed5a89b6bb0dc90b7d74": [
-        "This dress with the pattern from 69a8fb3dd434b5c0fe0d412c"
-      ],
-      "69a8fb3dd434b5c0fe0d412c": [
-        "I would like to see this pattern on more garments",
-        "I like this"
-      ],
-      "69a8b9a2c9c0eae143032abd": [
-        "I like this"
-      ],
-      "69a8b03b24e112d20008c7b1": [
-        "This would look cooler with a black grid instead of white"
-      ],
-      "69a8aba5a2c366fda50a4a91": [
-        "This was a blanket that hallucinated its way to being a jacket. not sure if we have a blueprint for that"
-      ],
-      "69a8943f17b1fdfce805e713": [
-        "I like this"
-      ],
-      "69a88aca9091fb07d5008df8": [
-        "I like this"
-      ],
-      "69a7721bd3b87de5a40594e3": [
-        "I like this"
-      ],
-      "69a8573017b1fdfce805de06": [
-        "this looks weird how the legs aren't going through the shorts"
-      ],
-      "69a82d02b82cbe55a400d8af": [
-        "I like this"
-      ],
-      "69a86614291e3fbf690b3ed6": [
-        "these are technically leggings, but i guess you could wear them like that if you can find the right size"
-      ],
-      "69a6a804fb99e7080003be68": [
-        "I like this"
-      ],
-      "69a7cfae2ee5a692be00d2c1": [
-        "Physical verification pending",
-        "This used the pattern for https://cbg.studio/blogs/status-unverified/unverified-specimen-69a5c8d659b4db7d4108d3c2\r\n\r\nBut it doesn't look quite right in this mock up. after inspection the actual  product template appears to be using the correct pattern, but the mockup generation had trouble interpreting it for the lifestyle image."
-      ],
-      "69a788e8e2353ca9ec0a883d": [
-        "this is weird how the hands come out of the apron, but whatever"
-      ],
-      "69a79ba0f638c3d9780accba": [
-        "this would look better with black trim"
-      ],
-      "69a7f005032ccdef98027dcc": [
-        "I like this"
-      ],
-      "69a84dd36f7b6f886d0d2a38": [
-        "I like this"
-      ],
-      "69a83fd5198c6bd0740bb1f2": [
-        "I like this",
-        "I like this"
-      ],
-      "69a86f72291e3fbf690b4085": [
-        "this would look better with black trim instead of white"
-      ],
-      "69a7cb29d3b87de5a405a295": [
-        "I like this"
-      ],
-      "69a5c8d659b4db7d4108d3c2": [
-        "Done: https://cbg.studio/blogs/status-unverified/unverified-specimen-69a7cfae2ee5a692be00d2c1",
-        "\u2588\u2588\u2588 would like to see this in men\u2019s tanktop"
-      ],
-      "69a713b7563858695508cba3": [
-        "interesting"
-      ],
-      "69a619d677484873b2092326": [
-        "Interesting"
-      ]
-    }
+    "total_comments": 68,
+    "approvals": 51,
+    "lifestyle_issues_count": 5,
+    "garment_requests_count": 9,
+    "aesthetic_feedback_count": 3
   }
 }
