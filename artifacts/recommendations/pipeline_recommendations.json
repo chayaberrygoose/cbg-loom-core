@@ -1,60 +1,81 @@
 {
-  "generated_at": "2023-03-08T12:00:00Z",
-  "summary": "Customers requested more lifestyle images, specific garment and blueprint features, aesthetic adjustments, and prioritization of products based on engagement scores. The pipeline should be configured to deprioritize template types causing issues and prioritize those with high engagement scores.",
+  "generated_at": "2023-12-15T14:30:00Z",
+  "summary": "Customers are generally satisfied with the products but have feedback on lifestyle images, garment preferences, and aesthetic adjustments. Improving these areas can enhance customer engagement and brand satisfaction.",
   "recommendations": {
     "lifestyle_image_improvements": [
       {
-        "issue": "Garment prints and patterns not accurately represented in lifestyle images",
-        "action": "Use more diverse and realistic print patterns, and consider incorporating user-provided images for better representation.",
+        "issue": "More consistent rendering of patterns and garments in lifestyle images",
+        "action": [
+          "adjust pattern interpretation",
+          "improve garment simulation"
+        ],
         "priority": "high"
+      },
+      {
+        "issue": "Better representation of product features, such as hands coming out of aprons",
+        "action": [
+          "refine hand modeling",
+          "enhance apron simulation"
+        ],
+        "priority": "medium"
       }
     ],
     "garment_priorities": [
       {
-        "garment_type": "Tank tops",
-        "reason": "Request to see black trim on tank tops",
-        "template_search": "black trim tank top"
+        "garment_type": "tank top",
+        "reason": "Customers want to see more tank tops with black trim and men's options",
+        "template_search": "black-trim-tank-top"
       },
       {
-        "garment_type": "Dresses",
-        "reason": "Request to incorporate pattern 69a8fb3dd434b5c0fe0d412c into a dress template",
-        "template_search": "pattern 69a8fb3dd434b5c0fe0d412c"
-      },
-      {
-        "garment_type": "Leggings",
-        "reason": "Request to adjust sizing and style for better fit",
-        "template_search": "leggings size adjustment"
+        "garment_type": "leggings",
+        "reason": "Customers appreciate the versatility of leggings but suggest adjusting sizing for a better fit",
+        "template_search": "versatile-leggings"
       }
     ],
     "aesthetic_adjustments": [
       {
-        "adjustment": "Black trim or grid instead of white accents",
+        "adjustment": "Black trim or grid instead of white for added depth and contrast",
         "applies_to": "all",
-        "details": "Consider applying black trim or grid patterns consistently across different garment types."
+        "details": "Consider using these elements to enhance visual interest in product images"
+      },
+      {
+        "adjustment": "Pattern suggestions, such as the one from 69a8fb3dd434b5c0fe0d412c",
+        "applies_to": "specific lore themes",
+        "details": "Incorporate these patterns to add variety and visual appeal to products"
       }
     ],
     "popular_products": [
       {
         "product_id": "69a8fb3dd434b5c0fe0d412c",
-        "engagement_score": 2,
-        "recommendation": "Transpose the product to a new template with improved pattern representation"
+        "engagement_score": 25,
+        "recommendation": "Transpose this product to new templates for improved lifestyle image rendering"
+      },
+      {
+        "product_id": "69a7cfae2ee5a692be00d2c1",
+        "engagement_score": 20,
+        "recommendation": "Adjust the pattern interpretation for better consistency across all products"
       }
     ]
   },
   "pipeline_config_suggestions": {
     "avoid_garments": [
-      "Leggings size adjustment"
+      "shorts-with-leg-issues"
     ],
     "prefer_garments": [
-      "Tank tops with black trim",
-      "Dresses with pattern 69a8fb3dd434b5c0fe0d412c"
+      "tank tops with black trim",
+      "versatile-leggings"
+    ],
+    "prompt_modifiers_add": [
+      "adjust-pattern-interpretation",
+      "refine-hand-modeling"
+    ],
+    "prompt_modifiers_avoid": [
+      "hands-out-of-aprons"
     ]
   },
-  "prompt_modifiers_add": [],
-  "prompt_modifiers_avoid": [],
   "raw_stats": {
-    "total_comments": 68,
-    "approvals": 51,
+    "total_comments": 69,
+    "approvals": 52,
     "lifestyle_issues_count": 5,
     "garment_requests_count": 9,
     "aesthetic_feedback_count": 3
