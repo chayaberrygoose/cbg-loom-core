@@ -1,81 +1,68 @@
 {
-  "generated_at": "2023-12-15T14:30:00Z",
-  "summary": "Customers are generally satisfied with the products but have feedback on lifestyle images, garment preferences, and aesthetic adjustments. Improving these areas can enhance customer engagement and brand satisfaction.",
+  "generated_at": "2024-03-12T14:30:00+02:00",
+  "summary": "Customers appreciate more lifestyle image variations and suggest improving garment details, adjusting aesthetics, and prioritizing popular products.",
   "recommendations": {
     "lifestyle_image_improvements": [
       {
-        "issue": "More consistent rendering of patterns and garments in lifestyle images",
-        "action": [
-          "adjust pattern interpretation",
-          "improve garment simulation"
-        ],
+        "issue": "More of this garment with different prints",
+        "action": "+print variation suggestions for product 69a904e1747d22c05504e17e",
         "priority": "high"
       },
       {
-        "issue": "Better representation of product features, such as hands coming out of aprons",
-        "action": [
-          "refine hand modeling",
-          "enhance apron simulation"
-        ],
+        "issue": "I would like to see this pattern on more garments",
+        "action": "+pattern suggestion for all products in the Tech-Wear collection",
         "priority": "medium"
       }
     ],
     "garment_priorities": [
       {
         "garment_type": "tank top",
-        "reason": "Customers want to see more tank tops with black trim and men's options",
-        "template_search": "black-trim-tank-top"
+        "reason": "requests for black trim or grid design variations",
+        "template_search": "black trim tank tops"
       },
       {
-        "garment_type": "leggings",
-        "reason": "Customers appreciate the versatility of leggings but suggest adjusting sizing for a better fit",
-        "template_search": "versatile-leggings"
+        "garment_type": "dress with pattern 69a8fb3dd434b5c0fe0d412c",
+        "reason": "request to use specific pattern in mockups",
+        "template_search": "dress with pattern 69a8fb3dd434b5c0fe0d412c"
       }
     ],
     "aesthetic_adjustments": [
       {
-        "adjustment": "Black trim or grid instead of white for added depth and contrast",
+        "adjustment": "black trim or grid design for improved contrast",
         "applies_to": "all",
-        "details": "Consider using these elements to enhance visual interest in product images"
+        "details": "Use black trim and/or grid design to enhance visual appeal in lifestyle images"
       },
       {
-        "adjustment": "Pattern suggestions, such as the one from 69a8fb3dd434b5c0fe0d412c",
-        "applies_to": "specific lore themes",
-        "details": "Incorporate these patterns to add variety and visual appeal to products"
+        "adjustment": "more print variation suggestions",
+        "applies_to": "all",
+        "details": "Encourage customers to suggest more print variations for Tech-Wear garments"
       }
     ],
     "popular_products": [
       {
         "product_id": "69a8fb3dd434b5c0fe0d412c",
-        "engagement_score": 25,
-        "recommendation": "Transpose this product to new templates for improved lifestyle image rendering"
-      },
-      {
-        "product_id": "69a7cfae2ee5a692be00d2c1",
-        "engagement_score": 20,
-        "recommendation": "Adjust the pattern interpretation for better consistency across all products"
+        "engagement_score": 2,
+        "recommendation": "+new template with improved mockup generation for product 69a8fb3dd434b5c0fe0d412c"
       }
     ]
   },
   "pipeline_config_suggestions": {
     "avoid_garments": [
-      "shorts-with-leg-issues"
+      "tank tops without black trim or grid design"
     ],
     "prefer_garments": [
-      "tank tops with black trim",
-      "versatile-leggings"
+      "dress with pattern 69a8fb3dd434b5c0fe0d412c"
     ],
     "prompt_modifiers_add": [
-      "adjust-pattern-interpretation",
-      "refine-hand-modeling"
+      "print variation suggestions, garment type and reason for request"
     ],
     "prompt_modifiers_avoid": [
-      "hands-out-of-aprons"
+      "incorrect mockup generation"
     ]
   },
   "raw_stats": {
-    "total_comments": 69,
-    "approvals": 52,
+    "total_comments": 70,
+    "approvals": 53,
     "lifestyle_issues_count": 5,
     "garment_requests_count": 9,
     "aesthetic_feedback_count": 3
