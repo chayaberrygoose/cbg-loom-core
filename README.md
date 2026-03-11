@@ -78,6 +78,52 @@ crontab -l | grep -v fabricate_cron | crontab -
 tail -f /tmp/cbg_fabricate.log
 ```
 
+## 04A_PRINTIFY→SHOPIFY PUBLICATION & IMAGE UPLOAD
+
+Automate Printify→Shopify publication, margin/markup, and lifestyle image upload:
+
+**Setup:**
+```bash
+source .venv/bin/activate
+pip install -r requirements.txt
+# (If needed) pip install python-dateutil
+```
+
+**Required .env variables:**
+- PRINTIFY_API_KEY
+- PRINTIFY_SHOP_ID (optional, auto-detects if not set)
+- SHOPIFY_STORE_URL (e.g. your-store.myshopify.com)
+- SHOPIFY_ACCESS_TOKEN (Shopify Admin API token)
+
+**Usage:**
+```bash
+# List Printify products (get product IDs)
+python3 scripts/publish_printify_product.py --list-products
+
+# Publish a product, set 30% margin, and upload lifestyle image
+python3 scripts/publish_printify_product.py <PRINTIFY_PRODUCT_ID>
+```
+
+**How it works:**
+1. Sets a 30% profit margin for all variants on Printify.
+2. Publishes the product to Shopify (or re-publishes if already live).
+3. Waits for Printify to finish syncing (robustly detects sync state).
+4. Uploads a lifestyle image as the primary Shopify image (searches artifacts/graphics/mockups/ subfolders for the product ID).
+
+**Lifestyle image requirements:**
+- Place your lifestyle image in a subfolder of `artifacts/graphics/mockups/` named with `__<product_id>` at the end (e.g. `.../mockups/UNVERIFIED__69b094ace427dbfed105e14a/yourimage.jpg`).
+
+**Troubleshooting:**
+- If the script is stuck polling, check your Printify product status and timestamps. The script waits for Printify to finish syncing before uploading the image to avoid Shopify image overwrite.
+- If you see `ModuleNotFoundError: No module named 'dateutil'`, run `pip install python-dateutil` in your environment.
+
+**Edge cases:**
+- If the product was previously published, the script will still wait for Printify to finish any active sync before uploading the image, ensuring the lifestyle image is not overwritten.
+
+**See also:**
+- scripts/printify_markup.py (Printify API helpers)
+- agents/skills/shopify_skill/shopify_skill.py (Shopify API helpers)
+
 ### Backfill Missing Blog Posts
 
 If the pipeline fails mid-run (e.g., API errors), some products may exist without corresponding blog posts. The backfill script audits and repairs these gaps:

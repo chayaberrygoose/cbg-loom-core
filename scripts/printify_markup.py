@@ -1,18 +1,22 @@
-/* [FILE_ID]: printify_markup.py // VERSION: 1.0 // STATUS: STABLE */
-"""
-Script to fetch Printify product(s), calculate a 30% markup for each variant, and print the results.
-Requires PRINTIFY_API_KEY as an environment variable.
-"""
 import os
 import requests
 import sys
 
-PRINTIFY_API_KEY = os.getenv("PRINTIFY_API_KEY")
+
 BASE_URL = "https://api.printify.com/v1"
-HEADERS = {"Authorization": f"Bearer {PRINTIFY_API_KEY}"}
+
+def get_printify_api_key():
+    # Support both uppercase and lowercase keys
+    return os.getenv("PRINTIFY_API_KEY") or os.getenv("printify_api_key")
+
+def get_headers():
+    api_key = get_printify_api_key()
+    if not api_key:
+        raise RuntimeError("PRINTIFY_API_KEY is not set in environment.")
+    return {"Authorization": f"Bearer {api_key}"}
 
 def get_shop_id():
-    resp = requests.get(f"{BASE_URL}/shops.json", headers=HEADERS)
+    resp = requests.get(f"{BASE_URL}/shops.json", headers=get_headers())
     resp.raise_for_status()
     shops = resp.json()
     if not shops:
@@ -20,12 +24,21 @@ def get_shop_id():
     return shops[0]["id"]
 
 def get_product(shop_id, product_id):
-    resp = requests.get(f"{BASE_URL}/shops/{shop_id}/products/{product_id}.json", headers=HEADERS)
-    resp.raise_for_status()
-    return resp.json()
+    import requests
+    url = f"{BASE_URL}/shops/{shop_id}/products/{product_id}.json"
+    try:
+        resp = requests.get(url, headers=get_headers())
+        resp.raise_for_status()
+        return resp.json()
+    except requests.HTTPError as e:
+        print(f"[PRINTIFY ERROR] Failed to fetch product {product_id} from shop {shop_id}.")
+        print(f"[PRINTIFY ERROR] Status: {e.response.status_code}")
+        print(f"[PRINTIFY ERROR] URL: {url}")
+        print(f"[PRINTIFY ERROR] Response: {e.response.text}")
+        raise
 
 def get_all_products(shop_id):
-    resp = requests.get(f"{BASE_URL}/shops/{shop_id}/products.json", headers=HEADERS)
+    resp = requests.get(f"{BASE_URL}/shops/{shop_id}/products.json", headers=get_headers())
     resp.raise_for_status()
     return resp.json()["data"]
 
