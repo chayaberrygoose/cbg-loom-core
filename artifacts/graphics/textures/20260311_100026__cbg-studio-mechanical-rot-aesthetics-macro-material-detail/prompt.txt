@@ -1,0 +1,3 @@
+prompt: CBG Studio | Mechanical Rot Aesthetics: macro material detail, industrial surface texture, weathered finish, high-fidelity map, industrial noir, tech-wear, post-apocalyptic, mechanized, weathered, eerie glow, industrial noir color palette, phosphor green accents, sharp details, high contrast., add garment leg holes, adjust black trim generation, avoid: incorrect pattern interpretations
+model: gemini-3.1-flash-image-preview
+timestamp: 20260311_100026

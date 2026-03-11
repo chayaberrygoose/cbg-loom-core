@@ -1,53 +1,69 @@
 {
-  "generated_at": "2024-03-08T14:30:00Z",
-  "summary": "Customers generally like the products, but there are some lifestyle image issues and requests for new garment designs, patterns, and aesthetic adjustments. The most commented products were found in product 69a8fb3dd434b5c0fe0d412c.",
+  "generated_at": "2023-12-15T14:30:00Z",
+  "summary": "Consumers expressed mixed opinions on Chaya Berry Goose products, with a focus on lifestyle image improvements and aesthetic adjustments. Simple approvals indicate widespread appreciation for the brand.",
   "recommendations": {
     "lifestyle_image_improvements": [
       {
-        "issue": "legends aren't going through the shorts",
-        "action": "add garment leg holes to the apron template",
+        "issue": "More of this garment with different prints",
+        "action": "include more print variations in future mockups",
         "priority": "high"
+      },
+      {
+        "issue": "I would like to see this pattern on more garments",
+        "action": "add the pattern from product 69a8fb3dd434b5c0fe0d412c to more product templates",
+        "priority": "medium"
       }
     ],
     "garment_priorities": [
       {
         "garment_type": "tank top",
-        "reason": "requests for this design exist in unverified specimens",
-        "template_search": "tanks"
+        "reason": "improved fit and design requested by multiple customers",
+        "template_search": "t tank tops with black trim"
+      },
+      {
+        "garment_type": "shorts",
+        "reason": "leg design and fit issues reported",
+        "template_search": "g shorts with legs"
       }
     ],
     "aesthetic_adjustments": [
       {
-        "adjustment": "black trim on blueprints and garments",
+        "adjustment": "black grid instead of white",
         "applies_to": "all",
-        "details": "adjust the template generation to include black trim on all applicable products"
+        "details": "update templates to include black grids for added contrast"
       }
     ],
     "popular_products": [
       {
         "product_id": "69a8fb3dd434b5c0fe0d412c",
         "engagement_score": 2,
-        "recommendation": "transpose this product to new templates with improved patterns and color adjustments"
+        "recommendation": "transpose the pattern from this product to new templates with improved fit and design"
+      },
+      {
+        "product_id": "69a7cfae2ee5a692be00d2c1",
+        "engagement_score": 2,
+        "recommendation": "update the template for this product to include black trim and a more flattering design"
       }
     ]
   },
   "pipeline_config_suggestions": {
     "avoid_garments": [
-      "unverified specimens"
+      "t tank tops with white trim"
     ],
     "prefer_garments": [
-      "tank tops"
+      "t tank tops with black trim",
+      "g shorts with legs"
     ],
     "prompt_modifiers_add": [
-      "add garment leg holes",
-      "adjust black trim generation"
+      "print variations",
+      "black grids"
     ],
     "prompt_modifiers_avoid": [
-      "incorrect pattern interpretations"
+      "white trim"
     ]
   },
   "raw_stats": {
-    "total_comments": 71,
+    "total_comments": 73,
     "approvals": 54,
     "lifestyle_issues_count": 5,
     "garment_requests_count": 9,
