@@ -1,68 +1,54 @@
 {
-  "generated_at": "2024-03-12T14:30:00+02:00",
-  "summary": "Customers appreciate more lifestyle image variations and suggest improving garment details, adjusting aesthetics, and prioritizing popular products.",
+  "generated_at": "2024-03-08T14:30:00Z",
+  "summary": "Customers generally like the products, but there are some lifestyle image issues and requests for new garment designs, patterns, and aesthetic adjustments. The most commented products were found in product 69a8fb3dd434b5c0fe0d412c.",
   "recommendations": {
     "lifestyle_image_improvements": [
       {
-        "issue": "More of this garment with different prints",
-        "action": "+print variation suggestions for product 69a904e1747d22c05504e17e",
+        "issue": "legends aren't going through the shorts",
+        "action": "add garment leg holes to the apron template",
         "priority": "high"
-      },
-      {
-        "issue": "I would like to see this pattern on more garments",
-        "action": "+pattern suggestion for all products in the Tech-Wear collection",
-        "priority": "medium"
       }
     ],
     "garment_priorities": [
       {
         "garment_type": "tank top",
-        "reason": "requests for black trim or grid design variations",
-        "template_search": "black trim tank tops"
-      },
-      {
-        "garment_type": "dress with pattern 69a8fb3dd434b5c0fe0d412c",
-        "reason": "request to use specific pattern in mockups",
-        "template_search": "dress with pattern 69a8fb3dd434b5c0fe0d412c"
+        "reason": "requests for this design exist in unverified specimens",
+        "template_search": "tanks"
       }
     ],
     "aesthetic_adjustments": [
       {
-        "adjustment": "black trim or grid design for improved contrast",
+        "adjustment": "black trim on blueprints and garments",
         "applies_to": "all",
-        "details": "Use black trim and/or grid design to enhance visual appeal in lifestyle images"
-      },
-      {
-        "adjustment": "more print variation suggestions",
-        "applies_to": "all",
-        "details": "Encourage customers to suggest more print variations for Tech-Wear garments"
+        "details": "adjust the template generation to include black trim on all applicable products"
       }
     ],
     "popular_products": [
       {
         "product_id": "69a8fb3dd434b5c0fe0d412c",
         "engagement_score": 2,
-        "recommendation": "+new template with improved mockup generation for product 69a8fb3dd434b5c0fe0d412c"
+        "recommendation": "transpose this product to new templates with improved patterns and color adjustments"
       }
     ]
   },
   "pipeline_config_suggestions": {
     "avoid_garments": [
-      "tank tops without black trim or grid design"
+      "unverified specimens"
     ],
     "prefer_garments": [
-      "dress with pattern 69a8fb3dd434b5c0fe0d412c"
+      "tank tops"
     ],
     "prompt_modifiers_add": [
-      "print variation suggestions, garment type and reason for request"
+      "add garment leg holes",
+      "adjust black trim generation"
     ],
     "prompt_modifiers_avoid": [
-      "incorrect mockup generation"
+      "incorrect pattern interpretations"
     ]
   },
   "raw_stats": {
-    "total_comments": 70,
-    "approvals": 53,
+    "total_comments": 71,
+    "approvals": 54,
     "lifestyle_issues_count": 5,
     "garment_requests_count": 9,
     "aesthetic_feedback_count": 3
