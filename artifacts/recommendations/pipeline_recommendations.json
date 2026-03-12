@@ -1,70 +1,58 @@
 {
-  "generated_at": "2023-12-15T14:30:00Z",
-  "summary": "Consumers expressed mixed opinions on Chaya Berry Goose products, with a focus on lifestyle image improvements and aesthetic adjustments. Simple approvals indicate widespread appreciation for the brand.",
+  "generated_at": "2023-12-01T16:30:00Z",
+  "summary": "Community feedback on Chaya Berry Goose Studio's industrial noir and tech-wear brand highlights lifestyle image issues, garment requests, aesthetic adjustments, and popular products. Overall, the community wants more diverse prints, better fitting garments, and improved aesthetic consistency.",
   "recommendations": {
     "lifestyle_image_improvements": [
       {
         "issue": "More of this garment with different prints",
-        "action": "include more print variations in future mockups",
+        "action": "add variety in print patterns and styles for similar garments",
         "priority": "high"
       },
       {
-        "issue": "I would like to see this pattern on more garments",
-        "action": "add the pattern from product 69a8fb3dd434b5c0fe0d412c to more product templates",
+        "issue": "this looks weird how the hands come out of the apron, but whatever",
+        "action": "refine apron design to avoid awkward hand placement",
         "priority": "medium"
       }
     ],
     "garment_priorities": [
       {
         "garment_type": "tank top",
-        "reason": "improved fit and design requested by multiple customers",
-        "template_search": "t tank tops with black trim"
-      },
-      {
-        "garment_type": "shorts",
-        "reason": "leg design and fit issues reported",
-        "template_search": "g shorts with legs"
+        "reason": "request for black trim",
+        "template_search": "tank tops with black trim"
       }
     ],
     "aesthetic_adjustments": [
       {
         "adjustment": "black grid instead of white",
         "applies_to": "all",
-        "details": "update templates to include black grids for added contrast"
-      }
-    ],
-    "popular_products": [
-      {
-        "product_id": "69a8fb3dd434b5c0fe0d412c",
-        "engagement_score": 2,
-        "recommendation": "transpose the pattern from this product to new templates with improved fit and design"
-      },
-      {
-        "product_id": "69a7cfae2ee5a692be00d2c1",
-        "engagement_score": 2,
-        "recommendation": "update the template for this product to include black trim and a more flattering design"
+        "details": "apply to all garments for consistency"
       }
     ]
   },
+  "popular_products": [
+    {
+      "product_id": "69a8fb3dd434b5c0fe0d412c",
+      "engagement_score": 2,
+      "recommendation": "transpose to new templates to improve aesthetic"
+    }
+  ],
   "pipeline_config_suggestions": {
     "avoid_garments": [
-      "t tank tops with white trim"
+      "tank tops with white trim"
     ],
     "prefer_garments": [
-      "t tank tops with black trim",
-      "g shorts with legs"
+      "tank tops with black trim"
     ],
     "prompt_modifiers_add": [
-      "print variations",
-      "black grids"
+      "black grid pattern suggestion"
     ],
     "prompt_modifiers_avoid": [
-      "white trim"
+      "hands coming out of apron design"
     ]
   },
   "raw_stats": {
-    "total_comments": 73,
-    "approvals": 54,
+    "total_comments": 75,
+    "approvals": 56,
     "lifestyle_issues_count": 5,
     "garment_requests_count": 9,
     "aesthetic_feedback_count": 3

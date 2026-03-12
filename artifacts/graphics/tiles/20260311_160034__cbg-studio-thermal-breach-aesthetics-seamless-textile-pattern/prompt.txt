@@ -1,0 +1,3 @@
+prompt: CBG Studio | Thermal Breach Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, infrared heat-map gradients, topographical thermal patterns, overheated circuitry glow, sensor-flare artifacts, chemical-wash textures, molten digital noise., industrial noir color palette, phosphor green accents, sharp details, high contrast., print variations, black grids, avoid: white trim
+model: gemini-3.1-flash-image-preview
+timestamp: 20260311_160034
