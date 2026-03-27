@@ -1,0 +1,3 @@
+prompt: CBG Studio | Cyber Requiem Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, neon-lit cityscapes, cyberpunk architecture, high-tech laboratory settings, fragmented identities, urban decay, digital chaos, industrial noir color palette, phosphor green accents, sharp details, high contrast., black grid pattern suggestion, avoid: hands coming out of apron design
+model: gemini-3.1-flash-image-preview
+timestamp: 20260326_110043

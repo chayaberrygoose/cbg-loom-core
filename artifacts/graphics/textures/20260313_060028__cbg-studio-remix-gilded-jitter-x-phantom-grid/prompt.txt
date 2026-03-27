@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Gilded Jitter x Phantom Grid]: macro material detail, industrial surface texture, weathered finish, high-fidelity map, faded surveillance grid overlay, scan line artifacts, ghost signal interference, redacted coordinate markers, decommissioned monitoring system aesthetic, structural echo: distressed luxury patterns, fractured ornate brocade, gold-leaf digital artifacts, shattered heraldic icons, high-contrast red and gold glitch, corrupted damask weave, industrial noir color palette, phosphor green accents, sharp details, high contrast., black grid pattern suggestion, avoid: hands coming out of apron design
+model: gemini-3.1-flash-image-preview
+timestamp: 20260313_060028
