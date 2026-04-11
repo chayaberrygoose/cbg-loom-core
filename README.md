@@ -34,8 +34,9 @@ python3 scripts/fabricate.py
 1. **REMIX PROTOCOL:** Two lore themes are selected as Base (Structure) and Breach (Interference) and fused via the [Remix Protocol](protocols/Remix%20Protocol.md).
 2. **SYNTHESIS:** Gemini generates seamless tiles and textures from the fused lore prompt.
 3. **EXTRUSION:** Graphics are mapped onto a Printify garment template and published as a product.
-4. **LIFESTYLE REALIZATION:** A lifestyle mockup is synthesized via Gemini, stamped with the STATUS: UNVERIFIED mark, and uploaded.
-5. **BLOG DISPATCH:** An article is posted to the `STATUS: UNVERIFIED` Shopify blog with the lifestyle image and a call for external field analysts.
+4. **MARGIN + PUBLISH:** A 30% profit margin is set on all variants and the product is published to Shopify via Printify.
+5. **LIFESTYLE REALIZATION:** A lifestyle mockup is synthesized via Gemini, stamped with the STATUS: UNVERIFIED mark, and uploaded.
+6. **SHOPIFY SYNC:** The pipeline waits for the Printify→Shopify sync to complete, then uploads the lifestyle image as the primary Shopify product image.
 
 **Options:**
 ```bash

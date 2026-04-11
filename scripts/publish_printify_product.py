@@ -36,13 +36,6 @@ PRINTIFY_API_KEY = get_env("PRINTIFY_API_KEY", "printify_api_key")
 SHOPIFY_STORE_URL = get_env("SHOPIFY_STORE_URL", "shopify_store_url")
 SHOPIFY_ACCESS_TOKEN = get_env("SHOPIFY_ACCESS_TOKEN", "shopify_access_token")
 
-print(f"[DEBUG] PRINTIFY_API_KEY: {PRINTIFY_API_KEY}")
-print(f"[DEBUG] SHOPIFY_STORE_URL: {SHOPIFY_STORE_URL}")
-print(f"[DEBUG] SHOPIFY_ACCESS_TOKEN: {SHOPIFY_ACCESS_TOKEN}")
-if not PRINTIFY_API_KEY:
-    print("[ERROR] PRINTIFY_API_KEY is not set. Check .env and environment.")
-    sys.exit(1)
-
 def get_printify_shop_id():
     # Support both uppercase and lowercase keys
     return os.getenv("PRINTIFY_SHOP_ID") or os.getenv("printify_shop_id")
@@ -127,6 +120,7 @@ def set_margin_and_publish(product_id, margin=0.3):
 def wait_for_printify_publish(shop_id, product_id, timeout=300, poll_interval=10):
     """
     Poll Printify product until it is published to Shopify (status: 'published' or similar).
+    Returns the Shopify external product ID from Printify's external field, or None.
     """
     import requests
     elapsed = 0
@@ -162,8 +156,10 @@ def wait_for_printify_publish(shop_id, product_id, timeout=300, poll_interval=10
         if error:
             raise RuntimeError(f"[PRINTIFY ERROR] Sync failed: {error}")
         if not sync_in_progress:
-            print(f"[SYSTEM_LOG] Printify product {product_id} sync complete. Proceeding.")
-            return
+            # Extract Shopify product ID from Printify external field
+            shopify_id = external.get("id") if external else None
+            print(f"[SYSTEM_LOG] Printify product {product_id} sync complete. Shopify external ID: {shopify_id}")
+            return shopify_id
         print(f"[SYSTEM_LOG] Waiting for Printify to finish publishing {product_id}... [status={status}, is_locked={is_locked}, updated_at={updated_at}, synced_at={synced_at}, ext.updated_at={ext_updated_at}]")
         time.sleep(poll_interval)
         elapsed += poll_interval
@@ -230,6 +226,14 @@ def list_printify_products():
         print(f"Product ID: {prod['id']} | Title: {prod.get('title', '')}")
 
 def main():
+    # Debug output only when run directly
+    print(f"[DEBUG] PRINTIFY_API_KEY: {PRINTIFY_API_KEY}")
+    print(f"[DEBUG] SHOPIFY_STORE_URL: {SHOPIFY_STORE_URL}")
+    print(f"[DEBUG] SHOPIFY_ACCESS_TOKEN: {SHOPIFY_ACCESS_TOKEN}")
+    if not PRINTIFY_API_KEY:
+        print("[ERROR] PRINTIFY_API_KEY is not set. Check .env and environment.")
+        sys.exit(1)
+
     if len(sys.argv) == 2 and sys.argv[1] == '--list-products':
         list_printify_products()
         sys.exit(0)
