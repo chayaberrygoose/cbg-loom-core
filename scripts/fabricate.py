@@ -29,10 +29,11 @@ from scripts.fabricate_specimen_v2 import (
     fabricate_specimen,
     list_available_themes,
     select_remix_pair,
+    select_least_used,
 )
 
 
-def run(theme=None, base=None, breach=None, template=None, prompt=None, skip_feedback_refresh=False):
+def run(theme=None, base=None, breach=None, template=None, prompt=None):
     """
     Kick off a single fabrication run.
 
@@ -42,7 +43,6 @@ def run(theme=None, base=None, breach=None, template=None, prompt=None, skip_fee
         breach:   Explicit Breach (Interference) lore name for remix.
         template: Search string to filter garment templates (e.g. "Hoodie", "Joggers").
         prompt:   Manual prompt override — bypasses lore-driven generation.
-        skip_feedback_refresh: Skip auto-refresh of community feedback recommendations.
 
     Returns:
         The created Printify product dict, or None on failure.
@@ -54,7 +54,7 @@ def run(theme=None, base=None, breach=None, template=None, prompt=None, skip_fee
 
     # Single-theme legacy path (explicit)
     if theme:
-        return fabricate_specimen(theme=theme, template_search=template, prompt_override=prompt, skip_feedback_refresh=skip_feedback_refresh)
+        return fabricate_specimen(theme=theme, template_search=template, prompt_override=prompt)
 
     # Explicit remix path (base/breach specified)
     if base or breach:
@@ -69,12 +69,11 @@ def run(theme=None, base=None, breach=None, template=None, prompt=None, skip_fee
             base_name=base_name,
             breach_name=breach_name,
             remix_desc=remix_desc,
-            skip_feedback_refresh=skip_feedback_refresh,
         )
 
     # Random mode selection: 50/50 remix vs single theme
     if random.choice([True, False]):
-        # Remix Protocol
+        # Remix Protocol — usage-weighted pair selection
         base_name, breach_name, remix_desc = select_remix_pair()
         display = f"{base_name} x {breach_name}"
         print(f"[SYSTEM_LOG]: Random mode selected REMIX — {display}")
@@ -85,13 +84,13 @@ def run(theme=None, base=None, breach=None, template=None, prompt=None, skip_fee
             base_name=base_name,
             breach_name=breach_name,
             remix_desc=remix_desc,
-            skip_feedback_refresh=skip_feedback_refresh,
         )
     else:
-        # Single theme (random selection)
-        theme = random.choice(available)
+        # Single theme — usage-weighted selection (least-used first)
+        picks = select_least_used(available, count=1)
+        theme = picks[0]
         print(f"[SYSTEM_LOG]: Random mode selected SINGLE THEME — {theme}")
-        return fabricate_specimen(theme=theme, template_search=template, prompt_override=prompt, skip_feedback_refresh=skip_feedback_refresh)
+        return fabricate_specimen(theme=theme, template_search=template, prompt_override=prompt)
 
 
 if __name__ == "__main__":
@@ -103,7 +102,6 @@ if __name__ == "__main__":
     parser.add_argument("--breach", help="Remix Breach lore name")
     parser.add_argument("--template", help="Filter garment template (e.g. 'Hoodie')")
     parser.add_argument("--prompt", help="Manual prompt override")
-    parser.add_argument("--skip-feedback-refresh", action="store_true", help="Skip auto-refresh of community feedback recommendations")
     args = parser.parse_args()
 
     result = run(
@@ -112,6 +110,5 @@ if __name__ == "__main__":
         breach=args.breach,
         template=args.template,
         prompt=args.prompt,
-        skip_feedback_refresh=args.skip_feedback_refresh,
     )
     sys.exit(0 if result else 1)

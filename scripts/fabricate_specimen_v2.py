@@ -1,6 +1,6 @@
-# [FILE_ID]: scripts/FABRICATE_SPECIMEN_V2 // VERSION: 2.2 // STATUS: STABLE
+# [FILE_ID]: scripts/FABRICATE_SPECIMEN_V2 // VERSION: 2.3 // STATUS: STABLE
 # [SYSTEM_LOG]: AGILE_NANOBANANA_FABRICATION_PROTOCOL_V2 // REMIX_PROTOCOL_ONLINE
-# [SYSTEM_LOG]: AUTO_FEEDBACK_REFRESH_ENABLED
+# [SYSTEM_LOG]: EQUAL_WEIGHT_LORE_SELECTION — USAGE_TRACKER_ENABLED
 # [SYSTEM_LOG]: SHOPIFY_PUBLISH_INTEGRATED — BLOG_STEP_REMOVED
 
 import sys
@@ -35,6 +35,7 @@ PROTOCOL_DIR = Path("protocols")
 STAMP_PATH = Path("artifacts/graphics/logos/repo_portal_qr.png")
 TEMPLATE_HISTORY_PATH = Path("artifacts/.last_template_id")
 RECOMMENDATIONS_PATH = Path("artifacts/recommendations/pipeline_recommendations.json")
+LORE_USAGE_PATH = Path("artifacts/.lore_usage.json")
 
 
 def _ts() -> str:
@@ -154,6 +155,64 @@ def list_available_themes() -> list:
     return sorted([f.stem for f in LORE_DIR.glob("*.md")])
 
 
+# ─── LORE USAGE TRACKER ────────────────────────────────────────────
+
+def _load_usage() -> dict:
+    """Load lore usage counts from disk. Returns {theme_name: int}."""
+    if LORE_USAGE_PATH.exists():
+        try:
+            return json.loads(LORE_USAGE_PATH.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+    return {}
+
+
+def _save_usage(usage: dict) -> None:
+    """Persist usage counts to disk."""
+    try:
+        LORE_USAGE_PATH.write_text(json.dumps(usage, indent=2, sort_keys=True), encoding="utf-8")
+    except Exception as e:
+        _log(f"[SYSTEM_WARNING]: Failed to save lore usage tracker: {e}")
+
+
+def record_lore_usage(*theme_names: str) -> None:
+    """Increment the usage counter for one or more lore themes."""
+    usage = _load_usage()
+    for name in theme_names:
+        usage[name] = usage.get(name, 0) + 1
+    _save_usage(usage)
+
+
+def select_least_used(available: list, count: int = 1, exclude: list = None) -> list:
+    """
+    Select `count` themes from `available` that have the lowest usage.
+    Ties are broken randomly for natural variety.
+
+    Args:
+        available: List of theme names to choose from.
+        count:     How many to select (1 for single, 2 for remix pair).
+        exclude:   Theme names to skip (e.g. already-chosen base).
+
+    Returns:
+        List of selected theme names.
+    """
+    usage = _load_usage()
+    exclude = set(exclude or [])
+    pool = [t for t in available if t not in exclude]
+
+    if not pool:
+        pool = list(available)  # fallback: ignore exclusions
+
+    if len(pool) <= count:
+        return pool[:count]
+
+    # Sort by usage (ascending), shuffle ties
+    random.shuffle(pool)  # pre-shuffle so equal-usage themes are randomized
+    pool.sort(key=lambda t: usage.get(t, 0))
+
+    return pool[:count]
+
+
 def load_remix_protocol() -> dict:
     """
     Parses protocols/Remix Protocol.md and extracts high-value combinations.
@@ -186,6 +245,8 @@ def load_remix_protocol() -> dict:
 def select_remix_pair(base_override=None, breach_override=None) -> tuple:
     """
     Selects a Base & Breach lore pair for the Remix Protocol.
+    Uses usage-weighted selection so all lore files get roughly equal rotation.
+    Named combos from the Remix Protocol are still eligible but no longer prioritized.
     Returns (base_name, breach_name, combo_description).
     """
     available = list_available_themes()
@@ -196,26 +257,35 @@ def select_remix_pair(base_override=None, breach_override=None) -> tuple:
     if base_override and breach_override:
         return (base_override, breach_override, "Manual remix selection")
 
-    # Try to use high-value combos from the protocol
-    protocol = load_remix_protocol()
-    valid_combos = [
-        c for c in protocol["combos"]
-        if c["base"] in available and c["breach"] in available
-    ]
-
-    if valid_combos:
-        combo = random.choice(valid_combos)
-        print(f"[SYSTEM_LOG]: Remix Protocol selected combo: {combo['name']}")
-        return (combo["base"], combo["breach"], combo["description"])
-
-    # Fallback: random pair (ensuring they're different)
     if len(available) < 2:
         print("!! [WARNING]: Only 1 lore file available. Using same lore for Base & Breach.")
         return (available[0], available[0], "Single-lore fallback")
 
-    pair = random.sample(available, 2)
-    print(f"[SYSTEM_LOG]: Random remix pair selected: {pair[0]} x {pair[1]}")
-    return (pair[0], pair[1], f"Random fusion of {pair[0]} and {pair[1]}")
+    # Select base from least-used themes
+    base_picks = select_least_used(available, count=1)
+    base_name = base_picks[0]
+
+    # Select breach from least-used themes, excluding the base
+    breach_picks = select_least_used(available, count=1, exclude=[base_name])
+    breach_name = breach_picks[0]
+
+    # Check if this pair happens to match a named combo (for logging only)
+    protocol = load_remix_protocol()
+    combo_match = next(
+        (c for c in protocol["combos"]
+         if (c["base"] == base_name and c["breach"] == breach_name)
+         or (c["base"] == breach_name and c["breach"] == base_name)),
+        None
+    )
+
+    if combo_match:
+        desc = f"{combo_match['name']}: {combo_match['description']}"
+        print(f"[SYSTEM_LOG]: Usage-weighted selection landed on known combo: {combo_match['name']}")
+    else:
+        desc = f"Balanced fusion of {base_name} and {breach_name}"
+        print(f"[SYSTEM_LOG]: Usage-weighted remix pair: {base_name} x {breach_name}")
+
+    return (base_name, breach_name, desc)
 
 
 def apply_unverified_stamp(image_path: str) -> str:
@@ -358,19 +428,11 @@ def synthesize_lifestyle_mockup(theme, product_title, mockup_url, style_ref_dir=
 
 def fabricate_specimen(theme, template_search=None, prompt_override=None,
                        base_name=None, breach_name=None, remix_desc=None,
-                       template_id=None, skip_feedback_refresh=False):
+                       template_id=None):
     load_dotenv()
     fab = Fabricator()
     
-    # Auto-refresh recommendations if new community feedback exists
-    if not skip_feedback_refresh:
-        try:
-            from scripts.analyze_feedback import refresh_recommendations_if_needed
-            refresh_recommendations_if_needed()
-        except Exception as e:
-            _log(f"[SYSTEM_WARNING]: Feedback refresh failed: {e}. Using existing recommendations.")
-    
-    # Load community feedback recommendations
+    # Load static recommendations if they exist (no longer auto-refreshed from blog)
     recommendations = load_recommendations()
     rec_add_mods, rec_avoid_mods = get_recommendation_prompt_modifiers(recommendations)
     
@@ -399,6 +461,14 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
         _log(f"[SYSTEM_LOG]: Initializing Fabrication Ritual for Theme: {theme}")
         if theme_data.get("description"):
             _log(f"[SYSTEM_LOG]: Lore loaded — {theme_data['description'][:120]}...")
+    
+    # Record lore usage for equal-weight tracking
+    if is_remix:
+        record_lore_usage(base_name, breach_name)
+        _log(f"[SYSTEM_LOG]: Usage recorded for {base_name}, {breach_name}")
+    else:
+        record_lore_usage(theme)
+        _log(f"[SYSTEM_LOG]: Usage recorded for {theme}")
     
     # 1. Resolve Template (with recommendation-based filtering)
     templates = fab.get_templates()
