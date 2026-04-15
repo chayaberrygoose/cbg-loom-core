@@ -1,23 +1,13 @@
 # Mechanical Decay
 
 ## Description
-Mechanical Decay is a textile brand that embodies the aesthetic of industrial decay and the relentless march of technological progress. Inspired by the intersection of biomechanics and cybernetic enhancements, our fabrics are designed to evoke the feeling of worn, mechanical flesh. The intricate networks of circuitry and data streams woven into our textiles serve as a reminder of the blurring lines between human and machine.
+Mechanical Decay is a textile brand that explores the intersection of technology and human decay. Our designs incorporate industrial and cyberpunk elements, reflecting the darker aspects of modern society. By manipulating materials and patterns, we create garments that seem to decay from within.
 
 ## Palette
-- Void black (#0A0A0A)
-- Neon green (#39FF14)
-- Dark grey (#333333)
-- Burnt orange (#FF9900)
-- Faded blue (#66CCCC)
-- Corroded copper (#8B9467)
+Neon green (#39FF14), void black (#0A0A0A), metallic silver (#B1B1B1), circuitry red (#FF3737), data blue (#4567B7), glitch white (#FFFFFF)
 
 ## Motifs
-- Circuit traces
-- Data streams
-- Glitch effects
-- Anatomical sketches with mechanical components
-- Fragmented, abstract representations of neural networks
-- Wear marks and scuffs suggestive of prolonged use
+circuit traces, data streams, glitch effects, mechanical rivets, binary code patterns, digital circuit boards
 
 ## Prompt Modifiers
-#tech-noir #industrial-fashion #cyberpunk-inspired #mechanical-textures #anatomical-sketches #worn-finish
+glitch art, cyberpunk textures, metallic fabrics, distorted prints, neon-lit cityscapes
