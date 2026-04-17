@@ -48,44 +48,33 @@ def _log(msg: str) -> None:
     print(f"[{_ts()}] {msg}")
 
 
-# Palette of accent color descriptors used when no explicit color is provided.
-# A random entry is chosen each run to avoid bias toward any single hue.
-_ACCENT_COLORS = [
-    "phosphor green",
-    "infrared red",
-    "electric cyan",
-    "deep amber",
-    "ultraviolet purple",
-    "signal white",
-    "cobalt blue",
-    "plasma magenta",
-    "molten orange",
-    "static silver",
+# Palette of accent colors used when no explicit color is provided.
+# A random entry is chosen once per process to avoid bias toward any single hue.
+_ACCENT_PALETTE = [
+    ("phosphor green", "#39FF14"),
+    ("infrared red", "#FF2400"),
+    ("electric cyan", "#00FFFF"),
+    ("deep amber", "#FFBF00"),
+    ("ultraviolet purple", "#7F00FF"),
+    ("signal white", "#F5F5F5"),
+    ("cobalt blue", "#0047AB"),
+    ("plasma magenta", "#FF0090"),
+    ("molten orange", "#FF6600"),
+    ("static silver", "#C0C0C0"),
 ]
 
-# Hex equivalents aligned with _ACCENT_COLORS (same index order).
-_ACCENT_HEX = [
-    "#39FF14",
-    "#FF2400",
-    "#00FFFF",
-    "#FFBF00",
-    "#7F00FF",
-    "#F5F5F5",
-    "#0047AB",
-    "#FF0090",
-    "#FF6600",
-    "#C0C0C0",
-]
+# Select once per process so every prompt in a single run shares the same accent.
+_SELECTED_ACCENT = random.choice(_ACCENT_PALETTE)
 
 
 def _random_accent() -> str:
-    """Return a random accent color descriptor."""
-    return random.choice(_ACCENT_COLORS)
+    """Return the accent color descriptor selected for this run."""
+    return _SELECTED_ACCENT[0]
 
 
 def _random_accent_hex() -> str:
-    """Return a random accent hex color."""
-    return random.choice(_ACCENT_HEX)
+    """Return the accent hex color selected for this run."""
+    return _SELECTED_ACCENT[1]
 
 
 def load_recommendations() -> dict:
