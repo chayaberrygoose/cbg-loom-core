@@ -1,3 +1,0 @@
-prompt: CBG Studio | Metal Rift Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial, noir, tech-wear, high-casualty manufacturing, dystopian, glitch art, industrial noir color palette, phosphor green accents, sharp details, high contrast.
-model: gemini-3.1-flash-image-preview
-timestamp: 20260416_150050

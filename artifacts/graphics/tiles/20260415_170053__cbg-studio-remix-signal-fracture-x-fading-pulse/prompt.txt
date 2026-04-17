@@ -1,3 +1,0 @@
-prompt: CBG Studio | REMIX [Signal Fracture x Fading Pulse]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, textured, industrial, high-resolution images, metallic sheen, ambient lighting, worn fabric, mechanical details, subtle interference: circuit board textures, pixel art glitches, abandoned factory environments, futuristic neon landscapes, industrial noir color palette, phosphor green accents, sharp details, high contrast.
-model: gemini-3.1-flash-image-preview
-timestamp: 20260415_170053

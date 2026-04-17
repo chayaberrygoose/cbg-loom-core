@@ -1,3 +1,0 @@
-prompt: CBG Studio | REMIX [Silicon Pulse x System Failure 3]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, Neon-lit cityscapes, low-resolution digital textures, metallic sheen, industrial piping, flickering fluorescent lights, subtle interference: high-RPM processing, abstract humor, Quantum Waffles, Luxury Output, industrial noir color palette, phosphor green accents, sharp details, high contrast.
-model: gemini-3.1-flash-image-preview
-timestamp: 20260416_100101

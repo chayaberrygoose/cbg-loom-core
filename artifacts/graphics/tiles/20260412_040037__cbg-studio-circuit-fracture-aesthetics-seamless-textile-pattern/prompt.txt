@@ -1,3 +1,0 @@
-prompt: CBG Studio | Circuit Fracture Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, circuit boards, data encryption, glitch art, industrial textures, metallic sheen, pixelated patterns, industrial noir color palette, phosphor green accents, sharp details, high contrast.
-model: gemini-3.1-flash-image-preview
-timestamp: 20260412_040037

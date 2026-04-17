@@ -1,3 +1,0 @@
-prompt: CBG Studio | REMIX [Machine Uprising x Dark Abyssal]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, Gritty, Neon-Lit, Asymmetrical Lines, High-Contrast Gradients, subtle interference: industrial noir aesthetic, deep-sea horror, biomimetic technology, neon-lit darkness, synthetic organic lifeforms, industrial noir color palette, phosphor green accents, sharp details, high contrast.
-model: gemini-3.1-flash-image-preview
-timestamp: 20260415_190101

@@ -10,3 +10,12 @@
 *.log
 artifacts/generated/**/*.log
 artifacts/specimens/
+
+# Catalog data (re-synced from Printify API on demand)
+artifacts/catalog/
+
+# Generated graphics (keep logos only)
+artifacts/graphics/mockups/
+artifacts/graphics/standalone/
+artifacts/graphics/textures/
+artifacts/graphics/tiles/

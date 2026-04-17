@@ -1,3 +1,0 @@
-prompt: CBG Studio | REMIX [Circuit Fracture x Counterweight]: macro material detail, industrial surface texture, weathered finish, high-fidelity map, Industrial noir aesthetic, kinetic harness, power bank, laptop, low-trust environments, structural echo: circuit boards, data encryption, glitch art, industrial textures, metallic sheen, pixelated patterns, industrial noir color palette, phosphor green accents, sharp details, high contrast.
-model: gemini-3.1-flash-image-preview
-timestamp: 20260415_160049

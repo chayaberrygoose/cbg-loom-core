@@ -1,3 +1,0 @@
-prompt: CBG Studio | REMIX [Fractal Bleed x Friction Grid 2]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, High-Poly, Fractured Reflections, Neon-Lit, Ominous Glow, Data-Storm, subtle interference: Industrial Noir, High-Tech Noir, System Integration, Frictionless Operation, Grid-Based Layout, industrial noir color palette, phosphor green accents, sharp details, high contrast.
-model: gemini-3.1-flash-image-preview
-timestamp: 20260415_230047

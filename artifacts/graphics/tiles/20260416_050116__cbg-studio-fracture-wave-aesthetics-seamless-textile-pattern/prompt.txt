@@ -1,3 +1,0 @@
-prompt: CBG Studio | Fracture Wave Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial-noir, fractal-patterns, neon-lit-data, metallic-surfaces, urban-grime, industrial noir color palette, phosphor green accents, sharp details, high contrast.
-model: gemini-3.1-flash-image-preview
-timestamp: 20260416_050116

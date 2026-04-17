@@ -1,3 +1,0 @@
-prompt: CBG Studio | REMIX [Friction Grid x Machine Decay]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial textures, grid-based geometry, metallic sheen, data visualization, high-contrast shading, subtle interference: distressed textures, metallic reflections, neon accents, high-contrast black-and-white images, industrial noir color palette, phosphor green accents, sharp details, high contrast.
-model: gemini-3.1-flash-image-preview
-timestamp: 20260415_140053

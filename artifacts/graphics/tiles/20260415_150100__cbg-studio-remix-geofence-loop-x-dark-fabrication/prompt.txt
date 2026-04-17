@@ -1,3 +1,0 @@
-prompt: CBG Studio | REMIX [Geofence Loop x Dark Fabrication]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial noir, technical illustration, fluorescent lighting, grid patterns, worn office equipment, subtle interference: industrial noir, bioluminescent creatures, synthetic materials, organic structures, crushing darkness, industrial noir color palette, phosphor green accents, sharp details, high contrast.
-model: gemini-3.1-flash-image-preview
-timestamp: 20260415_150100
