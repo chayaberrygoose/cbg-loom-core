@@ -184,11 +184,16 @@ class Fabricator:
             for ph in area.get('placeholders', []):
                 pos = ph.get('position', '').lower()
                 is_trim_area = 'waistband' in pos or 'trim' in pos or 'collar' in pos or 'cuff' in pos
+                images = ph.get('images', [])
+                has_tiled_bg = any('pattern' in img for img in images)
                 
-                for img in ph.get('images', []):
+                for img in images:
                     # Determine role
                     if 'pattern' in img:
                         required_roles.add('tile')
+                    elif has_tiled_bg:
+                        # Non-patterned image overlaid on a tiled background = logo
+                        required_roles.add('logo')
                     elif is_trim_area:
                         required_roles.add('texture')
                     elif img.get('scale', 1) < 0.4:
@@ -227,8 +232,10 @@ class Fabricator:
             for ph in area.get('placeholders', []):
                 pos = ph.get('position', '').lower()
                 is_trim_area = 'waistband' in pos or 'trim' in pos or 'collar' in pos or 'cuff' in pos
+                images = ph.get('images', [])
+                has_tiled_bg = any('pattern' in img for img in images)
                 
-                for img in ph.get('images', []):
+                for img in images:
                     img_id = img['id']
                     if img_id in image_roles:
                         continue
@@ -236,6 +243,9 @@ class Fabricator:
                     # Determine role
                     if 'pattern' in img:
                         image_roles[img_id] = 'tile'
+                    elif has_tiled_bg:
+                        # Non-patterned image overlaid on a tiled background = logo
+                        image_roles[img_id] = 'logo'
                     elif is_trim_area:
                         image_roles[img_id] = 'texture'
                     elif img.get('scale', 1) < 0.4:
