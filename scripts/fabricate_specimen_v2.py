@@ -414,10 +414,13 @@ def generate_context_prompt(theme, role, base_prompt=None, theme_data=None, base
     
     return f"CBG Studio | {theme} Aesthetics: {modifier}{lore_modifiers}, industrial noir color palette, {_random_accent()} accents, sharp details, high contrast."
 
-def synthesize_lifestyle_mockup(theme, product_title, mockup_url, style_ref_dir="artifacts/Lifestyle Photo Reference"):
+def synthesize_lifestyle_mockup(theme, product_title, mockup_url, style_ref_dir="artifacts/Lifestyle Photo Reference", blueprint_meta=None):
     """
     Synthesizes a lifestyle image for the product by using the Printify mockup as a base
     and applying Nanobanana's vision guided by the lifestyle reference photos.
+    
+    Args:
+        blueprint_meta: Optional dict from parse_blueprint_metadata() with gender/garment/model info.
     """
     print(f"[SIGNAL_BROADCAST]: Synthesizing Lifestyle Mockup for {product_title}...")
     
@@ -436,11 +439,17 @@ def synthesize_lifestyle_mockup(theme, product_title, mockup_url, style_ref_dir=
     refs = list(ref_dir.glob("*.PNG")) + list(ref_dir.glob("*.png"))
     chosen_ref = random.choice(refs) if refs else None
     
+    # [METADATA_THREAD]: Build gender/garment-aware subject description
+    meta = blueprint_meta or {}
+    model_desc = meta.get('model', 'a model')
+    garment_desc = meta.get('garment', 'apparel product')
+    subject_line = f"The subject is {model_desc} wearing the {garment_desc.lower()} shown in the provided image."
+    
     # Prompt logic
     ref_desc = "industrial noir techwear aesthetic, high-contrast shadows, clinical warehouse lighting"
     prompt = (
         f"CBG Studio | Lifestyle Realization: A high-fidelity lifestyle photo. "
-        f"The subject is the specific apparel product shown in the provided image. "
+        f"{subject_line} "
         f"CRITICAL: The product in the new photo must be EXACTLY identical to the base image. "
         f"You must replicate the pattern, colors, and placement with 100% precision. "
         f"Context: {theme} style. Visual Reference Style: {ref_desc}. "
@@ -602,6 +611,7 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
         )
         product_id = product.get('id')
         product_title = product.get('title')
+        blueprint_meta = product.get('_blueprint_meta', {})
         _log(f"--- [FABRICATION_COMPLETE]: ID_{product_id} ---")
         _log(f"SPECIMEN: {product_title}")
         
@@ -635,7 +645,7 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
                     mockup_url = img.get('src')
                     break
                     
-            lifestyle_path = synthesize_lifestyle_mockup(display_theme, product_title, mockup_url)
+            lifestyle_path = synthesize_lifestyle_mockup(display_theme, product_title, mockup_url, blueprint_meta=blueprint_meta)
             
             if lifestyle_path:
                 # [REMIX_PROTOCOL]: Apply STATUS: UNVERIFIED stamp as final layer
@@ -698,6 +708,20 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
                             resolved_lifestyle = str(Path(mockup_folder) / Path(lifestyle_path).name) if mockup_folder else lifestyle_path
                             upload_lifestyle_image(shopify_product_id, resolved_lifestyle)
                             _log(f"✅ [SYSTEM_SUCCESS]: Lifestyle image uploaded to Shopify product {shopify_product_id}")
+                            
+                            # [METADATA_THREAD]: Set Shopify product_type from blueprint metadata
+                            # Tags are set on the Printify product and sync automatically via publish.
+                            if blueprint_meta and blueprint_meta.get('product_type'):
+                                try:
+                                    from agents.skills.shopify_skill import ShopifyConduit
+                                    conduit = ShopifyConduit()
+                                    conduit.update_product(int(shopify_product_id), {
+                                        "product_type": blueprint_meta['product_type'],
+                                    })
+                                    _log(f"✅ [SYSTEM_SUCCESS]: Shopify product_type set: {blueprint_meta['product_type']}")
+                                except Exception as tag_err:
+                                    _log(f"⚠️ [SYSTEM_WARNING]: Shopify product_type update failed: {tag_err}")
+                            
                         except Exception as sync_err:
                             _log(f"⚠️ [SYSTEM_WARNING]: Shopify sync/upload failed: {sync_err}. Product still on Printify.")
                     else:

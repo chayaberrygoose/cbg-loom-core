@@ -5,10 +5,76 @@ This module handles the cloning of Printify products with new swatches.
 
 import os
 import json
+import re
 import requests
 import time
 from pathlib import Path
 from typing import Optional, Dict, Any
+
+
+def parse_blueprint_metadata(title: str) -> Dict[str, Any]:
+    """
+    Extracts structured metadata from a blueprint or template title.
+
+    Input examples:
+        "Women's Yoga Pants (AOP)"
+        "[TEMPLATE]: Men's Hoodie (AOP)"
+        "EVA Foam Rubber Shoes (AOP)"
+        "Unisex Zip Hoodie (AOP)"
+
+    Returns dict with:
+        gender    – "women", "men", "unisex"
+        garment   – cleaned garment name, e.g. "Yoga Pants"
+        model     – lifestyle prompt fragment, e.g. "female model"
+        tags      – list of tag strings for Printify / Shopify
+        product_type – Shopify product_type value
+    """
+    # Strip template prefix if present
+    clean = re.sub(r"^\[(?:TEMPLATE|DRAFT)\]:\s*", "", title).strip()
+
+    # Strip trailing "(AOP)" or similar parenthetical
+    clean = re.sub(r"\s*\(AOP\)\s*$", "", clean, flags=re.IGNORECASE).strip()
+
+    # Detect gender prefix
+    gender = "unisex"
+    model = "a model"
+    lower = clean.lower()
+    if lower.startswith("women's ") or lower.startswith("woman's "):
+        gender = "women"
+        model = "a female model"
+        clean = re.sub(r"^(?:Women's|Woman's)\s+", "", clean, flags=re.IGNORECASE)
+    elif lower.startswith("men's ") or lower.startswith("man's "):
+        gender = "men"
+        model = "a male model"
+        clean = re.sub(r"^(?:Men's|Man's)\s+", "", clean, flags=re.IGNORECASE)
+    elif lower.startswith("unisex "):
+        gender = "unisex"
+        model = "a model"
+        clean = re.sub(r"^Unisex\s+", "", clean, flags=re.IGNORECASE)
+
+    garment = clean.strip() or "Apparel"
+
+    # Build tag set
+    tags = [
+        "CBG Studio",
+        "all over print",
+        "industrial noir",
+        garment.lower(),
+    ]
+    if gender != "unisex":
+        tags.append(f"{gender}'s {garment.lower()}")
+        tags.append(gender)
+    else:
+        tags.append("unisex")
+
+    return {
+        "gender": gender,
+        "garment": garment,
+        "model": model,
+        "tags": tags,
+        "product_type": garment,
+    }
+
 
 class Fabricator:
     BASE_URL = "https://api.printify.com/v1"
@@ -225,6 +291,10 @@ class Fabricator:
         # 1. Get Source
         source = self.get_product(template_id)
         
+        # [METADATA_EXTRACTION]: Parse gender / garment / tags from template title
+        blueprint_meta = parse_blueprint_metadata(source.get('title', ''))
+        print(f"// BLUEPRINT_META: gender={blueprint_meta['gender']}, garment={blueprint_meta['garment']}")
+        
         # 2. Analyze Source Images and Map to Roles
         image_roles = {} # original_id -> role ('tile', 'texture', 'logo')
         
@@ -383,7 +453,8 @@ class Fabricator:
             "blueprint_id": source.get('blueprint_id'),
             "print_provider_id": source.get('print_provider_id'),
             "variants": variants,
-            "print_areas": new_print_areas
+            "print_areas": new_print_areas,
+            "tags": blueprint_meta.get('tags', []),
         }
         
         # 5. Create Product
@@ -401,6 +472,11 @@ class Fabricator:
             self.update_product(product_id, {"title": specimen_title})
             product['title'] = specimen_title
             print(f"// SPECIMEN_TAGGED: {specimen_title}")
+            print(f"// TAGS_APPLIED: {blueprint_meta.get('tags', [])}")
+            
+            # [METADATA_THREAD]: Attach blueprint metadata so callers can use it
+            # for lifestyle prompts, Shopify tagging, etc.
+            product['_blueprint_meta'] = blueprint_meta
             
             print(f"--- [FABRICATION_COMPLETE]: ID_{product_id} ---")
             return product
