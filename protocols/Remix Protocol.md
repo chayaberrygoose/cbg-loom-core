@@ -15,7 +15,7 @@ Every design prompt must pull from two distinct Lore Files:
 - **Kinetic Leak:** Base: Phantom Grid // Breach: Neon Siphon. (Surveillance grids torn by high-velocity light trails).
 
 ## 4. Branding Constraint
-The STATUS: UNVERIFIED stamp must always be the final layer, applied in High-Vis Green (#39FF14).
+The STATUS: UNVERIFIED stamp must always be the final layer, applied in a randomly selected high-contrast accent color.
 
 ## 5. Agent Command
 "Agent: Execute Remix Protocol. Select [Lore A] for Base and [Lore B] for Breach. Generate 3 iterations for the Signal Leak RSS feed."

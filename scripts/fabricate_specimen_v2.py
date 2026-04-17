@@ -48,6 +48,35 @@ def _log(msg: str) -> None:
     print(f"[{_ts()}] {msg}")
 
 
+# Palette of accent colors used when no explicit color is provided.
+# A random entry is chosen once per process to avoid bias toward any single hue.
+_ACCENT_PALETTE = [
+    ("phosphor green", "#39FF14"),
+    ("infrared red", "#FF2400"),
+    ("electric cyan", "#00FFFF"),
+    ("deep amber", "#FFBF00"),
+    ("ultraviolet purple", "#7F00FF"),
+    ("signal white", "#F5F5F5"),
+    ("cobalt blue", "#0047AB"),
+    ("plasma magenta", "#FF0090"),
+    ("molten orange", "#FF6600"),
+    ("static silver", "#C0C0C0"),
+]
+
+# Select once per process so every prompt in a single run shares the same accent.
+_SELECTED_ACCENT = random.choice(_ACCENT_PALETTE)
+
+
+def _random_accent() -> str:
+    """Return the accent color descriptor selected for this run."""
+    return _SELECTED_ACCENT[0]
+
+
+def _random_accent_hex() -> str:
+    """Return the accent hex color selected for this run."""
+    return _SELECTED_ACCENT[1]
+
+
 def load_recommendations() -> dict:
     """
     Load pipeline recommendations from feedback analysis.
@@ -221,7 +250,7 @@ def load_remix_protocol() -> dict:
     protocol_file = PROTOCOL_DIR / "Remix Protocol.md"
     if not protocol_file.exists():
         print("!! [WARNING]: Remix Protocol not found. Falling back to random pairing.")
-        return {"combos": [], "branding_color": "#39FF14"}
+        return {"combos": [], "branding_color": _random_accent_hex()}
 
     content = protocol_file.read_text(encoding="utf-8")
     combos = []
@@ -239,7 +268,7 @@ def load_remix_protocol() -> dict:
             "description": match.group(4).strip()
         })
 
-    return {"combos": combos, "branding_color": "#39FF14"}
+    return {"combos": combos, "branding_color": _random_accent_hex()}
 
 
 def select_remix_pair(base_override=None, breach_override=None) -> tuple:
@@ -354,7 +383,7 @@ def generate_context_prompt(theme, role, base_prompt=None, theme_data=None, base
             return (
                 f"CBG Studio | REMIX [{base_name} x {breach_name}]: "
                 f"{modifier}{lore_injection}{bleed}, "
-                f"industrial noir color palette, phosphor green accents, sharp details, high contrast."
+                f"industrial noir color palette, {_random_accent()} accents, sharp details, high contrast."
             )
         elif role == "texture":
             # Textures = Breach (Interference) with Base structural echoes
@@ -363,7 +392,7 @@ def generate_context_prompt(theme, role, base_prompt=None, theme_data=None, base
             return (
                 f"CBG Studio | REMIX [{base_name} x {breach_name}]: "
                 f"{modifier}{lore_injection}{echo}, "
-                f"industrial noir color palette, phosphor green accents, sharp details, high contrast."
+                f"industrial noir color palette, {_random_accent()} accents, sharp details, high contrast."
             )
         else:
             # Standalone/mockup: full fusion
@@ -375,7 +404,7 @@ def generate_context_prompt(theme, role, base_prompt=None, theme_data=None, base
             return (
                 f"CBG Studio | REMIX [{base_name} x {breach_name}]: "
                 f"{modifier}{combined}, "
-                f"industrial noir color palette, phosphor green accents, sharp details, high contrast."
+                f"industrial noir color palette, {_random_accent()} accents, sharp details, high contrast."
             )
     
     # --- SINGLE-THEME FALLBACK ---
@@ -383,7 +412,7 @@ def generate_context_prompt(theme, role, base_prompt=None, theme_data=None, base
     if theme_data and theme_data.get("prompt_modifiers"):
         lore_modifiers = f", {theme_data['prompt_modifiers']}"
     
-    return f"CBG Studio | {theme} Aesthetics: {modifier}{lore_modifiers}, industrial noir color palette, phosphor green accents, sharp details, high contrast."
+    return f"CBG Studio | {theme} Aesthetics: {modifier}{lore_modifiers}, industrial noir color palette, {_random_accent()} accents, sharp details, high contrast."
 
 def synthesize_lifestyle_mockup(theme, product_title, mockup_url, style_ref_dir="artifacts/Lifestyle Photo Reference"):
     """
