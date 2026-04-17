@@ -1,21 +1,78 @@
 #!/bin/bash
-# /* [FILE_ID]: fabricate_cron // VERSION: 1.1 // STATUS: STABLE */
+# /* [FILE_ID]: fabricate_cron // VERSION: 2.0 // STATUS: STABLE */
 # Wrapper script for cron execution of the CBG Fabrication Pipeline
+# Includes pre/post git sync — fails gracefully, never blocks fabrication.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+LOG="/tmp/cbg_fabricate.log"
 
 cd "$PROJECT_ROOT" || exit 1
 
-# Kill any stale fabricate.py processes (older than current run)
-# Excludes the grep itself via pattern
+# ── Git Sync Helper ─────────────────────────────────────────────
+# Graceful: logs outcome but never aborts the pipeline.
+git_pre_sync() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] [GIT_SYNC]: Pre-run pull starting..." >> "$LOG"
+
+    # Stash any uncommitted local changes, pull with rebase, then pop stash
+    git stash --include-untracked -q 2>/dev/null
+    local stashed=$?
+
+    if git pull --rebase --no-edit origin main >> "$LOG" 2>&1; then
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] [GIT_SYNC]: Pull succeeded." >> "$LOG"
+    else
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] [GIT_SYNC]: Pull failed or conflict — aborting rebase, continuing with local state." >> "$LOG"
+        git rebase --abort 2>/dev/null
+    fi
+
+    # Restore stashed changes if we stashed anything
+    if [[ $stashed -eq 0 ]]; then
+        git stash pop -q 2>/dev/null || {
+            echo "[$(date '+%Y-%m-%d %H:%M:%S')] [GIT_SYNC]: Stash pop conflict — keeping stash, continuing." >> "$LOG"
+            git checkout -- . 2>/dev/null
+        }
+    fi
+}
+
+git_post_sync() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] [GIT_SYNC]: Post-run commit+push starting..." >> "$LOG"
+
+    # Stage all tracked changes (gitignore keeps graphics out)
+    git add -A 2>/dev/null
+
+    # Only commit if there are staged changes
+    if git diff --cached --quiet 2>/dev/null; then
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] [GIT_SYNC]: Nothing to commit." >> "$LOG"
+        return 0
+    fi
+
+    local timestamp
+    timestamp="$(date '+%Y-%m-%d %H:%M')"
+    git commit -q -m "auto: fabrication run ${timestamp}" >> "$LOG" 2>&1
+
+    if git push -q origin main >> "$LOG" 2>&1; then
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] [GIT_SYNC]: Push succeeded." >> "$LOG"
+    else
+        echo "[$(date '+%Y-%m-%d %H:%M:%S')] [GIT_SYNC]: Push failed — changes committed locally, will retry next run." >> "$LOG"
+    fi
+}
+
+# ── Kill Stale Processes ────────────────────────────────────────
 OLD_PIDS=$(pgrep -f "scripts/fabricate.py" 2>/dev/null)
 if [[ -n "$OLD_PIDS" ]]; then
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] [CLEANUP]: Killing stale processes: $OLD_PIDS" >> /tmp/cbg_fabricate.log
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] [CLEANUP]: Killing stale processes: $OLD_PIDS" >> "$LOG"
     pkill -f "scripts/fabricate.py" 2>/dev/null
     sleep 1
 fi
 
-# Activate venv and run fabrication
+# ── Activate venv ───────────────────────────────────────────────
 source .venv/bin/activate
-python3 scripts/fabricate.py >> /tmp/cbg_fabricate.log 2>&1
+
+# ── PRE-SYNC: pull latest logic ────────────────────────────────
+git_pre_sync
+
+# ── FABRICATION RUN ─────────────────────────────────────────────
+python3 scripts/fabricate.py >> "$LOG" 2>&1
+
+# ── POST-SYNC: commit + push any tracked changes ───────────────
+git_post_sync
