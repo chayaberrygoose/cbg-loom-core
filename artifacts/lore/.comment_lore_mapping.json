@@ -390,5 +390,12 @@
     "created_at": "2026-04-16T07:37:19-07:00",
     "lore_file": "Cyber Reboot.md",
     "mapped_at": "2026-04-16T08:37:07.867482"
+  },
+  "130818441428": {
+    "author": "UNVERIFIED_SOURCE",
+    "comment_body": "TITLE: Supply Chain Decoupling // Stylus-End-of-Life\r\nSTATUS: CRITICAL_ERRORS_DETECTED\r\nSOURCE: \u2588\u2588\u2588\u2588\u2588\u2588\u2588-API // Asset-Vault\r\n\r\n[SYSTEM_OVERVIEW]\r\nThe 'Stylus' hardware line has been 'De-synced' from th",
+    "created_at": "2026-04-17T10:12:57-07:00",
+    "lore_file": "Supply Chain Collapse.md",
+    "mapped_at": "2026-04-17T10:32:54.785346"
   }
 }

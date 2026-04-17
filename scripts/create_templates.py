@@ -35,17 +35,35 @@ def main():
         print("ERROR: PRINTIFY_SHOP_ID is not set. Please set PRINTIFY_SHOP_ID in your .env or environment and try again.")
         return
 
-    # Load products
-    products_path = "artifacts/catalog/products.json"
-    try:
-        with open(products_path, 'r') as f:
-            data = json.load(f)
-            products = data.get('data', [])
-    except Exception as e:
-        print(f"Error reading products.json: {e}")
-        return
+    # [PROTOCOL_UPDATE]: Fetch products LIVE from Printify API to avoid stale local data.
+    # The local artifacts/catalog/products.json may contain discontinued blueprints/providers.
+    print("Fetching products live from Printify API...")
+    all_products = []
+    page = 1
+    while True:
+        url = f"https://api.printify.com/v1/shops/{shop_id}/products.json?page={page}"
+        try:
+            resp = requests.get(url, headers=headers, timeout=30)
+            resp.raise_for_status()
+            data = resp.json()
+            batch = data.get('data', [])
+            if not batch:
+                break
+            all_products.extend(batch)
+            if data.get('current_page', page) >= data.get('last_page', page):
+                break
+            page += 1
+        except Exception as e:
+            print(f"Error fetching products from API (page {page}): {e}")
+            return
 
-    print(f"Found {len(products)} products to clone as templates.")
+    # Filter to non-template, non-draft products as clone sources
+    products = [
+        p for p in all_products
+        if not p.get('title', '').startswith('[TEMPLATE]:')
+        and not p.get('title', '').startswith('[DRAFT]')
+    ]
+    print(f"Found {len(products)} products to clone as templates (from {len(all_products)} total).")
 
     for p in products:
         source_id = p.get('id')

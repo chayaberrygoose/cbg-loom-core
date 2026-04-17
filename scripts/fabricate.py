@@ -33,7 +33,7 @@ from scripts.fabricate_specimen_v2 import (
 )
 
 
-def run(theme=None, base=None, breach=None, template=None, prompt=None):
+def run(theme=None, base=None, breach=None, template=None, prompt=None, tile_scale=None):
     """
     Kick off a single fabrication run.
 
@@ -43,6 +43,7 @@ def run(theme=None, base=None, breach=None, template=None, prompt=None):
         breach:   Explicit Breach (Interference) lore name for remix.
         template: Search string to filter garment templates (e.g. "Hoodie", "Joggers").
         prompt:   Manual prompt override — bypasses lore-driven generation.
+        tile_scale: Tile pattern scale override. Larger = bigger tiles. None = use template default.
 
     Returns:
         The created Printify product dict, or None on failure.
@@ -54,7 +55,7 @@ def run(theme=None, base=None, breach=None, template=None, prompt=None):
 
     # Single-theme legacy path (explicit)
     if theme:
-        return fabricate_specimen(theme=theme, template_search=template, prompt_override=prompt)
+        return fabricate_specimen(theme=theme, template_search=template, prompt_override=prompt, tile_scale=tile_scale)
 
     # Explicit remix path (base/breach specified)
     if base or breach:
@@ -69,6 +70,7 @@ def run(theme=None, base=None, breach=None, template=None, prompt=None):
             base_name=base_name,
             breach_name=breach_name,
             remix_desc=remix_desc,
+            tile_scale=tile_scale,
         )
 
     # Random mode selection: 50/50 remix vs single theme
@@ -84,13 +86,14 @@ def run(theme=None, base=None, breach=None, template=None, prompt=None):
             base_name=base_name,
             breach_name=breach_name,
             remix_desc=remix_desc,
+            tile_scale=tile_scale,
         )
     else:
         # Single theme — usage-weighted selection (least-used first)
         picks = select_least_used(available, count=1)
         theme = picks[0]
         print(f"[SYSTEM_LOG]: Random mode selected SINGLE THEME — {theme}")
-        return fabricate_specimen(theme=theme, template_search=template, prompt_override=prompt)
+        return fabricate_specimen(theme=theme, template_search=template, prompt_override=prompt, tile_scale=tile_scale)
 
 
 if __name__ == "__main__":
@@ -102,6 +105,7 @@ if __name__ == "__main__":
     parser.add_argument("--breach", help="Remix Breach lore name")
     parser.add_argument("--template", help="Filter garment template (e.g. 'Hoodie')")
     parser.add_argument("--prompt", help="Manual prompt override")
+    parser.add_argument("--tile-scale", type=float, default=1.0, help="Tile pattern scale (default: 1.0). Larger = bigger tiles.")
     args = parser.parse_args()
 
     result = run(
@@ -110,5 +114,6 @@ if __name__ == "__main__":
         breach=args.breach,
         template=args.template,
         prompt=args.prompt,
+        tile_scale=args.tile_scale,
     )
     sys.exit(0 if result else 1)

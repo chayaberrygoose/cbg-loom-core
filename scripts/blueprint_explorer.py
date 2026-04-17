@@ -228,7 +228,8 @@ class BlueprintExplorer:
         texture_path: str = None,
         logo_path: str = None,
         provider_id: int = None,  # Auto-detect if not specified
-        price_cents: int = 4500
+        price_cents: int = 4500,
+        tile_scale: float = 1.0,
     ) -> dict:
         """
         Creates a new [DRAFT] product from a blueprint.
@@ -300,7 +301,7 @@ class BlueprintExplorer:
                     "id": tile_id,
                     "x": 0.5,
                     "y": 0.5,
-                    "scale": 0.25,
+                    "scale": tile_scale,
                     "angle": 0,
                     "pattern": {
                         "spacing_x": 1,
@@ -379,6 +380,7 @@ def main():
     parser.add_argument("--logo", type=str, help="Path to logo image for template creation")
     parser.add_argument("--provider", type=int, default=None, help="Print provider ID (auto-detects if not specified)")
     parser.add_argument("--price", type=int, default=4500, help="Price in cents (default: 4500)")
+    parser.add_argument("--tile-scale", type=float, default=1.0, help="Tile pattern scale (default: 1.0). Larger = bigger tiles, less repetition.")
 
     args = parser.parse_args()
 
@@ -423,7 +425,8 @@ def main():
             texture_path=args.texture,
             logo_path=args.logo,
             provider_id=args.provider,
-            price_cents=args.price
+            price_cents=args.price,
+            tile_scale=args.tile_scale,
         )
         return
 

@@ -199,11 +199,16 @@ class Fabricator:
         print(f"// TEMPLATE_ROLES_REQUIRED: {required_roles}")
         return required_roles
 
-    def fabricate_from_template(self, template_id: str, graphics_dir: str = "artifacts/graphics", role_overrides: Dict[str, str] = None) -> Dict[str, Any]:
+    def fabricate_from_template(self, template_id: str, graphics_dir: str = "artifacts/graphics", role_overrides: Dict[str, str] = None, tile_scale: Optional[float] = None) -> Dict[str, Any]:
         """
         Clones a template product and replaces its graphics with specimens from the graphics directory.
         By default, it takes the latest specimen for each role (tile, texture, logo).
         Maps tiles to tiled body, textures to trim, logos to logo.
+
+        Args:
+            tile_scale: If provided, overrides the tile pattern scale for all tiled images.
+                        Larger values = bigger tiles, less repetition, more visible detail.
+                        If None, preserves the template's existing scale values.
         """
         import random
         from typing import Dict
@@ -313,6 +318,10 @@ class Fabricator:
                             "scale": img.get('scale', 1),
                             "angle": img.get('angle', 0)
                         }
+                        # [TILE_SCALE_OVERRIDE]: If tile_scale is set, override scale for tiled images
+                        if tile_scale is not None and 'pattern' in img:
+                            new_base_obj['scale'] = tile_scale
+                            print(f"// TILE_SCALE_OVERRIDE: {img.get('scale', 1)} -> {tile_scale} (pos: {placeholder.get('position')})")
                         if 'pattern' in img:
                             new_base_obj['pattern'] = img['pattern']
                         if 'height' in img:
@@ -321,7 +330,14 @@ class Fabricator:
                             new_base_obj['width'] = img['width']
                         new_images_list.append(new_base_obj)
                     else:
-                        new_images_list.append(img)
+                        # Preserve original, but still apply tile_scale override if set
+                        if tile_scale is not None and 'pattern' in img:
+                            patched = dict(img)
+                            print(f"// TILE_SCALE_OVERRIDE (preserved): {img.get('scale', 1)} -> {tile_scale} (pos: {placeholder.get('position')})")
+                            patched['scale'] = tile_scale
+                            new_images_list.append(patched)
+                        else:
+                            new_images_list.append(img)
 
                 new_placeholders.append({
                     "position": placeholder.get('position'),
@@ -338,6 +354,9 @@ class Fabricator:
         for v in source.get('variants', []):
             if v.get('is_enabled', True):
                 variants.append({"id": v['id'], "price": v['price'], "is_enabled": True})
+
+        if tile_scale is not None:
+            print(f"// TILE_SCALE_APPLIED: {tile_scale} across all tiled placeholders")
 
         # [PROTOCOL_UPDATE]: Skip lore-based naming — products will be tagged as
         # UNVERIFIED SPECIMENs and renamed during the curation ritual.

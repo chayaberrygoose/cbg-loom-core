@@ -457,7 +457,7 @@ def synthesize_lifestyle_mockup(theme, product_title, mockup_url, style_ref_dir=
 
 def fabricate_specimen(theme, template_search=None, prompt_override=None,
                        base_name=None, breach_name=None, remix_desc=None,
-                       template_id=None):
+                       template_id=None, tile_scale=None):
     load_dotenv()
     fab = Fabricator()
     
@@ -597,7 +597,8 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
         # Use fabricate_from_template which handles the cloning and role mapping
         product = fab.fabricate_from_template(
             template['id'], 
-            role_overrides=role_overrides
+            role_overrides=role_overrides,
+            tile_scale=tile_scale,
         )
         product_id = product.get('id')
         product_title = product.get('title')
@@ -730,6 +731,7 @@ if __name__ == "__main__":
     # Fabrication options
     parser.add_argument("--template", type=str, help="Search string for target template (limits to matching templates)")
     parser.add_argument("--prompt", type=str, help="Optional manual prompt override")
+    parser.add_argument("--tile-scale", type=float, default=1.0, help="Tile pattern scale (default: 1.0). Larger = bigger tiles, more detail visible.")
     
     # Info
     parser.add_argument("--list-themes", action="store_true", help="List available lore themes and exit")
@@ -765,6 +767,7 @@ if __name__ == "__main__":
             args.theme,
             template_search=args.template,
             prompt_override=args.prompt,
+            tile_scale=args.tile_scale,
         )
         sys.exit(0)
     
@@ -786,4 +789,5 @@ if __name__ == "__main__":
         base_name=base_name,
         breach_name=breach_name,
         remix_desc=remix_desc,
+        tile_scale=args.tile_scale,
     )
