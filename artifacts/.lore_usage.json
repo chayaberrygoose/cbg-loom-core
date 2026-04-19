@@ -47,7 +47,7 @@
   "Friction Grid": 1,
   "Friction Grid 2": 1,
   "Friction Point": 1,
-  "Friction Surge": 1,
+  "Friction Surge": 2,
   "Gear Rust": 1,
   "Geofence Loop": 1,
   "Ghost Protocol": 1,
@@ -112,6 +112,6 @@
   "Temporal Stale": 1,
   "Thermal Breach": 1,
   "Tunnel Resonance": 1,
-  "VOID_MANTLE": 1,
+  "VOID_MANTLE": 2,
   "Vector Descent": 1
 }
