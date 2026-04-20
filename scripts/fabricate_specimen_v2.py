@@ -360,6 +360,9 @@ def generate_context_prompt(theme, role, base_prompt=None, theme_data=None, base
     if base_prompt:
         return f"CBG Studio | {theme} Style: {base_prompt}"
     
+    # Global constraint: Gemini must not render any text or glyphs on garment layout images
+    no_text_directive = "absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind"
+
     role_modifiers = {
         "tile": "seamless textile pattern, repeatable surface design, flat layout, architectural motif",
         "texture": "macro material detail, industrial surface texture, weathered finish, high-fidelity map",
@@ -383,7 +386,8 @@ def generate_context_prompt(theme, role, base_prompt=None, theme_data=None, base
             return (
                 f"CBG Studio | REMIX [{base_name} x {breach_name}]: "
                 f"{modifier}{lore_injection}{bleed}, "
-                f"industrial noir color palette, {_random_accent()} accents, sharp details, high contrast."
+                f"industrial noir color palette, {_random_accent()} accents, sharp details, high contrast. "
+                f"CRITICAL: {no_text_directive}."
             )
         elif role == "texture":
             # Textures = Breach (Interference) with Base structural echoes
@@ -392,7 +396,8 @@ def generate_context_prompt(theme, role, base_prompt=None, theme_data=None, base
             return (
                 f"CBG Studio | REMIX [{base_name} x {breach_name}]: "
                 f"{modifier}{lore_injection}{echo}, "
-                f"industrial noir color palette, {_random_accent()} accents, sharp details, high contrast."
+                f"industrial noir color palette, {_random_accent()} accents, sharp details, high contrast. "
+                f"CRITICAL: {no_text_directive}."
             )
         else:
             # Standalone/mockup: full fusion
@@ -404,7 +409,8 @@ def generate_context_prompt(theme, role, base_prompt=None, theme_data=None, base
             return (
                 f"CBG Studio | REMIX [{base_name} x {breach_name}]: "
                 f"{modifier}{combined}, "
-                f"industrial noir color palette, {_random_accent()} accents, sharp details, high contrast."
+                f"industrial noir color palette, {_random_accent()} accents, sharp details, high contrast. "
+                f"CRITICAL: {no_text_directive}."
             )
     
     # --- SINGLE-THEME FALLBACK ---
@@ -412,7 +418,7 @@ def generate_context_prompt(theme, role, base_prompt=None, theme_data=None, base
     if theme_data and theme_data.get("prompt_modifiers"):
         lore_modifiers = f", {theme_data['prompt_modifiers']}"
     
-    return f"CBG Studio | {theme} Aesthetics: {modifier}{lore_modifiers}, industrial noir color palette, {_random_accent()} accents, sharp details, high contrast."
+    return f"CBG Studio | {theme} Aesthetics: {modifier}{lore_modifiers}, industrial noir color palette, {_random_accent()} accents, sharp details, high contrast. CRITICAL: {no_text_directive}."
 
 def synthesize_lifestyle_mockup(theme, product_title, mockup_url, style_ref_dir="artifacts/Lifestyle Photo Reference", blueprint_meta=None):
     """
