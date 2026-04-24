@@ -33,6 +33,8 @@ pi_z = dweii_z + 5;
 
 lid_x=wall_t + margin + pi_hole_w + margin*2;
 
+encased_diameter = 56;
+
 // --- 1. THE MAIN BOX ---
 difference() {
     
@@ -93,7 +95,7 @@ difference() {
     for(i = [6 : 6 : pi_z - 12]) { 
         for (v = [wall_t+plate_h*grid2_scale_x : plate_h*grid2_scale_x : plate_h-plate_h*grid2_scale_x+wall_t]) { 
           
-            
+        
             translate([plate_w+wall_t-5, v, i + wall_t]) 
             rotate([0, 90, 0]) cylinder(h=20, d=4.5, $fn=6);
         }
@@ -161,6 +163,10 @@ difference() {
           plate_h + (wall_t*2), 
           lid_depth]);
     
+    // encased magnet
+    translate([lid_x + wall_t + encased_diameter/2, (plate_h + wall_t*2)/2, -1])
+    cylinder(h=wall_t+1, d=encased_diameter, $fn=50);
+
      // dweii charge leds
     translate([dweii_x+dweii_hole_w-7, (plate_h - dweii_hole_h)/2 + 5, -1])
     cube([3,3,wall_t*2+2]);
