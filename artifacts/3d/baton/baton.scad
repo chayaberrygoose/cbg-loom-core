@@ -35,11 +35,27 @@ lid_x=wall_t + margin + pi_hole_w + margin*2;
 
 encased_diameter = 56;
 
+ext_r = 4; // 4mm radius gives a nice 'rugged' curve
+
 // --- 1. THE MAIN BOX ---
 difference() {
     
     // POSITIVE SPACE (Solid parts)
-    cube([plate_w + (wall_t*2), plate_h + (wall_t*2), vault_z + wall_t]);
+   // POSITIVE SPACE (Rounded Box)
+hull() {
+    // Top-Left
+    translate([ext_r, ext_r, 0]) 
+        cylinder(r=ext_r, h=vault_z + wall_t, $fn=50);
+    // Top-Right
+    translate([plate_w + (wall_t*2) - ext_r, ext_r, 0]) 
+        cylinder(r=ext_r, h=vault_z + wall_t, $fn=50);
+    // Bottom-Left
+    translate([ext_r, plate_h + (wall_t*2) - ext_r, 0]) 
+        cylinder(r=ext_r, h=vault_z + wall_t, $fn=50);
+    // Bottom-Right
+    translate([plate_w + (wall_t*2) - ext_r, plate_h + (wall_t*2) - ext_r, 0]) 
+        cylinder(r=ext_r, h=vault_z + wall_t, $fn=50);
+}
 
 
     // ---ARM STRAP SLOTS (Horizontal Alignment) ---
@@ -158,11 +174,26 @@ translate([wall_t, wall_t, wall_t]) {
 // --- 2. THE LID ---
 translate([0, plate_h + 40, 0]) 
 difference() {
-    translate([lid_x,0,0])
-    cube([plate_w + (wall_t*2) - lid_x,
-          plate_h + (wall_t*2), 
-          lid_depth]);
     
+    // POSITIVE SPACE (Rounded Right Side, Sharp Left Side)
+    hull() {
+        // Left-Top (Sharp corner at lid_x)
+        translate([lid_x, 0, 0]) 
+            cylinder(r=0.1, h=lid_depth, $fn=4);
+        
+        // Left-Bottom (Sharp corner at lid_x)
+        translate([lid_x, plate_h + (wall_t*2), 0]) 
+            cylinder(r=0.1, h=lid_depth, $fn=4);
+            
+        // Right-Top (Rounded to match box)
+        translate([plate_w + (wall_t*2) - ext_r, ext_r, 0]) 
+            cylinder(r=ext_r, h=lid_depth, $fn=50);
+            
+        // Right-Bottom (Rounded to match box)
+        translate([plate_w + (wall_t*2) - ext_r, plate_h + (wall_t*2) - ext_r, 0]) 
+            cylinder(r=ext_r, h=lid_depth, $fn=50);
+    }
+
     // encased magnet
     translate([lid_x + wall_t + encased_diameter/2, (plate_h + wall_t*2)/2, -1])
     cylinder(h=wall_t+1, d=encased_diameter, $fn=50);
