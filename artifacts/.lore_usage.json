@@ -46,7 +46,7 @@
   "Fractured Signal": 3,
   "Friction Grid": 3,
   "Friction Grid 2": 3,
-  "Friction Point": 2,
+  "Friction Point": 3,
   "Friction Surge": 3,
   "Gear Rust": 3,
   "Geofence Loop": 3,
@@ -113,5 +113,5 @@
   "Thermal Breach": 3,
   "Tunnel Resonance": 3,
   "VOID_MANTLE": 3,
-  "Vector Descent": 2
+  "Vector Descent": 3
 }
