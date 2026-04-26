@@ -2,7 +2,7 @@
 // --- MASTER CONFIGURATION ---
 
 
-margin = 3;
+margin = 2.9;
 pi_hole_h = 58;
 pi_hole_w = 23;
 
@@ -20,7 +20,7 @@ dweii_port_h = 8;
 
 plate_w = dweii_x+dweii_hole_w+margin;
 plate_h = margin*2 + pi_hole_h    ;
-vault_z = dweii_z+10;       
+     
 wall_t = 2.5;       
 lid_clearance = 0.5; 
 lid_wall = 2.0;
@@ -31,7 +31,9 @@ lid_depth = wall_t*2;
 
 pi_z = dweii_z + 5;
 
-lid_x=wall_t + margin + pi_hole_w + margin*2;
+vault_z = pi_z+7;  
+
+lid_x=wall_t + pi_hole_w;
 
 encased_diameter = 56;
 
@@ -163,8 +165,8 @@ translate([wall_t, wall_t, wall_t]) {
     standoff(dweii_x+dweii_hole_w, (plate_h - dweii_hole_h)/2 + dweii_hole_h, dweii_z); 
     
     //lid
-    standoff(lid_x + margin + 2-wall_t, margin+2, vault_z-wall_t);
-    standoff(lid_x + margin + 2-wall_t, plate_h-margin-2, vault_z-wall_t);
+    standoff(lid_x + 12-wall_t, margin+2, vault_z-wall_t);
+    standoff(lid_x + 12-wall_t, plate_h-margin-2, vault_z-wall_t);
     standoff(plate_w-margin-2, margin+2, vault_z-wall_t);
     standoff(plate_w-margin-2, plate_h-margin-2, vault_z-wall_t);
    
@@ -195,7 +197,7 @@ difference() {
     }
 
     // encased magnet
-    translate([lid_x + wall_t + encased_diameter/2, (plate_h + wall_t*2)/2, -1])
+    translate([lid_x + encased_diameter/2 + 8, (plate_h + wall_t*2)/2, -1])
     cylinder(h=wall_t+1, d=encased_diameter, $fn=50);
 
      // dweii charge leds
@@ -203,10 +205,10 @@ difference() {
     cube([3,3,wall_t*2+2]);
     
     // holes
-    translate([lid_x + margin+2, margin+wall_t+2,-1])
+    translate([lid_x + 12, margin+wall_t+2,-1])
     cylinder(h=lid_depth+10, d=2.9, $fn=50); 
     
-    translate([lid_x + margin+2, plate_h+wall_t-margin-2,-1])
+    translate([lid_x + 12, plate_h+wall_t-margin-2,-1])
     cylinder(h=lid_depth+10, d=2.9, $fn=50); 
     
     translate([wall_t+plate_w-margin-2, margin+wall_t+2,-1])
