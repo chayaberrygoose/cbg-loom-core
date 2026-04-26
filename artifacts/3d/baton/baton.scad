@@ -8,14 +8,14 @@ pi_hole_w = 23;
 
 
 
-dweii_x = margin+13;
+dweii_x = margin+3;
 dweii_hole_h = 37;
 dweii_hole_w = 83;
 
 dweii_z=22;
 
-dweii_port_w = 16;
-dweii_port_h = 8;
+dweii_port_w = 24;
+dweii_port_h = 10;
 
 
 plate_w = dweii_x+dweii_hole_w+margin;
@@ -73,14 +73,14 @@ hull() {
 
     // NEGATIVE SPACE (The Drills)
     
-    // Pi ports
-    translate([-1, -1, pi_z+ wall_t-1]) // Move start slightly outside the x=0 plane
-    cube([lid_x+1, plate_h + wall_t*2+2, vault_z - pi_z + 4]);
+    // sdcard
+    translate([margin+6, plate_h+wall_t-1, pi_z+ wall_t-1]) // Move start slightly outside the x=0 plane
+    cube([lid_x-(margin+6)+1, plate_h + wall_t*2+2, vault_z - pi_z + 4]);
     
     
     
     // dweii port
-    translate([plate_w, (plate_h+wall_t*2)/2 - dweii_port_w/2, wall_t+dweii_z-dweii_port_h/2])
+    translate([-1, (plate_h+wall_t*2)/2 - dweii_port_w/2, wall_t+dweii_z-dweii_port_h/2])
     cube([16, dweii_port_w, dweii_port_h]);
     
    
@@ -92,7 +92,7 @@ hull() {
     
 
     // THE DUAL-WALL VENT GRID
-    grid_scale_x=1/8;
+    grid_scale_x=1/4;
     for(i = [6 : 12 : vault_z-6]) {
         for (v = [plate_w*grid_scale_x : plate_w*grid_scale_x : plate_w-plate_w*grid_scale_x]) { 
             // Wall 1 (Front)
@@ -109,23 +109,27 @@ hull() {
     //pi side vent
     // Wall 3 (Side Wall - Pi Side)
     // We only vent the area below the Pi ports to keep the structure strong
-    grid2_scale_x=1/7;
-    for(i = [6 : 6 : pi_z - 12]) { 
+
+    grid2_scale_x=1/3;
+    
+    //for(i = [6 : 6 : pi_z - 12]) { 
         for (v = [wall_t+plate_h*grid2_scale_x : plate_h*grid2_scale_x : plate_h-plate_h*grid2_scale_x+wall_t]) { 
           
         
-            translate([plate_w+wall_t-5, v, i + wall_t]) 
+            translate([plate_w+wall_t-5, v, vault_z/2]) 
             rotate([0, 90, 0]) cylinder(h=20, d=4.5, $fn=6);
         }
-    }
+    //}
     
     //for(i = [ : 12 : pi_z - 4]) { 
+    /*
         for (v = [wall_t+plate_h*grid2_scale_x : plate_h*grid2_scale_x : plate_h-plate_h*grid2_scale_x+wall_t]) { 
             translate([-5, v, (pi_z)/2]) 
             rotate([0, 90, 0]) cylinder(h=20, d=4.5, $fn=6);
             
  
         }
+    */
     //}
     
     /*
@@ -197,9 +201,11 @@ difference() {
     }
 
     // encased magnet
+    /*
     translate([lid_x + encased_diameter/2 + 8, (plate_h + wall_t*2)/2, -1])
     cylinder(h=wall_t+1, d=encased_diameter, $fn=50);
-
+    */
+    
      // dweii charge leds
     translate([dweii_x+dweii_hole_w-7, (plate_h - dweii_hole_h)/2 + 5, -1])
     cube([3,3,wall_t*2+2]);
