@@ -96,7 +96,7 @@ hull() {
     
 
     // THE DUAL-WALL VENT GRID
-    grid_scale_x=1/4;
+    grid_scale_x=1/5;
     for(i = [6 : 12 : vault_z-6]) {
         for (v = [plate_w*grid_scale_x : plate_w*grid_scale_x : plate_w-plate_w*grid_scale_x]) { 
             // Wall 1 (Front)
