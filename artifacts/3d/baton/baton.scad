@@ -80,11 +80,11 @@ hull() {
     
     // pi usbc port
 
-    translate([-1, pi_port_y-usbc_w/2, wall_t+pi_z-usbc_h/2+1]) // Move start slightly outside the x=0 plane
+    translate([-1, pi_port_y-usbc_w/2, wall_t+pi_z-usbc_h/2+1+3/2]) // Move start slightly outside the x=0 plane
     cube([16, usbc_w, usbc_h]);
 
     // dweii port
-    translate([plate_w+wall_t-1, (plate_h+wall_t*2)/2 - usbc_w/2, wall_t+dweii_z-usbc_h/2+1])
+    translate([plate_w+wall_t-1, (plate_h+wall_t*2)/2 - usbc_w/2, wall_t+dweii_z-usbc_h/2+1+3/2])
     cube([16, usbc_w, usbc_h]);
     
    
