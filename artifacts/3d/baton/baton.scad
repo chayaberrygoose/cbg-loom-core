@@ -151,12 +151,14 @@ hull() {
 module standoff(x, y, h=23) {
     translate([x, y, 0]) 
     difference() {
-        cylinder(h=h, d=6, $fn=50);   // 7mm total (Sitting on floor)
+        union() {
+            cylinder(h=h, d=6, $fn=50);   
+            cylinder(h=2, d1=10, d2=6, $fn=50); // The "Insurance" Flare
+        }
         translate([0,0,-1]) 
-        cylinder(h=h+2, d=2.2, $fn=50); // M2.5 Self-tap hole
+        cylinder(h=h+2, d=2.2, $fn=50); 
     }
 }
-
 // --- STANDOFFS (Now inside the union and translated correctly) ---
 translate([wall_t, wall_t, wall_t]) {
     
