@@ -27,7 +27,7 @@
   "Data Rift": 4,
   "Datum Ascent": 4,
   "Decay Protocol": 4,
-  "Decay Protocol 2": 4,
+  "Decay Protocol 2": 5,
   "Default Mode": 4,
   "Digital Decay": 4,
   "Digital Decay 2": 4,
@@ -113,5 +113,5 @@
   "Thermal Breach": 4,
   "Tunnel Resonance": 4,
   "VOID_MANTLE": 4,
-  "Vector Descent": 4
+  "Vector Descent": 5
 }
