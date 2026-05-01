@@ -291,6 +291,35 @@ class ShopifyConduit:
         print(f"[SYSTEM_ECHO]: Product {product_id} added to collection {collection_id}.")
         return result.get("collect", {})
 
+    # ═══════════════════════════════════════════════════════════
+    #  URL REDIRECTS
+    # ═══════════════════════════════════════════════════════════
+
+    def create_redirect(self, from_path: str, to_path: str) -> Dict:
+        """
+        Create a URL redirect in Shopify.
+
+        Args:
+            from_path: The old URL path (e.g. '/products/unverified-specimen-abc123').
+            to_path:   The new target path (e.g. '/products/specimen-abc123').
+        """
+        result = self._post("redirects.json", {"redirect": {"path": from_path, "target": to_path}})
+        redirect = result.get("redirect", {})
+        print(f"[SYSTEM_ECHO]: Redirect created — {from_path} → {to_path} (id={redirect.get('id')})")
+        return redirect
+
+    def list_redirects(self, limit: int = 50) -> List[Dict]:
+        """List all URL redirects."""
+        data = self._get("redirects.json", params={"limit": limit})
+        redirects = data.get("redirects", [])
+        print(f"[SYSTEM_ECHO]: {len(redirects)} redirect(s).")
+        return redirects
+
+    def delete_redirect(self, redirect_id: int) -> None:
+        """Delete a URL redirect by ID."""
+        self._delete(f"redirects/{redirect_id}.json")
+        print(f"[SYSTEM_ECHO]: Redirect {redirect_id} deleted.")
+
 
 # ── Quick-test entrypoint ──────────────────────────────────────
 if __name__ == "__main__":
