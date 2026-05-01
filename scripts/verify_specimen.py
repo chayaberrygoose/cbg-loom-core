@@ -123,6 +123,71 @@ def find_shopify_product_by_title_fragment(conduit: ShopifyConduit, fragment: st
     return None
 
 
+def extract_lore_names(title: str) -> list:
+    """
+    Parse lore theme names out of a product title.
+
+    REMIX format:  '... REMIX [Theme One x Theme Two] ...'
+      → ['Theme One', 'Theme Two']
+
+    Single-lore:   'CBG Studio | System Failure 3 Aesthetics: ...'
+      → ['System Failure']  (trailing numbers stripped)
+    """
+    # REMIX branch
+    remix_match = re.search(r'\bREMIX\s+\[([^\]]+)\]', title)
+    if remix_match:
+        names = [n.strip() for n in remix_match.group(1).split(' x ')]
+    else:
+        # Single lore: text between '| ' and ' Aesthetics'
+        single_match = re.search(r'CBG Studio \| (.+?) Aesthetics', title)
+        if single_match:
+            names = [single_match.group(1).strip()]
+        else:
+            return []
+    # Strip trailing version numbers (e.g. 'System Failure 3' → 'System Failure')
+    return [re.sub(r'\s+\d+\s*$', '', n).strip() for n in names]
+
+
+def ensure_lore_collections(conduit: ShopifyConduit, title: str, dry_run: bool = False) -> None:
+    """
+    Check that a Shopify smart collection exists for each lore referenced in
+    the product title, creating any that are missing.
+
+    Collection title format: '[LORE NAME]'
+    Smart rule: product title contains '<lore name lowercase>'
+    """
+    lore_names = extract_lore_names(title)
+    if not lore_names:
+        _log("[SYSTEM_WARNING]: Could not extract lore names from title — skipping collection check.")
+        return
+
+    _log(f"[SYSTEM_LOG]: Lore names for collection check: {lore_names}")
+
+    existing = conduit.get_all_smart_collections()
+    existing_titles = {c["title"].upper() for c in existing}
+
+    for name in lore_names:
+        col_title = f"[{name.upper()}]"
+        if col_title in existing_titles:
+            _log(f"[SYSTEM_LOG]: Collection already exists: {col_title!r} — no action needed.")
+            continue
+
+        filter_str = name.lower()
+        if dry_run:
+            _log(f"[DRY_RUN]: Would create smart collection {col_title!r} (title contains {filter_str!r}).")
+            continue
+
+        _log(f"[SYSTEM_LOG]: Creating smart collection {col_title!r} (title contains {filter_str!r})...")
+        try:
+            conduit.create_smart_collection(
+                title=col_title,
+                rules=[{"column": "title", "relation": "contains", "condition": filter_str}],
+            )
+            _log(f"[SYSTEM_LOG]: Smart collection created: {col_title!r}")
+        except Exception as e:
+            _log(f"[SYSTEM_WARNING]: Failed to create collection {col_title!r}: {e}")
+
+
 def create_shopify_redirect(conduit: ShopifyConduit, from_path: str, to_path: str) -> dict:
     """Create a URL redirect in Shopify (from_path → to_path)."""
     redirect = conduit.create_redirect(from_path, to_path)
@@ -700,6 +765,13 @@ def verify_specimen(printify_id: str, dry_run: bool = False) -> bool:
             conduit.update_product(shopify_id, {"product_type": product_type})
         except Exception as e:
             _log(f"[SYSTEM_WARNING]: product_type re-confirm failed: {e}")
+
+    # ── 12. Ensure Shopify smart collections exist for lore themes ────────────
+    if shopify_id:
+        try:
+            ensure_lore_collections(conduit, new_title, dry_run=dry_run)
+        except Exception as e:
+            _log(f"[SYSTEM_WARNING]: Collection check/create failed: {e}")
 
     _log(f"[SYSTEM_SUCCESS]: ═══ SPECIMEN VERIFIED ═══")
     _log(f"  Printify ID  : {printify_id}")

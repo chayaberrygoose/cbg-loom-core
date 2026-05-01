@@ -274,6 +274,40 @@ class ShopifyConduit:
             print(f"  [{c['id']}] {c['title']}")
         return cols
 
+    def get_all_smart_collections(self) -> List[Dict]:
+        """Fetch ALL smart collections, paginating through results."""
+        all_cols: List[Dict] = []
+        page = 1
+        while True:
+            data = self._get("smart_collections.json", params={"limit": 250, "page": page})
+            batch = data.get("smart_collections", [])
+            all_cols.extend(batch)
+            if len(batch) < 250:
+                break
+            page += 1
+        return all_cols
+
+    def create_smart_collection(self, title: str, rules: List[Dict], disjunctive: bool = False, body_html: str = "") -> Dict:
+        """
+        Create a Shopify smart collection.
+
+        Args:
+            title:       Collection title (e.g. '[MESH OVERLOAD]').
+            rules:       List of rule dicts, e.g. [{"column": "title", "relation": "contains", "condition": "mesh overload"}].
+            disjunctive: True = OR rules, False = AND rules (default).
+            body_html:   Optional collection description HTML.
+        """
+        payload: Dict[str, Any] = {
+            "title": title,
+            "rules": rules,
+            "disjunctive": disjunctive,
+            "body_html": body_html,
+        }
+        result = self._post("smart_collections.json", {"smart_collection": payload})
+        col = result.get("smart_collection", {})
+        print(f"[SYSTEM_ECHO]: Smart collection created — id={col.get('id')} title=\"{col.get('title')}\"")
+        return col
+
     def create_custom_collection(self, title: str, body_html: str = "", image_url: Optional[str] = None) -> Dict:
         payload: Dict[str, Any] = {"title": title, "body_html": body_html}
         if image_url:
