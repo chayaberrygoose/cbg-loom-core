@@ -15,8 +15,12 @@ git_pre_sync() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] [GIT_SYNC]: Pre-run pull starting..." >> "$LOG"
 
     # Stash any uncommitted local changes, pull with rebase, then pop stash
+    local stash_depth_before
+    stash_depth_before=$(git stash list 2>/dev/null | wc -l)
     git stash --include-untracked -q 2>/dev/null
-    local stashed=$?
+    local stash_depth_after
+    stash_depth_after=$(git stash list 2>/dev/null | wc -l)
+    local stashed=$(( stash_depth_after - stash_depth_before ))
 
     if git pull --rebase --no-edit origin main >> "$LOG" 2>&1; then
         echo "[$(date '+%Y-%m-%d %H:%M:%S')] [GIT_SYNC]: Pull succeeded." >> "$LOG"
@@ -26,7 +30,7 @@ git_pre_sync() {
     fi
 
     # Restore stashed changes if we stashed anything
-    if [[ $stashed -eq 0 ]]; then
+    if [[ $stashed -gt 0 ]]; then
         git stash pop -q 2>/dev/null || {
             echo "[$(date '+%Y-%m-%d %H:%M:%S')] [GIT_SYNC]: Stash pop conflict — keeping stash, continuing." >> "$LOG"
             git checkout -- . 2>/dev/null
