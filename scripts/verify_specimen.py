@@ -495,6 +495,21 @@ def verify_specimen(printify_id: str, dry_run: bool = False) -> bool:
 
     # Always fetch blueprint meta for gender/model info (used later in lifestyle synthesis)
     blueprint_meta = fetch_blueprint_meta(printify_product)
+
+    # Printify blueprint catalog titles often omit gender (e.g. "Full-Zip Hoodie" instead of
+    # "Women's Full-Zip Hoodie"). Fall back to scanning the product title itself.
+    if blueprint_meta.get("gender", "unisex") == "unisex":
+        raw_title = printify_product.get("title", "")
+        tl = raw_title.lower()
+        if "women" in tl or "woman" in tl:
+            blueprint_meta = dict(blueprint_meta)
+            blueprint_meta["gender"] = "women"
+            blueprint_meta["model"] = "a female model"
+        elif "men" in tl or "man" in tl:
+            blueprint_meta = dict(blueprint_meta)
+            blueprint_meta["gender"] = "men"
+            blueprint_meta["model"] = "a male model"
+
     if blueprint_meta.get("model"):
         _log(f"[SYSTEM_LOG]: Blueprint meta — gender: {blueprint_meta.get('gender')!r}, model: {blueprint_meta.get('model')!r}")
 
