@@ -275,16 +275,19 @@ class ShopifyConduit:
         return cols
 
     def get_all_smart_collections(self) -> List[Dict]:
-        """Fetch ALL smart collections, paginating through results."""
+        """Fetch ALL smart collections, paginating via since_id."""
         all_cols: List[Dict] = []
-        page = 1
+        since_id = 0
         while True:
-            data = self._get("smart_collections.json", params={"limit": 250, "page": page})
+            params: Dict[str, Any] = {"limit": 250}
+            if since_id:
+                params["since_id"] = since_id
+            data = self._get("smart_collections.json", params=params)
             batch = data.get("smart_collections", [])
             all_cols.extend(batch)
             if len(batch) < 250:
                 break
-            page += 1
+            since_id = batch[-1]["id"]
         return all_cols
 
     def create_smart_collection(self, title: str, rules: List[Dict], disjunctive: bool = False, body_html: str = "") -> Dict:

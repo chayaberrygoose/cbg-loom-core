@@ -255,29 +255,32 @@ def build_new_title(prefix: str, product_type: str, printify_id: str) -> str:
 
 # ── Blueprint / product_type inference ───────────────────────────────────────
 
+def fetch_blueprint_meta(product: dict) -> dict:
+    """
+    Fetch the Printify catalog blueprint title and parse it into a metadata dict
+    (gender, garment, model, tags, product_type) using parse_blueprint_metadata.
+    Returns {} on failure.
+    """
+    blueprint_id = product.get("blueprint_id")
+    if not blueprint_id:
+        return {}
+    try:
+        url = f"{PRINTIFY_API_BASE}/catalog/blueprints/{blueprint_id}.json"
+        resp = requests.get(url, headers=_printify_headers())
+        resp.raise_for_status()
+        bp_title = resp.json().get("title", "")
+        return parse_blueprint_metadata(bp_title)
+    except Exception as e:
+        _log(f"[SYSTEM_WARNING]: Failed to fetch blueprint metadata: {e}")
+        return {}
+
+
 def infer_product_type_from_printify(product: dict) -> str | None:
     """
     Derive the product_type string from Printify product data using
     the same parse_blueprint_metadata logic as the fabricator.
     """
-    # Try the internal _blueprint_meta if present (not usually stored on API objects)
-    # Otherwise re-parse from blueprint title via the blueprint API
-    shop_id = get_printify_shop_id() or get_shop_id()
-    blueprint_id = product.get("blueprint_id")
-    print_provider_id = product.get("print_provider_id")
-    if not blueprint_id:
-        return None
-    try:
-        url = f"{PRINTIFY_API_BASE}/catalog/blueprints/{blueprint_id}.json"
-        resp = requests.get(url, headers=_printify_headers())
-        resp.raise_for_status()
-        bp = resp.json()
-        bp_title = bp.get("title", "")
-        meta = parse_blueprint_metadata(bp_title)
-        return meta.get("product_type") or None
-    except Exception as e:
-        _log(f"[SYSTEM_WARNING]: Failed to fetch blueprint metadata: {e}")
-        return None
+    return fetch_blueprint_meta(product).get("product_type") or None
 
 
 # ── QR → Goose swap in Printify print_areas ──────────────────────────────────
@@ -482,13 +485,23 @@ def verify_specimen(printify_id: str, dry_run: bool = False) -> bool:
             if answer != "y":
                 return False
 
-    # ── 3. Determine product_type ─────────────────────────────────────────────
+    # ── 3. Determine product_type + blueprint meta (for gender-aware lifestyle) ─
     _log("[SYSTEM_LOG]: Resolving product_type...")
     product_type = None
+    blueprint_meta: dict = {}
 
     if shopify_product:
         product_type = (shopify_product.get("product_type") or "").strip() or None
 
+    # Always fetch blueprint meta for gender/model info (used later in lifestyle synthesis)
+    blueprint_meta = fetch_blueprint_meta(printify_product)
+    if blueprint_meta.get("model"):
+        _log(f"[SYSTEM_LOG]: Blueprint meta — gender: {blueprint_meta.get('gender')!r}, model: {blueprint_meta.get('model')!r}")
+
+    if not product_type:
+        product_type = blueprint_meta.get("product_type") or None
+        if product_type:
+            _log(f"[SYSTEM_LOG]: Inferred product_type from blueprint: {product_type!r}")
     if not product_type:
         _log("[SYSTEM_WARNING]: product_type missing from Shopify. Inferring from Printify blueprint...")
         product_type = infer_product_type_from_printify(printify_product)
@@ -674,6 +687,7 @@ def verify_specimen(printify_id: str, dry_run: bool = False) -> bool:
                 theme=theme_context,
                 product_title=new_title,
                 mockup_url=mockup_url,
+                blueprint_meta=blueprint_meta or None,
             )
         except Exception as e:
             _log(f"[SYSTEM_WARNING]: Lifestyle synthesis failed: {e}")
