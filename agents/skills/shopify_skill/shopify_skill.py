@@ -318,7 +318,11 @@ class ShopifyConduit:
         }
         """
         resp = self._graphql(pubs_query)
-        edges = resp.get("data", {}).get("publications", {}).get("edges", [])
+        gql_errors = resp.get("errors")
+        if gql_errors:
+            print(f"[SYSTEM_WARNING]: publications query failed — {gql_errors[0].get('message', gql_errors)}")
+            return
+        edges = ((resp.get("data") or {}).get("publications") or {}).get("edges", [])
         pub_ids = [e["node"]["id"] for e in edges]
 
         if not pub_ids:
