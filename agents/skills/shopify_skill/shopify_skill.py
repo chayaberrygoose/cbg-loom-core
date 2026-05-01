@@ -67,6 +67,16 @@ class ShopifyConduit:
         r.raise_for_status()
         return r.status_code
 
+    def _graphql(self, query: str, variables: Optional[Dict] = None) -> Dict:
+        """Execute a Shopify Admin GraphQL query/mutation."""
+        url = f"https://{self.store_url}/admin/api/{API_VERSION}/graphql.json"
+        payload: Dict[str, Any] = {"query": query}
+        if variables:
+            payload["variables"] = variables
+        r = requests.post(url, headers=self.headers, json=payload)
+        r.raise_for_status()
+        return r.json()
+
     # ── CONNECTION ──────────────────────────────────────────────
 
     def check_connection(self) -> bool:
@@ -290,9 +300,50 @@ class ShopifyConduit:
             since_id = batch[-1]["id"]
         return all_cols
 
+    def publish_to_all_channels(self, gid: str) -> None:
+        """
+        Publish a Shopify resource (product, collection, etc.) to every available
+        sales channel/publication using the GraphQL Admin API.
+
+        Args:
+            gid: Shopify Global ID, e.g. 'gid://shopify/Collection/123456789'.
+        """
+        pubs_query = """
+        {
+          publications(first: 20) {
+            edges {
+              node { id name }
+            }
+          }
+        }
+        """
+        resp = self._graphql(pubs_query)
+        edges = resp.get("data", {}).get("publications", {}).get("edges", [])
+        pub_ids = [e["node"]["id"] for e in edges]
+
+        if not pub_ids:
+            print("[SYSTEM_WARNING]: No publications found — skipping channel publish.")
+            return
+
+        mutation = """
+        mutation publishablePublish($id: ID!, $input: [PublicationInput!]!) {
+          publishablePublish(id: $id, input: $input) {
+            userErrors { field message }
+          }
+        }
+        """
+        pub_input = [{"publicationId": pid} for pid in pub_ids]
+        result = self._graphql(mutation, variables={"id": gid, "input": pub_input})
+        errors = (result.get("data", {}).get("publishablePublish") or {}).get("userErrors", [])
+        if errors:
+            print(f"[SYSTEM_WARNING]: Channel publish errors: {errors}")
+        else:
+            names = [e["node"]["name"] for e in edges]
+            print(f"[SYSTEM_ECHO]: Published to {len(pub_ids)} channel(s): {', '.join(names)}")
+
     def create_smart_collection(self, title: str, rules: List[Dict], disjunctive: bool = False, body_html: str = "") -> Dict:
         """
-        Create a Shopify smart collection.
+        Create a Shopify smart collection and publish it to all sales channels.
 
         Args:
             title:       Collection title (e.g. '[MESH OVERLOAD]').
@@ -305,10 +356,20 @@ class ShopifyConduit:
             "rules": rules,
             "disjunctive": disjunctive,
             "body_html": body_html,
+            "published": True,
         }
         result = self._post("smart_collections.json", {"smart_collection": payload})
         col = result.get("smart_collection", {})
-        print(f"[SYSTEM_ECHO]: Smart collection created — id={col.get('id')} title=\"{col.get('title')}\"")
+        col_id = col.get("id")
+        print(f"[SYSTEM_ECHO]: Smart collection created — id={col_id} title=\"{col.get('title')}\"")
+
+        if col_id:
+            gid = f"gid://shopify/Collection/{col_id}"
+            try:
+                self.publish_to_all_channels(gid)
+            except Exception as e:
+                print(f"[SYSTEM_WARNING]: Could not publish collection to all channels: {e}")
+
         return col
 
     def create_custom_collection(self, title: str, body_html: str = "", image_url: Optional[str] = None) -> Dict:
