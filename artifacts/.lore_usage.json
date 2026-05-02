@@ -65,7 +65,7 @@
   "Machine Grid": 5,
   "Machine Hauls": 5,
   "Machine Overload": 5,
-  "Machine Protocol": 5,
+  "Machine Protocol": 6,
   "Machine Ruin": 5,
   "Machine Uprising": 5,
   "Mechanical Decay": 5,
@@ -113,5 +113,5 @@
   "Thermal Breach": 5,
   "Tunnel Resonance": 6,
   "VOID_MANTLE": 5,
-  "Vector Descent": 5
+  "Vector Descent": 6
 }
