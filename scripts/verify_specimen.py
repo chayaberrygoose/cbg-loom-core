@@ -500,16 +500,18 @@ def verify_specimen(printify_id: str, dry_run: bool = False) -> bool:
     # "Women's Full-Zip Hoodie"). Fall back to scanning the product title itself, then
     # garment type, then default to female.
     WOMENS_GARMENTS = {"leggings", "legging", "sports bra", "bra", "bikini", "skirt", "dress"}
+    import re as _re
     raw_title = printify_product.get("title", "")
     tl = raw_title.lower()
 
-    # If the product title or garment type is definitively women's, override blueprint gender.
-    if any(g in tl for g in WOMENS_GARMENTS) or "women" in tl or "woman" in tl:
+    # Garment keywords or explicit "women" in title override blueprint gender (hard override).
+    if any(g in tl for g in WOMENS_GARMENTS) or _re.search(r'\bwom[ae]n\b', tl):
         blueprint_meta = dict(blueprint_meta)
         blueprint_meta["gender"] = "women"
         blueprint_meta["model"] = "a female model"
     elif blueprint_meta.get("gender", "unisex") == "unisex":
-        if "men" in tl or "man" in tl:
+        # Use word-boundary match to avoid false positives like "specimen" → "men"
+        if _re.search(r"\bmen('s)?\b", tl) and not _re.search(r'\bwom[ae]n\b', tl):
             blueprint_meta = dict(blueprint_meta)
             blueprint_meta["gender"] = "men"
             blueprint_meta["model"] = "a male model"
