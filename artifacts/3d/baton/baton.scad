@@ -49,22 +49,39 @@ ext_r = 6; // 4mm radius gives a nice 'rugged' curve
 // --- 1. THE MAIN BOX ---
 difference() {
     
-    // POSITIVE SPACE (Solid parts)
-   // POSITIVE SPACE (Rounded Box)
-    hull() {
-        // Top-Left
-        translate([ext_r, ext_r, 0]) 
-            cylinder(r=ext_r, h=vault_z + wall_t, $fn=50);
-        // Top-Right
-        translate([plate_w + (wall_t*2) - ext_r, ext_r, 0]) 
-            cylinder(r=ext_r, h=vault_z + wall_t, $fn=50);
-        // Bottom-Left
-        translate([ext_r, plate_h + (wall_t*2) - ext_r, 0]) 
-            cylinder(r=ext_r, h=vault_z + wall_t, $fn=50);
-        // Bottom-Right
-        translate([plate_w + (wall_t*2) - ext_r, plate_h + (wall_t*2) - ext_r, 0]) 
-            cylinder(r=ext_r, h=vault_z + wall_t, $fn=50);
+    // POSITIVE SPACE (Main Chassis + Integrated Wings)
+    union() {
+        // --- THE MAIN ROUNDED BOX ---
+        hull() {
+            translate([ext_r, ext_r, 0]) cylinder(r=ext_r, h=vault_z + wall_t, $fn=50);
+            translate([plate_w + (wall_t*2) - ext_r, ext_r, 0]) cylinder(r=ext_r, h=vault_z + wall_t, $fn=50);
+            translate([ext_r, plate_h + (wall_t*2) - ext_r, 0]) cylinder(r=ext_r, h=vault_z + wall_t, $fn=50);
+            translate([plate_w + (wall_t*2) - ext_r, plate_h + (wall_t*2) - ext_r, 0]) cylinder(r=ext_r, h=vault_z + wall_t, $fn=50);
+        }
+
+        // --- THE SYMMETRIC STRAP WINGS ---
+        wing_w = 12; // Distance wing extends from wall
+        wing_h = 56; // Matches the encased_diameter/strap width
+        
+        for(side = [0, 1]) { // 0 = Left, 1 = Right
+            translate([side * (plate_w + wall_t*2), (plate_h + wall_t*2)/2 - wing_h/2, 0])
+            difference() {
+                // The Wing Tab (Rounded for comfort)
+                hull() {
+                    // Attachment side (buried in wall)
+                    translate([side == 0 ? 0 : -2, 2, 0]) cube([2, wing_h-4, wall_t]);
+                    // Outer side
+                    translate([side == 0 ? -wing_w + 3 : wing_w - 3, 3, 0]) cylinder(r=3, h=wall_t, $fn=30);
+                    translate([side == 0 ? -wing_w + 3 : wing_w - 3, wing_h - 3, 0]) cylinder(r=3, h=wall_t, $fn=30);
+                }
+                
+                // The Strap Slot (Centering a 50mm strap)
+                translate([side == 0 ? -wing_w + 3 : wing_w - 6.5, (wing_h - 52)/2, -1]) 
+                    cube([3.5, 52, wall_t + 2]);
+            }
+        }
     }
+    
 
 
     // NEGATIVE SPACE (The Drills)
@@ -110,7 +127,7 @@ difference() {
 
     
     // THE DUAL-WALL VENT GRID
-    grid_scale_x=1/5;
+    grid_scale_x=1/4;
     for(i = vault_z/2) {
         for (v = [plate_w*grid_scale_x : plate_w*grid_scale_x : plate_w-plate_w*grid_scale_x]) { 
             // Wall 1 (Front)
