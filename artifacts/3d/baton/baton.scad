@@ -59,25 +59,25 @@ difference() {
             translate([plate_w + (wall_t*2) - ext_r, plate_h + (wall_t*2) - ext_r, 0]) cylinder(r=ext_r, h=vault_z + wall_t, $fn=50);
         }
 
-        // --- THE SYMMETRIC STRAP WINGS ---
-        wing_w = 12; // Distance wing extends from wall
-        wing_h = 56; // Matches the encased_diameter/strap width
+       // --- THE OPTIMIZED SYMMETRIC STRAP WINGS ---
+        wing_w = 10; // Shorter X for less leverage
+        wing_h = 56; 
+        wing_z = 4.0; // Thicker Z for rigidity
         
-        for(side = [0, 1]) { // 0 = Left, 1 = Right
+        for(side = [0, 1]) { 
             translate([side * (plate_w + wall_t*2), (plate_h + wall_t*2)/2 - wing_h/2, 0])
             difference() {
-                // The Wing Tab (Rounded for comfort)
                 hull() {
-                    // Attachment side (buried in wall)
-                    translate([side == 0 ? 0 : -2, 2, 0]) cube([2, wing_h-4, wall_t]);
+                    // Attachment side - now slightly taller to "grip" the wall
+                    translate([side == 0 ? 0 : -2, 2, 0]) cube([2, wing_h-4, wing_z + 2]); 
                     // Outer side
-                    translate([side == 0 ? -wing_w + 3 : wing_w - 3, 3, 0]) cylinder(r=3, h=wall_t, $fn=30);
-                    translate([side == 0 ? -wing_w + 3 : wing_w - 3, wing_h - 3, 0]) cylinder(r=3, h=wall_t, $fn=30);
+                    translate([side == 0 ? -wing_w + 3 : wing_w - 3, 3, 0]) cylinder(r=3, h=wing_z, $fn=30);
+                    translate([side == 0 ? -wing_w + 3 : wing_w - 3, wing_h - 3, 0]) cylinder(r=3, h=wing_z, $fn=30);
                 }
                 
-                // The Strap Slot (Centering a 50mm strap)
+                // The Strap Slot
                 translate([side == 0 ? -wing_w + 3 : wing_w - 6.5, (wing_h - 52)/2, -1]) 
-                    cube([3.5, 52, wall_t + 2]);
+                    cube([3.5, 52, wing_z + 10]);
             }
         }
     }
@@ -120,7 +120,7 @@ difference() {
     
     // button
     button_d = 13.5;
-    translate([margin+pi_hole_w/2 + wall_t, -1, (wall_t*2+pi_z)/2]) 
+    translate([margin+pi_hole_w/2 + wall_t, plate_h-1, (wall_t*2+pi_z)/2]) 
     rotate([-90, 0, 0]) cylinder(h=20, d=button_d, $fn=50);
    
     
