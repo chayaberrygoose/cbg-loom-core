@@ -445,11 +445,28 @@ def synthesize_lifestyle_mockup(theme, product_title, mockup_url, style_ref_dir=
     refs = list(ref_dir.glob("*.PNG")) + list(ref_dir.glob("*.png"))
     chosen_ref = random.choice(refs) if refs else None
     
-    # [METADATA_THREAD]: Build gender/garment-aware subject description
+    # [METADATA_THREAD]: Build gender/garment/ethnicity/body-aware subject description
     meta = blueprint_meta or {}
     model_desc = meta.get('model', 'a model')
     garment_desc = meta.get('garment', 'apparel product')
-    subject_line = f"The subject is {model_desc} wearing the {garment_desc.lower()} shown in the provided image."
+
+    # Merge ethnicity into model description if specified
+    ethnicity = meta.get('ethnicity')  # e.g. "a Black female model" or None
+    if ethnicity:
+        subject_str = ethnicity
+    else:
+        subject_str = model_desc
+
+    subject_line = f"The subject is {subject_str} wearing the {garment_desc.lower()} shown in the provided image."
+
+    # Append body/size context — framed as garment size to avoid content policy triggers
+    body_context = meta.get('body_context')
+    if body_context == 'plus-size':
+        subject_line += " The model has a full, curvy build."
+    elif body_context == 'athletic':
+        subject_line += " The model has an athletic, muscular build."
+    elif body_context:  # specific size string e.g. "XL", "2XL"
+        subject_line += f" The garment shown is a size {body_context}."
     
     # Prompt logic
     ref_desc = "industrial noir techwear aesthetic, high-contrast shadows, clinical warehouse lighting"

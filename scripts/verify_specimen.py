@@ -424,9 +424,93 @@ def find_existing_lifestyle_image(printify_id: str) -> str | None:
     return None
 
 
+# ── Model override prompt ────────────────────────────────────────────────────
+
+def prompt_model_overrides(blueprint_meta: dict, product_title: str, printify_product: dict) -> dict:
+    """
+    Interactively prompt the Specialist for lifestyle model overrides.
+    Presents detected defaults and allows per-category override.
+    Returns an updated copy of blueprint_meta.
+    """
+    meta = dict(blueprint_meta)
+    gender = meta.get("gender", "women")
+    gender_label = {"women": "Female", "men": "Male", "nonbinary": "Non-binary"}.get(gender, "Female")
+
+    print("\n" + "─" * 60)
+    print("[MODEL_OVERRIDE]: Lifestyle model — press Enter to keep defaults")
+    print("─" * 60)
+
+    # ── GENDER ──
+    print(f"  Gender       : {gender_label} (detected)")
+    print("                 [F] Female  [M] Male  [N] Non-binary  [Enter] keep")
+    choice = input("  → ").strip().lower()
+    GENDER_MAP = {
+        "f": ("women",    "a female model"),
+        "m": ("men",      "a male model"),
+        "n": ("nonbinary","a nonbinary model"),
+    }
+    if choice in GENDER_MAP:
+        meta["gender"], meta["model"] = GENDER_MAP[choice]
+
+    # ── ETHNICITY ──
+    ETHNICITIES = [
+        ("1", "not specified (let model decide)",   None),
+        ("2", "Black / African",                     "a Black {g} model"),
+        ("3", "Latina / Hispanic",                   "a Latina {g} model"),
+        ("4", "South Asian",                         "a South Asian {g} model"),
+        ("5", "East Asian",                          "an East Asian {g} model"),
+        ("6", "Middle Eastern / North African",      "a Middle Eastern {g} model"),
+        ("7", "Indigenous / Native",                 "an Indigenous {g} model"),
+        ("8", "Mixed / multiracial",                 "a mixed-race {g} model"),
+        ("9", "White / European",                    "a White {g} model"),
+    ]
+    print("\n  Ethnicity    : not specified (default)")
+    for key, label, _ in ETHNICITIES:
+        marker = " ← default" if key == "1" else ""
+        print(f"    [{key}] {label}{marker}")
+    choice = input("  → ").strip()
+    gender_adj = {"women": "female", "men": "male", "nonbinary": "nonbinary"}.get(meta.get("gender", "women"), "female")
+    for key, _, tmpl in ETHNICITIES:
+        if choice == key:
+            meta["ethnicity"] = tmpl.replace("{g}", gender_adj).strip() if tmpl else None
+            break
+
+    # ── BODY TYPE / SIZE FRAMING ──
+    # Pull sizes from product options to frame naturally as garment size
+    raw_sizes: list = []
+    for opt in printify_product.get("options", []):
+        if opt.get("type", "").lower() in ("size", "sizes"):
+            for v in opt.get("values", []):
+                t = v.get("title", "").strip()
+                if t:
+                    raw_sizes.append(t)
+
+    SIZE_OPTS: list[tuple[str, str, str | None]] = [("1", "not specified (model decides)", None)]
+    idx = 2
+    for sz in raw_sizes:
+        SIZE_OPTS.append((str(idx), f"wearing a {sz} (size framing)", sz))
+        idx += 1
+    SIZE_OPTS.append((str(idx), "plus-size / curvy build", "plus-size"))
+    idx += 1
+    SIZE_OPTS.append((str(idx), "athletic / muscular build", "athletic"))
+
+    print("\n  Body type    : not specified (default)")
+    for key, label, _ in SIZE_OPTS:
+        marker = " ← default" if key == "1" else ""
+        print(f"    [{key}] {label}{marker}")
+    choice = input("  → ").strip()
+    for key, _, val in SIZE_OPTS:
+        if choice == key:
+            meta["body_context"] = val  # None means omit
+            break
+
+    print("─" * 60)
+    return meta
+
+
 # ── Main verification flow ────────────────────────────────────────────────────
 
-def verify_specimen(printify_id: str, dry_run: bool = False) -> bool:
+def verify_specimen(printify_id: str, dry_run: bool = False, batch: bool = False) -> bool:
     """
     Full verification ritual for a single UNVERIFIED SPECIMEN.
     Returns True on success, False on unrecoverable failure.
@@ -523,6 +607,12 @@ def verify_specimen(printify_id: str, dry_run: bool = False) -> bool:
 
     if blueprint_meta.get("model"):
         _log(f"[SYSTEM_LOG]: Blueprint meta — gender: {blueprint_meta.get('gender')!r}, model: {blueprint_meta.get('model')!r}")
+
+    # ── Prompt Specialist for model overrides (gender / ethnicity / body type) ─
+    if not batch and not dry_run:
+        blueprint_meta = prompt_model_overrides(blueprint_meta, raw_title, printify_product)
+        _log(f"[SYSTEM_LOG]: Model overrides applied — gender: {blueprint_meta.get('gender')!r}, "
+             f"ethnicity: {blueprint_meta.get('ethnicity')!r}, body: {blueprint_meta.get('body_context')!r}")
 
     if not product_type:
         product_type = blueprint_meta.get("product_type") or None
@@ -834,9 +924,14 @@ def main():
         action="store_true",
         help="Preview the new title and detect issues without writing anything.",
     )
+    parser.add_argument(
+        "--batch", "-b",
+        action="store_true",
+        help="Skip interactive prompts and use auto-detected defaults for all model overrides.",
+    )
     args = parser.parse_args()
 
-    success = verify_specimen(args.printify_id, dry_run=args.dry_run)
+    success = verify_specimen(args.printify_id, dry_run=args.dry_run, batch=args.batch)
     sys.exit(0 if success else 1)
 
 
