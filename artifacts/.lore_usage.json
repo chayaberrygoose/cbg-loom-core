@@ -6,7 +6,7 @@
   "Chaya Berry Goose": 6,
   "Chaya Code": 6,
   "Circuit Bleed": 7,
-  "Circuit Break": 6,
+  "Circuit Break": 7,
   "Circuit Failure": 7,
   "Circuit Fracture": 6,
   "Circuit Overload": 6,
@@ -111,7 +111,7 @@
   "Temporal Rift 2": 6,
   "Temporal Stale": 7,
   "Thermal Breach": 6,
-  "Tunnel Resonance": 6,
+  "Tunnel Resonance": 7,
   "VOID_MANTLE": 6,
   "Vector Descent": 6
 }
