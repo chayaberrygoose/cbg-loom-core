@@ -265,16 +265,16 @@ difference() {
     
     // holes
     translate([lid_x + margin, margin+wall_t,-1])
-    cylinder(h=lid_depth+10, d=2.9, $fn=50); 
+    cylinder(h=lid_depth+10, d=2.2, $fn=50); 
     
     translate([lid_x + margin, plate_h+wall_t-margin,-1])
-    cylinder(h=lid_depth+10, d=2.9, $fn=50); 
+    cylinder(h=lid_depth+10, d=2.2, $fn=50); 
     
     translate([wall_t+plate_w-margin, margin+wall_t,-1])
-    cylinder(h=lid_depth+10, d=2.9, $fn=50); 
+    cylinder(h=lid_depth+10, d=2.2, $fn=50); 
     
     translate([wall_t+plate_w-margin, plate_h+wall_t-margin,-1])
-    cylinder(h=lid_depth+10, d=2.9, $fn=50); 
+    cylinder(h=lid_depth+10, d=2.2, $fn=50); 
     
 
     // bayite hole
