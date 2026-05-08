@@ -56,25 +56,32 @@ difference() {
             translate([plate_w + (wall_t*2) - ext_r, plate_h + (wall_t*2) - ext_r, 0]) cylinder(r=ext_r, h=vault_z + wall_t, $fn=50);
         }
 
-       // --- THE OPTIMIZED SYMMETRIC STRAP WINGS ---
-        wing_w = 10; // Shorter X for less leverage
-        wing_h = 56; 
-        wing_z = 4.0; // Thicker Z for rigidity
+       // --- THE NO-SEW TRIGLIDE STRAP WINGS ---
+        wing_w = 16;      // Widened to accommodate two slots
+        wing_h = 60;      // Slightly taller for structural meat
+        wing_z = 5.0;      // Beefy thickness for head-tension
+        slot_w = 3.5;      // Width of the elastic path
+        bar_w  = 4.0;      // The central friction bar
         
         for(side = [0, 1]) { 
             translate([side * (plate_w + wall_t*2), (plate_h + wall_t*2)/2 - wing_h/2, 0])
             difference() {
+                // The Wing Body
                 hull() {
-                    // Attachment side - now slightly taller to "grip" the wall
+                    // Fusion points to the main wall
                     translate([side == 0 ? 0 : -2, 2, 0]) cube([2, wing_h-4, wing_z + 2]); 
-                    // Outer side
-                    translate([side == 0 ? -wing_w + 3 : wing_w - 3, 3, 0]) cylinder(r=3, h=wing_z, $fn=30);
-                    translate([side == 0 ? -wing_w + 3 : wing_w - 3, wing_h - 3, 0]) cylinder(r=3, h=wing_z, $fn=30);
+                    // Outer rounded edge
+                    translate([side == 0 ? -wing_w + 4 : wing_w - 4, 4, 0]) cylinder(r=4, h=wing_z, $fn=30);
+                    translate([side == 0 ? -wing_w + 4 : wing_w - 4, wing_h - 4, 0]) cylinder(r=4, h=wing_z, $fn=30);
                 }
                 
-                // The Strap Slot
-                translate([side == 0 ? -wing_w + 3 : wing_w - 6.5, (wing_h - 52)/2, -1]) 
-                    cube([3.5, 52, wing_z + 10]);
+                // SLOT 1 (Inner - closest to chassis)
+                translate([side == 0 ? -slot_w - bar_w - 3.5 : 3.5 + bar_w, (wing_h - 52)/2, -1]) 
+                    cube([slot_w, 52, wing_z + 10]);
+
+                // SLOT 2 (Outer - the ladder lock)
+                translate([side == 0 ? -slot_w - 2.5 : 2.5, (wing_h - 52)/2, -1]) 
+                    cube([slot_w, 52, wing_z + 10]);
             }
         }
     }
@@ -103,6 +110,7 @@ difference() {
         }
     }
     
+    
     // pi sides
     translate([wall_t+margin, -1, pi_z+ wall_t-1]) // Move start slightly outside the x=0 plane
     cube([lid_x-(wall_t+margin), plate_h + wall_t*2+2, vault_z - pi_z + 4]);
@@ -117,7 +125,7 @@ difference() {
     
     // button
     button_d = 13.5;
-    translate([margin+pi_hole_w/2 + wall_t, plate_h-1, (wall_t*2+pi_z)/2]) 
+    translate([plate_w-button_d/2- 5, -1, (wall_t*2+pi_z)/2]) 
     rotate([-90, 0, 0]) cylinder(h=20, d=button_d, $fn=50);
    
     
@@ -130,10 +138,11 @@ difference() {
             // Wall 1 (Front)
             translate([v + wall_t, -5, i + wall_t]) 
             rotate([-90, 0, 0]) cylinder(h=20, d=4.5, $fn=6);
-            
+            /*
             // Wall 2 (Back)
             translate([v + wall_t, plate_h + wall_t - 5, i + wall_t]) 
             rotate([-90, 0, 0]) cylinder(h=20, d=4.5, $fn=6);
+            */
         }
     }  
 
