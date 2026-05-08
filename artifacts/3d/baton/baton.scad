@@ -125,7 +125,7 @@ difference() {
     
     // button
     button_d = 13.5;
-    translate([plate_w-button_d/2- 5, -1, (wall_t*2+pi_z)/2]) 
+    translate([plate_w-button_d/2- 5, -1, (wall_t*2+vault_z)/2]) 
     rotate([-90, 0, 0]) cylinder(h=20, d=button_d, $fn=50);
    
     
