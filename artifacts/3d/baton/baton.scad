@@ -14,7 +14,7 @@ dweii_hole_w = 83;
 
 dweii_z=12;
 pi_z = dweii_z + 24;
-vault_z = pi_z+2;
+vault_z = pi_z+8;
 
 usbc_w = 13;
 usbc_h = 6;
@@ -39,6 +39,7 @@ lid_x=wall_t+pi_hole_w+margin*2;
 
 bayite_hole_w = 23;
 bayite_hole_h = 14.5;
+bayite_display_h = 7;
 
 ext_r = 6; // 4mm radius gives a nice 'rugged' curve
 
@@ -158,8 +159,14 @@ module standoff(x, y, h=23) {
 translate([wall_t, wall_t, wall_t]) {
     
     //pi
+    
     standoff(margin, (plate_h - pi_hole_h)/2, pi_z);
-    standoff(margin, (plate_h - pi_hole_h)/2 + pi_hole_h, pi_z);  
+    difference(){
+        standoff(margin, (plate_h - pi_hole_h)/2 + pi_hole_h, pi_z);  
+        translate([-1,(plate_h - pi_hole_h)/2 + pi_hole_h-5, pi_z-2])
+        cube([2.5,110,10]);
+    }
+    
     standoff(margin+pi_hole_w, (plate_h - pi_hole_h)/2, pi_z);  
     standoff(margin+pi_hole_w, (plate_h - pi_hole_h)/2 + pi_hole_h, pi_z); 
     
@@ -170,36 +177,49 @@ translate([wall_t, wall_t, wall_t]) {
     standoff(dweii_x+dweii_hole_w, (plate_h - dweii_hole_h)/2 + dweii_hole_h, dweii_z); 
     
     //lid
-    standoff(lid_x + margin-wall_t, margin, pi_z);
-    standoff(lid_x + margin-wall_t, plate_h-margin, pi_z);
-    standoff(plate_w-margin, margin, pi_z);
-    standoff(plate_w-margin, plate_h-margin, pi_z);
+    standoff(lid_x + margin-wall_t, margin, vault_z-(lid_depth - wall_t));
+    standoff(lid_x + margin-wall_t, plate_h-margin, vault_z-(lid_depth - wall_t));
+    standoff(plate_w-margin, margin, vault_z-(lid_depth - wall_t));
+    standoff(plate_w-margin, plate_h-margin, vault_z-(lid_depth - wall_t));
    
 }
         
 
 // --- 2. THE LID ---
 translate([0, plate_h + 40, 0]) 
+
+
+
 difference() {
     
     // POSITIVE SPACE (Rounded Right Side, Sharp Left Side)
-    hull() {
-        // Left-Top (Sharp corner at lid_x)
-        translate([lid_x, 0, 0]) 
-            cylinder(r=0.1, h=lid_depth, $fn=4);
-        
-        // Left-Bottom (Sharp corner at lid_x)
-        translate([lid_x, plate_h + (wall_t*2), 0]) 
-            cylinder(r=0.1, h=lid_depth, $fn=4);
+    union(){
+         hull() {
+            // Left-Top (Sharp corner at lid_x)
+            translate([lid_x, 0, 0]) 
+                cylinder(r=0.1, h=lid_depth, $fn=4);
             
-        // Right-Top (Rounded to match box)
-        translate([plate_w + (wall_t*2) - ext_r, ext_r, 0]) 
-            cylinder(r=ext_r, h=lid_depth, $fn=50);
-            
-        // Right-Bottom (Rounded to match box)
-        translate([plate_w + (wall_t*2) - ext_r, plate_h + (wall_t*2) - ext_r, 0]) 
-            cylinder(r=ext_r, h=lid_depth, $fn=50);
+            // Left-Bottom (Sharp corner at lid_x)
+            translate([lid_x, plate_h + (wall_t*2), 0]) 
+                cylinder(r=0.1, h=lid_depth, $fn=4);
+                
+            // Right-Top (Rounded to match box)
+            translate([plate_w + (wall_t*2) - ext_r, ext_r, 0]) 
+                cylinder(r=ext_r, h=lid_depth, $fn=50);
+                
+            // Right-Bottom (Rounded to match box)
+            translate([plate_w + (wall_t*2) - ext_r, plate_h + (wall_t*2) - ext_r, 0]) 
+                cylinder(r=ext_r, h=lid_depth, $fn=50);
+        }
+
+
+        translate([lid_x + (plate_w-lid_x)/2 - 38/2, wall_t+plate_h/2 - 38/2, lid_depth])
+        cube([38, 38,  (lid_depth-0.8)]);
+
+
+
     }
+   
 
     //lip - negative version of box, but enlarged a little for clearance
     difference(){
@@ -256,9 +276,11 @@ difference() {
     translate([wall_t+plate_w-margin, plate_h+wall_t-margin,-1])
     cylinder(h=lid_depth+10, d=2.9, $fn=50); 
     
-    translate([lid_x + (plate_w-lid_x)/2, wall_t+plate_h/2,-1])
-    cube([bayite_hole_w, bayite_hole_h, lid_depth+10], center=true);
-    cylinder(h=lid_depth+10, d=2.9, $fn=50); 
+
+    // bayite hole
+    translate([lid_x + (plate_w-lid_x)/2 - bayite_hole_w/2, wall_t+plate_h/2 - bayite_hole_h/2, 0.8])
+    cube([bayite_hole_w, bayite_hole_h, lid_depth+10]);
+   
   
 }
 
