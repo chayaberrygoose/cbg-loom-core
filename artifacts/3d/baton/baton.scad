@@ -8,18 +8,13 @@ pi_hole_h = 58;
 pi_hole_w = 23;
 
 
-pi_z = 32;
-
-
-vault_z = pi_z+2;
-
-
 dweii_x = margin;
 dweii_hole_h = 37;
 dweii_hole_w = 83;
 
-dweii_z=8;
-
+dweii_z=12;
+pi_z = dweii_z + 24;
+vault_z = pi_z+2;
 
 usbc_w = 13;
 usbc_h = 6;
@@ -42,7 +37,8 @@ pi_port_y=margin+wall_t;
 
 lid_x=wall_t+pi_hole_w+margin*2;
 
-encased_diameter = 56;
+bayite_hole_w = 23;
+bayite_hole_h = 14.5;
 
 ext_r = 6; // 4mm radius gives a nice 'rugged' curve
 
@@ -155,7 +151,7 @@ module standoff(x, y, h=23) {
            
         // The Screw Hole (Circular is better for threads)
         translate([0,0,0]) 
-            cylinder(h=h+2, d=2.2, $fn=50); 
+            cylinder(h=h+2, d=1.8, $fn=50); 
     }
 }
 // --- STANDOFFS (Now inside the union and translated correctly) ---
@@ -260,7 +256,9 @@ difference() {
     translate([wall_t+plate_w-margin, plate_h+wall_t-margin,-1])
     cylinder(h=lid_depth+10, d=2.9, $fn=50); 
     
-
+    translate([lid_x + (plate_w-lid_x)/2, wall_t+plate_h/2,-1])
+    cube([bayite_hole_w, bayite_hole_h, lid_depth+10], center=true);
+    cylinder(h=lid_depth+10, d=2.9, $fn=50); 
   
 }
 
