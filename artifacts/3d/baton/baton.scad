@@ -1,6 +1,9 @@
 
 // --- MASTER CONFIGURATION ---
-
+wall_t = 2.9;       
+lid_clearance = 0.5; 
+lid_wall = 2.0;
+lid_depth = wall_t*1.5;
 
 
 margin = 2.9;
@@ -13,21 +16,18 @@ dweii_hole_h = 37;
 dweii_hole_w = 83;
 
 dweii_z=12;
-pi_z = dweii_z + 24;
-vault_z = pi_z+8;
+pi_z = dweii_z + 27;
+vault_z = pi_z+15-wall_t;
 
 usbc_w = 13;
-usbc_h = 6;
+usbc_h = 8;
 
 
 
 plate_w = dweii_x+dweii_hole_w+margin;
 plate_h = margin*2 + pi_hole_h    ;
      
-wall_t = 2.9;       
-lid_clearance = 0.5; 
-lid_wall = 2.0;
-lid_depth = wall_t*1.5;
+
 
 
 
@@ -35,7 +35,7 @@ pi_port_y=margin+wall_t;
 
 
 
-lid_x=wall_t+pi_hole_w+margin*2;
+lid_x=wall_t+pi_hole_w+8;
 
 bayite_hole_w = 23;
 bayite_hole_h = 14.5;
@@ -56,32 +56,33 @@ difference() {
             translate([plate_w + (wall_t*2) - ext_r, plate_h + (wall_t*2) - ext_r, 0]) cylinder(r=ext_r, h=vault_z + wall_t, $fn=50);
         }
 
-       // --- THE NO-SEW TRIGLIDE STRAP WINGS ---
-        wing_w = 16;      // Widened to accommodate two slots
-        wing_h = 60;      // Slightly taller for structural meat
-        wing_z = 5.0;      // Beefy thickness for head-tension
-        slot_w = 3.5;      // Width of the elastic path
-        bar_w  = 4.0;      // The central friction bar
+       // --- THE NO-SEW TRIGLIDE STRAP WINGS (LONG-SIDE ROTATION) ---
+        wing_w = 60;      // Now follows the width of the box
+        wing_h = 16;      // Depth of the wing extension
+        wing_z = 6.0;      // Thickened to 6mm for high-tension durability
+        slot_h = 3.5;      // Width of the elastic path
+        bar_h  = 4.0;      // The central friction bar
         
         for(side = [0, 1]) { 
-            translate([side * (plate_w + wall_t*2), (plate_h + wall_t*2)/2 - wing_h/2, 0])
+            // side 0 = Top Wall, side 1 = Bottom Wall
+            translate([(plate_w + wall_t*2)/2 - wing_w/2, side * (plate_h + wall_t*2), 0])
             difference() {
                 // The Wing Body
                 hull() {
                     // Fusion points to the main wall
-                    translate([side == 0 ? 0 : -2, 2, 0]) cube([2, wing_h-4, wing_z + 2]); 
-                    // Outer rounded edge
-                    translate([side == 0 ? -wing_w + 4 : wing_w - 4, 4, 0]) cylinder(r=4, h=wing_z, $fn=30);
-                    translate([side == 0 ? -wing_w + 4 : wing_w - 4, wing_h - 4, 0]) cylinder(r=4, h=wing_z, $fn=30);
+                    translate([2, side == 0 ? 0 : -2, 0]) cube([wing_w-4, 2, wing_z + 2]); 
+                    // Outer rounded edges
+                    translate([4, side == 0 ? -wing_h + 4 : wing_h - 4, 0]) cylinder(r=4, h=wing_z, $fn=30);
+                    translate([wing_w - 4, side == 0 ? -wing_h + 4 : wing_h - 4, 0]) cylinder(r=4, h=wing_z, $fn=30);
                 }
                 
                 // SLOT 1 (Inner - closest to chassis)
-                translate([side == 0 ? -slot_w - bar_w - 3.5 : 3.5 + bar_w, (wing_h - 52)/2, -1]) 
-                    cube([slot_w, 52, wing_z + 10]);
+                translate([(wing_w - 52)/2, side == 0 ? -slot_h - bar_h - 3.5 : 3.5 + bar_h, -1]) 
+                    cube([52, slot_h, wing_z + 10]);
 
                 // SLOT 2 (Outer - the ladder lock)
-                translate([side == 0 ? -slot_w - 2.5 : 2.5, (wing_h - 52)/2, -1]) 
-                    cube([slot_w, 52, wing_z + 10]);
+                translate([(wing_w - 52)/2, side == 0 ? -slot_h - 2.5 : 2.5, -1]) 
+                    cube([52, slot_h, wing_z + 10]);
             }
         }
     }
@@ -110,7 +111,7 @@ difference() {
         }
     }
     
-    
+    /*
     // pi sides
     translate([wall_t+margin, -1, pi_z+ wall_t-1]) // Move start slightly outside the x=0 plane
     cube([lid_x-(wall_t+margin), plate_h + wall_t*2+2, vault_z - pi_z + 4]);
@@ -118,33 +119,22 @@ difference() {
     // pi front
     translate([-1, wall_t+margin, wall_t+pi_z-usbc_h/2+1+3/2]) // Move start slightly outside the x=0 plane
     cube([16, pi_hole_h, 20]);
+    */
+
+    // pi
+    translate([-1, -1, pi_z+ wall_t-2]) // Move start slightly outside the x=0 plane
+    cube([lid_x+1, plate_h + wall_t*2+2, vault_z - pi_z + 4]);
 
     // dweii port
     translate([-1, (plate_h+wall_t*2)/2 - usbc_w/2, wall_t+dweii_z-usbc_h/2-1-3/2])
     cube([16, usbc_w, usbc_h]);
     
     // button
-    button_d = 13.5;
+    button_d = 12.5;
     translate([plate_w-button_d/2- 5, -1, (wall_t*2+vault_z)/2]) 
     rotate([-90, 0, 0]) cylinder(h=20, d=button_d, $fn=50);
    
     
-
-    
-    // THE DUAL-WALL VENT GRID
-    grid_scale_x=1/5;
-    for(i = vault_z/2) {
-        for (v = [plate_w*grid_scale_x : plate_w*grid_scale_x : plate_w-plate_w*grid_scale_x]) { 
-            // Wall 1 (Front)
-            translate([v + wall_t, -5, i + wall_t]) 
-            rotate([-90, 0, 0]) cylinder(h=20, d=4.5, $fn=6);
-            /*
-            // Wall 2 (Back)
-            translate([v + wall_t, plate_h + wall_t - 5, i + wall_t]) 
-            rotate([-90, 0, 0]) cylinder(h=20, d=4.5, $fn=6);
-            */
-        }
-    }  
 
 }
 
@@ -287,8 +277,8 @@ difference() {
     
 
     // bayite hole
-    translate([lid_x + (plate_w-lid_x)/2 - bayite_hole_w/2, wall_t+plate_h/2 - bayite_hole_h/2, 0.8])
-    cube([bayite_hole_w, bayite_hole_h, lid_depth+10]);
+    translate([lid_x + (plate_w-lid_x)/2 - bayite_hole_h/2, wall_t+plate_h/2 - bayite_hole_w/2, 0.8])
+    cube([bayite_hole_h, bayite_hole_w, lid_depth+10]);
    
   
 }
