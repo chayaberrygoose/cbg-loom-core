@@ -134,7 +134,19 @@ difference() {
     translate([plate_w-button_d/2- 5, -1, (wall_t*2+vault_z)/2]) 
     rotate([-90, 0, 0]) cylinder(h=20, d=button_d, $fn=50);
    
-    
+     // THE DUAL-WALL VENT GRID
+    grid_scale_x=1/4;
+    for(i = vault_z/4) {
+        for (v = [plate_w*grid_scale_x : plate_w*grid_scale_x : plate_w-plate_w*grid_scale_x]) { 
+            // Wall 1 (Front)
+            translate([v + wall_t, -5, i + wall_t]) 
+            rotate([-90, 0, 0]) cylinder(h=20, d=4.5, $fn=6);
+            
+            // Wall 2 (Back)
+            translate([v + wall_t, plate_h + wall_t - 5, i + wall_t]) 
+            rotate([-90, 0, 0]) cylinder(h=20, d=4.5, $fn=6);
+        }
+    }  
 
 }
 
