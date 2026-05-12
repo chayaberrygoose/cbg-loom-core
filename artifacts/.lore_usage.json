@@ -28,7 +28,7 @@
   "Datum Ascent": 8,
   "Decay Protocol": 8,
   "Decay Protocol 2": 9,
-  "Default Mode": 8,
+  "Default Mode": 9,
   "Digital Decay": 8,
   "Digital Decay 2": 8,
   "Digital Overload": 8,
@@ -113,5 +113,5 @@
   "Thermal Breach": 9,
   "Tunnel Resonance": 8,
   "VOID_MANTLE": 8,
-  "Vector Descent": 8
+  "Vector Descent": 9
 }
