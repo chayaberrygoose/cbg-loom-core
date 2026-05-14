@@ -98,7 +98,7 @@
   "Silicon Pulse": 9,
   "Spark Containment": 10,
   "Sub-Atomic Bloom": 9,
-  "Supply Chain Collapse": 9,
+  "Supply Chain Collapse": 10,
   "System Collapse": 9,
   "System Failure": 9,
   "System Failure 2": 10,
@@ -112,6 +112,6 @@
   "Temporal Stale": 9,
   "Thermal Breach": 9,
   "Tunnel Resonance": 10,
-  "VOID_MANTLE": 9,
+  "VOID_MANTLE": 10,
   "Vector Descent": 9
 }
