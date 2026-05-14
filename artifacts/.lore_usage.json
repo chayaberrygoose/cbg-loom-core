@@ -71,7 +71,7 @@
   "Mechanical Decay": 9,
   "Mechanical Rot": 9,
   "Mesh Overload": 9,
-  "Metal Rift": 9,
+  "Metal Rift": 10,
   "Midday Leak": 9,
   "Multi Threaded": 9,
   "Neon Siphon": 9,
@@ -111,7 +111,7 @@
   "Temporal Rift 2": 9,
   "Temporal Stale": 9,
   "Thermal Breach": 9,
-  "Tunnel Resonance": 9,
+  "Tunnel Resonance": 10,
   "VOID_MANTLE": 9,
   "Vector Descent": 9
 }
