@@ -87,7 +87,7 @@
   "Resonance Shield": 10,
   "Rust Decay": 10,
   "SIGNAL_FLARE": 10,
-  "Semiconductor Waffle": 10,
+  "Semiconductor Waffle": 11,
   "Shadow Fabric": 11,
   "Signal Crash": 10,
   "Signal Decay": 10,
@@ -112,6 +112,6 @@
   "Temporal Stale": 10,
   "Thermal Breach": 10,
   "Tunnel Resonance": 10,
-  "VOID_MANTLE": 10,
+  "VOID_MANTLE": 11,
   "Vector Descent": 10
 }
