@@ -84,7 +84,7 @@
   "Quantum Reckoning": 11,
   "Quantum Rift": 10,
   "RYPTIC_WEAVE": 11,
-  "Resonance Shield": 10,
+  "Resonance Shield": 11,
   "Rust Decay": 10,
   "SIGNAL_FLARE": 10,
   "Semiconductor Waffle": 11,
@@ -113,5 +113,5 @@
   "Thermal Breach": 10,
   "Tunnel Resonance": 10,
   "VOID_MANTLE": 11,
-  "Vector Descent": 10
+  "Vector Descent": 11
 }
