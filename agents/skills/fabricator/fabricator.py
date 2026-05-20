@@ -427,7 +427,7 @@ class Fabricator:
             new_print_areas.append({
                 "variant_ids": area.get('variant_ids'),
                 "placeholders": new_placeholders,
-                "background": area.get('background')
+                "background": area.get('background') or ""  # API requires string, not null
             })
 
         variants = []
@@ -755,7 +755,7 @@ class Fabricator:
             new_print_areas.append({
                 "variant_ids": area.get('variant_ids'),
                 "placeholders": new_placeholders,
-                "background": area.get('background') # Keep background color
+                "background": area.get('background') or ""  # API requires string, not null
             })
 
         # Variants construction
