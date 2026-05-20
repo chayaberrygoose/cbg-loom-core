@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Fracture Code x Mechanical Rot]: macro material detail, industrial surface texture, weathered finish, high-fidelity map, industrial noir, tech-wear, post-apocalyptic, mechanized, weathered, eerie glow, structural echo: neon-lit cityscapes, glitch art, industrial machinery, futuristic landscapes, high-stakes infiltration, industrial noir color palette, static silver accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260504_230134

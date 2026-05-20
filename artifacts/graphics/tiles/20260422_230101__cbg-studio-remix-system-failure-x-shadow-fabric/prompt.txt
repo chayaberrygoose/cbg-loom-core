@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [System Failure x Shadow Fabric]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial-noir, tech-wear, mesh-network, standard-success-metrics, statistical-probability, subtle interference: dark urban environments, tactical gear, high-tech stealth, industrial aesthetics, industrial noir color palette, electric cyan accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260422_230101

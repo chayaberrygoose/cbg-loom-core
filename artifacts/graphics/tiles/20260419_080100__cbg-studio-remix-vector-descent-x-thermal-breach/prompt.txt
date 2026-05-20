@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Vector Descent x Thermal Breach]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, A seamless textile swatch, Industrial Noir / Aviation aesthetic, Bird's eye view of LiDAR mountain topology overlaid with green phosphor altitude markers and vector-line network nodes, highly detailed, photorealistic render, 16k resolution., subtle interference: infrared heat-map gradients, topographical thermal patterns, overheated circuitry glow, sensor-flare artifacts, chemical-wash textures, molten digital noise., industrial noir color palette, plasma magenta accents, sharp details, high contrast.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260419_080100

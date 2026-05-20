@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Obsidian Circuit x Tunnel Resonance]: macro material detail, industrial surface texture, weathered finish, high-fidelity map, industrial noir, urban anthropology, acoustic glitch, migration patterns, sonic resonance, structural echo: obsidian glass surface, etched circuit traces, PCB layout patterns, volcanic fracture lines, copper-traced electronics on black mineral substrate, industrial noir color palette, electric cyan accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260508_110250

@@ -1,0 +1,16 @@
+prompt: modern glass office building exterior at dusk, photorealistic, realistic lighting, detailed materials, natural color grading
+negative_prompt: cartoon, anime, illustration, painting, drawing, cgi, 3d render, lowres, blurry, deformed, bad anatomy
+
+parameters:
+{
+  "prompt": "modern glass office building exterior at dusk, photorealistic, realistic lighting, detailed materials, natural color grading",
+  "negative_prompt": "cartoon, anime, illustration, painting, drawing, cgi, 3d render, lowres, blurry, deformed, bad anatomy",
+  "width": 320,
+  "height": 320,
+  "steps": 6,
+  "cfg_scale": 6.5,
+  "sampler_name": "Euler a",
+  "seed": -1,
+  "batch_size": 1,
+  "n_iter": 1
+}

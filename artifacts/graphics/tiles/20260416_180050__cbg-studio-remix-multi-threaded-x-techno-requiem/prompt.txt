@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Multi Threaded x Techno Requiem]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, Fragmentation, multiplicity, blurred boundaries, mirrored reflections, digital echoes, subtle interference: industrial noir aesthetic, metallic grids, distressed textures, nostalgic lighting, subtle glow effects, industrial noir color palette, phosphor green accents, sharp details, high contrast.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260416_180050

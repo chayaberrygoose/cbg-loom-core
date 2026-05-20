@@ -1,0 +1,3 @@
+prompt: CBG Studio | Circuit Bleed Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, neural networks, circuit board textures, glitch art, binary code, data visualization, industrial design, industrial noir color palette, phosphor green accents, sharp details, high contrast.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260417_040050

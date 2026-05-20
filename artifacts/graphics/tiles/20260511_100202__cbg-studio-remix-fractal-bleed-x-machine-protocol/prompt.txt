@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Fractal Bleed x Machine Protocol]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, High-Poly, Fractured Reflections, Neon-Lit, Ominous Glow, Data-Storm, subtle interference: dark industrial, neon-lit screens, high-contrast shadows, mechanical textures, glitch artifacts, industrial noir color palette, deep amber accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260511_100202

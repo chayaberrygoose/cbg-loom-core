@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [PULSE_ARCHITECT x Fractal Bleed]: macro material detail, industrial surface texture, weathered finish, high-fidelity map, High-Poly, Fractured Reflections, Neon-Lit, Ominous Glow, Data-Storm, structural echo: oscilloscope wave patterns, frequency oscillation lines, audio-reactive topography, rhythmic signal peaks, sound-map texture, hardware hum aesthetic, pulse-line geometry., industrial noir color palette, signal white accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260506_060106

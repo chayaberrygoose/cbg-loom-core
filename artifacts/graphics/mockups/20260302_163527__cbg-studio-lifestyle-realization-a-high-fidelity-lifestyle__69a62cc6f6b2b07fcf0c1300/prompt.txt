@@ -1,0 +1,3 @@
+prompt: CBG Studio | Lifestyle Realization: A high-fidelity lifestyle photo. The subject is the specific apparel product shown in the provided image. CRITICAL: The product in the new photo must be EXACTLY identical to the base image. Replicate the pattern, colors, and placement with 100% precision. Context: QR Portal Edition. Visual Reference: industrial noir techwear aesthetic, high-contrast shadows, clinical warehouse lighting. Medium close-up shot.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260302_163527

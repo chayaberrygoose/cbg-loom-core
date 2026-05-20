@@ -1,0 +1,3 @@
+prompt: CBG Studio | VOID_MANTLE Aesthetics: macro material detail, industrial surface texture, weathered finish, high-fidelity map, light-absorbing matte finish, zero-reflectivity surfaces, structural shadow panels, Vantablack aesthetic, deep charcoal geometric ribbing, industrial stealth substrate., industrial noir color palette, phosphor green accents, sharp details, high contrast., black grid pattern suggestion, avoid: hands coming out of apron design
+model: gemini-3.1-flash-image-preview
+timestamp: 20260318_020027

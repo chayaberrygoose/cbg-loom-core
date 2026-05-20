@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Circuit Overload x Cobalt Surge]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, glitch art, neon lights, industrial textures, digital decay, subtle interference: High-Poly Metallic Textures, Neon Luminance, Shattered Glass Effects, Fractured Screen Glitches, industrial noir color palette, infrared red accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260511_070150

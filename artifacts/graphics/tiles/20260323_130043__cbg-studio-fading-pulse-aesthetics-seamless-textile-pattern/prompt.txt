@@ -1,0 +1,3 @@
+prompt: CBG Studio | Fading Pulse Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, circuit board textures, pixel art glitches, abandoned factory environments, futuristic neon landscapes, industrial noir color palette, phosphor green accents, sharp details, high contrast., black grid pattern suggestion, avoid: hands coming out of apron design
+model: gemini-3.1-flash-image-preview
+timestamp: 20260323_130043

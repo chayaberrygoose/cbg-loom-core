@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Glitchborn Core x Industrial Ruin]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, high-contrast, low-key lighting, subtle pixelation, eerie ambient glow, subtle interference: industrial-noir aesthetic, high-contrast lighting, metallic sheen, simulated smokiness, glitch-art texture overlays, industrial noir color palette, cobalt blue accents, sharp details, high contrast.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260419_090110

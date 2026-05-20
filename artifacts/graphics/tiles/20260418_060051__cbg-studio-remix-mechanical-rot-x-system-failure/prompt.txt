@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Mechanical Rot x System Failure]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial noir, tech-wear, post-apocalyptic, mechanized, weathered, eerie glow, subtle interference: industrial-noir, tech-wear, mesh-network, standard-success-metrics, statistical-probability, industrial noir color palette, plasma magenta accents, sharp details, high contrast.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260418_060051

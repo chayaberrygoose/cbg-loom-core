@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Midday Leak x Cyber Reboot]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, , High-Contrast Monochrome, Neon Accent Lighting, Low-Light Industrial Ambiance, Distressed Textures, subtle interference: Industrial Noir, Neon Dusk, High-Contrast Lighting, Fractured Glass, Neon-Lit Circuit Boards, industrial noir color palette, static silver accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260428_080101

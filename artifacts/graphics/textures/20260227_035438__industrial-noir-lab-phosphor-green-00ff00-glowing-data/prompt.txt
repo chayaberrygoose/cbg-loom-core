@@ -1,0 +1,16 @@
+prompt: Industrial Noir lab, Phosphor Green #00FF00 glowing data streams, deep black and dark red background, high-fidelity clinical textures, cyber-punk aesthetic, dramatic low-key lighting, technical equipment, glitch effects, photorealistic, realistic lighting, detailed materials, natural color grading
+negative_prompt: cartoon, anime, illustration, painting, drawing, cgi, 3d render, lowres, blurry, deformed, bad anatomy
+
+parameters:
+{
+  "prompt": "Industrial Noir lab, Phosphor Green #00FF00 glowing data streams, deep black and dark red background, high-fidelity clinical textures, cyber-punk aesthetic, dramatic low-key lighting, technical equipment, glitch effects, photorealistic, realistic lighting, detailed materials, natural color grading",
+  "negative_prompt": "cartoon, anime, illustration, painting, drawing, cgi, 3d render, lowres, blurry, deformed, bad anatomy",
+  "width": 384,
+  "height": 384,
+  "steps": 8,
+  "cfg_scale": 6.5,
+  "sampler_name": "Euler a",
+  "seed": -1,
+  "batch_size": 1,
+  "n_iter": 1
+}

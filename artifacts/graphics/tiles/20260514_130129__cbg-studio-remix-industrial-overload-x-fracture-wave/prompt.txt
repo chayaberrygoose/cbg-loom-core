@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Industrial Overload x Fracture Wave]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial, noir, tech-wear, superdeterminism, block universe, laplace-demon engine, subtle interference: industrial-noir, fractal-patterns, neon-lit-data, metallic-surfaces, urban-grime, industrial noir color palette, cobalt blue accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260514_130129

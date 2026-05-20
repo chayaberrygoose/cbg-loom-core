@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Dark Overload x Fracture Point 2]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, Augmented Reality, VNC Relay, High-RPM Aerobic Output, Industrial Noir Aesthetic, subtle interference: industrial noir, asynchronicity, temporal dissonance, pixelated textures, industrial noir color palette, cobalt blue accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260507_190129

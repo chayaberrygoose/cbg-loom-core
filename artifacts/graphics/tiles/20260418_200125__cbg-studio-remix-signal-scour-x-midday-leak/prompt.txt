@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Signal Scour x Midday Leak]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial, noir, tech-wear, circuitry patterns, data stream motifs, subtle interference: , High-Contrast Monochrome, Neon Accent Lighting, Low-Light Industrial Ambiance, Distressed Textures, industrial noir color palette, ultraviolet purple accents, sharp details, high contrast.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260418_200125

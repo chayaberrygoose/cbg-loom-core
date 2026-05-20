@@ -1,0 +1,3 @@
+prompt: CBG Studio | Cobalt Flux Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, Seamless textile swatch, high-fidelity digital print, Industrial Noir aesthetic, overlay of LiDAR point clouds rendered in deep cobalt and amber, ultra-detailed circuitry patterns, crisp geometric segmentation, volumetric lighting on engineered fabric texture., industrial noir color palette, phosphor green accents, sharp details, high contrast., Black trim details, High-fidelity pattern mapping, avoid: Hands emerging from interior pockets, Abstract leg confluence
+model: gemini-3.1-flash-image-preview
+timestamp: 20260305_074015

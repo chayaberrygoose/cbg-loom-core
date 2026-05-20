@@ -1,0 +1,3 @@
+prompt: CBG Studio | Abyssal Flux Aesthetics: macro material detail, industrial surface texture, weathered finish, high-fidelity map, Industrial Noir textile render, high-fidelity photogrammetry scan of bio-mechanical integration, extreme directional subsurface scattering on synthetic veins, zero-g drape over heavy ballistic nylon., industrial noir color palette, phosphor green accents, sharp details, high contrast.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260306_180046

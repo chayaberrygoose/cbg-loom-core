@@ -1,0 +1,3 @@
+prompt: CBG Studio | Friction Surge Aesthetics: macro material detail, industrial surface texture, weathered finish, high-fidelity map, industrial texture overlays, soft focus, subtle gradient mapping, metallic sheen, low-contrast color schemes, industrial noir color palette, cobalt blue accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260515_150130

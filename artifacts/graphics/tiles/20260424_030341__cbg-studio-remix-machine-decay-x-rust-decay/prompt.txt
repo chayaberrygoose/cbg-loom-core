@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Machine Decay x Rust Decay]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, distressed textures, metallic reflections, neon accents, high-contrast black-and-white images, subtle interference: gritty, distorted textures, neon-lit interfaces, analog-digital degradation, metallic sheen, industrial noir color palette, phosphor green accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260424_030341

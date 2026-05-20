@@ -1,0 +1,12 @@
+# [FILE_ID]: .gitattributes // VERSION: 1.0 // STATUS: STABLE
+# Git LFS — all generated image artifacts stored as large file pointers.
+# Directories previously gitignored (mockups, standalone, textures, tiles, catalog images)
+# are now tracked here so they are backed up to GitHub while keeping local clones lean.
+
+artifacts/**/*.png  filter=lfs diff=lfs merge=lfs -text
+artifacts/**/*.jpg  filter=lfs diff=lfs merge=lfs -text
+artifacts/**/*.jpeg filter=lfs diff=lfs merge=lfs -text
+artifacts/**/*.webp filter=lfs diff=lfs merge=lfs -text
+artifacts/**/*.gif  filter=lfs diff=lfs merge=lfs -text
+artifacts/**/*.tiff filter=lfs diff=lfs merge=lfs -text
+artifacts/**/*.bmp  filter=lfs diff=lfs merge=lfs -text

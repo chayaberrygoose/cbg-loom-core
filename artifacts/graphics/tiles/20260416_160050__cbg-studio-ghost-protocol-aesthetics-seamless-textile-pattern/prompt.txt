@@ -1,0 +1,3 @@
+prompt: CBG Studio | Ghost Protocol Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, Ghost Text, Raspberry Pi Archive, Industrial Noir Aesthetic, industrial noir color palette, phosphor green accents, sharp details, high contrast.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260416_160050

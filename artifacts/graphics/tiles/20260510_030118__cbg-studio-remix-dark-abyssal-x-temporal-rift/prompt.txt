@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Dark Abyssal x Temporal Rift]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial noir aesthetic, deep-sea horror, biomimetic technology, neon-lit darkness, synthetic organic lifeforms, subtle interference: glitch art, circuit traces, industrial noir aesthetic, industrial noir color palette, static silver accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260510_030118

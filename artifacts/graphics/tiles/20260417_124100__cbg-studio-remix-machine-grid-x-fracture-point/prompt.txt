@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Machine Grid x Fracture Point]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial, dystopian, urban decay, machinery, data visualization, glitch art, futurism, noir, tech-wear, subtle interference: Industrial Noir, Biological Observation Loop, 3D-DNA loom, Proton-Motive Force, industrial noir color palette, phosphor green accents, sharp details, high contrast.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260417_124100

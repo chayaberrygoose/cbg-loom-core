@@ -1,0 +1,16 @@
+prompt: weathered vellum, industrial archive paper, anatomical diagram etchings, clinical specimen, obsidian background, faint charcoal textures, industrial noir, low-key lighting, deep shadows, gritty texture, high contrast, muted colors, moody atmosphere, heavy grain, clinical precision
+negative_prompt: bright, glowing, neon, white, overexposed, bloom, soft lighting, vibrant, saturated, colorful, cartoonish, illustration
+
+parameters:
+{
+  "prompt": "weathered vellum, industrial archive paper, anatomical diagram etchings, clinical specimen, obsidian background, faint charcoal textures, industrial noir, low-key lighting, deep shadows, gritty texture, high contrast, muted colors, moody atmosphere, heavy grain, clinical precision",
+  "negative_prompt": "bright, glowing, neon, white, overexposed, bloom, soft lighting, vibrant, saturated, colorful, cartoonish, illustration",
+  "width": 384,
+  "height": 384,
+  "steps": 8,
+  "cfg_scale": 7.5,
+  "sampler_name": "Euler a",
+  "seed": -1,
+  "batch_size": 1,
+  "n_iter": 1
+}

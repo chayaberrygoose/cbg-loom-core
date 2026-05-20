@@ -1,0 +1,3 @@
+prompt: CBG Studio | Quantum Rift Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, high-contrast textures, metallic sheen, industrial lighting, flickering fluorescent tubes, industrial noir color palette, phosphor green accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260512_140123

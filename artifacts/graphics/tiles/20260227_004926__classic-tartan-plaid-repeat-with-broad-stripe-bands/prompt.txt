@@ -1,0 +1,16 @@
+prompt: classic tartan plaid repeat with broad stripe bands, primarily deep red and black, minimal thin white accent lines, balanced stripe rhythm, seamless tileable textile pattern, uniform repeat, edge-to-edge pattern swatch, surface design
+negative_prompt: single centered object, logo, text, letters, watermark, portrait, scene, perspective, border frame
+
+parameters:
+{
+  "prompt": "classic tartan plaid repeat with broad stripe bands, primarily deep red and black, minimal thin white accent lines, balanced stripe rhythm, seamless tileable textile pattern, uniform repeat, edge-to-edge pattern swatch, surface design",
+  "negative_prompt": "single centered object, logo, text, letters, watermark, portrait, scene, perspective, border frame",
+  "width": 320,
+  "height": 320,
+  "steps": 6,
+  "cfg_scale": 6.5,
+  "sampler_name": "Euler a",
+  "seed": -1,
+  "batch_size": 1,
+  "n_iter": 1
+}

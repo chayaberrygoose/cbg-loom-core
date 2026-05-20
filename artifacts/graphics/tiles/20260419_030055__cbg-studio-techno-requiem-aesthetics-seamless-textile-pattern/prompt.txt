@@ -1,0 +1,3 @@
+prompt: CBG Studio | Techno Requiem Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial noir aesthetic, metallic grids, distressed textures, nostalgic lighting, subtle glow effects, industrial noir color palette, infrared red accents, sharp details, high contrast.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260419_030055

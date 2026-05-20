@@ -1,0 +1,3 @@
+prompt: CBG Studio | Circuit Break Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial-noir, tech-wear, dystopian-futurism, metallic-silhouettes, neon-lit-cables, industrial noir color palette, phosphor green accents, sharp details, high contrast.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260418_020046

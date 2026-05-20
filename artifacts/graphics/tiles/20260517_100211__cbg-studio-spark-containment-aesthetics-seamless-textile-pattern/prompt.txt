@@ -1,0 +1,3 @@
+prompt: CBG Studio | Spark Containment Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial steel textures, fluorescent lighting accents, biohazard warning signs, pixelated error messages, sterile white backgrounds, industrial noir color palette, infrared red accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260517_100211

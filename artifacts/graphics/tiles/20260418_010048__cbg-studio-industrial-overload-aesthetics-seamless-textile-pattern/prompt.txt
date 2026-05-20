@@ -1,0 +1,3 @@
+prompt: CBG Studio | Industrial Overload Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial, noir, tech-wear, superdeterminism, block universe, laplace-demon engine, industrial noir color palette, electric cyan accents, sharp details, high contrast.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260418_010048

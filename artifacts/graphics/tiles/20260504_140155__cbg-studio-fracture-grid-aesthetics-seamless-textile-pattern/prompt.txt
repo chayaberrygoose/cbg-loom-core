@@ -1,0 +1,3 @@
+prompt: CBG Studio | Fracture Grid Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, glitch art, pixelated textures, worn machinery aesthetics, low-res digital prints, industrial noir color palette, signal white accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260504_140155

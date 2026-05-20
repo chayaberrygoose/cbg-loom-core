@@ -1,0 +1,3 @@
+prompt: CBG Studio | Electroloom Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial noir aesthetic, iridescent materials, electromagnetic currents, power grid navigation, ethereal beauty, industrial noir color palette, static silver accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260424_050123

@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Circuit Overload 2 x Counterweight]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial noir, tech-wear, avionics blue glow, circuit board textures, subtle interference: Industrial noir aesthetic, kinetic harness, power bank, laptop, low-trust environments, industrial noir color palette, phosphor green accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260509_020102

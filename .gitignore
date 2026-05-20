@@ -11,11 +11,5 @@
 artifacts/generated/**/*.log
 artifacts/specimens/
 
-# Catalog data (re-synced from Printify API on demand)
-artifacts/catalog/
-
-# Generated graphics (keep logos only)
-artifacts/graphics/mockups/
-artifacts/graphics/standalone/
-artifacts/graphics/textures/
-artifacts/graphics/tiles/
+# Images under artifacts/ are tracked via Git LFS (see .gitattributes).
+# Non-image files in artifacts/catalog/ (JSON, Markdown) are tracked normally.

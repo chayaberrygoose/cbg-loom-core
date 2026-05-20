@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Supply Chain Collapse x Fracture Grid]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, Industrial Noir, Decoupling Failure, Ghostly Grey, Vinyl Red Hue, Stylus Hardware, Supply Chain Crisis, subtle interference: glitch art, pixelated textures, worn machinery aesthetics, low-res digital prints, industrial noir color palette, static silver accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260508_010148

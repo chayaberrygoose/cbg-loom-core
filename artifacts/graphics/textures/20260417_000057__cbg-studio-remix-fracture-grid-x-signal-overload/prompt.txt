@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Fracture Grid x Signal Overload]: macro material detail, industrial surface texture, weathered finish, high-fidelity map, high contrast, neon accents, industrial textures, neural network visualizations, structural echo: glitch art, pixelated textures, worn machinery aesthetics, low-res digital prints, industrial noir color palette, plasma magenta accents, sharp details, high contrast.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260417_000057

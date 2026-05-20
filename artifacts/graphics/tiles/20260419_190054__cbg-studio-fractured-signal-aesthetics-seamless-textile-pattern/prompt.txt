@@ -1,0 +1,3 @@
+prompt: CBG Studio | Fractured Signal Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, circuit diagrams, glitch art, data visualization, signal degradation, temporal fragmentation, industrial noir color palette, cobalt blue accents, sharp details, high contrast.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260419_190054

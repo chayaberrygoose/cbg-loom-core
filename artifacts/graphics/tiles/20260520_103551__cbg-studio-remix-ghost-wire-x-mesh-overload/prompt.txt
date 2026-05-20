@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Ghost Wire x Mesh Overload]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, phosphor green glow, pixelated textures, wireframe geometry, data transmission lines, digital decay, subtle interference: dark industrial, dystopian surveillance, mesh network, data-driven control, rebellious outliers, industrial noir color palette, static silver accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260520_103551

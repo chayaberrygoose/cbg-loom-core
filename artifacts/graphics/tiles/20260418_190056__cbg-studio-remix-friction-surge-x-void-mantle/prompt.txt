@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Friction Surge x VOID_MANTLE]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial texture overlays, soft focus, subtle gradient mapping, metallic sheen, low-contrast color schemes, subtle interference: light-absorbing matte finish, zero-reflectivity surfaces, structural shadow panels, Vantablack aesthetic, deep charcoal geometric ribbing, industrial stealth substrate., industrial noir color palette, deep amber accents, sharp details, high contrast.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260418_190056

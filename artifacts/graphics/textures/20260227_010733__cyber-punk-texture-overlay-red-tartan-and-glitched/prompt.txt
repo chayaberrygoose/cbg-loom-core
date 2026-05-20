@@ -1,0 +1,16 @@
+prompt: Cyber-Punk texture overlay, red tartan and glitched fishnets, clean vector lines, high-resolution technical texture
+negative_prompt: 
+
+parameters:
+{
+  "prompt": "Cyber-Punk texture overlay, red tartan and glitched fishnets, clean vector lines, high-resolution technical texture",
+  "negative_prompt": "",
+  "width": 320,
+  "height": 320,
+  "steps": 6,
+  "cfg_scale": 7.0,
+  "sampler_name": "Euler a",
+  "seed": -1,
+  "batch_size": 1,
+  "n_iter": 1
+}

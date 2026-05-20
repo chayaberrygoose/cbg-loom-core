@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Phantom Grid x Neon Siphon]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, faded surveillance grid overlay, scan line artifacts, ghost signal interference, redacted coordinate markers, decommissioned monitoring system aesthetic, subtle interference: high-velocity data extraction streaks, neon pixel-bleeding edges, motion-blurred digital patterns, fiber-optic light trails on black, vertical data-leak distortion, industrial noir color palette, phosphor green accents, sharp details, high contrast., black grid pattern suggestion, avoid: hands coming out of apron design
+model: gemini-3.1-flash-image-preview
+timestamp: 20260312_220027

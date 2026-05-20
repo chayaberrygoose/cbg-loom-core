@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Signal Fracture 2 x Digital Requiem]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, Industrial noir aesthetic, zero-latency simulation, superdeterministic, laplace-demon engine, block universe, subtle interference: glitch art, industrial noir, tech-wear, neon-lit environments, futuristic landscapes, industrial noir color palette, cobalt blue accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260510_180121

@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Gear Rust x Cyber Requiem 2]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial, noir, tech-wear, distressed textures, worn finishes, subtle interference: High-Contrast Shadows, Darkened Neon Signatures, Fractured Cathedral Windows, industrial noir color palette, phosphor green accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260423_170058

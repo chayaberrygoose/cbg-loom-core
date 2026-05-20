@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Signal Scour x Quantum Rift]: macro material detail, industrial surface texture, weathered finish, high-fidelity map, high-contrast textures, metallic sheen, industrial lighting, flickering fluorescent tubes, structural echo: industrial, noir, tech-wear, circuitry patterns, data stream motifs, industrial noir color palette, plasma magenta accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260430_090202

@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Temporal Rift x Mechanical Decay]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, glitch art, circuit traces, industrial noir aesthetic, subtle interference: glitch art, cyberpunk textures, metallic fabrics, distorted prints, neon-lit cityscapes, industrial noir color palette, plasma magenta accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260505_020130

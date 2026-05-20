@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Chaya Code x Brutalist Mesh]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, cyberpunk urban sprawl, fluorescent-lit nightscapes, sterile laboratory environments, metallic textures, blurred optical components, subtle interference: brutalist architectural lines, industrial mesh textures, safety-hazard stenciling, raw concrete substrate, high-contrast structural grid, weathered industrial markings., industrial noir color palette, infrared red accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260513_170124

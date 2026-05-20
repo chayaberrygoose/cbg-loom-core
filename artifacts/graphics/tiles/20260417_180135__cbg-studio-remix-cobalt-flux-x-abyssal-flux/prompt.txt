@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Cobalt Flux x Abyssal Flux]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, Seamless textile swatch, high-fidelity digital print, Industrial Noir aesthetic, overlay of LiDAR point clouds rendered in deep cobalt and amber, ultra-detailed circuitry patterns, crisp geometric segmentation, volumetric lighting on engineered fabric texture., subtle interference: Industrial Noir textile render, high-fidelity photogrammetry scan of bio-mechanical integration, extreme directional subsurface scattering on synthetic veins, zero-g drape over heavy ballistic nylon., industrial noir color palette, molten orange accents, sharp details, high contrast.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260417_180135

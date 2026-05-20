@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Data Rift x System Failure 2]: macro material detail, industrial surface texture, weathered finish, high-fidelity map, high-contrast, cleanroom aesthetic, minimalist geometry, structural echo: Industrial Noir, Avionics, Cybernetics, Geometric Wireframe, High-Density Traceroute Maps, industrial noir color palette, signal white accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260428_150126

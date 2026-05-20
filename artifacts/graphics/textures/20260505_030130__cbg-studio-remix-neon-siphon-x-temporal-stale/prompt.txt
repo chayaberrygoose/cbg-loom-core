@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Neon Siphon x Temporal Stale]: macro material detail, industrial surface texture, weathered finish, high-fidelity map, Industrial Decay, Neon Overcast, Abandoned Factory Floor, Rusty Gearbox, Shadowy Algorithm, structural echo: high-velocity data extraction streaks, neon pixel-bleeding edges, motion-blurred digital patterns, fiber-optic light trails on black, vertical data-leak distortion, industrial noir color palette, static silver accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260505_030130

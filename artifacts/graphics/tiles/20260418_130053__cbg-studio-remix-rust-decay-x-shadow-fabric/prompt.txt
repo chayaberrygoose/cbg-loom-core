@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Rust Decay x Shadow Fabric]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, gritty, distorted textures, neon-lit interfaces, analog-digital degradation, metallic sheen, subtle interference: dark urban environments, tactical gear, high-tech stealth, industrial aesthetics, industrial noir color palette, deep amber accents, sharp details, high contrast.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260418_130053

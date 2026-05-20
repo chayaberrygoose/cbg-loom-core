@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Digital Decay 2 x Quantum Crash]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, high-concept, futuristic, industrial noir, zero-gravity environments, subtle interference: industrial noir, glitch art, breakfast topography, semiconductor texture, industrial noir color palette, phosphor green accents, sharp details, high contrast.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260420_060109

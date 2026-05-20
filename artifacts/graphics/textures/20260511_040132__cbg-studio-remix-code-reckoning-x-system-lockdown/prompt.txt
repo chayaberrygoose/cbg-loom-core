@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Code Reckoning x System Lockdown]: macro material detail, industrial surface texture, weathered finish, high-fidelity map, (circuit boards, data transmission, system failure, grid lock), structural echo: Industrial noir aesthetic, High-tech surveillance footage, Neon-lit server rooms, industrial noir color palette, static silver accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260511_040132

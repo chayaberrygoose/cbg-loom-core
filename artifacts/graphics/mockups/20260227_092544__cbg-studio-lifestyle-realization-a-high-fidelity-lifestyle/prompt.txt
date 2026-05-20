@@ -1,0 +1,3 @@
+prompt: CBG Studio | Lifestyle Realization: A high-fidelity lifestyle photo. The subject is the product shown in the provided base image: https://images.printify.com/mockup/69a1d395886bcd169a098a21/63245/101818/cbg-studio-carbon-topo-hoodie.jpg?camera_label=front. The product in the new photo must be an EXACT match to the one in the base image, preserving all colors, patterns, and design details perfectly. Context: Industrial Noir style. Visual Reference Style: industrial noir techwear aesthetic, high-contrast shadows, clinical warehouse lighting. The shot should be tightly cropped to focus on the product specimens.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260227_092544
