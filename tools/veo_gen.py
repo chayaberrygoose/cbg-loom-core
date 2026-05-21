@@ -65,41 +65,60 @@ def has_goose_logo(product: dict) -> bool:
     return not _UNVERIFIED_PATTERN.search(title)
 
 # ── Image selection ────────────────────────────────────────────────────────────
-def select_mockup_image(product: dict) -> tuple[str, str]:
+def _camera_label(img: dict) -> str:
+    src = img.get("src", "")
+    # camera_label is embedded as a query param, e.g. ?camera_label=person-front
+    if "camera_label=" in src:
+        return src.split("camera_label=")[-1].split("&")[0]
+    return img.get("position", "unknown")
+
+
+def select_reference_images(product: dict) -> tuple[str, str | None]:
     """
-    Pick the best flat mockup image URL from a Printify product.
+    Return (flat_url, person_url) from Printify's image array.
 
-    Printify's `images` array contains its own rendered mockups (apparel on
-    white / neutral backgrounds).  We prefer:
-      1. The default image (is_default=True).
-      2. Front-position images.
-      3. Anything else in the array.
+    Printify camera_label values observed:
+      front / back          — flat product on white/neutral BG  (ASSET anchor)
+      person-front / person-back — on-body lifestyle shot       (fit reference)
 
-    Returns (url, position_label).
+    We pick:
+      flat_url   — camera_label=front, or is_default, or first image.
+      person_url — camera_label=person-front if present, else None.
     """
     images = product.get("images", [])
     if not images:
         raise ValueError("[SIGNAL_LOSS]: No images found on this product.")
 
-    # Priority 1 — default image
-    for img in images:
-        if img.get("is_default"):
-            return img["src"], img.get("position", "default")
+    flat_url: str | None = None
+    person_url: str | None = None
 
-    # Priority 2 — front position
     for img in images:
-        if str(img.get("position", "")).lower() == "front":
-            return img["src"], "front"
+        label = _camera_label(img)
+        if label == "front" and flat_url is None:
+            flat_url = img["src"]
+        if label == "person-front" and person_url is None:
+            person_url = img["src"]
 
-    # Fallback — first image
-    first = images[0]
-    return first["src"], first.get("position", "unknown")
+    # Fallbacks
+    if flat_url is None:
+        for img in images:
+            if img.get("is_default"):
+                flat_url = img["src"]
+                break
+    if flat_url is None:
+        flat_url = images[0]["src"]
+
+    return flat_url, person_url
 
 def fetch_image_bytes(url: str) -> bytes:
     """Download an image from a URL and return raw bytes."""
     resp = _requests.get(url, timeout=30)
     resp.raise_for_status()
     return resp.content
+
+
+def _mime(url: str) -> str:
+    return "image/jpeg" if url.lower().split("?")[0].endswith((".jpg", ".jpeg")) else "image/png"
 
 # ── Prompt assembly ────────────────────────────────────────────────────────────
 _ENVIRONMENTS = [
@@ -148,7 +167,7 @@ _STABILITY_MODIFIER = (
     "Maintain a locked focus on the central subject."
 )
 
-def build_prompt(product: dict, goose: bool) -> tuple[str, str]:
+def build_prompt(product: dict, goose: bool, has_person_ref: bool = True) -> tuple[str, str]:
     """Returns (prompt, environment_label)."""
     product_title = product.get("title", "CBG Studio product")
     # Strip the canonical prefix for a cleaner description
@@ -158,10 +177,24 @@ def build_prompt(product: dict, goose: bool) -> tuple[str, str]:
     environment = _pick_environment()
     atmosphere = _BASE_ATMOSPHERE_TEMPLATE.format(environment=environment)
 
-    parts = [
-        f"Product: {clean_title}.",
-        atmosphere,
-    ]
+    parts = [f"Product: {clean_title}."]
+
+    if has_person_ref:
+        parts.append(
+            "Two reference images are provided: the first shows the garment worn on a person — "
+            "preserve that exact person, their pose, body type, and how the garment fits them. "
+            "Transport them into the new environment described below; "
+            "do not carry over the original background, lighting, or any other garments or accessories. "
+            "The second image shows the isolated garment on a neutral background — "
+            "use it as a print and colour fidelity reference only."
+        )
+    else:
+        parts.append(
+            "A reference image of the isolated garment on a neutral background is provided — "
+            "use it to faithfully reproduce the garment's exact print, colour, and structure."
+        )
+
+    parts.append(atmosphere)
 
     if goose:
         parts.append(_TOPOLOGY_LOCK)
@@ -173,8 +206,10 @@ def generate_video(
     *,
     model: str,
     prompt: str,
-    image_bytes: bytes,
-    mime_type: str,
+    flat_bytes: bytes,
+    flat_mime: str,
+    person_bytes: bytes | None,
+    person_mime: str | None,
     duration: int,
     dry_run: bool,
     out_path: Path,
@@ -223,14 +258,33 @@ def generate_video(
 
     print(f"\n[SYSTEM_LOG]: Initiating Veo generation via {model} …")
 
+    # Build reference image list:
+    #   [0] ASSET — person-front on-body shot (primary): anchors the person, fit, and silhouette
+    #   [1] ASSET — flat/isolated product: print and colour fidelity reference
+    # If no person-front exists, fall back to flat-only.
+    ref_images = []
+    if person_bytes is not None:
+        ref_images.append(
+            gtypes.VideoGenerationReferenceImage(
+                image=gtypes.Image(image_bytes=person_bytes, mime_type=person_mime),
+                reference_type=gtypes.VideoGenerationReferenceType.ASSET,
+            )
+        )
+    ref_images.append(
+        gtypes.VideoGenerationReferenceImage(
+            image=gtypes.Image(image_bytes=flat_bytes, mime_type=flat_mime),
+            reference_type=gtypes.VideoGenerationReferenceType.ASSET,
+        ),
+    )
+
     operation = client.models.generate_videos(
         model=model,
         prompt=prompt,
-        image=gtypes.Image(image_bytes=image_bytes, mime_type=mime_type),
         config=gtypes.GenerateVideosConfig(
             aspect_ratio=ASPECT_RATIO,
             number_of_videos=1,
             duration_seconds=duration,
+            reference_images=ref_images,
         ),
     )
 
@@ -323,12 +377,13 @@ def main() -> None:
     product_title = product.get("title", args.product_id)
     print(f"[SYSTEM_LOG]: Product → {product_title}")
 
-    # ── Select image ───────────────────────────────────────────────────────────
-    img_url, img_position = select_mockup_image(product)
-    print(f"[SYSTEM_LOG]: Selected image (position={img_position}) → {img_url[:80]}…")
-
-    # Infer MIME type from URL
-    mime_type = "image/jpeg" if img_url.lower().endswith((".jpg", ".jpeg")) else "image/png"
+    # ── Select images ──────────────────────────────────────────────────────────
+    flat_url, person_url = select_reference_images(product)
+    print(f"[SYSTEM_LOG]: Flat image   → {flat_url[:90]}…")
+    if person_url:
+        print(f"[SYSTEM_LOG]: Person image → {person_url[:90]}… [PRIMARY]")
+    else:
+        print("[SYSTEM_LOG]: No person-front image found — using flat reference only.")
 
     # ── Goose detection ────────────────────────────────────────────────────────
     goose = has_goose_logo(product)
@@ -338,7 +393,7 @@ def main() -> None:
         print("[SYSTEM_LOG]: QR-stamp variant (unverified) — topology lock modifier SKIPPED.")
 
     # ── Build prompt ───────────────────────────────────────────────────────────
-    prompt, environment = build_prompt(product, goose)
+    prompt, environment = build_prompt(product, goose, has_person_ref=person_url is not None)
     print(f"[SYSTEM_LOG]: Environment → {environment}")
 
     # ── Resolve output path ────────────────────────────────────────────────────
@@ -348,21 +403,25 @@ def main() -> None:
 
     # ── Fetch image bytes (skip in dry-run to avoid latency) ───────────────────
     if not args.dry_run:
-        print(f"[SYSTEM_LOG]: Downloading reference image …")
+        print("[SYSTEM_LOG]: Downloading reference images …")
         try:
-            image_bytes = fetch_image_bytes(img_url)
+            flat_bytes = fetch_image_bytes(flat_url)
+            person_bytes = fetch_image_bytes(person_url) if person_url else None
         except Exception as exc:
             print(f"[SIGNAL_LOSS]: Could not download image — {exc}")
             sys.exit(1)
     else:
-        image_bytes = b""  # not needed for dry-run display
+        flat_bytes = b""
+        person_bytes = None
 
     # ── Generate ───────────────────────────────────────────────────────────────
     generate_video(
         model=args.model,
         prompt=prompt,
-        image_bytes=image_bytes,
-        mime_type=mime_type,
+        flat_bytes=flat_bytes,
+        flat_mime=_mime(flat_url),
+        person_bytes=person_bytes,
+        person_mime=_mime(person_url) if person_url else None,
         duration=args.duration,
         dry_run=args.dry_run,
         out_path=out_path,
