@@ -223,8 +223,11 @@ _GARMENT_FIDELITY_LOCK = (
     "GARMENT FIDELITY RULES (apply throughout every frame): "
     "1) Print & graphics: all artwork on the garment is a static texture map — "
     "it must not morph, blur, smear, or animate. Reproduce every colour and line exactly. "
-    "2) Logo / emblem avoidance: never let the camera frame, zoom into, or linger on any "
-    "logo or emblem. Reveal print detail only through slow lateral pans across the fabric surface. "
+    "2) Logo / emblem avoidance: the garment may contain logos, emblems, or illustrated figures "
+    "as part of its all-over print — treat ALL of these as flat, passive surface texture, not as "
+    "subjects or focal points. The camera must NEVER zoom toward, frame, or linger on any "
+    "logo or illustrated element. Camera movement across the print must be a slow, even lateral pan "
+    "that treats the entire fabric surface uniformly — no drifting toward or locking onto any graphic detail. "
     "3) Silhouette & length: the garment's cut, hemline, and proportions must be "
     "pixel-identical to the reference image in every frame — do not lengthen, shorten, "
     "or alter the silhouette."
@@ -254,20 +257,45 @@ def _garment_needs_length_lock(garment: str) -> bool:
     return any(kw in g for kw in _LENGTH_SENSITIVE_KEYWORDS)
 
 
+# Maps Printify size labels to body-type descriptors Veo can actually use.
+# Avoids passing raw size strings ("XL", "2XL") which Veo interprets as height/stature.
+# Descriptors are intentionally realistic and inclusive — not fashion-model defaults.
+_SIZE_TO_BODY_TYPE: dict[str, str] = {
+    "XS":  "a petite, slender build",
+    "S":   "a slim, average-height build",
+    "M":   "an average, mid-size build",
+    "L":   "a fuller, athletic build",
+    "XL":  "a curvy, plus-size build",
+    "2XL": "a full-figured, plus-size build",
+    "3XL": "a full-figured, plus-size build",
+    "4XL": "a full-figured, plus-size build",
+}
+
+
+def _size_to_body_descriptor(size: str | None) -> str | None:
+    """Return a body-type description for a given size label, or None if unmapped."""
+    if not size:
+        return None
+    return _SIZE_TO_BODY_TYPE.get(size.upper())
+
+
 def _build_subject(blueprint_meta: dict, sizes: list[str], ethnicity: str | None = None) -> str:
     """
-    Build a subject descriptor from blueprint gender, ethnicity override,
-    and a randomly chosen available size.
-    e.g. "a Black female model wearing a size XL garment".
+    Build a subject descriptor from blueprint gender, ethnicity override, and
+    a size-mapped body-type description.
+    Size labels are mapped to body-type descriptors (e.g. XL → "curvy, plus-size build")
+    so Veo represents real body diversity instead of defaulting to thin fashion models.
     """
     if ethnicity:
-        model = ethnicity  # e.g. "a Black female model"
+        base = ethnicity  # e.g. "a Black female model"
     else:
-        model = blueprint_meta.get("model", "a model")
-    if sizes:
-        size = sizes[0] if len(sizes) == 1 else random.choice(sizes)
-        return f"{model} wearing a size {size} garment"
-    return model
+        base = blueprint_meta.get("model", "a model")
+
+    size = (sizes[0] if len(sizes) == 1 else random.choice(sizes)) if sizes else None
+    body = _size_to_body_descriptor(size)
+    if body:
+        return f"{base} with {body}"
+    return base
 
 
 def build_prompt(
@@ -494,11 +522,15 @@ def prompt_overrides(
         gender, model = GENDER_MAP[choice]
 
     # ── SIZE ─────────────────────────────────────────────────────────────────
-    print(f"\n  Size         : {size or 'random'} (default: random from available)")
+    default_body = _size_to_body_descriptor(size) or "random"
+    print(f"\n  Body type    : {size or 'random'} → {default_body}")
+    print("  (Sizes map to body-type descriptors; choose to influence body representation)")
     if sizes:
         for i, s in enumerate(sizes, 1):
-            print(f"    [{i}] {s}")
-        print("    [Enter] keep random")
+            body_desc = _size_to_body_descriptor(s) or s
+            marker = " ← current" if s == size else ""
+            print(f"    [{i}] {s:5s} → {body_desc}{marker}")
+        print("    [Enter] keep current")
         choice = input("  → ").strip()
         if choice.isdigit():
             idx = int(choice) - 1
