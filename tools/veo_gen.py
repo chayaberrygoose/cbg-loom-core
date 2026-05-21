@@ -365,14 +365,15 @@ def build_prompt(
 
     if has_person_ref and has_back_ref:
         parts.append(
-            "Four reference images are provided: "
+            "Three reference images are provided: "
             "[1] the garment worn on a person from the FRONT — preserve that exact person, "
             "their body type, and how the garment fits them; "
-            "[2] the isolated garment FRONT on a neutral background — print and colour fidelity reference; "
-            "[3] the garment worn on a person from the BACK — use for back silhouette and fit reference; "
-            "[4] the isolated garment BACK on a neutral background — back print fidelity reference. "
+            "[2] the isolated garment FRONT on a neutral background — front print and colour fidelity reference; "
+            "[3] the isolated garment BACK on a neutral background — back print fidelity reference. "
             "Transport the person into the new environment described below; "
-            "do not carry over the original background, lighting, or any other garments or accessories."
+            "do not carry over the original background, lighting, or any other garments or accessories. "
+            "Use [3] to determine exactly what print appears on the back — do not invent, duplicate, "
+            "or extrapolate any elements beyond what is visible in that reference."
         )
     elif has_person_ref:
         parts.append(
@@ -457,11 +458,13 @@ def generate_video(
 
     print(f"\n[SYSTEM_LOG]: Initiating Veo generation via {model} …")
 
-    # Build reference image list (up to 4 angles):
-    #   [0] ASSET — person-front on-body shot: anchors person, fit, and silhouette
-    #   [1] ASSET — flat-front isolated product: front print + colour fidelity reference
-    #   [2] ASSET — person-back on-body shot (if available): back silhouette reference
-    #   [3] ASSET — flat-back isolated product (if available): back print fidelity reference
+    # Build reference image list — Veo API hard limit: 3 reference images.
+    # Priority order (most to least critical):
+    #   [0] person-front  — anchors person, fit, and front silhouette  (PRIMARY)
+    #   [1] flat-front    — front print + colour fidelity reference
+    #   [2] flat-back     — back print fidelity reference
+    #   person-back is omitted when all 4 are present; we're transporting the
+    #   person to a new environment so their back pose is Veo's to determine.
     def _ref(img_bytes: bytes, mime: str) -> gtypes.VideoGenerationReferenceImage:
         return gtypes.VideoGenerationReferenceImage(
             image=gtypes.Image(image_bytes=img_bytes, mime_type=mime),
@@ -472,11 +475,11 @@ def generate_video(
     if person_bytes is not None:
         ref_images.append(_ref(person_bytes, person_mime))
     ref_images.append(_ref(flat_bytes, flat_mime))
-    if person_back_bytes is not None:
-        ref_images.append(_ref(person_back_bytes, person_back_mime))
-    if flat_back_bytes is not None:
+    if flat_back_bytes is not None and len(ref_images) < 3:
         ref_images.append(_ref(flat_back_bytes, flat_back_mime))
-    print(f"[SYSTEM_LOG]: Reference images → {len(ref_images)} angle(s) provided.")
+    elif person_back_bytes is not None and len(ref_images) < 3:
+        ref_images.append(_ref(person_back_bytes, person_back_mime))
+    print(f"[SYSTEM_LOG]: Reference images → {len(ref_images)}/3 angle(s) provided.")
 
     operation = client.models.generate_videos(
         model=model,
