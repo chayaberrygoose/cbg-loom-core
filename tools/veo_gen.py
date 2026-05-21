@@ -449,8 +449,8 @@ def generate_video(
         print("[DRY_RUN]: No API call made. Remove --dry-run to execute.")
         return
 
-    confirm = input(f"Proceed with generation? Estimated cost: ${cost_low:.2f}–${cost_high:.2f}  [y/N] ").strip().lower()
-    if confirm != "y":
+    confirm = input(f"Proceed with generation? Estimated cost: ${cost_low:.2f}–${cost_high:.2f}  [Y/n] ").strip().lower()
+    if confirm == "n":
         print("[ABORTED]: Operation cancelled by Specialist.")
         sys.exit(0)
 
