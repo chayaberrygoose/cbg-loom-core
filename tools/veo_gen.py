@@ -43,6 +43,7 @@ from dotenv import load_dotenv
 load_dotenv(dotenv_path=ROOT / ".env")
 
 from scripts.printify_markup import get_printify_api_key, get_product, get_shop_id
+from agents.skills.fabricator.fabricator import parse_blueprint_metadata
 
 # ── Constants ──────────────────────────────────────────────────────────────────
 DEFAULT_MODEL       = "veo-3.1-generate-preview"
@@ -63,6 +64,35 @@ def has_goose_logo(product: dict) -> bool:
     """Return True if the product is verified (has goose logo, not QR stamp)."""
     title = product.get("title", "")
     return not _UNVERIFIED_PATTERN.search(title)
+
+
+def extract_sizes(product: dict) -> list[str]:
+    """Return the list of available size titles from a Printify product's options."""
+    for opt in product.get("options", []):
+        if opt.get("type", "").lower() in ("size", "sizes"):
+            return [v["title"] for v in opt.get("values", []) if v.get("title")]
+    return []
+
+
+def get_blueprint_meta(product: dict) -> dict:
+    """
+    Fetch the Printify catalog blueprint title and parse gender/garment/model
+    using the same parse_blueprint_metadata logic as verify_specimen.
+    Falls back to empty dict on failure.
+    """
+    blueprint_id = product.get("blueprint_id")
+    if not blueprint_id:
+        return {}
+    try:
+        api_key = get_printify_api_key()
+        url = f"https://api.printify.com/v1/catalog/blueprints/{blueprint_id}.json"
+        resp = _requests.get(url, headers={"Authorization": f"Bearer {api_key}"}, timeout=15)
+        resp.raise_for_status()
+        bp_title = resp.json().get("title", "")
+        return parse_blueprint_metadata(bp_title)
+    except Exception as exc:
+        print(f"[SYSTEM_WARNING]: Could not fetch blueprint metadata — {exc}")
+        return {}
 
 # ── Image selection ────────────────────────────────────────────────────────────
 def _camera_label(img: dict) -> str:
@@ -132,15 +162,37 @@ _ENVIRONMENTS = [
     "a brutalist stairwell — repeating geometric concrete, stark overhead fluorescents",
 ]
 
+# Weighted mood pool — heavier toward varied/light moods so the feed doesn't
+# read as uniformly threatening. Each entry is (mood_description, weight).
+_MOODS: list[tuple[str, int]] = [
+    # light / welcoming
+    ("visibly happy and relaxed, a natural smile, at ease in the environment", 3),
+    ("playful and flirty — a knowing look at camera, slight smirk, confident body language", 3),
+    ("carefree and energetic, mid-movement as if caught dancing or spinning", 3),
+    ("excited and expressive — wide grin, animated gesture, full of forward momentum", 2),
+    # neutral / editorial
+    ("composed and self-assured — calm, neutral expression, deliberate stance", 2),
+    ("introspective — gazing off-frame, relaxed, quietly present in the space", 2),
+    # serious / intense (still available but not dominant)
+    ("focused and intense — sharp gaze, still, commanding the space", 1),
+    ("cool and detached — unreadable expression, effortless stillness", 1),
+]
+
 def _pick_environment() -> str:
     return random.choice(_ENVIRONMENTS)
+
+def _pick_mood() -> str:
+    moods, weights = zip(*_MOODS)
+    return random.choices(moods, weights=weights, k=1)[0]
 
 _BASE_ATMOSPHERE_TEMPLATE = (
     "A cinematic, high-fidelity product advertisement for an Industrial Noir × Tech-Wear garment. "
     "Environment: {environment}. "
+    "Subject: {subject}. "
+    "Subject mood and energy: {mood}. "
     "The visual narrative should feel raw, sovereign, and high-signal. "
     "Structure the shot sequence as follows: "
-    "1) A wide establishing shot of a person wearing the garment — full silhouette against the environment. "
+    "1) A wide establishing shot of the subject wearing the garment — full silhouette against the environment, mood clearly expressed. "
     "2) Multiple slow, lateral panning shots across different sections of the all-over print — "
     "treat the fabric surface like a landscape being surveyed; "
     "reveal texture, linework, and colour field detail through movement, not zooming. "
@@ -150,32 +202,80 @@ _BASE_ATMOSPHERE_TEMPLATE = (
     "The print artwork on the garment must remain sharp and undistorted in every frame."
 )
 
-# Topology lock removed — mentioning the logo in the prompt causes Veo to
-# zoom into it and hallucinate structure beyond the image resolution.
-# Print fidelity is enforced via _TOPOLOGY_LOCK without naming the goose,
-# and camera direction explicitly keeps wide/mid/pattern framing only.
-_TOPOLOGY_LOCK = (
-    "All graphic elements and print artwork on the garment must remain "
-    "pixel-faithful and undistorted throughout — treat every printed motif "
-    "as a static texture map that does not morph, blur, or animate independently. "
-    "Never zoom into any logo or emblem. "
-    "Camera reveals print detail exclusively through slow lateral panning, not zooming."
+# Unified garment fidelity block — enforces print accuracy, silhouette/length
+# preservation, and logo avoidance in a single coherent instruction so Veo
+# doesn't receive competing focal cues that cause it to zoom into the goose.
+_GARMENT_FIDELITY_LOCK = (
+    "GARMENT FIDELITY RULES (apply throughout every frame): "
+    "1) Print & graphics: all artwork on the garment is a static texture map — "
+    "it must not morph, blur, smear, or animate. Reproduce every colour and line exactly. "
+    "2) Logo / emblem avoidance: never let the camera frame, zoom into, or linger on any "
+    "logo or emblem. Reveal print detail only through slow lateral pans across the fabric surface. "
+    "3) Silhouette & length: the garment's cut, hemline, and proportions must be "
+    "pixel-identical to the reference image in every frame — do not lengthen, shorten, "
+    "or alter the silhouette."
 )
 
-_STABILITY_MODIFIER = (
-    "Slow, stable tracking shot. No rapid camera movements. "
-    "Maintain a locked focus on the central subject."
+# Keep individual constants for backward-compatibility / future selective use
+_TOPOLOGY_LOCK = _GARMENT_FIDELITY_LOCK  # alias
+_LENGTH_LOCK = _GARMENT_FIDELITY_LOCK    # alias
+
+# Garment types where Veo tends to hallucinate length — skirts get lengthened,
+# shorts get turned into long pants, etc. Detected from blueprint garment name.
+_LENGTH_SENSITIVE_KEYWORDS = (
+    "skirt", "shorts", "short", "dress", "mini", "midi", "maxi",
+    "leggings", "legging", "pants", "trousers", "jogger",
 )
 
-def build_prompt(product: dict, goose: bool, has_person_ref: bool = True) -> tuple[str, str]:
-    """Returns (prompt, environment_label)."""
+_LENGTH_LOCK = (
+    "CRITICAL: Preserve the exact garment length and silhouette as shown in the reference image — "
+    "do not lengthen, shorten, or alter the hemline. "
+    "The garment's cut and proportions must remain identical to the reference throughout every frame."
+)
+
+
+def _garment_needs_length_lock(garment: str) -> bool:
+    """Return True if the garment type is known to cause length hallucination."""
+    g = garment.lower()
+    return any(kw in g for kw in _LENGTH_SENSITIVE_KEYWORDS)
+
+
+def _build_subject(blueprint_meta: dict, sizes: list[str], ethnicity: str | None = None) -> str:
+    """
+    Build a subject descriptor from blueprint gender, ethnicity override,
+    and a randomly chosen available size.
+    e.g. "a Black female model wearing a size XL garment".
+    """
+    if ethnicity:
+        model = ethnicity  # e.g. "a Black female model"
+    else:
+        model = blueprint_meta.get("model", "a model")
+    if sizes:
+        size = sizes[0] if len(sizes) == 1 else random.choice(sizes)
+        return f"{model} wearing a size {size} garment"
+    return model
+
+
+def build_prompt(
+    product: dict,
+    goose: bool,
+    has_person_ref: bool = True,
+    blueprint_meta: dict | None = None,
+    sizes: list[str] | None = None,
+    ethnicity: str | None = None,
+    override_environment: str | None = None,
+    override_mood: str | None = None,
+) -> tuple[str, str, str, str]:
+    """Returns (prompt, environment_label, mood_label, subject_label)."""
     product_title = product.get("title", "CBG Studio product")
     # Strip the canonical prefix for a cleaner description
     clean_title = re.sub(r"^CBG Studio \| ", "", product_title, flags=re.IGNORECASE)
     clean_title = re.sub(r"\| SPECIMEN:.*$", "", clean_title).strip()
 
-    environment = _pick_environment()
-    atmosphere = _BASE_ATMOSPHERE_TEMPLATE.format(environment=environment)
+    environment = override_environment or _pick_environment()
+    mood = override_mood or _pick_mood()
+    subject = _build_subject(blueprint_meta or {}, sizes or [], ethnicity=ethnicity)
+    atmosphere = _BASE_ATMOSPHERE_TEMPLATE.format(environment=environment, mood=mood, subject=subject)
 
     parts = [f"Product: {clean_title}."]
 
@@ -196,10 +296,10 @@ def build_prompt(product: dict, goose: bool, has_person_ref: bool = True) -> tup
 
     parts.append(atmosphere)
 
-    if goose:
-        parts.append(_TOPOLOGY_LOCK)
+    # Always append — covers print fidelity, logo avoidance, and silhouette lock
+    parts.append(_GARMENT_FIDELITY_LOCK)
 
-    return " ".join(parts), environment
+    return " ".join(parts), environment, mood, subject
 
 # ── Veo generation ─────────────────────────────────────────────────────────────
 def generate_video(
@@ -324,6 +424,109 @@ def generate_video(
         sys.exit(1)
 
 # ── CLI ────────────────────────────────────────────────────────────────────────
+def prompt_overrides(
+    blueprint_meta: dict,
+    sizes: list[str],
+    default_environment: str,
+    default_mood: str,
+    default_size: str | None,
+) -> dict:
+    """
+    Interactively present detected defaults and allow the Specialist to
+    override gender, size, environment, and mood before generation.
+    Mirrors the override UX in verify_specimen.py.
+    Returns dict with keys: gender, model, size, environment, mood.
+    """
+    gender   = blueprint_meta.get("gender", "unisex")
+    model    = blueprint_meta.get("model", "a model")
+    size     = default_size
+    env      = default_environment
+    mood     = default_mood
+
+    print()
+    print("─" * 60)
+    print("[VEO_OVERRIDE]: Press Enter to keep each default, or select an option.")
+    print("─" * 60)
+
+    # ── GENDER ──────────────────────────────────────────────────────────────
+    gender_label = {"women": "Female", "men": "Male", "unisex": "Unisex"}.get(gender, "Unisex")
+    print(f"\n  Gender       : {gender_label} (detected)")
+    print("                 [F] Female  [M] Male  [U] Unisex  [Enter] keep")
+    choice = input("  → ").strip().lower()
+    GENDER_MAP = {
+        "f": ("women",  "a female model"),
+        "m": ("men",    "a male model"),
+        "u": ("unisex", "a model"),
+    }
+    if choice in GENDER_MAP:
+        gender, model = GENDER_MAP[choice]
+
+    # ── SIZE ─────────────────────────────────────────────────────────────────
+    print(f"\n  Size         : {size or 'random'} (default: random from available)")
+    if sizes:
+        for i, s in enumerate(sizes, 1):
+            print(f"    [{i}] {s}")
+        print("    [Enter] keep random")
+        choice = input("  → ").strip()
+        if choice.isdigit():
+            idx = int(choice) - 1
+            if 0 <= idx < len(sizes):
+                size = sizes[idx]
+
+    # ── ENVIRONMENT ──────────────────────────────────────────────────────────
+    print(f"\n  Environment  : {env}")
+    print("  (default: randomly selected — listed below)")
+    for i, e in enumerate(_ENVIRONMENTS, 1):
+        marker = " ← current" if e == env else ""
+        print(f"    [{i}] {e}{marker}")
+    print("    [Enter] keep current")
+    choice = input("  → ").strip()
+    if choice.isdigit():
+        idx = int(choice) - 1
+        if 0 <= idx < len(_ENVIRONMENTS):
+            env = _ENVIRONMENTS[idx]
+
+    # ── MOOD ─────────────────────────────────────────────────────────────────
+    mood_labels = [m for m, _ in _MOODS]
+    print(f"\n  Mood         : {mood}")
+    print("  (default: weighted random — listed below)")
+    for i, (m, w) in enumerate(_MOODS, 1):
+        marker = " ← current" if m == mood else ""
+        print(f"    [{i}] {m}  (weight {w}){marker}")
+    print("    [Enter] keep current")
+    choice = input("  → ").strip()
+    if choice.isdigit():
+        idx = int(choice) - 1
+        if 0 <= idx < len(_MOODS):
+            mood = _MOODS[idx][0]
+
+    # ── ETHNICITY ──────────────────────────────────────────────────────────
+    ETHNICITIES = [
+        ("1", "not specified (model decides)",        None),
+        ("2", "Black / African",                      "a Black {g} model"),
+        ("3", "Latina / Hispanic",                    "a Latina {g} model"),
+        ("4", "South Asian",                          "a South Asian {g} model"),
+        ("5", "East Asian",                           "an East Asian {g} model"),
+        ("6", "Middle Eastern / North African",       "a Middle Eastern {g} model"),
+        ("7", "Indigenous / Native",                  "an Indigenous {g} model"),
+        ("8", "Mixed / multiracial",                  "a mixed-race {g} model"),
+        ("9", "White / European",                     "a White {g} model"),
+    ]
+    gender_adj = {"women": "female", "men": "male", "unisex": ""}.get(gender, "")
+    ethnicity: str | None = None
+    print("\n  Ethnicity    : not specified (default)")
+    for key, label, _ in ETHNICITIES:
+        marker = " ← default" if key == "1" else ""
+        print(f"    [{key}] {label}{marker}")
+    choice = input("  → ").strip()
+    for key, _, tmpl in ETHNICITIES:
+        if choice == key:
+            ethnicity = tmpl.replace("{g}", gender_adj).strip() if tmpl else None
+            break
+
+    print("─" * 60)
+    return {"gender": gender, "model": model, "ethnicity": ethnicity, "size": size, "environment": env, "mood": mood}
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="[VEO_GEN] Generate a TikTok ad video from a Printify product."
@@ -359,6 +562,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Assemble and display the prompt + cost estimate without making an API call.",
     )
+    parser.add_argument(
+        "--no-override",
+        action="store_true",
+        help="Skip the interactive override prompts and use all random defaults.",
+    )
     return parser.parse_args()
 
 
@@ -392,9 +600,48 @@ def main() -> None:
     else:
         print("[SYSTEM_LOG]: QR-stamp variant (unverified) — topology lock modifier SKIPPED.")
 
+    # ── Blueprint meta + sizes ─────────────────────────────────────────────────
+    blueprint_meta = get_blueprint_meta(product)
+    sizes = extract_sizes(product)
+    print(f"[SYSTEM_LOG]: Blueprint   → gender={blueprint_meta.get('gender','?')} garment={blueprint_meta.get('garment','?')}")
+    print(f"[SYSTEM_LOG]: Sizes avail → {sizes}")
+
+    # Pick initial random defaults so they can be shown in the override menu
+    default_env  = _pick_environment()
+    default_mood = _pick_mood()
+    default_size = random.choice(sizes) if sizes else None
+
+    # ── Interactive overrides ──────────────────────────────────────────────────
+    if not args.no_override:
+        overrides = prompt_overrides(
+            blueprint_meta, sizes, default_env, default_mood, default_size
+        )
+        blueprint_meta = dict(blueprint_meta)
+        blueprint_meta["gender"] = overrides["gender"]
+        blueprint_meta["model"]  = overrides["model"]
+        final_ethnicity = overrides["ethnicity"]
+        final_size  = overrides["size"]
+        final_env   = overrides["environment"]
+        final_mood  = overrides["mood"]
+    else:
+        final_ethnicity = None
+        final_size  = default_size
+        final_env   = default_env
+        final_mood  = default_mood
+
     # ── Build prompt ───────────────────────────────────────────────────────────
-    prompt, environment = build_prompt(product, goose, has_person_ref=person_url is not None)
+    prompt, environment, mood, subject = build_prompt(
+        product, goose,
+        has_person_ref=person_url is not None,
+        blueprint_meta=blueprint_meta,
+        sizes=[final_size] if final_size else [],
+        ethnicity=final_ethnicity,
+        override_environment=final_env,
+        override_mood=final_mood,
+    )
+    print(f"[SYSTEM_LOG]: Subject     → {subject}")
     print(f"[SYSTEM_LOG]: Environment → {environment}")
+    print(f"[SYSTEM_LOG]: Mood        → {mood}")
 
     # ── Resolve output path ────────────────────────────────────────────────────
     safe_id = re.sub(r"[^a-zA-Z0-9_-]", "_", args.product_id)
