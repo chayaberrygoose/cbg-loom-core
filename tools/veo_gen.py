@@ -189,12 +189,29 @@ _MOODS: list[tuple[str, int]] = [
     ("cool and detached — unreadable expression, effortless stillness", 1),
 ]
 
+# Model style pool — influences hair, grooming, and subcultural styling cues.
+# Focus stays on the garment; style only colours the person's overall aesthetic.
+# Each entry: (label, styling_description)
+_STYLES: list[tuple[str, str]] = [
+    ("hacker",     "with a hacker aesthetic — dark-rimmed glasses or none, loose natural hair or messy bun, minimal makeup, utilitarian nails"),
+    ("raver",      "with a raver aesthetic — vivid or pastel hair, glitter accents, bold eye makeup, expressive energy"),
+    ("punk",       "with a punk aesthetic — partially shaved or spiked hair, heavy liner, studded accessories, defiant expression"),
+    ("scientist",  "with a scientist aesthetic — neat pulled-back hair, clean skin, precise and composed, quiet intensity"),
+    ("streetwear", "with a streetwear aesthetic — fresh fade or natural hair, understated confidence, clean sneaker energy"),
+    ("goth",       "with a goth aesthetic — dark hair, pale skin or deep contour, smoky eyes, composed and otherworldly"),
+    ("art-kid",    "with an art-school aesthetic — eclectic jewellery, expressive hair colour, painterly detail, unguarded energy"),
+    ("normcore",   "with a normcore aesthetic — unremarkable hair, plain grooming, blends into ordinary life — the garment is the statement"),
+]
+
 def _pick_environment() -> str:
     return random.choice(_ENVIRONMENTS)
 
 def _pick_mood() -> str:
     moods, weights = zip(*_MOODS)
     return random.choices(moods, weights=weights, k=1)[0]
+
+def _pick_style() -> tuple[str, str]:
+    return random.choice(_STYLES)
 
 _BASE_ATMOSPHERE_TEMPLATE = (
     "A cinematic, high-fidelity product advertisement for an Industrial Noir × Tech-Wear garment. "
@@ -286,12 +303,16 @@ def _size_to_body_descriptor(size: str | None) -> str | None:
     return _SIZE_TO_BODY_TYPE.get(size.upper())
 
 
-def _build_subject(blueprint_meta: dict, sizes: list[str], ethnicity: str | None = None) -> str:
+def _build_subject(
+    blueprint_meta: dict,
+    sizes: list[str],
+    ethnicity: str | None = None,
+    style: tuple[str, str] | None = None,
+) -> str:
     """
-    Build a subject descriptor from blueprint gender, ethnicity override, and
-    a size-mapped body-type description.
-    Size labels are mapped to body-type descriptors (e.g. XL → "curvy, plus-size build")
-    so Veo represents real body diversity instead of defaulting to thin fashion models.
+    Build a subject descriptor from blueprint gender, ethnicity override,
+    size-mapped body-type description, and subcultural style cue.
+    Style influences hair/grooming only — the garment remains the visual focus.
     """
     if ethnicity:
         base = ethnicity  # e.g. "a Black female model"
@@ -300,9 +321,15 @@ def _build_subject(blueprint_meta: dict, sizes: list[str], ethnicity: str | None
 
     size = (sizes[0] if len(sizes) == 1 else random.choice(sizes)) if sizes else None
     body = _size_to_body_descriptor(size)
+
+    # Build naturally: "a female model with a curvy build with a hacker aesthetic — ..."
+    # body descriptor does NOT include "with"; style[1] already starts with "with a ... aesthetic"
+    desc = base
     if body:
-        return f"{base} with {body}"
-    return base
+        desc += f" with {body}"
+    if style:
+        desc += f" {style[1]}"
+    return desc
 
 
 def build_prompt(
@@ -315,6 +342,7 @@ def build_prompt(
     ethnicity: str | None = None,
     override_environment: str | None = None,
     override_mood: str | None = None,
+    override_style: tuple[str, str] | None = None,
 ) -> tuple[str, str, str, str]:
     """Returns (prompt, environment_label, mood_label, subject_label)."""
     product_title = product.get("title", "CBG Studio product")
@@ -324,7 +352,8 @@ def build_prompt(
 
     environment = override_environment or _pick_environment()
     mood = override_mood or _pick_mood()
-    subject = _build_subject(blueprint_meta or {}, sizes or [], ethnicity=ethnicity)
+    style = override_style or _pick_style()
+    subject = _build_subject(blueprint_meta or {}, sizes or [], ethnicity=ethnicity, style=style)
     atmosphere = _BASE_ATMOSPHERE_TEMPLATE.format(environment=environment, mood=mood, subject=subject)
 
     parts = [f"Product: {clean_title}."]
@@ -595,8 +624,23 @@ def prompt_overrides(
             ethnicity = tmpl.replace("{g}", gender_adj).strip() if tmpl else None
             break
 
+    # ── STYLE ─────────────────────────────────────────────────────────────────
+    style = _pick_style()
+    print(f"\n  Style        : {style[0]} (random default)")
+    print("  (Influences hair, grooming, and subcultural aesthetic — not the garment)")
+    for i, (label, desc) in enumerate(_STYLES, 1):
+        marker = " ← current" if label == style[0] else ""
+        print(f"    [{i}] {label:12s} — {desc[:60]}…{marker}")
+    print("    [Enter] keep current")
+    choice = input("  → ").strip()
+    if choice.isdigit():
+        idx = int(choice) - 1
+        if 0 <= idx < len(_STYLES):
+            style = _STYLES[idx]
+
     print("─" * 60)
-    return {"gender": gender, "model": model, "ethnicity": ethnicity, "size": size, "environment": env, "mood": mood}
+    return {"gender": gender, "model": model, "ethnicity": ethnicity, "size": size, "environment": env, "mood": mood, "style": style}
+
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
@@ -702,11 +746,13 @@ def main() -> None:
         final_size  = overrides["size"]
         final_env   = overrides["environment"]
         final_mood  = overrides["mood"]
+        final_style = overrides["style"]
     else:
         final_ethnicity = None
         final_size  = default_size
         final_env   = default_env
         final_mood  = default_mood
+        final_style = _pick_style()
 
     # ── Build prompt ───────────────────────────────────────────────────────────
     prompt, environment, mood, subject = build_prompt(
@@ -718,8 +764,10 @@ def main() -> None:
         ethnicity=final_ethnicity,
         override_environment=final_env,
         override_mood=final_mood,
+        override_style=final_style,
     )
     print(f"[SYSTEM_LOG]: Subject     → {subject}")
+    print(f"[SYSTEM_LOG]: Style       → {final_style[0]}")
     print(f"[SYSTEM_LOG]: Environment → {environment}")
     print(f"[SYSTEM_LOG]: Mood        → {mood}")
 
