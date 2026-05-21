@@ -326,7 +326,12 @@ def _build_subject(
     else:
         base = blueprint_meta.get("model", "a model")
 
-    size = (sizes[0] if len(sizes) == 1 else random.choice(sizes)) if sizes else None
+    # For random selection, prefer M–XL as the target range (realistic everyday sizing).
+    # Fall back to the full available list if none of those sizes exist on this product.
+    _PREFERRED_SIZES = {"M", "L", "XL"}
+    preferred = [s for s in sizes if s.upper() in _PREFERRED_SIZES] if sizes else []
+    size_pool = preferred if preferred else sizes
+    size = (size_pool[0] if len(size_pool) == 1 else random.choice(size_pool)) if size_pool else None
     body = _size_to_body_descriptor(size)
 
     # Build naturally: "a female model with a solid proportional build with a hacker aesthetic — ..."
@@ -733,10 +738,13 @@ def main() -> None:
     print(f"[SYSTEM_LOG]: Blueprint   → gender={blueprint_meta.get('gender','?')} garment={blueprint_meta.get('garment','?')}")
     print(f"[SYSTEM_LOG]: Sizes avail → {sizes}")
 
-    # Pick initial random defaults so they can be shown in the override menu
+    # Pick initial random defaults — prefer M–XL range for realistic everyday sizing
+    _PREFERRED = {"M", "L", "XL"}
+    preferred_sizes = [s for s in sizes if s.upper() in _PREFERRED]
+    size_pool = preferred_sizes if preferred_sizes else sizes
     default_env  = _pick_environment()
     default_mood = _pick_mood()
-    default_size = random.choice(sizes) if sizes else None
+    default_size = random.choice(size_pool) if size_pool else None
 
     # ── Interactive overrides ──────────────────────────────────────────────────
     if not args.no_override:
