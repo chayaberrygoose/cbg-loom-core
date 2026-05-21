@@ -27,6 +27,7 @@ Usage:
 
 import argparse
 import os
+import random
 import re
 import sys
 import time
@@ -101,19 +102,32 @@ def fetch_image_bytes(url: str) -> bytes:
     return resp.content
 
 # ── Prompt assembly ────────────────────────────────────────────────────────────
-_BASE_ATMOSPHERE = (
+_ENVIRONMENTS = [
+    "a rain-slicked city street at night, reflections of neon signs pooling on wet asphalt",
+    "a brutalist concrete plaza — raw aggregate surfaces, hard shadows, overcast sky",
+    "a dark void studio — pure black negative space with a single dramatic key light",
+    "an overgrown infrastructure site — cracked concrete, encroaching foliage, diffused natural light",
+    "a rooftop at dusk — city sprawl below, golden-hour light bleeding into deep shadow",
+    "a decommissioned server room — floors of dead rack units, cold blue emergency lighting",
+    "a rain-soaked underpass — layered graffiti, sodium-vapour glow, shallow puddles",
+    "a brutalist stairwell — repeating geometric concrete, stark overhead fluorescents",
+]
+
+def _pick_environment() -> str:
+    return random.choice(_ENVIRONMENTS)
+
+_BASE_ATMOSPHERE_TEMPLATE = (
     "A cinematic, high-fidelity product advertisement for an Industrial Noir × Tech-Wear garment. "
-    "The garment is the central, anchoring subject throughout. "
-    "Atmosphere and environment have full creative latitude: "
-    "dramatic industrial lighting, moody noir backdrops, neon accents, "
-    "or sub-atomic particle fields are all welcome. "
+    "Environment: {environment}. "
     "The visual narrative should feel raw, sovereign, and high-signal. "
-    "Use a sequence of composed camera movements: "
-    "open with a slow full-body reveal of the garment against an atmospheric background, "
-    "then transition to deliberate close-up shots isolating the all-over print pattern — "
-    "texture, linework, and colour detail — treating the print like a landscape. "
-    "Cut back to a mid-distance tracking shot to close. "
-    "All camera movements must be slow and stable; no rapid cuts or shaky motion. "
+    "Structure the shot sequence as follows: "
+    "1) A wide establishing shot of a person wearing the garment — full silhouette against the environment. "
+    "2) Multiple slow, lateral panning shots across different sections of the all-over print — "
+    "treat the fabric surface like a landscape being surveyed; "
+    "reveal texture, linework, and colour field detail through movement, not zooming. "
+    "3) Close the sequence with a composed mid-distance shot of the wearer. "
+    "No zooming at any point. All camera movements must be slow, stable pans or tracking shots. "
+    "No rapid cuts or shaky motion. "
     "The print artwork on the garment must remain sharp and undistorted in every frame."
 )
 
@@ -125,8 +139,8 @@ _TOPOLOGY_LOCK = (
     "All graphic elements and print artwork on the garment must remain "
     "pixel-faithful and undistorted throughout — treat every printed motif "
     "as a static texture map that does not morph, blur, or animate independently. "
-    "Do not zoom into any logo or emblem; camera framing must stay at "
-    "full-body, mid-distance, or close-up on the all-over print pattern only."
+    "Never zoom into any logo or emblem. "
+    "Camera reveals print detail exclusively through slow lateral panning, not zooming."
 )
 
 _STABILITY_MODIFIER = (
@@ -134,21 +148,25 @@ _STABILITY_MODIFIER = (
     "Maintain a locked focus on the central subject."
 )
 
-def build_prompt(product: dict, goose: bool) -> str:
+def build_prompt(product: dict, goose: bool) -> tuple[str, str]:
+    """Returns (prompt, environment_label)."""
     product_title = product.get("title", "CBG Studio product")
     # Strip the canonical prefix for a cleaner description
     clean_title = re.sub(r"^CBG Studio \| ", "", product_title, flags=re.IGNORECASE)
     clean_title = re.sub(r"\| SPECIMEN:.*$", "", clean_title).strip()
 
+    environment = _pick_environment()
+    atmosphere = _BASE_ATMOSPHERE_TEMPLATE.format(environment=environment)
+
     parts = [
         f"Product: {clean_title}.",
-        _BASE_ATMOSPHERE,
+        atmosphere,
     ]
 
     if goose:
         parts.append(_TOPOLOGY_LOCK)
 
-    return " ".join(parts)
+    return " ".join(parts), environment
 
 # ── Veo generation ─────────────────────────────────────────────────────────────
 def generate_video(
@@ -320,7 +338,8 @@ def main() -> None:
         print("[SYSTEM_LOG]: QR-stamp variant (unverified) — topology lock modifier SKIPPED.")
 
     # ── Build prompt ───────────────────────────────────────────────────────────
-    prompt = build_prompt(product, goose)
+    prompt, environment = build_prompt(product, goose)
+    print(f"[SYSTEM_LOG]: Environment → {environment}")
 
     # ── Resolve output path ────────────────────────────────────────────────────
     safe_id = re.sub(r"[^a-zA-Z0-9_-]", "_", args.product_id)
