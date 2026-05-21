@@ -338,7 +338,6 @@ def _build_subject(
 
 
 def build_prompt(
-    product: dict,
     goose: bool,
     has_person_ref: bool = True,
     has_back_ref: bool = False,
@@ -350,18 +349,13 @@ def build_prompt(
     override_style: tuple[str, str] | None = None,
 ) -> tuple[str, str, str, str]:
     """Returns (prompt, environment_label, mood_label, subject_label)."""
-    product_title = product.get("title", "CBG Studio product")
-    # Strip the canonical prefix for a cleaner description
-    clean_title = re.sub(r"^CBG Studio \| ", "", product_title, flags=re.IGNORECASE)
-    clean_title = re.sub(r"\| SPECIMEN:.*$", "", clean_title).strip()
-
     environment = override_environment or _pick_environment()
     mood = override_mood or _pick_mood()
     style = override_style or _pick_style()
     subject = _build_subject(blueprint_meta or {}, sizes or [], ethnicity=ethnicity, style=style)
     atmosphere = _BASE_ATMOSPHERE_TEMPLATE.format(environment=environment, mood=mood, subject=subject)
 
-    parts = [f"Product: {clean_title}."]
+    parts = []
 
     if has_person_ref and has_back_ref:
         parts.append(
@@ -764,7 +758,7 @@ def main() -> None:
 
     # ── Build prompt ───────────────────────────────────────────────────────────
     prompt, environment, mood, subject = build_prompt(
-        product, goose,
+        goose,
         has_person_ref=person_url is not None,
         has_back_ref=(flat_back_url is not None or person_back_url is not None),
         blueprint_meta=blueprint_meta,
