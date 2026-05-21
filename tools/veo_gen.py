@@ -103,42 +103,53 @@ def _camera_label(img: dict) -> str:
     return img.get("position", "unknown")
 
 
-def select_reference_images(product: dict) -> tuple[str, str | None]:
+def select_reference_images(
+    product: dict,
+) -> tuple[str, str | None, str | None, str | None]:
     """
-    Return (flat_url, person_url) from Printify's image array.
+    Return (flat_front_url, person_front_url, flat_back_url, person_back_url)
+    from Printify's image array.
 
     Printify camera_label values observed:
-      front / back          — flat product on white/neutral BG  (ASSET anchor)
-      person-front / person-back — on-body lifestyle shot       (fit reference)
+      front / back               — flat product on white/neutral BG  (print anchor)
+      person-front / person-back — on-body lifestyle shot            (fit/silhouette anchor)
 
-    We pick:
-      flat_url   — camera_label=front, or is_default, or first image.
-      person_url — camera_label=person-front if present, else None.
+    Priority:
+      flat_front   — camera_label=front, or is_default, or first image.
+      person_front — camera_label=person-front if present, else None.
+      flat_back    — camera_label=back if present, else None.
+      person_back  — camera_label=person-back if present, else None.
     """
     images = product.get("images", [])
     if not images:
         raise ValueError("[SIGNAL_LOSS]: No images found on this product.")
 
-    flat_url: str | None = None
-    person_url: str | None = None
+    flat_front: str | None = None
+    person_front: str | None = None
+    flat_back: str | None = None
+    person_back: str | None = None
 
     for img in images:
         label = _camera_label(img)
-        if label == "front" and flat_url is None:
-            flat_url = img["src"]
-        if label == "person-front" and person_url is None:
-            person_url = img["src"]
+        if label == "front" and flat_front is None:
+            flat_front = img["src"]
+        if label == "person-front" and person_front is None:
+            person_front = img["src"]
+        if label == "back" and flat_back is None:
+            flat_back = img["src"]
+        if label == "person-back" and person_back is None:
+            person_back = img["src"]
 
-    # Fallbacks
-    if flat_url is None:
+    # Fallbacks for flat_front
+    if flat_front is None:
         for img in images:
             if img.get("is_default"):
-                flat_url = img["src"]
+                flat_front = img["src"]
                 break
-    if flat_url is None:
-        flat_url = images[0]["src"]
+    if flat_front is None:
+        flat_front = images[0]["src"]
 
-    return flat_url, person_url
+    return flat_front, person_front, flat_back, person_back
 
 def fetch_image_bytes(url: str) -> bytes:
     """Download an image from a URL and return raw bytes."""
@@ -191,15 +202,18 @@ _BASE_ATMOSPHERE_TEMPLATE = (
     "Subject: {subject}. "
     "Subject mood and energy: {mood}. "
     "The visual narrative should feel raw, sovereign, and high-signal. "
-    "Structure the shot sequence as follows: "
-    "1) A wide establishing shot of the subject wearing the garment — full silhouette against the environment, mood clearly expressed. "
-    "2) Multiple slow, lateral panning shots across different sections of the all-over print — "
-    "treat the fabric surface like a landscape being surveyed; "
-    "reveal texture, linework, and colour field detail through movement, not zooming. "
-    "3) Close the sequence with a composed mid-distance shot of the wearer. "
+    "Structure the shot sequence exactly as follows: "
+    "SHOT 1 — Wide establishing shot of the subject from the FRONT: full silhouette visible, "
+    "garment front print fully readable, mood clearly expressed, environment in frame. "
+    "SHOT 2 — Close-up lateral pan across the FRONT of the garment: slow, stable pan revealing "
+    "print detail, texture, and colour field — treat the fabric surface like a landscape being surveyed. "
+    "SHOT 3 — Close-up lateral pan across the BACK of the garment: same slow, deliberate pan "
+    "to reveal the back print detail, then pull back to a mid-distance shot showing the full back of the wearer. "
+    "SHOT 4 — Wide shot of the subject from the BACK: full back silhouette, garment back print visible, "
+    "subject still in the same environment and mood. "
     "No zooming at any point. All camera movements must be slow, stable pans or tracking shots. "
     "No rapid cuts or shaky motion. "
-    "The print artwork on the garment must remain sharp and undistorted in every frame."
+    "The print artwork on the garment — both front and back — must remain sharp and undistorted in every frame."
 )
 
 # Unified garment fidelity block — enforces print accuracy, silhouette/length
@@ -260,6 +274,7 @@ def build_prompt(
     product: dict,
     goose: bool,
     has_person_ref: bool = True,
+    has_back_ref: bool = False,
     blueprint_meta: dict | None = None,
     sizes: list[str] | None = None,
     ethnicity: str | None = None,
@@ -279,14 +294,25 @@ def build_prompt(
 
     parts = [f"Product: {clean_title}."]
 
-    if has_person_ref:
+    if has_person_ref and has_back_ref:
         parts.append(
-            "Two reference images are provided: the first shows the garment worn on a person — "
-            "preserve that exact person, their pose, body type, and how the garment fits them. "
+            "Four reference images are provided: "
+            "[1] the garment worn on a person from the FRONT — preserve that exact person, "
+            "their body type, and how the garment fits them; "
+            "[2] the isolated garment FRONT on a neutral background — print and colour fidelity reference; "
+            "[3] the garment worn on a person from the BACK — use for back silhouette and fit reference; "
+            "[4] the isolated garment BACK on a neutral background — back print fidelity reference. "
+            "Transport the person into the new environment described below; "
+            "do not carry over the original background, lighting, or any other garments or accessories."
+        )
+    elif has_person_ref:
+        parts.append(
+            "Two reference images are provided: "
+            "[1] the garment worn on a person from the FRONT — preserve that exact person, "
+            "their body type, and how the garment fits them. "
             "Transport them into the new environment described below; "
             "do not carry over the original background, lighting, or any other garments or accessories. "
-            "The second image shows the isolated garment on a neutral background — "
-            "use it as a print and colour fidelity reference only."
+            "[2] the isolated garment on a neutral background — print and colour fidelity reference only."
         )
     else:
         parts.append(
@@ -310,6 +336,10 @@ def generate_video(
     flat_mime: str,
     person_bytes: bytes | None,
     person_mime: str | None,
+    flat_back_bytes: bytes | None = None,
+    flat_back_mime: str | None = None,
+    person_back_bytes: bytes | None = None,
+    person_back_mime: str | None = None,
     duration: int,
     dry_run: bool,
     out_path: Path,
@@ -358,24 +388,26 @@ def generate_video(
 
     print(f"\n[SYSTEM_LOG]: Initiating Veo generation via {model} …")
 
-    # Build reference image list:
-    #   [0] ASSET — person-front on-body shot (primary): anchors the person, fit, and silhouette
-    #   [1] ASSET — flat/isolated product: print and colour fidelity reference
-    # If no person-front exists, fall back to flat-only.
+    # Build reference image list (up to 4 angles):
+    #   [0] ASSET — person-front on-body shot: anchors person, fit, and silhouette
+    #   [1] ASSET — flat-front isolated product: front print + colour fidelity reference
+    #   [2] ASSET — person-back on-body shot (if available): back silhouette reference
+    #   [3] ASSET — flat-back isolated product (if available): back print fidelity reference
+    def _ref(img_bytes: bytes, mime: str) -> gtypes.VideoGenerationReferenceImage:
+        return gtypes.VideoGenerationReferenceImage(
+            image=gtypes.Image(image_bytes=img_bytes, mime_type=mime),
+            reference_type=gtypes.VideoGenerationReferenceType.ASSET,
+        )
+
     ref_images = []
     if person_bytes is not None:
-        ref_images.append(
-            gtypes.VideoGenerationReferenceImage(
-                image=gtypes.Image(image_bytes=person_bytes, mime_type=person_mime),
-                reference_type=gtypes.VideoGenerationReferenceType.ASSET,
-            )
-        )
-    ref_images.append(
-        gtypes.VideoGenerationReferenceImage(
-            image=gtypes.Image(image_bytes=flat_bytes, mime_type=flat_mime),
-            reference_type=gtypes.VideoGenerationReferenceType.ASSET,
-        ),
-    )
+        ref_images.append(_ref(person_bytes, person_mime))
+    ref_images.append(_ref(flat_bytes, flat_mime))
+    if person_back_bytes is not None:
+        ref_images.append(_ref(person_back_bytes, person_back_mime))
+    if flat_back_bytes is not None:
+        ref_images.append(_ref(flat_back_bytes, flat_back_mime))
+    print(f"[SYSTEM_LOG]: Reference images → {len(ref_images)} angle(s) provided.")
 
     operation = client.models.generate_videos(
         model=model,
@@ -586,12 +618,20 @@ def main() -> None:
     print(f"[SYSTEM_LOG]: Product → {product_title}")
 
     # ── Select images ──────────────────────────────────────────────────────────
-    flat_url, person_url = select_reference_images(product)
-    print(f"[SYSTEM_LOG]: Flat image   → {flat_url[:90]}…")
+    flat_url, person_url, flat_back_url, person_back_url = select_reference_images(product)
+    print(f"[SYSTEM_LOG]: Flat front   → {flat_url[:90]}…")
     if person_url:
-        print(f"[SYSTEM_LOG]: Person image → {person_url[:90]}… [PRIMARY]")
+        print(f"[SYSTEM_LOG]: Person front → {person_url[:90]}… [PRIMARY]")
     else:
         print("[SYSTEM_LOG]: No person-front image found — using flat reference only.")
+    if flat_back_url:
+        print(f"[SYSTEM_LOG]: Flat back    → {flat_back_url[:90]}…")
+    else:
+        print("[SYSTEM_LOG]: No flat-back image found.")
+    if person_back_url:
+        print(f"[SYSTEM_LOG]: Person back  → {person_back_url[:90]}…")
+    else:
+        print("[SYSTEM_LOG]: No person-back image found.")
 
     # ── Goose detection ────────────────────────────────────────────────────────
     goose = has_goose_logo(product)
@@ -633,6 +673,7 @@ def main() -> None:
     prompt, environment, mood, subject = build_prompt(
         product, goose,
         has_person_ref=person_url is not None,
+        has_back_ref=(flat_back_url is not None or person_back_url is not None),
         blueprint_meta=blueprint_meta,
         sizes=[final_size] if final_size else [],
         ethnicity=final_ethnicity,
@@ -654,12 +695,16 @@ def main() -> None:
         try:
             flat_bytes = fetch_image_bytes(flat_url)
             person_bytes = fetch_image_bytes(person_url) if person_url else None
+            flat_back_bytes = fetch_image_bytes(flat_back_url) if flat_back_url else None
+            person_back_bytes = fetch_image_bytes(person_back_url) if person_back_url else None
         except Exception as exc:
             print(f"[SIGNAL_LOSS]: Could not download image — {exc}")
             sys.exit(1)
     else:
         flat_bytes = b""
         person_bytes = None
+        flat_back_bytes = None
+        person_back_bytes = None
 
     # ── Generate ───────────────────────────────────────────────────────────────
     generate_video(
@@ -669,6 +714,10 @@ def main() -> None:
         flat_mime=_mime(flat_url),
         person_bytes=person_bytes,
         person_mime=_mime(person_url) if person_url else None,
+        flat_back_bytes=flat_back_bytes,
+        flat_back_mime=_mime(flat_back_url) if flat_back_url else None,
+        person_back_bytes=person_back_bytes,
+        person_back_mime=_mime(person_back_url) if person_back_url else None,
         duration=args.duration,
         dry_run=args.dry_run,
         out_path=out_path,
