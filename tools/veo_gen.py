@@ -257,7 +257,12 @@ _GARMENT_FIDELITY_LOCK = (
     "Camera movement must be a slow, even lateral pan across the fabric surface, "
     "treating every area of the print identically. Never drift toward, zoom into, or linger on "
     "any graphic element. "
-    "3) Silhouette & length: the garment's cut, hemline, and proportions must be "
+    "3) No invented matching garments: the subject wears ONLY the garment shown in the reference — "
+    "do not generate a matching top, bottom, jacket, or any other piece that shares the same print or colourway. "
+    "If the scene requires additional clothing (e.g. a top to pair with shorts), it must be a plain, "
+    "solid-colour neutral garment (black, white, grey, or dark tone) with no print, pattern, or branding. "
+    "The featured garment is the sole printed piece in every frame. "
+    "4) Silhouette & length: the garment's cut, hemline, and proportions must be "
     "pixel-identical to the reference image in every frame — do not lengthen, shorten, "
     "or alter the silhouette."
 )
