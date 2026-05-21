@@ -286,18 +286,20 @@ def _garment_needs_length_lock(garment: str) -> bool:
     return any(kw in g for kw in _LENGTH_SENSITIVE_KEYWORDS)
 
 
-# Maps Printify size labels to body-type descriptors Veo can actually use.
-# Avoids passing raw size strings ("XL", "2XL") which Veo interprets as height/stature.
-# Descriptors are intentionally realistic and inclusive — not fashion-model defaults.
+# Maps Printify size labels to realistic fit descriptors for Veo.
+# Avoids raw size strings ("XL", "2XL") which Veo reads as height/stature.
+# Avoids superlatives ("fuller", "curvy", "full-figured") which Veo exaggerates
+# into cartoonish proportions. Instead, anchors to realistic proportional language
+# that describes how the garment fits a real person of that size.
 _SIZE_TO_BODY_TYPE: dict[str, str] = {
-    "XS":  "a petite, slender build",
-    "S":   "a slim, average-height build",
-    "M":   "an average, mid-size build",
-    "L":   "a fuller, athletic build",
-    "XL":  "a curvy, plus-size build",
-    "2XL": "a full-figured, plus-size build",
-    "3XL": "a full-figured, plus-size build",
-    "4XL": "a full-figured, plus-size build",
+    "XS":  "a naturally slight build — narrow shoulders, slim waist, proportional",
+    "S":   "a trim build — shoulders and hips in balance, slim through the waist",
+    "M":   "an everyday average build — proportional shoulders, mid-range waist and hips",
+    "L":   "a solid, proportional build — broad shoulders, defined waist, fuller chest and hips",
+    "XL":  "a naturally rounded build — wide shoulders, soft waist, full hips, proportional and grounded",
+    "2XL": "a broad, well-proportioned build — generous through the chest, waist, and hips, standing confidently",
+    "3XL": "a large, grounded build — wide chest and shoulders, generous waist, full hips, realistic proportions",
+    "4XL": "a very large, grounded build — broad and full through the chest, waist, and hips, realistic proportions",
 }
 
 
@@ -327,11 +329,11 @@ def _build_subject(
     size = (sizes[0] if len(sizes) == 1 else random.choice(sizes)) if sizes else None
     body = _size_to_body_descriptor(size)
 
-    # Build naturally: "a female model with a curvy build with a hacker aesthetic — ..."
+    # Build naturally: "a female model with a solid proportional build with a hacker aesthetic — ..."
     # body descriptor does NOT include "with"; style[1] already starts with "with a ... aesthetic"
     desc = base
     if body:
-        desc += f" with {body}"
+        desc += f" with {body} — realistic, natural proportions"
     if style:
         desc += f" {style[1]}"
     return desc
