@@ -184,7 +184,7 @@ _MOODS: list[tuple[str, int]] = [
     # neutral / editorial
     ("composed and self-assured — calm, neutral expression, deliberate stance", 2),
     ("introspective — gazing off-frame, relaxed, quietly present in the space", 2),
-    # serious / editorial (still available but not dominant)
+    # serious / intense (still available but not dominant)
     ("focused and intense — sharp gaze, still, commanding the space", 1),
     ("cool and detached — unreadable expression, effortless stillness", 1),
 ]
@@ -213,9 +213,8 @@ def _pick_mood() -> str:
 def _pick_style() -> tuple[str, str]:
     return random.choice(_STYLES)
 
-_BASE_ATMOSPHERE_TEMPLATE = (    "This is a fashion advertisement video for an original clothing brand. "
-    "It features a real person wearing a single garment in an urban or studio environment. "
-    "The content is entirely non-violent, commercial, and suitable for all audiences. "    "A cinematic, high-fidelity product advertisement for an Industrial Noir × Tech-Wear garment. "
+_BASE_ATMOSPHERE_TEMPLATE = (
+    "A cinematic, high-fidelity product advertisement for an Industrial Noir × Tech-Wear garment. "
     "Environment: {environment}. "
     "Subject: {subject}. "
     "Subject mood and energy: {mood}. "
@@ -258,14 +257,7 @@ _GARMENT_FIDELITY_LOCK = (
     "Camera movement must be a slow, even lateral pan across the fabric surface, "
     "treating every area of the print identically. Never drift toward, zoom into, or linger on "
     "any graphic element. "
-    "3) No invented matching garments: the subject wears ONLY the garment shown in the reference — "
-    "do not generate a matching top, bottom, jacket, or any other piece that shares the same print or colourway. "
-    "If the scene requires additional clothing to complete the outfit (e.g. a top to pair with shorts, "
-    "or trousers to pair with a cropped piece), it must be a plain, solid-colour basic top or bottom "
-    "(such as a simple black t-shirt, white tank top, or dark trousers) with absolutely no print, "
-    "pattern, logo, or decorative detail. The subject must always be fully clothed in every frame. "
-    "The featured garment is the sole printed or branded piece visible. "
-    "4) Silhouette & length: the garment's cut, hemline, and proportions must be "
+    "3) Silhouette & length: the garment's cut, hemline, and proportions must be "
     "pixel-identical to the reference image in every frame — do not lengthen, shorten, "
     "or alter the silhouette."
 )
