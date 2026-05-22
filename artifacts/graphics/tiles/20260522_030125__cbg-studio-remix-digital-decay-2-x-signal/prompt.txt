@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Digital Decay 2 x Signal Fracture 2]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, high-concept, futuristic, industrial noir, zero-gravity environments, subtle interference: Industrial noir aesthetic, zero-latency simulation, superdeterministic, laplace-demon engine, block universe, industrial noir color palette, static silver accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260522_030125
