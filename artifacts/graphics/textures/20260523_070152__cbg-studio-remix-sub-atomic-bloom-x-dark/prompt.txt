@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Sub-Atomic Bloom x Dark Current]: macro material detail, industrial surface texture, weathered finish, high-fidelity map, industrial, dark academia, tech-noir, wearable technology, kinetic design, structural echo: sub-atomic particle decay, bioluminescent organic structures, quantum lattice overlay, fractal botanical motifs, microscopic spore patterns, industrial noir color palette, phosphor green accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260523_070152
