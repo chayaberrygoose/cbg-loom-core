@@ -5,7 +5,7 @@
   "Cathode Rift": 12,
   "Chaya Berry Goose": 12,
   "Chaya Code": 12,
-  "Circuit Bleed": 12,
+  "Circuit Bleed": 13,
   "Circuit Break": 12,
   "Circuit Failure": 12,
   "Circuit Fracture": 12,
@@ -111,7 +111,7 @@
   "Temporal Rift 2": 12,
   "Temporal Stale": 13,
   "Thermal Breach": 12,
-  "Tunnel Resonance": 12,
+  "Tunnel Resonance": 13,
   "VOID_MANTLE": 12,
   "Vector Descent": 13
 }
