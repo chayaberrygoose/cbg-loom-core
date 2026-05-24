@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Fracture Core x Temporal Rift 2]: macro material detail, industrial surface texture, weathered finish, high-fidelity map, industrial textures, dark metallic sheen, distorted clockwork mechanisms, blurred timeline, fractured reflections, structural echo: data-infused textures, mechanical wear and tear, neon-lit cityscapes at dusk, industrial noir color palette, ultraviolet purple accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260523_220236
