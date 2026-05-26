@@ -100,7 +100,7 @@
   "Sub-Atomic Bloom": 13,
   "Supply Chain Collapse": 13,
   "System Collapse": 13,
-  "System Failure": 13,
+  "System Failure": 14,
   "System Failure 2": 13,
   "System Failure 3": 13,
   "System Lockdown": 13,
@@ -113,5 +113,5 @@
   "Thermal Breach": 13,
   "Tunnel Resonance": 13,
   "VOID_MANTLE": 13,
-  "Vector Descent": 13
+  "Vector Descent": 14
 }
