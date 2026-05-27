@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Industrial Overload 2 x System Failure 3]: macro material detail, industrial surface texture, weathered finish, high-fidelity map, high-RPM processing, abstract humor, Quantum Waffles, Luxury Output, structural echo: dark gritty textures, neon accents, metallic sheen, industrial noir color palette, infrared red accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260527_000217
