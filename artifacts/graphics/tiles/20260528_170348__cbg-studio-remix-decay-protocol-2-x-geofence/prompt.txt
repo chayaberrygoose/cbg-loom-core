@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Decay Protocol 2 x Geofence Loop]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, corrosive atmosphere, organic industrial design, adaptive mutation, jagged silhouettes, subtle interference: industrial noir, technical illustration, fluorescent lighting, grid patterns, worn office equipment, industrial noir color palette, cobalt blue accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260528_170348
