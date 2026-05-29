@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [System Collapse x Ghost Protocol]: macro material detail, industrial surface texture, weathered finish, high-fidelity map, Ghost Text, Raspberry Pi Archive, Industrial Noir Aesthetic, structural echo: neon-lit cityscape, fragmented skyscrapers, distorted reflections, blurred consumer interfaces, industrial noir color palette, molten orange accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260528_190145
