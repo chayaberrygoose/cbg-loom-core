@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Fading Pulse x Fracture Core]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, circuit board textures, pixel art glitches, abandoned factory environments, futuristic neon landscapes, subtle interference: data-infused textures, mechanical wear and tear, neon-lit cityscapes at dusk, industrial noir color palette, infrared red accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260529_080146
