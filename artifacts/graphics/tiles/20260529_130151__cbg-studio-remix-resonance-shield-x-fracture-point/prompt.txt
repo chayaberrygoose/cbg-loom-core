@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Resonance Shield x Fracture Point]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial textures, metallic sheen, dim lighting, subtle reflections, subtle interference: Industrial Noir, Biological Observation Loop, 3D-DNA loom, Proton-Motive Force, industrial noir color palette, signal white accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260529_130151
