@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Industrial Requiem x Cyber Requiem]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial textures, neon lighting, data visualization, metallic finishes, urban landscapes, abandoned infrastructure, subtle interference: neon-lit cityscapes, cyberpunk architecture, high-tech laboratory settings, fragmented identities, urban decay, digital chaos, industrial noir color palette, ultraviolet purple accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260530_000301
