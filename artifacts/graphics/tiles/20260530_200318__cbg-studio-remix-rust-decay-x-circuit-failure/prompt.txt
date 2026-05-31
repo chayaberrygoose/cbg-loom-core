@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Rust Decay x Circuit Failure]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, gritty, distorted textures, neon-lit interfaces, analog-digital degradation, metallic sheen, subtle interference: glitch art, neon lights, circuit board textures, digital decay, industrial noir color palette, static silver accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260530_200318
