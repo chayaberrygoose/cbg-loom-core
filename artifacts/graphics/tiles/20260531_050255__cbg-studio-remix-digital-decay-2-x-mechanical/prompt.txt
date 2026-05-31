@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Digital Decay 2 x Mechanical Rot]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, high-concept, futuristic, industrial noir, zero-gravity environments, subtle interference: industrial noir, tech-wear, post-apocalyptic, mechanized, weathered, eerie glow, industrial noir color palette, ultraviolet purple accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260531_050255
