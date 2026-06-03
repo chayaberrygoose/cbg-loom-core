@@ -43,7 +43,7 @@
   "Fracture Point": 16,
   "Fracture Point 2": 16,
   "Fracture Wave": 15,
-  "Fractured Signal": 15,
+  "Fractured Signal": 16,
   "Friction Grid": 15,
   "Friction Grid 2": 16,
   "Friction Point": 15,
@@ -113,5 +113,5 @@
   "Thermal Breach": 15,
   "Tunnel Resonance": 15,
   "VOID_MANTLE": 15,
-  "Vector Descent": 15
+  "Vector Descent": 16
 }
