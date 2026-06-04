@@ -1,0 +1,3 @@
+prompt: CBG Studio | Chaya Berry Goose Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, A seamless, tileable textile swatch, industrial noir aesthetic, ultra-high fidelity rendering, sharp focus on material contrast between matte technical fabrics and illuminated digital overlay, Cinematic Narrative composition., industrial noir color palette, cobalt blue accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260603_180203
