@@ -96,7 +96,7 @@
   "Signal Overload": 16,
   "Signal Scour": 16,
   "Silicon Pulse": 16,
-  "Spark Containment": 16,
+  "Spark Containment": 17,
   "Sub-Atomic Bloom": 17,
   "Supply Chain Collapse": 17,
   "System Collapse": 16,
@@ -113,5 +113,5 @@
   "Thermal Breach": 16,
   "Tunnel Resonance": 17,
   "VOID_MANTLE": 17,
-  "Vector Descent": 16
+  "Vector Descent": 17
 }
