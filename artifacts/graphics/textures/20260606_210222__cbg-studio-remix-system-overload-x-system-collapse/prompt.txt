@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [System Overload x System Collapse]: macro material detail, industrial surface texture, weathered finish, high-fidelity map, neon-lit cityscape, fragmented skyscrapers, distorted reflections, blurred consumer interfaces, structural echo: glitch art, cyberpunk fashion, technical error messages, digital decay, neon-lit cityscapes, industrial noir color palette, ultraviolet purple accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260606_210222
