@@ -1,0 +1,3 @@
+prompt: CBG Studio | Signal Overload Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, high contrast, neon accents, industrial textures, neural network visualizations, industrial noir color palette, cobalt blue accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260611_100257
