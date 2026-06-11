@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [VOID_MANTLE x Industrial Overload 2]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, light-absorbing matte finish, zero-reflectivity surfaces, structural shadow panels, Vantablack aesthetic, deep charcoal geometric ribbing, industrial stealth substrate., subtle interference: dark gritty textures, neon accents, metallic sheen, industrial noir color palette, electric cyan accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260610_220200
