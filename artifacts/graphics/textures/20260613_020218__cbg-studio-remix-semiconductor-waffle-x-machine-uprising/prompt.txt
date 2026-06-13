@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Semiconductor Waffle x Machine Uprising]: macro material detail, industrial surface texture, weathered finish, high-fidelity map, Gritty, Neon-Lit, Asymmetrical Lines, High-Contrast Gradients, structural echo: night-shift simulations, industrial-noir textures, distorted spacetime, abstracted culinary patterns, industrial noir color palette, electric cyan accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260613_020218
