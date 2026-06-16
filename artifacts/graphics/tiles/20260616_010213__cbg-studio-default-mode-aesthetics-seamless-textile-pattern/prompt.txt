@@ -1,0 +1,3 @@
+prompt: CBG Studio | Default Mode Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, neural network, connectome mapping, high-resolution imaging, abstract textures, dark color palette, industrial noir color palette, plasma magenta accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260616_010213
