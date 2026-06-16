@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [Resonance Shield x Rust Decay]: macro material detail, industrial surface texture, weathered finish, high-fidelity map, gritty, distorted textures, neon-lit interfaces, analog-digital degradation, metallic sheen, structural echo: industrial textures, metallic sheen, dim lighting, subtle reflections, industrial noir color palette, deep amber accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260616_050242
