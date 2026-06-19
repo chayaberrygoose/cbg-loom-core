@@ -1,0 +1,3 @@
+prompt: CBG Studio | Resonance Shield Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial textures, metallic sheen, dim lighting, subtle reflections, industrial noir color palette, cobalt blue accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260619_040209
