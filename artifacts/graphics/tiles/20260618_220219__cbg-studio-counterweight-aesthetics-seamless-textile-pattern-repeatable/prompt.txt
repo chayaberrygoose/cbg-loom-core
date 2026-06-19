@@ -1,0 +1,3 @@
+prompt: CBG Studio | Counterweight Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, Industrial noir aesthetic, kinetic harness, power bank, laptop, low-trust environments, industrial noir color palette, ultraviolet purple accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260618_220219
