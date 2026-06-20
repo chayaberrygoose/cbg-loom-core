@@ -1,0 +1,3 @@
+prompt: CBG Studio | Fracture Point 2 Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial noir, asynchronicity, temporal dissonance, pixelated textures, industrial noir color palette, molten orange accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260620_140222
