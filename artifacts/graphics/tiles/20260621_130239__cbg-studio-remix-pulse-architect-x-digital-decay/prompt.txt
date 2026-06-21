@@ -1,0 +1,3 @@
+prompt: CBG Studio | REMIX [PULSE_ARCHITECT x Digital Decay 2]: seamless textile pattern, repeatable surface design, flat layout, architectural motif, oscilloscope wave patterns, frequency oscillation lines, audio-reactive topography, rhythmic signal peaks, sound-map texture, hardware hum aesthetic, pulse-line geometry., subtle interference: high-concept, futuristic, industrial noir, zero-gravity environments, industrial noir color palette, signal white accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260621_130239
