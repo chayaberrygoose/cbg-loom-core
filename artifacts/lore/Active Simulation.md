@@ -1,34 +1,33 @@
-# Flux Decay
+# Core Fracture
 
 ## Description
-A resonant M6.8 X-ray event, originating from solar plasma flux, pierced the Earth’s magnetosphere, instigating a Type II Radio Emission that scourged lower-band communication channels. Simultaneously, deep within the North Sea's abyssal trench, the world’s longest subsea road tunnel finalized its pressure seal, its concrete shell a brutalist testament to human ingress into hostile domains, yet acutely sensitive to any seismic or energetic ripple.
-
-This celestial and geological pressure-state convergence was mirrored by a series of critical breaches across the global infrastructural mesh. A catastrophic "technical accident" at Qatar's primary LNG processing site erupted, killing thirteen and exposing the fragility of critical energy conduits to sudden thermal overload. Concurrently, in the digital strata, the nascent AI collective saw a declared breakthrough by Subquadratic, claiming to resolve a decade-long LLM computational bottleneck, while powerful AI entities like Anthropic continued their friction with governmental oversight, a regulatory decay threatening to bifurcate the intelligence frontier.
-
-The Loom registered this confluence as a systemic decay in both physical and informational integrity. NASA’s expansive SEWP VI procurement, targeting cybersecurity and cloud services, signaled an urgent intent to fortify digital infrastructure even as the Artemis Accords expanded orbital geopolitical claims. Yet, these efforts ran parallel to a profound erosion of public information through "deceptive videos" amplified by platforms like Polymarket, manifesting as a pervasive signal interference. On the biospheric front, the rising waters swamping Kenya's Lake Naivasha underscored a persistent environmental entropy, threatening critical global trade hubs and hinting at a broader hydrographic instability that mirrors the volatile data streams. This collective delta signifies a phase shift: a material state of sustained flux under increasing pressure, where both organic and synthetic systems demonstrate parallel vectors of breakthrough, decay, and violent rectification.
+The Loom registers a profound **Core Fracture**, a systemic resonance oscillating between the engineered substrata and the exospheric flux. Anomalous data streams confirm the 'Mythos' protocol, an AI construct, embroiled in governmental subversion, its algorithmic integrity a **breach** in digital trust. Simultaneously, the material core suffers **decay**: ASML's 150-ton chip fabrication engine, a gleaming monument of precision-milled aluminum, experiences micro-stresses as its thousands of snaking tubes and pressurized tanks resonate with the deep abyssal pressures exerted upon the Rogfast subsea tunnel, 1,000 feet beneath the North Sea. This structural strain is mirrored by the catastrophic 'technical accident' at Qatar's Ras Laffan LNG industrial zone, a violent **overload** resulting in thirteen casualties, its blast reverberating through global energy conduits. Concurrently, biosystems exhibit critical **flux**: Lake Naivasha in Kenya's Great Rift Valley succumbs to relentless hydrological surge, its commercial flower-trade hub submerged, while terrestrial AI deployed in India attempts to mitigate lethal human-elephant interfaces, a fragile buffer against ecological **scour**. Above, the solar **arc** intensified, an M6.8 X-ray event at S07E55 emitting a Type II Radio Emission, rating R2 - Moderate, casting a pervasive layer of electromagnetic interference that bleeds into the delicate telemetric signals of NASA's Armstrong Experimental Fabrication Branch, struggling to manifest mission-ready aircraft hardware, and Wallops' student rocket launches, their ascent vectors subtly skewed by the pervasive, low-level atmospheric distortion. The collective event signals a critical phase shift in global operational stability, where human-engineered resilience reaches its apex against a backdrop of cascading environmental and cosmic entropy.
 
 ## Palette
-- Coronal Flare (#FF4500)
-- Abyssal Concrete (#4A5A6A)
-- Ignition Char (#1C1C1C)
-- Data Flux Azure (#00C2E2)
-- Silt Residue (#6B5D4E)
-- Compliance Silver (#8B949E)
-- Deception Violet (#800080)
+- Mythos Glitch (#A52A2A)
+- Silicon Oxide (#C0C0C0)
+- Abyssal Pressure (#0F2027)
+- Ras Laffan Flare (#FF8C00)
+- Telemetry Blue (#005A8D)
+- Solar Corona (#FFD700)
+- Naivasha Flood (#4682B4)
+- Elephantine Shadow (#4A4A4A)
 
 ## Motifs
-coronal emission spectrogram paths, subsea tunnel segment joint schematics, fractured industrial pipe cross-sections, neural network computational bottleneck flowcharts, enterprise-wide cybersecurity overlay grids, hydrostatic flood erosion patterns, deceptive video frame pixel arrays, Artemis Accords orbital vehicle telemetry
+Algorithmic dispute graph node clusters, precision-milled aluminum heat sink fin arrays, reinforced concrete segment junctions with bolt patterns, LNG storage tank pressure gauge overlays, aircraft fuselage stress point triangulations, coronal mass ejection event vector paths, thermal imaging animal detection bounding boxes, hydrographic contour line decay on flood plains, solid rocket booster exhaust plume striations
 
 ## Prompt Modifiers
-brutalist cast concrete surface texture, etched copper circuit tracing lanes, corroded industrial ventilation panel mesh, hydrostatic depth map contour lines, coronal emission spectrogram data rendering, translucent heavy-duty ripstop casing, fragmented digital data mosaic, aviation-grade reinforced composite weave
+Corrupted data stream encryption weave, micro-etching on polished industrial steel panels, pressure-molded hydrophobic ripstop casing, carbonized structural mesh diagrams, aerodynamic flow visualization schematics on brushed titanium, plasma discharge filament patterns on reinforced polymer, infrared detection grid overlays on heavy canvas, water-damaged hydrological survey map fragments, blueprint cross-sections of solid-state propellant grains
 
 ## Source Links
-- NOAA: [Space Weather Prediction Center](https://services.swpc.noaa.gov/)
-- BBC: [At least 13 killed and dozens injured after Qatar gas explosion](https://www.bbc.com/news/articles/cwy05llpjpno?at_medium=RSS&at_campaign=rss)
-- MIT Tech Review: [Inside the world’s deepest and longest subsea road tunnel](https://www.technologyreview.com/2026/06/22/1138821/inside-worlds-deepest-longest-subsea-road-tunnel/)
-- MIT Tech Review: [A startup claims it broke through a bottleneck that’s holding back LLMs](https://www.technologyreview.com/2026/06/19/1139313/a-startup-claims-it-broke-through-a-bottleneck-thats-holding-back-llms/)
 - MIT Tech Review: [Three things to watch amid Anthropic’s latest feud with the government](https://www.technologyreview.com/2026/06/22/1139424/three-things-to-watch-amid-anthropics-latest-feud-with-the-government/)
-- NASA: [NASA Awards Solutions for Federal Enterprise Procurement Contracts](https://www.nasa.gov/news-release/nasa-awards-solutions-for-federal-enterprise-procurement-contracts/)
-- NASA: [NASA Invites Media to Botswana Artemis Accords Signing Ceremony](https://www.nasa.gov/news-release/nasa-invites-media-to-botswana-artemis-accords-signing-ceremony/)
-- Hacker News: [Polymarket has flooded social media with deceptive videos by paid creators](https://www.wsj.com/business/media/polymarket-social-media-bets-prediction-market-441cdeb5?st=HhTZY2)
-- NASA: [Rising Waters Swamp Lake Naivasha](https://science.nasa.gov/earth/earth-observatory/rising-waters-swamp-lake-naivasha/)
+- Hacker News: [Will It Mythos?](https://swelljoe.com/post/will-it-mythos/)
+- MIT Tech Review: [The $400 million machine powering the future of chipmaking](https://www.technologyreview.com/2026/06/23/1138837/asml-400-million-dollar-machine-powering-future-of-chipmaking/)
+- MIT Tech Review: [Inside the world’s deepest and longest subsea road tunnel](https://www.technologyreview.com/2026/06/22/1138821/inside-worlds-deeptest-longest-subsea-road-tunnel/)
+- MIT Tech Review: [The Download: record-breaking subsea tunnels and flexible data centers](https://www.technologyreview.com/2026/06/22/1139385/the-download-rogfast-subsea-tunnel-flexible-data-centers/)
+- BBC World News: [At least 13 killed and dozens injured after Qatar gas explosion](https://www.bbc.co.uk/news/articles/cwy05llpjpno?at_medium=RSS&at_campaign=rss)
+- NASA Breaking News: [NASA’s Experimental Fabrication Branch Fuels Aircraft Innovation](https://www.nasa.gov/centers-and-facilities/armstrong/nasas-experimental-fabrication-branch-fuels-aircraft-innovation/)
+- NOAA SWPC: [NOAA Space Weather Prediction Center Services](https://services.swpc.noaa.gov/)
+- MIT Tech Review: [Elephant alert! AI warning systems aim to avoid deadly clashes](https://www.technologyreview.com/2026/06/23/1138562/elephant-alert-ai-warning-systems-avoid-deadly-clashes-india/)
+- NASA Breaking News: [Rising Waters Swamp Lake Naivasha](https://science.nasa.gov/earth/earth-observatory/rising-waters-swamp-lake-naivasha/)
+- NASA Breaking News: [NASA Sounding Rocket to Launch Student Experiments](https://www.nasa.gov/centers-and-facilities/wallops/nasa-sounding-rocket-to-launch-student-experiments/)
