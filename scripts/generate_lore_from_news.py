@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-# /* [FILE_ID]: scripts/GENERATE_LORE_FROM_NEWS // VERSION: 1.0 // STATUS: STABLE */
-# [NARRATIVE]: Scrapes stable real-time news and space weather feeds, then uses Gemini 
-#              to synthesize active simulation lore (Incident Brief / World-State Delta)
-#              directly inside the artifacts/lore/ directory.
+# /* [FILE_ID]: scripts/GENERATE_LORE_FROM_NEWS // VERSION: 1.1 // STATUS: STABLE */
+# [NARRATIVE]: Scrapes stable real-time news and space weather feeds looking back 24 hours,
+#              then uses Gemini to synthesize active simulation lore (Incident Brief / World-State Delta)
+#              with multiple distinct themes and concrete physical motifs directly inside the artifacts/lore/ directory.
 # [USAGE]: python3 scripts/generate_lore_from_news.py
 
 import os
@@ -11,8 +11,10 @@ import re
 import argparse
 import xml.etree.ElementTree as ET
 from pathlib import Path
-from datetime import datetime, timedelta
+import datetime
+from datetime import datetime, timedelta, timezone
 import html
+from email.utils import parsedate_to_datetime
 
 import requests
 
@@ -31,52 +33,138 @@ FEEDS = {
 
 NOAA_ALERTS_URL = "https://services.swpc.noaa.gov/products/alerts.json"
 
-def fetch_rss_feed(name: str, url: str, max_items: int = 4) -> list:
-    """Fetch and parse RSS feed, return list of {title, description, source}."""
-    print(f"[SYSTEM_LOG]: Ingesting feed signals from: {name} …")
+def fetch_rss_feed(name: str, url: str, max_items: int = 15, hours_lookback: int = 24) -> list:
+    """Fetch and parse RSS feed, return list of {title, description, source, pubDate}
+    filtering for items within the lookback window. Falls back to at least top 5 items."""
+    print(f"[SYSTEM_LOG]: Ingesting feed signals from: {name} (24h filter active) …")
     try:
         resp = requests.get(url, timeout=12)
         resp.raise_for_status()
         
         # Clean response text from potential weird characters/bytes
         root = ET.fromstring(resp.content)
-        items = []
-        for item in root.findall(".//item")[:max_items]:
+        all_items = root.findall(".//item")
+        
+        filtered_items = []
+        now = datetime.now(timezone.utc)
+        
+        for item in all_items:
             title_el = item.find("title")
             desc_el = item.find("description")
+            pub_date_el = item.find("pubDate")
             
             title = title_el.text.strip() if title_el is not None and title_el.text else ""
             desc = desc_el.text.strip() if desc_el is not None and desc_el.text else ""
+            pub_date_str = pub_date_el.text.strip() if pub_date_el is not None and pub_date_el.text else ""
             
             # Clean HTML tags and entities
             title = re.sub(r"<[^>]+>", "", html.unescape(title)).strip()
             desc = re.sub(r"<[^>]+>", "", html.unescape(desc)).strip()
             
-            if title:
-                items.append({
+            if not title:
+                continue
+                
+            # Filter by hours_lookback
+            is_recent = True
+            if pub_date_str:
+                try:
+                    dt = parsedate_to_datetime(pub_date_str)
+                    if dt.tzinfo is None:
+                        dt = dt.replace(tzinfo=timezone.utc)
+                    if (now - dt) > timedelta(hours=hours_lookback):
+                        is_recent = False
+                except Exception:
+                    pass
+            
+            if is_recent:
+                filtered_items.append({
                     "title": title,
                     "description": desc,
-                    "source": name
+                    "source": name,
+                    "pub_date": pub_date_str
                 })
-        return items
+                if len(filtered_items) >= max_items:
+                    break
+                    
+        # Robust fallback: if fewer than 5 items found in last 24 hours, take the top 5 from the feed anyway
+        if len(filtered_items) < 5 and len(all_items) > 0:
+            for item in all_items:
+                title_el = item.find("title")
+                desc_el = item.find("description")
+                pub_date_el = item.find("pubDate")
+                
+                title = title_el.text.strip() if title_el is not None and title_el.text else ""
+                desc = desc_el.text.strip() if desc_el is not None and desc_el.text else ""
+                pub_date_str = pub_date_el.text.strip() if pub_date_el is not None and pub_date_el.text else ""
+                
+                title = re.sub(r"<[^>]+>", "", html.unescape(title)).strip()
+                desc = re.sub(r"<[^>]+>", "", html.unescape(desc)).strip()
+                
+                if not title:
+                    continue
+                    
+                # Check if it's already added to avoid duplicates
+                if any(x["title"] == title for x in filtered_items):
+                    continue
+                    
+                filtered_items.append({
+                    "title": title,
+                    "description": desc,
+                    "source": name,
+                    "pub_date": pub_date_str
+                })
+                if len(filtered_items) >= 5:
+                    break
+                    
+        return filtered_items
     except Exception as e:
         print(f"[SYSTEM_WARNING]: Feed disruption on {name} — {e}")
         return []
 
-def fetch_noaa_alerts() -> str:
-    """Fetch space weather alerts from NOAA SWPC (JSON format)."""
-    print("[SYSTEM_LOG]: Ingesting NOAA Space Weather telemetry …")
+def fetch_noaa_alerts(hours_lookback: int = 24) -> str:
+    """Fetch space weather alerts from NOAA SWPC (JSON format) within last 24h."""
+    print("[SYSTEM_LOG]: Ingesting NOAA Space Weather telemetry (24h filter active) …")
     try:
         resp = requests.get(NOAA_ALERTS_URL, timeout=12)
         resp.raise_for_status()
         alerts = resp.json()
         messages = []
-        # Grab first 4 active alerts to avoid prompt bloating
-        for alert in alerts[:4]:
-            msg = alert.get("message", "").strip()
-            # Clean repetitive/technical metadata to keep lore focused
-            msg = re.sub(r"(Space Weather Message Code|Serial Number|Issue Time):.*\n?", "", msg, flags=re.IGNORECASE)
-            messages.append(msg)
+        now = datetime.now(timezone.utc)
+        
+        for alert in alerts:
+            issue_dt_str = alert.get("issue_datetime", "").strip()
+            is_recent = True
+            if issue_dt_str:
+                try:
+                    dt = datetime.fromisoformat(issue_dt_str.replace("Z", "+00:00"))
+                    if dt.tzinfo is None:
+                        dt = dt.replace(tzinfo=timezone.utc)
+                    if (now - dt) > timedelta(hours=hours_lookback):
+                        is_recent = False
+                except Exception:
+                    try:
+                        dt = datetime.strptime(issue_dt_str.split(".")[0], "%Y-%m-%d %H:%M:%S")
+                        dt = dt.replace(tzinfo=timezone.utc)
+                        if (now - dt) > timedelta(hours=hours_lookback):
+                            is_recent = False
+                    except Exception:
+                        pass
+            
+            if is_recent:
+                msg = alert.get("message", "").strip()
+                # Clean repetitive/technical metadata to keep lore focused
+                msg = re.sub(r"(Space Weather Message Code|Serial Number|Issue Time):.*\n?", "", msg, flags=re.IGNORECASE)
+                messages.append(msg)
+                if len(messages) >= 8:
+                    break
+                    
+        # Robust fallback: fetch first 4 available if none are in 24 hours
+        if not messages and alerts:
+            for alert in alerts[:4]:
+                msg = alert.get("message", "").strip()
+                msg = re.sub(r"(Space Weather Message Code|Serial Number|Issue Time):.*\n?", "", msg, flags=re.IGNORECASE)
+                messages.append(msg)
+                
         return "\n\n".join(messages)
     except Exception as e:
         print(f"[SYSTEM_WARNING]: Telemetry disrupted on NOAA SWPC — {e}")
@@ -92,7 +180,7 @@ def assemble_news_delta() -> str:
     
     summary_parts = []
     if news_items:
-        summary_parts.append("=== CAPTURED TELEMETERED NEWS ===")
+        summary_parts.append("=== CAPTURED TELEMETERED NEWS (24-HOUR RETROSPECTIVE) ===")
         for i, item in enumerate(news_items, 1):
             desc_str = f" - {item['description']}" if item['description'] else ""
             summary_parts.append(f"[{item['source']}]: {item['title']}{desc_str}")
@@ -106,36 +194,37 @@ def assemble_news_delta() -> str:
     return "\n".join(summary_parts)
 
 def generate_lore_prompt(news_summary: str) -> str:
-    """Builds system prompt for Gemini lore synthesis."""
+    """Builds system prompt for Gemini lore synthesis, forcing multi-article, topical concrete detail."""
     return f"""You are the central Narrative Synthesis Core for the "Loom" of Chaya Berry Goose (CBG Studio), an Industrial Noir/Tech-Wear brand.
 
-The current world-state delta has captured the following raw signals of real-world chaos, infrastructure failures, server outages, space weather, cybersecurity incidents, and technological friction:
+The current 24-hour world-state delta has captured the following raw signals of real-world chaos, infrastructure failures, server outages, space weather, cybersecurity incidents, and technological friction:
 
 \"\"\"
 {news_summary}
 \"\"\"
 
-Your task: Synthesize these real-world disruptions of the past hour into a single, cohesive, high-fidelity textile lore "Incident" or "World-State Delta".
+Your task: Analyze these real-world disruptions of the past 24 hours. Identify AT LEAST 3 completely distinct real-world incidents, themes, or articles from the provided telemetry.
+Then, synthesize these distinct events into a single, cohesive, high-fidelity textile lore "Incident" or "World-State Delta" for CBG Studio.
 
 This must be translated through the trademark CBG clinical, Brutalist, and Industrial Noir perspective. Do not use generic corporate language, hype, or marketing speak. Use clinical, technical, and atmospheric vocabulary (e.g. "Abyssal", "flux", "rift", "interference", "decay", "breach", "resonance", "overload", "scour").
 
-First, generate a unique, evocative, and dark TWO-WORD Industrial Noir title of the incident/pattern (examples: "Signal Scour", "Silicon Pulse", "Cobalt Surge", "Thermal Breach", "Voltage Fracture").
+First, generate a unique, evocative, and dark TWO-WORD Industrial Noir title of the collective incident/pattern (examples: "Signal Scour", "Silicon Pulse", "Cobalt Surge", "Thermal Breach", "Voltage Fracture").
 
 Output the synthesized result ONLY in this exact Markdown schema:
 
 # [Two-Word Title]
 
 ## Description
-(2-3 sentences. A technical, clinical narrative block describing the world-state incident and how it has infiltrated the active simulation of the Loom. Highlight how infrastructure or natural forces interacted.)
+(A highly detailed technical, clinical narrative block. Do NOT make this abstract or generic. You must explicitly name, describe, and synthesize the 3 distinct real-world incidents you identified from the news summaries. Mention specific details, organizations, locations, or technical terms directly from those 3 incidents. Explain how these 3 distinct signals collided in the Loom, causing a collective material shift or simulation anomaly.)
 
 ## Palette
-(4-6 colors representing the aesthetic palette of this event, formatted exactly as "Name (#HEXCODE)" entries on separate lines with a leading dash, e.g., "- Cyan Surge (#00FFF0)")
+(4-6 colors representing the aesthetic palette of these combined events, formatted exactly as "Color Name (#HEXCODE)" entries on separate lines with a leading dash. The color names themselves must be inspired by the specific incidents, e.g. "- Outage Amber (#FF7A00)" or "- Auroral Oxide (#1F302B)".)
 
 ## Motifs
-(4-6 visual pattern keywords, comma-separated, e.g., grid patterns, interference fringes, signal noise, liquid cooling lines)
+(4-6 visual pattern keywords, comma-separated. CRITICAL: Strictly avoid abstract, generic geometrical phrases like 'grid patterns', 'thermal lines', 'glitch lines', or 'noise'. Instead, provide highly specific, concrete physical and technical visual elements directly derived from the 3 real-world incidents, e.g. 'undersea coaxial cable cross-sections', 'aviation flight instrument HUD vectors', 'mainframe rack-mount ventilation slot arrays', 'orbital satellite telemetric coordinate lines', or 'coronal emission spectrogram paths'.)
 
 ## Prompt Modifiers
-(Comma-separated textile/design modifiers suitable for clothing generation, e.g., brutalist concrete texture, distorted signal lines, retro-reflective markings, digital noise map)
+(4-6 comma-separated textile/design modifiers suitable for Midjourney/Gemini clothing and pattern generation. CRITICAL: Avoid abstract concepts. Specify physical, tangible textures, wireframes, technical drawings, blueprints, or authentic telemetry layouts related specifically to the events, e.g. 'brutalist cast concrete slab texture', 'etched copper circuit tracing lanes', 'translucent heavy-duty ripstop casing', 'vintage flight log vector diagrams'.)
 
 Rules:
 - Section headers must be exactly: ## Description, ## Palette, ## Motifs, ## Prompt Modifiers
