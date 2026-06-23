@@ -402,7 +402,7 @@ def generate_context_prompt(theme, role, base_prompt=None, theme_data=None, base
             
         combined_desc = ""
         if base_data.get("description") and breach_data.get("description"):
-            combined_desc = f"Interlocking structure from {base_name} ({base_data['description'][:150]}...) colliding with interference from {breach_name} ({breach_data['description'][:150]}...)"
+            combined_desc = f"Interlocking structure from {base_name} ({base_data['description']}) colliding with interference from {breach_name} ({breach_data['description']})"
 
         if role == "tile":
             # Tiles = Base (Structure) with Breach interference bleeding in
@@ -490,7 +490,7 @@ def generate_context_prompt(theme, role, base_prompt=None, theme_data=None, base
         if theme_data.get("palette"):
             palette_cln = _parse_colors(theme_data.get("palette"))
         if theme_data.get("description"):
-            desc_part = f"atmospheric concept: {theme_data['description'][:300]}..."
+            desc_part = f"atmospheric concept: {theme_data['description']}"
 
     palette_part = f"color scheme: {palette_cln}" if palette_cln else f"industrial noir color palette, or deep charcoal base with {_random_accent()} accents"
     
