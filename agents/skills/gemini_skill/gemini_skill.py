@@ -53,8 +53,8 @@ def initialize_loom_uplink(model_name: Optional[str] = None) -> str:
         _log(f"[SYSTEM_LOG]: Using requested model: {model_name}")
         return model_name
 
-    # Default to gemini-2.0-flash
-    default_model = "gemini-2.0-flash"
+    # Default to gemini-2.5-flash
+    default_model = "gemini-2.5-flash"
     _log(f"[SYSTEM_LOG]: Loom Uplink Established with {default_model}. Ready for Synthesis.")
     return default_model
 
@@ -72,7 +72,7 @@ def generate_specimen_image(model_name: str, prompt: str):
     _log(f"[SYSTEM_LOG]: Engaging Image Synthesis for Specimen: {prompt}")
     try:
         response = client.models.generate_content(
-            model=model_name or "gemini-2.0-flash",
+            model=model_name or "gemini-2.5-flash",
             contents=[prompt],
             config=types.GenerateContentConfig(
                 response_modalities=["IMAGE", "TEXT"]
@@ -122,7 +122,7 @@ def generate_specimen_data(model_name: str, prompt: str):
         
     try:
         response = client.models.generate_content(
-            model=model_name or "gemini-2.0-flash",
+            model=model_name or "gemini-2.5-flash",
             contents=[prompt]
         )
         
@@ -136,7 +136,8 @@ def generate_specimen_data(model_name: str, prompt: str):
         _log(f"[SYSTEM_WARNING]: Primary model failure: {e}")
         
         fallback_models = [
-            'gemini-2.0-flash-lite',
+            'gemini-3.5-flash',
+            'gemini-2.5-flash-lite',
             'gemini-1.5-flash',
         ]
         

@@ -31,9 +31,10 @@ from scripts.fabricate_specimen_v2 import (
     select_remix_pair,
     select_least_used,
 )
+from scripts.generate_lore_from_news import run_lore_generation
 
 
-def run(theme=None, base=None, breach=None, template=None, prompt=None, tile_scale=None):
+def run(theme=None, base=None, breach=None, template=None, prompt=None, tile_scale=None, news=False):
     """
     Kick off a single fabrication run.
 
@@ -44,10 +45,34 @@ def run(theme=None, base=None, breach=None, template=None, prompt=None, tile_sca
         template: Search string to filter garment templates (e.g. "Hoodie", "Joggers").
         prompt:   Manual prompt override — bypasses lore-driven generation.
         tile_scale: Tile pattern scale override. Larger = bigger tiles. None = use template default.
+        news:     Enable Live News-driven Active Simulation mode (grabs news of the past hour,
+                  synthesizes lore, and crafts the product).
 
     Returns:
         The created Printify product dict, or None on failure.
     """
+    # Active Simulation: News-driven execution
+    # If no explicit theme, remix base/breach, or manual prompt override is specified,
+    # default to the live news-driven simulation.
+    is_explicit = (theme is not None) or (base is not None) or (breach is not None) or (prompt is not None)
+    if not is_explicit and not news:
+        print("[SYSTEM_LOG]: No explicit layout/theme specified. Defaulting to Active Simulation (live news mode).")
+        news = True
+
+    if news:
+        try:
+            print("[SYSTEM_LOG]: 🌐 INITIATING ACTIVE SIMULATION — News Telemetry Ingestion starting …")
+            news_theme, _ = run_lore_generation()
+            print(f"[SYSTEM_LOG]: Lore synthesized: '{news_theme}'. Continuing with fabrication…")
+            return fabricate_specimen(
+                theme=news_theme,
+                template_search=template,
+                prompt_override=prompt,
+                tile_scale=tile_scale,
+            )
+        except Exception as e:
+            print(f"[SYSTEM_WARNING]: News lore synthesis failed / bypassed: {e}. Falling back to standard pool.")
+
     available = list_available_themes()
     if not available:
         print("[SYSTEM_ERROR]: No lore files in artifacts/lore/. Cannot fabricate.")
@@ -106,6 +131,7 @@ if __name__ == "__main__":
     parser.add_argument("--template", help="Filter garment template (e.g. 'Hoodie')")
     parser.add_argument("--prompt", help="Manual prompt override")
     parser.add_argument("--tile-scale", type=float, default=1.0, help="Tile pattern scale (default: 1.0). Larger = bigger tiles.")
+    parser.add_argument("--news", action="store_true", help="Synthesize lore from live news and fabricate")
     args = parser.parse_args()
 
     result = run(
@@ -115,5 +141,6 @@ if __name__ == "__main__":
         template=args.template,
         prompt=args.prompt,
         tile_scale=args.tile_scale,
+        news=args.news,
     )
     sys.exit(0 if result else 1)
