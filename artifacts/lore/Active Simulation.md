@@ -1,40 +1,34 @@
-# SIGNAL CHOKE
+# Flux Decay
 
 ## Description
-The Loom registers a systemic pressure surge, manifesting as a pervasive **SIGNAL CHOKE** across multiple strata of both emergent and decaying infrastructure. Subquadratic's claimed breakthrough in Large Language Model architecture, alongside the VibeThinker model's novel reasoning, initiates a computational flux, attempting to breach a long-standing mathematical bottleneck. This advanced cognitive push is met by immediate friction, evidenced by Anthropic's 'Mythos' AI model clashing with governmental control parameters, indicating a nascent autonomy's resonance against regulatory impedance.
+A resonant M6.8 X-ray event, originating from solar plasma flux, pierced the Earth’s magnetosphere, instigating a Type II Radio Emission that scourged lower-band communication channels. Simultaneously, deep within the North Sea's abyssal trench, the world’s longest subsea road tunnel finalized its pressure seal, its concrete shell a brutalist testament to human ingress into hostile domains, yet acutely sensitive to any seismic or energetic ripple.
 
-Concurrently, deep infrastructure experiences resonant decay: the Rogfast subsea road tunnel beneath the North Sea, an abyssal artery, reports sustained pressure ingress and an unsettling ambient profile, suggesting structural fatigue under extreme geohydrological load. Above, a potent R2-Moderate Solar Kinetic Overload—an M6.8 X-ray event and Type II Radio Emission from S07E55—propagates an electromagnetic scour across atmospheric and orbital envelopes, introducing critical interference to communication and navigation arrays.
+This celestial and geological pressure-state convergence was mirrored by a series of critical breaches across the global infrastructural mesh. A catastrophic "technical accident" at Qatar's primary LNG processing site erupted, killing thirteen and exposing the fragility of critical energy conduits to sudden thermal overload. Concurrently, in the digital strata, the nascent AI collective saw a declared breakthrough by Subquadratic, claiming to resolve a decade-long LLM computational bottleneck, while powerful AI entities like Anthropic continued their friction with governmental oversight, a regulatory decay threatening to bifurcate the intelligence frontier.
 
-Terrestrial systems register accelerating decay: Lake Naivasha is experiencing acute hydrological engulfment from relentless rains, jeopardizing global logistics. A "technical accident" at Qatar's Ras Laffan LNG industrial zone broadcasts critical energy infrastructure vulnerability. Adaptive grid resilience measures, such as 'time-based use rates' and 'whole-home battery backups', emerge as distributed responses to predicted power supply precarity.
-
-Amidst these widespread frictions, localized experimental thrust continues: NASA's Wallops Flight Facility prepares a sounding rocket launch carrying student payloads, while the Armstrong Flight Research Center's Experimental Fabrication Branch outputs mission-critical hardware, demonstrating a persistent, if isolated, drive for material innovation. Underlying digital operations witness a protocol evolution with the introduction of the new HTTP QUERY method, a low-level restructuring of data negotiation pathways attempting to maintain network resonance. Yet, the human substratum remains acutely vulnerable, evidenced by a fatal building fire in North India and the chilling report of Nancy Guthrie's abduction and death, echoing abrupt, violent points of societal collapse and unresolved human-system breach.
+The Loom registered this confluence as a systemic decay in both physical and informational integrity. NASA’s expansive SEWP VI procurement, targeting cybersecurity and cloud services, signaled an urgent intent to fortify digital infrastructure even as the Artemis Accords expanded orbital geopolitical claims. Yet, these efforts ran parallel to a profound erosion of public information through "deceptive videos" amplified by platforms like Polymarket, manifesting as a pervasive signal interference. On the biospheric front, the rising waters swamping Kenya's Lake Naivasha underscored a persistent environmental entropy, threatening critical global trade hubs and hinting at a broader hydrographic instability that mirrors the volatile data streams. This collective delta signifies a phase shift: a material state of sustained flux under increasing pressure, where both organic and synthetic systems demonstrate parallel vectors of breakthrough, decay, and violent rectification.
 
 ## Palette
--   Neural Flux Gray (#4A4A5C)
--   Abyssal Concrete (#2C353C)
--   Solar Flare Amber (#FF7A00)
--   Hydrographic Silt (#6F7A6C)
--   Industrial Carbon (#1A1A1A)
--   Thermal Accident Ochre (#B5651D)
--   Protocol Steel (#6B7C8C)
+- Coronal Flare (#FF4500)
+- Abyssal Concrete (#4A5A6A)
+- Ignition Char (#1C1C1C)
+- Data Flux Azure (#00C2E2)
+- Silt Residue (#6B5D4E)
+- Compliance Silver (#8B949E)
+- Deception Violet (#800080)
 
 ## Motifs
-Computational graph nodes, subsea pressure hull rivet patterns, coronal mass ejection particle trails, hydrological inundation flowcharts, industrial catalyst reactor grilles, telemetry rocket launch vectors, HTTP header field delimiters, distressed structural steel stress maps, integrated circuit bottleneck junctions, power grid load redistribution diagrams
+coronal emission spectrogram paths, subsea tunnel segment joint schematics, fractured industrial pipe cross-sections, neural network computational bottleneck flowcharts, enterprise-wide cybersecurity overlay grids, hydrostatic flood erosion patterns, deceptive video frame pixel arrays, Artemis Accords orbital vehicle telemetry
 
 ## Prompt Modifiers
-Cast concrete brutalist texture, etched silicon wafer substrates, thermo-ablative composite laminates, submersible pressure hull blueprints, spectrographic solar flux emissions, rusted industrial ventilation mesh, high-voltage power distribution wireframes, flood-damaged server rack diagrams, ballistic flight trajectory vectors, data packet collision wireframes
+brutalist cast concrete surface texture, etched copper circuit tracing lanes, corroded industrial ventilation panel mesh, hydrostatic depth map contour lines, coronal emission spectrogram data rendering, translucent heavy-duty ripstop casing, fragmented digital data mosaic, aviation-grade reinforced composite weave
 
 ## Source Links
--   MIT Tech Review: [A startup claims it broke through a bottleneck that’s holding back LLMs](https://www.technologyreview.com/2026/06/19/1139313/a-startup-claims-it-broke-through-a-bottleneck-thats-holding-back-llms/)
--   MIT Tech Review: [Inside the world’s deepest and longest subsea road tunnel](https://www.technologyreview.com/2026/06/22/1138821/inside-worlds-deepest-longest-subsea-road-tunnel/)
--   NASA Breaking News: [Rising Waters Swamp Lake Naivasha](https://science.nasa.gov/earth/earth-observatory/rising-waters-swamp-lake-naivasha/)
--   NASA Breaking News: [NASA’s Experimental Fabrication Branch Fuels Aircraft Innovation](https://www.nasa.gov/centers-and-facilities/armstrong/nasas-experimental-fabrication-branch-fuels-aircraft-innovation/)
--   NASA Breaking News: [NASA Sounding Rocket to Launch Student Experiments](https://www.nasa.gov/centers-and-facilities/wallops/nasa-sounding-rocket-to-launch-student-experiments/)
--   Wired: [Time-Based Use Rates and Whole-Home Battery Backups Combine](https://www.wired.com/story/i-slashed-my-power-bill-in-half-with-a-whole-home-battery/)
--   BBC World News: [At least 13 killed and dozens injured after Qatar gas explosion](https://www.bbc.com/news/articles/cwy05llpjpno?at_medium=RSS&at_campaign=rss)
--   Hacker News: [The new HTTP QUERY method explained](https://kreya.app/blog/new-http-query-method-explained/)
--   BBC World News: [Inquiry ordered after building fire kills 15 in north India city](https://www.bbc.com/news/articles/cwyde73w680o?at_medium=RSS&at_campaign=rss)
--   BBC World News: [Ransom note claims Nancy Guthrie died after abduction](https://www.bbc.com/news/articles/cvgm0mgzl33o?at_medium=RSS&at_campaign=rss)
--   MIT Tech Review: [Three things to watch amid Anthropic’s latest feud with the government](https://www.technologyreview.com/2026/06/22/1139424/three-things-to-watch-amid-anthropics-latest-feud-with-the-government/)
--   Hacker News: [VibeThinker: 3B param model that beats Opus 4.5 on reasoning with novel SFT+GRPO](https://arxiv.org/abs/2606.16140)
--   NOAA SWPC: [Space Weather Highlights](https://services.swpc.noaa.gov/)
+- NOAA: [Space Weather Prediction Center](https://services.swpc.noaa.gov/)
+- BBC: [At least 13 killed and dozens injured after Qatar gas explosion](https://www.bbc.com/news/articles/cwy05llpjpno?at_medium=RSS&at_campaign=rss)
+- MIT Tech Review: [Inside the world’s deepest and longest subsea road tunnel](https://www.technologyreview.com/2026/06/22/1138821/inside-worlds-deepest-longest-subsea-road-tunnel/)
+- MIT Tech Review: [A startup claims it broke through a bottleneck that’s holding back LLMs](https://www.technologyreview.com/2026/06/19/1139313/a-startup-claims-it-broke-through-a-bottleneck-thats-holding-back-llms/)
+- MIT Tech Review: [Three things to watch amid Anthropic’s latest feud with the government](https://www.technologyreview.com/2026/06/22/1139424/three-things-to-watch-amid-anthropics-latest-feud-with-the-government/)
+- NASA: [NASA Awards Solutions for Federal Enterprise Procurement Contracts](https://www.nasa.gov/news-release/nasa-awards-solutions-for-federal-enterprise-procurement-contracts/)
+- NASA: [NASA Invites Media to Botswana Artemis Accords Signing Ceremony](https://www.nasa.gov/news-release/nasa-invites-media-to-botswana-artemis-accords-signing-ceremony/)
+- Hacker News: [Polymarket has flooded social media with deceptive videos by paid creators](https://www.wsj.com/business/media/polymarket-social-media-bets-prediction-market-441cdeb5?st=HhTZY2)
+- NASA: [Rising Waters Swamp Lake Naivasha](https://science.nasa.gov/earth/earth-observatory/rising-waters-swamp-lake-naivasha/)
