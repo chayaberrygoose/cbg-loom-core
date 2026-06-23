@@ -36,10 +36,10 @@ FEEDS = {
 
 NOAA_ALERTS_URL = "https://services.swpc.noaa.gov/products/alerts.json"
 
-def fetch_rss_feed(name: str, url: str, max_items: int = 15, hours_lookback: int = 24) -> list:
+def fetch_rss_feed(name: str, url: str, max_items: int = 15, hours_lookback: int = 1) -> list:
     """Fetch and parse RSS feed, return list of {title, description, source, pub_date, link}
     filtering for items within the lookback window. Falls back to at least top 5 items."""
-    print(f"[SYSTEM_LOG]: Ingesting feed signals from: {name} (24h filter active) …")
+    print(f"[SYSTEM_LOG]: Ingesting feed signals from: {name} (1h filter active) …")
     try:
         resp = requests.get(url, timeout=12)
         resp.raise_for_status()
@@ -92,7 +92,7 @@ def fetch_rss_feed(name: str, url: str, max_items: int = 15, hours_lookback: int
                 if len(filtered_items) >= max_items:
                     break
                     
-        # Robust fallback: if fewer than 5 items found in last 24 hours, take the top 5 from the feed anyway
+        # Robust fallback: if fewer than 5 items found in last hour, take the top 5 from the feed anyway
         if len(filtered_items) < 5 and len(all_items) > 0:
             for item in all_items:
                 title_el = item.find("title")
@@ -130,9 +130,9 @@ def fetch_rss_feed(name: str, url: str, max_items: int = 15, hours_lookback: int
         print(f"[SYSTEM_WARNING]: Feed disruption on {name} — {e}")
         return []
 
-def fetch_noaa_alerts(hours_lookback: int = 24) -> str:
-    """Fetch space weather alerts from NOAA SWPC (JSON format) within last 24h."""
-    print("[SYSTEM_LOG]: Ingesting NOAA Space Weather telemetry (24h filter active) …")
+def fetch_noaa_alerts(hours_lookback: int = 1) -> str:
+    """Fetch space weather alerts from NOAA SWPC (JSON format) within last hour."""
+    print("[SYSTEM_LOG]: Ingesting NOAA Space Weather telemetry (1h filter active) …")
     try:
         resp = requests.get(NOAA_ALERTS_URL, timeout=12)
         resp.raise_for_status()
@@ -167,7 +167,7 @@ def fetch_noaa_alerts(hours_lookback: int = 24) -> str:
                 if len(messages) >= 8:
                     break
                     
-        # Robust fallback: fetch first 4 available if none are in 24 hours
+        # Robust fallback: fetch first 4 available if none are in last hour
         if not messages and alerts:
             for alert in alerts[:4]:
                 msg = alert.get("message", "").strip()
@@ -185,9 +185,9 @@ def assemble_news_delta() -> str:
     news_items = []
     # Cap each feed to max 4 items to enforce balance/variety between sources
     for name, url in FEEDS.items():
-        news_items.extend(fetch_rss_feed(name, url, max_items=4))
+        news_items.extend(fetch_rss_feed(name, url, max_items=4, hours_lookback=1))
         
-    noaa = fetch_noaa_alerts()
+    noaa = fetch_noaa_alerts(hours_lookback=1)
     
     # Shuffle news items to prevent any single dominant source (like BBC General News)
     # from clustering together and biasing the narrative synthesis.
@@ -195,7 +195,7 @@ def assemble_news_delta() -> str:
     
     summary_parts = []
     if news_items:
-        summary_parts.append("=== CAPTURED TELEMETERED NEWS (24-HOUR RETROSPECTIVE) ===")
+        summary_parts.append("=== CAPTURED TELEMETERED NEWS (1-HOUR REAL-TIME DELTA) ===")
         for i, item in enumerate(news_items, 1):
             desc_str = f" - {item['description']}" if item['description'] else ""
             link_str = f" (Source Link: {item['link']})" if item.get('link') else ""
@@ -213,13 +213,13 @@ def generate_lore_prompt(news_summary: str) -> str:
     """Builds system prompt for Gemini lore synthesis, forcing multi-article, topical concrete detail."""
     return f"""You are the central Narrative Synthesis Core for the "Loom" of Chaya Berry Goose (CBG Studio), an Industrial Noir/Tech-Wear brand.
 
-The current 24-hour world-state delta has captured the following raw signals of real-world chaos, infrastructure failures, server outages, space weather, cybersecurity incidents, and technological friction:
+The current 1-hour world-state delta has captured the following raw signals of real-world chaos, infrastructure failures, server outages, space weather, cybersecurity incidents, and technological friction:
 
 \"\"\"
 {news_summary}
 \"\"\"
 
-Your task: Analyze these real-world disruptions of the past 24 hours. Identify between 5 to 10 completely distinct real-world incidents, topics, technological failures, space anomalies, or research breakthroughs from the provided telemetry.
+Your task: Analyze these real-world disruptions of the past hour. Identify between 5 to 10 completely distinct real-world incidents, topics, technological failures, space anomalies, or research breakthroughs from the provided telemetry.
 Then, synthesize these distinct events into a single, cohesive, high-fidelity textile lore "Incident" or "World-State Delta" for CBG Studio.
 
 This must be translated through the trademark CBG clinical, Brutalist, and Industrial Noir perspective. Do not use generic corporate language, hype, or marketing speak. Use clinical, technical, and atmospheric vocabulary (e.g. "Abyssal", "flux", "rift", "interference", "decay", "breach", "resonance", "overload", "scour").
