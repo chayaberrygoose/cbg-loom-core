@@ -167,6 +167,9 @@ def load_theme(theme_name: str) -> dict:
 
     for line in content.splitlines():
         stripped = line.strip()
+        if stripped.startswith("# "):
+            theme["name"] = stripped[2:].strip()
+            continue
         if stripped.startswith("## "):
             current_section = stripped[3:].strip().lower().replace(" ", "_")
             continue
@@ -182,10 +185,10 @@ def load_theme(theme_name: str) -> dict:
 
 
 def list_available_themes() -> list:
-    """Lists all theme names from artifacts/lore/*.md files."""
+    """Lists all theme names from artifacts/lore/*.md files, excluding Active Simulation."""
     if not LORE_DIR.exists():
         return []
-    return sorted([f.stem for f in LORE_DIR.glob("*.md")])
+    return sorted([f.stem for f in LORE_DIR.glob("*.md") if f.stem != "Active Simulation"])
 
 
 # ─── LORE USAGE TRACKER ────────────────────────────────────────────
@@ -652,8 +655,8 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
             _log(f"[SYSTEM_LOG]: Fusion: {remix_desc}")
     else:
         theme_data = load_theme(theme)
-        display_theme = theme
-        _log(f"[SYSTEM_LOG]: Initializing Fabrication Ritual for Theme: {theme}")
+        display_theme = theme_data.get("name", theme)
+        _log(f"[SYSTEM_LOG]: Initializing Fabrication Ritual for Theme: {display_theme} (Source: {theme})")
         if theme_data.get("description"):
             _log(f"[SYSTEM_LOG]: Lore loaded — {theme_data['description'][:120]}...")
     

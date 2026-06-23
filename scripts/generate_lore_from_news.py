@@ -243,7 +243,7 @@ Rules:
 """
 
 def save_lore_file(generated_text: str) -> tuple[str, Path]:
-    """Parse title from generated markdown and write to files under artifacts/lore/."""
+    """Saves the news-generated markdown as Active Simulation.md, overwriting previous run to prevent duplicate pollution."""
     title = None
     for line in generated_text.splitlines():
         if line.strip().startswith("# "):
@@ -253,20 +253,13 @@ def save_lore_file(generated_text: str) -> tuple[str, Path]:
     if not title:
         title = "Neural Friction"
         
-    sanitized_title = re.sub(r'[^\w\s-]', '', title).strip()
-    
     output_dir = Path(__file__).resolve().parent.parent / "artifacts" / "lore"
     output_dir.mkdir(parents=True, exist_ok=True)
     
-    filepath = output_dir / f"{sanitized_title}.md"
-    counter = 2
-    while filepath.exists():
-        filepath = output_dir / f"{sanitized_title} {counter}.md"
-        counter += 1
-        
+    filepath = output_dir / "Active Simulation.md"
     filepath.write_text(generated_text, encoding="utf-8")
-    print(f"[SYSTEM_SUCCESS]: New active simulation lore written → {filepath}")
-    return title, filepath
+    print(f"[SYSTEM_SUCCESS]: Active simulation lore successfully written/overwritten → {filepath}")
+    return "Active Simulation", filepath
 
 def run_lore_generation() -> tuple[str, Path]:
     """Retrieves news feeds and generates brand new Industrial Noir lore from it."""
