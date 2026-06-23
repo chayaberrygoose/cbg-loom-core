@@ -219,7 +219,7 @@ The current 24-hour world-state delta has captured the following raw signals of 
 {news_summary}
 \"\"\"
 
-Your task: Analyze these real-world disruptions of the past 24 hours. Identify AT LEAST 3 completely distinct real-world incidents, themes, or articles from the provided telemetry.
+Your task: Analyze these real-world disruptions of the past 24 hours. Identify between 5 to 10 completely distinct real-world incidents, topics, technological failures, space anomalies, or research breakthroughs from the provided telemetry.
 Then, synthesize these distinct events into a single, cohesive, high-fidelity textile lore "Incident" or "World-State Delta" for CBG Studio.
 
 This must be translated through the trademark CBG clinical, Brutalist, and Industrial Noir perspective. Do not use generic corporate language, hype, or marketing speak. Use clinical, technical, and atmospheric vocabulary (e.g. "Abyssal", "flux", "rift", "interference", "decay", "breach", "resonance", "overload", "scour").
@@ -231,19 +231,19 @@ Output the synthesized result ONLY in this exact Markdown schema:
 # [Two-Word Title]
 
 ## Description
-(A highly detailed technical, clinical narrative block. Do NOT make this abstract or generic. You must explicitly name, describe, and synthesize the 3 distinct real-world incidents you identified from the news summaries. Mention specific details, organizations, locations, or technical terms directly from those 3 incidents. Explain how these 3 distinct signals collided in the Loom, causing a collective material shift or simulation anomaly.)
+(A highly detailed technical, clinical narrative block. Do NOT make this abstract or generic. You must explicitly name, describe, and synthesize the 5 to 10 distinct real-world incidents you identified from the news summaries. Mention specific details, organizations, locations, or technical terms directly from those 5 to 10 incidents. Explain how these diverse signals collided in the Loom, causing a collective material shift or simulation anomaly.)
 
 ## Palette
-(4-6 colors representing the aesthetic palette of these combined events, formatted exactly as "Color Name (#HEXCODE)" entries on separate lines with a leading dash. The color names themselves must be inspired by the specific incidents, e.g. "- Outage Amber (#FF7A00)" or "- Auroral Oxide (#1F302B)".)
+(5-8 colors representing the aesthetic palette of these combined events, formatted exactly as "Color Name (#HEXCODE)" entries on separate lines with a leading dash. The color names themselves must be inspired by the specific incidents, e.g. "- Outage Amber (#FF7A00)" or "- Auroral Oxide (#1F302B)".)
 
 ## Motifs
-(4-6 visual pattern keywords, comma-separated. CRITICAL: Strictly avoid abstract, generic geometrical phrases like 'grid patterns', 'thermal lines', 'glitch lines', or 'noise'. Instead, provide highly specific, concrete physical and technical visual elements directly derived from the 3 real-world incidents, e.g. 'undersea coaxial cable cross-sections', 'aviation flight instrument HUD vectors', 'mainframe rack-mount ventilation slot arrays', 'orbital satellite telemetric coordinate lines', or 'coronal emission spectrogram paths'.)
+(6-10 visual pattern keywords, comma-separated. CRITICAL: Strictly avoid abstract, generic geometrical phrases like 'grid patterns', 'thermal lines', 'glitch lines', or 'noise'. Instead, provide highly specific, concrete physical and technical visual elements directly derived from the 5 to 10 real-world incidents, e.g. 'undersea coaxial cable cross-sections', 'aviation flight instrument HUD vectors', 'mainframe rack-mount ventilation slot arrays', 'orbital satellite telemetric coordinate lines', or 'coronal emission spectrogram paths'.)
 
 ## Prompt Modifiers
-(4-6 comma-separated textile/design modifiers suitable for Midjourney/Gemini clothing and pattern generation. CRITICAL: Avoid abstract concepts. Specify physical, tangible textures, wireframes, technical drawings, blueprints, or authentic telemetry layouts related specifically to the events, e.g. 'brutalist cast concrete slab texture', 'etched copper circuit tracing lanes', 'translucent heavy-duty ripstop casing', 'vintage flight log vector diagrams'.)
+(6-10 comma-separated textile/design modifiers suitable for Midjourney/Gemini clothing and pattern generation. CRITICAL: Avoid abstract concepts. Specify physical, tangible textures, wireframes, technical drawings, blueprints, or authentic telemetry layouts related specifically to the events, e.g. 'brutalist cast concrete slab texture', 'etched copper circuit tracing lanes', 'translucent heavy-duty ripstop casing', 'vintage flight log vector diagrams'.)
 
 ## Source Links
-(Provide a neat checklist of markdown links to the specific source links/websites for the 3 real-world incidents identified from the telemetry signal feeds, e.g., "- Slashdot: [Title of article](URL)" or "- BBC: [Title of article](URL)". DO NOT MAKE UP LINKS; ONLY use real links explicitly provided in the news feeds or telemetry summaries. If a telemetry feed like NOAA doesn't have a specific link, link to the parent service URL, e.g., 'https://services.swpc.noaa.gov/'.)
+(Provide a neat checklist of markdown links to the specific source links/websites for the 5 to 10 real-world incidents identified from the telemetry signal feeds, e.g., "- Slashdot: [Title of article](URL)" or "- BBC: [Title of article](URL)". DO NOT MAKE UP LINKS; ONLY use real links explicitly provided in the news feeds or telemetry summaries. If a telemetry feed like NOAA doesn't have a specific link, link to the parent service URL, e.g., 'https://services.swpc.noaa.gov/'.)
 
 Rules:
 - Section headers must be exactly: ## Description, ## Palette, ## Motifs, ## Prompt Modifiers, ## Source Links
