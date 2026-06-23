@@ -41,7 +41,8 @@ def fetch_rss_feed(name: str, url: str, max_items: int = 15, hours_lookback: int
     filtering for items within the lookback window. Falls back to at least top 5 items."""
     print(f"[SYSTEM_LOG]: Ingesting feed signals from: {name} (1h filter active) …")
     try:
-        resp = requests.get(url, timeout=12)
+        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 CBGStudio-Loom/2.0"}
+        resp = requests.get(url, headers=headers, timeout=12)
         resp.raise_for_status()
         
         # Clean response text from potential weird characters/bytes
@@ -134,7 +135,8 @@ def fetch_noaa_alerts(hours_lookback: int = 1) -> str:
     """Fetch space weather alerts from NOAA SWPC (JSON format) within last hour."""
     print("[SYSTEM_LOG]: Ingesting NOAA Space Weather telemetry (1h filter active) …")
     try:
-        resp = requests.get(NOAA_ALERTS_URL, timeout=12)
+        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 CBGStudio-Loom/2.0"}
+        resp = requests.get(NOAA_ALERTS_URL, headers=headers, timeout=12)
         resp.raise_for_status()
         alerts = resp.json()
         messages = []
