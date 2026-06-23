@@ -509,6 +509,7 @@ def synthesize_lifestyle_mockup(theme, product_title, mockup_url, style_ref_dir=
     """
     Synthesizes a lifestyle image for the product by using the Printify mockup as a base
     and applying Nanobanana's vision guided by the lifestyle reference photos.
+    Displays the product styled in a dark industrial noir environment WITHOUT human models.
     
     Args:
         blueprint_meta: Optional dict from parse_blueprint_metadata() with gender/garment/model info.
@@ -530,38 +531,29 @@ def synthesize_lifestyle_mockup(theme, product_title, mockup_url, style_ref_dir=
     refs = list(ref_dir.glob("*.PNG")) + list(ref_dir.glob("*.png"))
     chosen_ref = random.choice(refs) if refs else None
     
-    # [METADATA_THREAD]: Build gender/garment/ethnicity/body-aware subject description
     meta = blueprint_meta or {}
-    model_desc = meta.get('model', 'a model')
-    garment_desc = meta.get('garment', 'apparel product')
+    garment_desc = meta.get('garment', 'apparel product').lower()
 
-    # Merge ethnicity into model description if specified
-    ethnicity = meta.get('ethnicity')  # e.g. "a Black female model" or None
-    if ethnicity:
-        subject_str = ethnicity
-    else:
-        subject_str = model_desc
+    # Describe the product displayed in a stunning studio/warehouse setting without a human wearing it.
+    # We describe a stylized environmental flat lay or heavy steel hangar displays.
+    display_settings = [
+        f"The {garment_desc} is displayed as a clean industrial flat-lay on a textured dark concrete slab floor.",
+        f"The {garment_desc} is meticulously draped over a minimalist brutalist steel scaffolding rack inside a dark concrete hangar.",
+        f"The {garment_desc} is hung neatly on a heavy duty raw steel rack against a rugged, weathered dark brick wall with moody shadows.",
+        f"The {garment_desc} is displayed in a moody, high-end gallery exhibit setting, laid flat on an oxidized iron metal sheet under focused spotlighting."
+    ]
+    display_scenario = random.choice(display_settings)
 
-    subject_line = f"The subject is {subject_str} wearing the {garment_desc.lower()} shown in the provided image."
-
-    # Append body/size context — framed as garment size to avoid content policy triggers
-    body_context = meta.get('body_context')
-    if body_context == 'plus-size':
-        subject_line += " The model has a full, curvy build."
-    elif body_context == 'athletic':
-        subject_line += " The model has an athletic, muscular build."
-    elif body_context:  # specific size string e.g. "XL", "2XL"
-        subject_line += f" The garment shown is a size {body_context}."
-    
     # Prompt logic
-    ref_desc = "industrial noir techwear aesthetic, high-contrast shadows, clinical warehouse lighting"
+    ref_desc = "industrial noir techwear aesthetic, high-contrast shadows, clinical warehouse lighting, dark brutalist textures, dramatic spotlighting"
     prompt = (
-        f"CBG Studio | Lifestyle Realization: A high-fidelity lifestyle photo. "
-        f"{subject_line} "
-        f"CRITICAL: The product in the new photo must be EXACTLY identical to the base image. "
-        f"You must replicate the pattern, colors, and placement with 100% precision. "
-        f"Context: {theme} style. Visual Reference Style: {ref_desc}. "
-        f"The shot should be a medium close-up, focusing on the quality and design of the product specimen."
+        f"CBG Studio | Lifestyle Realization: A high-fidelity, high-contrast product-only lifestyle photo. "
+        f"{display_scenario} "
+        f"CRITICAL: The photo must contain NO human models, NO faces, NO limbs, absolutely NO people wearing the product or in the frame. "
+        f"CRITICAL: The product design, visual pattern, placement, and colors must be completely identical to the provided base garment image. "
+        f"Context: {theme} style. "
+        f"Visual Reference Style: {ref_desc}. "
+        f"The shot should focus solely on the texture, material detail, and layout of the product specimen in its atmospheric, high-fidelity environment."
     )
     
     # Routing to standalone artifacts
