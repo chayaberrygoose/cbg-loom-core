@@ -154,7 +154,7 @@ def get_recommendation_prompt_modifiers(recs: dict) -> tuple:
 def load_theme(theme_name: str) -> dict:
     """
     Loads a theme from artifacts/lore/<theme_name>.md.
-    Returns dict with keys: name, description, palette, motifs, prompt_modifiers.
+    Returns dict with keys: name, description, palette, motifs, prompt_modifiers, source_links.
     """
     theme_file = LORE_DIR / f"{theme_name}.md"
     if not theme_file.exists():
@@ -162,7 +162,7 @@ def load_theme(theme_name: str) -> dict:
         return {"name": theme_name, "prompt_modifiers": ""}
 
     content = theme_file.read_text(encoding="utf-8")
-    theme = {"name": theme_name, "description": "", "palette": "", "motifs": "", "prompt_modifiers": ""}
+    theme = {"name": theme_name, "description": "", "palette": "", "motifs": "", "prompt_modifiers": "", "source_links": ""}
     current_section = None
 
     for line in content.splitlines():
@@ -172,7 +172,11 @@ def load_theme(theme_name: str) -> dict:
             continue
         if current_section and stripped:
             existing = theme.get(current_section, "")
-            theme[current_section] = (existing + " " + stripped).strip() if existing else stripped
+            # Preserve newlines for links/lists
+            if current_section == "source_links" or current_section == "palette" or current_section == "motifs" or current_section == "prompt_modifiers":
+                theme[current_section] = (existing + "\n" + stripped).strip() if existing else stripped
+            else:
+                theme[current_section] = (existing + " " + stripped).strip() if existing else stripped
 
     return theme
 
@@ -564,6 +568,59 @@ def synthesize_lifestyle_mockup(theme, product_title, mockup_url, style_ref_dir=
     )
     return output_path
 
+
+def _clean_image_for_put(img: dict, override_id: str | None = None) -> dict:
+    put_fields = {"id", "x", "y", "scale", "angle", "flipX", "flipY", "pattern", "height", "width"}
+    out = {k: v for k, v in img.items() if k in put_fields}
+    if override_id is not None:
+        out["id"] = override_id
+    return out
+
+
+def _identify_and_swap_qr(product_json: dict, new_image_id: str) -> tuple[list, set[str]]:
+    """Clones print_areas, swapping logo/generic QR placeholder IDs with new_image_id."""
+    logo_ids = set()
+    for area in product_json.get("print_areas", []):
+        for ph in area.get("placeholders", []):
+            pos = ph.get("position", "").lower()
+            is_trim = any(t in pos for t in ("waistband", "trim", "collar", "cuff"))
+            images = ph.get("images", [])
+            has_tiled_bg = any("pattern" in img for img in images)
+            for img in images:
+                img_id = img.get("id")
+                if not img_id:
+                    continue
+                if "pattern" in img:
+                    continue
+                if has_tiled_bg or (not is_trim and img.get("scale", 1.0) < 0.4):
+                    logo_ids.add(img_id)
+
+    new_print_areas = []
+    for area in product_json.get("print_areas", []):
+        new_placeholders = []
+        for ph in area.get("placeholders", []):
+            if not ph.get("images"):
+                continue
+            new_images = []
+            for img in ph.get("images", []):
+                if img.get("id") in logo_ids:
+                    new_images.append(_clean_image_for_put(img, override_id=new_image_id))
+                else:
+                    new_images.append(_clean_image_for_put(img))
+            placeholder = {"position": ph.get("position"), "images": new_images}
+            if ph.get("decoration_method"):
+                placeholder["decoration_method"] = ph["decoration_method"]
+            new_placeholders.append(placeholder)
+        area_entry = {
+            "variant_ids": area.get("variant_ids"),
+            "placeholders": new_placeholders,
+        }
+        if area.get("background") is not None:
+            area_entry["background"] = area["background"]
+        new_print_areas.append(area_entry)
+    return new_print_areas, logo_ids
+
+
 def fabricate_specimen(theme, template_search=None, prompt_override=None,
                        base_name=None, breach_name=None, remix_desc=None,
                        template_id=None, tile_scale=None):
@@ -715,15 +772,159 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
         _log(f"--- [FABRICATION_COMPLETE]: ID_{product_id} ---")
         _log(f"SPECIMEN: {product_title}")
         
-        # 4. Set Margin + Publish to Shopify
-        _log("[SYSTEM_LOG]: Protocol Initiation: MARGIN_SET + SHOPIFY_PUBLISH")
+        # Build a robust, high-fidelity description HTML
+        description_html = ""
+        
+        # Determine theme text/sources
+        if is_remix:
+            description_html += f"<h3>[REMIX PROTOCOL ACTIVE]</h3>"
+            description_html += f"<h4>[BASE THEME: {base_name}]</h4>"
+            if base_data.get("description"):
+                description_html += f"<p>{base_data['description']}</p>"
+            if base_data.get("palette"):
+                description_html += f"<h5>🎨 Base Palette</h5><p>{base_data['palette']}</p>"
+            if base_data.get("motifs"):
+                description_html += f"<h5>📐 Base Motifs</h5><p>{base_data['motifs']}</p>"
+                
+            description_html += f"<h4>[BREACH THEME: {breach_name}]</h4>"
+            if breach_data.get("description"):
+                description_html += f"<p>{breach_data['description']}</p>"
+            if breach_data.get("palette"):
+                description_html += f"<h5>🎨 Breach Palette</h5><p>{breach_data['palette']}</p>"
+            if breach_data.get("motifs"):
+                description_html += f"<h5>📐 Breach Motifs</h5><p>{breach_data['motifs']}</p>"
+                
+            # Compile Source Links from both Base & Breach
+            source_links_html = ""
+            for data, name in [(base_data, base_name), (breach_data, breach_name)]:
+                if data and data.get("source_links"):
+                    source_links_html += f"<h5>📡 {name} Intelligence Feeds</h5><ul>"
+                    for line in data.get("source_links").splitlines():
+                        if line.strip():
+                            clean_line = line.strip().lstrip('-').strip()
+                            link_match = re.search(r'\[([^\]]+)\]\(([^)]+)\)', clean_line)
+                            if link_match:
+                                text, href = link_match.groups()
+                                source_links_html += f"<li><a href='{href}' target='_blank'>{text}</a></li>"
+                            else:
+                                source_links_html += f"<li>{clean_line}</li>"
+                    source_links_html += "</ul>"
+            if source_links_html:
+                description_html += f"<h4>[TELEMETRIC SOURCE LINKS]</h4>" + source_links_html
+        else:
+            if theme_data:
+                description_html += f"<h3>[ACTIVE SIMULATION LORE]: {theme_data.get('name')}</h3>"
+                if theme_data.get("description"):
+                    description_html += f"<p>{theme_data.get('description')}</p>"
+                
+                if theme_data.get("palette"):
+                    description_html += f"<h4>🎨 [PALETTE CUES]</h4><ul>"
+                    for line in theme_data.get("palette").splitlines():
+                        if line.strip():
+                            description_html += f"<li>{line.strip().lstrip('-').strip()}</li>"
+                    description_html += "</ul>"
+                    
+                if theme_data.get("motifs"):
+                    description_html += f"<h4>📐 [MOTIFS]</h4><p>{theme_data.get('motifs')}</p>"
+                
+                if theme_data.get("source_links"):
+                    description_html += f"<h4>📡 [TELEMETRIC SOURCE LINKS]</h4><ul>"
+                    for line in theme_data.get("source_links").splitlines():
+                        if line.strip():
+                            clean_line = line.strip().lstrip('-').strip()
+                            link_match = re.search(r'\[([^\]]+)\]\(([^)]+)\)', clean_line)
+                            if link_match:
+                                text, href = link_match.groups()
+                                description_html += f"<li><a href='{href}' target='_blank'>{text}</a></li>"
+                            else:
+                                description_html += f"<li>{clean_line}</li>"
+                    description_html += "</ul>"
+
+        # Update descriptions both on Printify dynamically
+        if description_html:
+            fab.update_product(product_id, {"description": description_html})
+            _log("[SYSTEM_LOG]: High-fidelity HTML description (with active telemetry source links) applied to Printify product.")
+        
+        # 4. Set Margin + Publish to Shopify (Initial publish to get product URL)
+        _log("[SYSTEM_LOG]: Protocol Initiation: MARGIN_SET + SHOPIFY_PUBLISH (Initial Sync)")
+        pub_shop_id = get_printify_shop_id() or fab.shop_id
         try:
             set_margin_and_publish(product_id, margin=0.3)
-            _log(f"✅ [SYSTEM_LOG]: 30% margin set and publish triggered for {product_id}")
+            _log(f"✅ [SYSTEM_LOG]: Initial publish triggered for {product_id}")
         except Exception as pub_err:
-            _log(f"⚠️ [SYSTEM_WARNING]: Margin/publish failed: {pub_err}. Continuing with lifestyle.")
+            _log(f"⚠️ [SYSTEM_WARNING]: Initial publish failed: {pub_err}.")
+
+        # Wait for Shopify sync to occur immediately so we can get the product URL
+        _log("[SYSTEM_LOG]: Protocol Initiation: SHOPIFY_SYNC_WAIT (Pre-QR Generation)")
+        shopify_product_id = None
+        product_url = None
         
-        # 5. Lifestyle Realization Step (runs while Printify syncs to Shopify)
+        try:
+            shopify_product_id = wait_for_printify_publish(pub_shop_id, product_id)
+            if not shopify_product_id:
+                raise RuntimeError("Printify sync completed but no Shopify external ID returned.")
+            _log(f"[SYSTEM_LOG]: Printify→Shopify sync complete. Shopify product ID: {shopify_product_id}")
+            
+            # Fetch Shopify product to get its handle
+            from agents.skills.shopify_skill.shopify_skill import ShopifyConduit
+            conduit = ShopifyConduit()
+            shopify_product = conduit.get_product(int(shopify_product_id))
+            handle = shopify_product.get("handle")
+            product_url = f"https://cbg.studio/products/{handle}"
+            _log(f"✅ [SYSTEM_LOG]: Resolved live Shopify product URL: {product_url}")
+        except Exception as sync_err:
+            _log(f"⚠️ [SYSTEM_WARNING]: Initial Shopify sync failed: {sync_err}. Cannot generate product-specific QR code.")
+
+        # Product-specific QR Code swap logic before making lifestyle image
+        if product_url:
+            try:
+                _log("[SYSTEM_LOG]: Fabricating product-specific QR code stamp ...")
+                import qrcode
+                # Use a unique local write path
+                qr_output_dir = Path("artifacts/graphics/logos")
+                qr_output_dir.mkdir(parents=True, exist_ok=True)
+                qr_filename = f"product_qr_{product_id}.png"
+                local_qr_path = qr_output_dir / qr_filename
+                
+                qr = qrcode.QRCode(
+                    version=1,
+                    error_correction=qrcode.constants.ERROR_CORRECT_H,
+                    box_size=10,
+                    border=4,
+                )
+                qr.add_data(product_url)
+                qr.make(fit=True)
+                
+                # Standard Black/White for 100% scan rate
+                img = qr.make_image(fill_color="black", back_color="white")
+                img.save(str(local_qr_path))
+                _log(f"✅ [SYSTEM_LOG]: QR code stamp successfully compiled at: {local_qr_path}")
+                
+                # Upload the QR image file to Printify Media Library
+                new_qr_id = fab.upload_image(local_path=str(local_qr_path), file_name=qr_filename)
+                
+                # Fetch up-to-date Printify product details
+                printify_product = fab.get_product(product_id)
+                
+                # Swap generic QR codes on print_areas
+                new_print_areas, logo_ids = _identify_and_swap_qr(printify_product, new_qr_id)
+                if logo_ids:
+                    _log(f"[SYSTEM_LOG]: Found generic QR logo ID(s): {logo_ids}. Initiating swapping ritual ...")
+                    fab.update_product(product_id, {"print_areas": new_print_areas})
+                    _log("✅ [SYSTEM_LOG]: Printify product updated with product-specific QR code.")
+                    
+                    # Republish products with the correct QR code
+                    _log("[SYSTEM_LOG]: Republication initiated with product-specific QR print designs ...")
+                    set_margin_and_publish(product_id, margin=0.3)
+                    wait_for_printify_publish(pub_shop_id, product_id)
+                    _log("✅ [SYSTEM_LOG]: Republication synchronized successfully.")
+                else:
+                    _log("[SYSTEM_WARNING]: No generic logo/QR placeholders detected in print_areas to replace.")
+                    
+            except Exception as qr_err:
+                _log(f"⚠️ [SYSTEM_WARNING]: Product-specific QR code rotation failed: {qr_err}")
+
+        # 5. Lifestyle Realization Step (runs after the product-specific QR code updates are published)
         _log("[SYSTEM_LOG]: Protocol Initiation: LIFESTYLE_REALIZATION")
         
         # We need to RE-FETCH the product to get the mockups generated by Printify after cloning
@@ -796,14 +997,9 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
                             _log(f"!! [WARNING]: Folder rename failed: {rename_err}")
                             mockup_folder = str(old_folder)
                         
-                        # 5. Wait for Shopify sync + Upload lifestyle to Shopify
-                        _log("[SYSTEM_LOG]: Protocol Initiation: SHOPIFY_SYNC_WAIT")
+                        # Upload lifestyle mockup directly to the live Shopify listing
+                        _log("[SYSTEM_LOG]: Protocol Initiation: SHOPIFY_IMAGE_UPLOAD")
                         try:
-                            pub_shop_id = get_printify_shop_id() or fab.shop_id
-                            shopify_product_id = wait_for_printify_publish(pub_shop_id, product_id)
-                            if not shopify_product_id:
-                                raise RuntimeError("Printify sync completed but no Shopify external ID returned.")
-                            _log(f"[SYSTEM_LOG]: Printify→Shopify sync complete. Shopify product ID: {shopify_product_id}")
                             # Use the local lifestyle path for Shopify upload
                             resolved_lifestyle = str(Path(mockup_folder) / Path(lifestyle_path).name) if mockup_folder else lifestyle_path
                             upload_lifestyle_image(shopify_product_id, resolved_lifestyle)
@@ -813,7 +1009,7 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
                             # Tags are set on the Printify product and sync automatically via publish.
                             if blueprint_meta and blueprint_meta.get('product_type'):
                                 try:
-                                    from agents.skills.shopify_skill import ShopifyConduit
+                                    from agents.skills.shopify_skill.shopify_skill import ShopifyConduit
                                     conduit = ShopifyConduit()
                                     conduit.update_product(int(shopify_product_id), {
                                         "product_type": blueprint_meta['product_type'],
@@ -823,7 +1019,7 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
                                     _log(f"⚠️ [SYSTEM_WARNING]: Shopify product_type update failed: {tag_err}")
                             
                         except Exception as sync_err:
-                            _log(f"⚠️ [SYSTEM_WARNING]: Shopify sync/upload failed: {sync_err}. Product still on Printify.")
+                            _log(f"⚠️ [SYSTEM_WARNING]: Shopify lifestyle image upload failed: {sync_err}. Product still on Printify.")
                     else:
                         _log(f"❌ [SYSTEM_ERROR]: Media upload failed to return ID. Skipping Shopify image upload.")
                 else:

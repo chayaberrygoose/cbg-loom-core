@@ -34,7 +34,7 @@ FEEDS = {
 NOAA_ALERTS_URL = "https://services.swpc.noaa.gov/products/alerts.json"
 
 def fetch_rss_feed(name: str, url: str, max_items: int = 15, hours_lookback: int = 24) -> list:
-    """Fetch and parse RSS feed, return list of {title, description, source, pubDate}
+    """Fetch and parse RSS feed, return list of {title, description, source, pub_date, link}
     filtering for items within the lookback window. Falls back to at least top 5 items."""
     print(f"[SYSTEM_LOG]: Ingesting feed signals from: {name} (24h filter active) …")
     try:
@@ -52,10 +52,12 @@ def fetch_rss_feed(name: str, url: str, max_items: int = 15, hours_lookback: int
             title_el = item.find("title")
             desc_el = item.find("description")
             pub_date_el = item.find("pubDate")
+            link_el = item.find("link")
             
             title = title_el.text.strip() if title_el is not None and title_el.text else ""
             desc = desc_el.text.strip() if desc_el is not None and desc_el.text else ""
             pub_date_str = pub_date_el.text.strip() if pub_date_el is not None and pub_date_el.text else ""
+            link = link_el.text.strip() if link_el is not None and link_el.text else ""
             
             # Clean HTML tags and entities
             title = re.sub(r"<[^>]+>", "", html.unescape(title)).strip()
@@ -81,7 +83,8 @@ def fetch_rss_feed(name: str, url: str, max_items: int = 15, hours_lookback: int
                     "title": title,
                     "description": desc,
                     "source": name,
-                    "pub_date": pub_date_str
+                    "pub_date": pub_date_str,
+                    "link": link
                 })
                 if len(filtered_items) >= max_items:
                     break
@@ -92,10 +95,12 @@ def fetch_rss_feed(name: str, url: str, max_items: int = 15, hours_lookback: int
                 title_el = item.find("title")
                 desc_el = item.find("description")
                 pub_date_el = item.find("pubDate")
+                link_el = item.find("link")
                 
                 title = title_el.text.strip() if title_el is not None and title_el.text else ""
                 desc = desc_el.text.strip() if desc_el is not None and desc_el.text else ""
                 pub_date_str = pub_date_el.text.strip() if pub_date_el is not None and pub_date_el.text else ""
+                link = link_el.text.strip() if link_el is not None and link_el.text else ""
                 
                 title = re.sub(r"<[^>]+>", "", html.unescape(title)).strip()
                 desc = re.sub(r"<[^>]+>", "", html.unescape(desc)).strip()
@@ -111,7 +116,8 @@ def fetch_rss_feed(name: str, url: str, max_items: int = 15, hours_lookback: int
                     "title": title,
                     "description": desc,
                     "source": name,
-                    "pub_date": pub_date_str
+                    "pub_date": pub_date_str,
+                    "link": link
                 })
                 if len(filtered_items) >= 5:
                     break
@@ -183,7 +189,8 @@ def assemble_news_delta() -> str:
         summary_parts.append("=== CAPTURED TELEMETERED NEWS (24-HOUR RETROSPECTIVE) ===")
         for i, item in enumerate(news_items, 1):
             desc_str = f" - {item['description']}" if item['description'] else ""
-            summary_parts.append(f"[{item['source']}]: {item['title']}{desc_str}")
+            link_str = f" (Source Link: {item['link']})" if item.get('link') else ""
+            summary_parts.append(f"[{item['source']}]: {item['title']}{desc_str}{link_str}")
             
     if noaa:
         summary_parts.append("\n=== NOAA SWPC SPACE WEATHER HIGHLIGHTS ===")
@@ -226,8 +233,11 @@ Output the synthesized result ONLY in this exact Markdown schema:
 ## Prompt Modifiers
 (4-6 comma-separated textile/design modifiers suitable for Midjourney/Gemini clothing and pattern generation. CRITICAL: Avoid abstract concepts. Specify physical, tangible textures, wireframes, technical drawings, blueprints, or authentic telemetry layouts related specifically to the events, e.g. 'brutalist cast concrete slab texture', 'etched copper circuit tracing lanes', 'translucent heavy-duty ripstop casing', 'vintage flight log vector diagrams'.)
 
+## Source Links
+(Provide a neat checklist of markdown links to the specific source links/websites for the 3 real-world incidents identified from the telemetry signal feeds, e.g., "- Slashdot: [Title of article](URL)" or "- BBC: [Title of article](URL)". DO NOT MAKE UP LINKS; ONLY use real links explicitly provided in the news feeds or telemetry summaries. If a telemetry feed like NOAA doesn't have a specific link, link to the parent service URL, e.g., 'https://services.swpc.noaa.gov/'.)
+
 Rules:
-- Section headers must be exactly: ## Description, ## Palette, ## Motifs, ## Prompt Modifiers
+- Section headers must be exactly: ## Description, ## Palette, ## Motifs, ## Prompt Modifiers, ## Source Links
 - No extra sections, no HTML, no introductory or explanatory text, no markdown backticks enclosing the entire response.
 - Output the raw markdown document and nothing else.
 """
