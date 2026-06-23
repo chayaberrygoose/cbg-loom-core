@@ -372,53 +372,138 @@ def generate_context_prompt(theme, role, base_prompt=None, theme_data=None, base
     
     modifier = role_modifiers.get(role, role_modifiers["standalone"])
     
+    # Helper to cleanly extract and format color palettes
+    def _parse_colors(palette_str):
+        if not palette_str:
+            return ""
+        parts = re.findall(r"-\s*([^(\n]+)\s*\(#([a-fA-F0-9]{6})\)", palette_str)
+        if parts:
+            return ", ".join(f"{name.strip()} (#{hex_code})" for name, hex_code in parts)
+        return ""
+
     # --- REMIX PROTOCOL: Base & Breach Fusion ---
     if base_data and breach_data:
-        base_mods = base_data.get("prompt_modifiers", "")
-        breach_mods = breach_data.get("prompt_modifiers", "")
         base_name = base_data.get("name", "Unknown")
         breach_name = breach_data.get("name", "Unknown")
+        
+        base_mods = base_data.get("prompt_modifiers", "")
+        breach_mods = breach_data.get("prompt_modifiers", "")
+        base_motifs = base_data.get("motifs", "")
+        breach_motifs = breach_data.get("motifs", "")
+        
+        base_pal = _parse_colors(base_data.get("palette", ""))
+        breach_pal = _parse_colors(breach_data.get("palette", ""))
+        
+        combined_pal = ""
+        if base_pal and breach_pal:
+            combined_pal = f"{base_pal}, accented with {breach_pal}"
+        elif base_pal or breach_pal:
+            combined_pal = base_pal or breach_pal
+            
+        combined_desc = ""
+        if base_data.get("description") and breach_data.get("description"):
+            combined_desc = f"Interlocking structure from {base_name} ({base_data['description'][:150]}...) colliding with interference from {breach_name} ({breach_data['description'][:150]}...)"
 
         if role == "tile":
             # Tiles = Base (Structure) with Breach interference bleeding in
-            lore_injection = f", {base_mods}" if base_mods else ""
-            bleed = f", subtle interference: {breach_mods}" if breach_mods else ""
-            return (
-                f"CBG Studio | REMIX [{base_name} x {breach_name}]: "
-                f"{modifier}{lore_injection}{bleed}, "
-                f"industrial noir color palette, {_random_accent()} accents, sharp details, high contrast. "
-                f"CRITICAL: {no_text_directive}."
-            )
+            structure_part = f"primary structural motifs of [{base_name}]: {base_mods}" if base_mods else ""
+            structure_motifs = f"engineered structural coordinates: {base_motifs}" if base_motifs else ""
+            bleed_part = f"subtle bleeding interference layer from [{breach_name}]: {breach_mods}" if breach_mods else ""
+            bleed_motifs = f"interference anomalies: {breach_motifs}" if breach_motifs else ""
+            palette_part = f"exact color scheme to map: {combined_pal}" if combined_pal else f"industrial noir palette with {_random_accent()} accents"
+            description_part = f"thematic concept: {combined_desc}" if combined_desc else ""
+            
+            prompt_chunks = [
+                f"CBG Studio | REMIX [{base_name} x {breach_name}]",
+                f"Role modifier: {modifier}",
+                structure_part,
+                structure_motifs,
+                bleed_part,
+                bleed_motifs,
+                palette_part,
+                description_part,
+                f"aesthetic style: industrial noir, high contrast, clean technical details. CRITICAL: {no_text_directive}."
+            ]
+            return ", ".join([c for c in prompt_chunks if c])
+
         elif role == "texture":
             # Textures = Breach (Interference) with Base structural echoes
-            lore_injection = f", {breach_mods}" if breach_mods else ""
-            echo = f", structural echo: {base_mods}" if base_mods else ""
-            return (
-                f"CBG Studio | REMIX [{base_name} x {breach_name}]: "
-                f"{modifier}{lore_injection}{echo}, "
-                f"industrial noir color palette, {_random_accent()} accents, sharp details, high contrast. "
-                f"CRITICAL: {no_text_directive}."
-            )
+            structure_part = f"underlying structural echo from [{base_name}]: {base_mods}" if base_mods else ""
+            structure_motifs = f"structural grid lines: {base_motifs}" if base_motifs else ""
+            bleed_part = f"primary macro surface interference from [{breach_name}]: {breach_mods}" if breach_mods else ""
+            bleed_motifs = f"weathering and glitch data maps: {breach_motifs}" if breach_motifs else ""
+            palette_part = f"exact color scheme to map: {combined_pal}" if combined_pal else f"industrial noir palette with {_random_accent()} accents"
+            description_part = f"thematic concept: {combined_desc}" if combined_desc else ""
+            
+            prompt_chunks = [
+                f"CBG Studio | REMIX [{base_name} x {breach_name}]",
+                f"Role modifier: {modifier}",
+                bleed_part,
+                bleed_motifs,
+                structure_part,
+                structure_motifs,
+                palette_part,
+                description_part,
+                f"aesthetic style: industrial noir, high contrast, weathered concrete finish. CRITICAL: {no_text_directive}."
+            ]
+            return ", ".join([c for c in prompt_chunks if c])
+
         else:
             # Standalone/mockup: full fusion
-            combined = ""
+            combined_mods = ""
             if base_mods:
-                combined += f", base structure: {base_mods}"
+                combined_mods += f"structure of {base_name} ({base_mods}) "
             if breach_mods:
-                combined += f", breach interference: {breach_mods}"
-            return (
-                f"CBG Studio | REMIX [{base_name} x {breach_name}]: "
-                f"{modifier}{combined}, "
-                f"industrial noir color palette, {_random_accent()} accents, sharp details, high contrast. "
-                f"CRITICAL: {no_text_directive}."
-            )
+                combined_mods += f"collides with interference patterns of {breach_name} ({breach_mods})"
+                
+            combined_motifs = ""
+            if base_motifs:
+                combined_motifs += f"structural coordinate mapping: {base_motifs}. "
+            if breach_motifs:
+                combined_motifs += f"surface interference maps: {breach_motifs}."
+                
+            palette_part = f"exact color scheme to map: {combined_pal}" if combined_pal else f"industrial noir palette with {_random_accent()} accents"
+            description_part = f"thematic concept: {combined_desc}" if combined_desc else ""
+            
+            prompt_chunks = [
+                f"CBG Studio | REMIX [{base_name} x {breach_name}]",
+                f"Role modifier: {modifier}",
+                f"design layout: {combined_mods}" if combined_mods else "",
+                f"visual motifs: {combined_motifs}" if combined_motifs else "",
+                palette_part,
+                description_part,
+                f"aesthetic style: industrial noir, cinematic lighting, sharp rendering. CRITICAL: {no_text_directive}."
+            ]
+            return ", ".join([c for c in prompt_chunks if c])
     
     # --- SINGLE-THEME FALLBACK ---
     lore_modifiers = ""
-    if theme_data and theme_data.get("prompt_modifiers"):
-        lore_modifiers = f", {theme_data['prompt_modifiers']}"
+    motifs = ""
+    palette_cln = ""
+    desc_part = ""
     
-    return f"CBG Studio | {theme} Aesthetics: {modifier}{lore_modifiers}, industrial noir color palette, {_random_accent()} accents, sharp details, high contrast. CRITICAL: {no_text_directive}."
+    if theme_data:
+        if theme_data.get("prompt_modifiers"):
+            lore_modifiers = f"design and materials: {theme_data['prompt_modifiers']}"
+        if theme_data.get("motifs"):
+            motifs = f"concrete physical motifs to incorporate: {theme_data['motifs']}"
+        if theme_data.get("palette"):
+            palette_cln = _parse_colors(theme_data.get("palette"))
+        if theme_data.get("description"):
+            desc_part = f"atmospheric concept: {theme_data['description'][:300]}..."
+
+    palette_part = f"color scheme: {palette_cln}" if palette_cln else f"industrial noir color palette, or deep charcoal base with {_random_accent()} accents"
+    
+    prompt_chunks = [
+        f"CBG Studio | Theme [{theme}]",
+        f"Role modifier: {modifier}",
+        lore_modifiers,
+        motifs,
+        palette_part,
+        desc_part,
+        f"aesthetic style: industrial noir, high contrast, clean technical details. CRITICAL: {no_text_directive}."
+    ]
+    return ", ".join([c for c in prompt_chunks if c])
 
 def synthesize_lifestyle_mockup(theme, product_title, mockup_url, style_ref_dir="artifacts/Lifestyle Photo Reference", blueprint_meta=None):
     """
