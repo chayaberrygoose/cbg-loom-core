@@ -28,7 +28,10 @@ FEEDS = {
     "BBC World News": "http://feeds.bbci.co.uk/news/world/rss.xml",
     "Hacker News": "https://news.ycombinator.com/rss",
     "NASA Breaking News": "https://www.nasa.gov/rss/dyn/breaking_news.rss",
-    "Slashdot": "http://rss.slashdot.org/Slashdot/slashdotMain"
+    "Slashdot": "http://rss.slashdot.org/Slashdot/slashdotMain",
+    "Wired": "https://www.wired.com/feed/rss",
+    "MIT Tech Review": "https://www.technologyreview.com/feed/",
+    "Phys.org": "https://phys.org/rss-feed/"
 }
 
 NOAA_ALERTS_URL = "https://services.swpc.noaa.gov/products/alerts.json"
@@ -178,11 +181,17 @@ def fetch_noaa_alerts(hours_lookback: int = 24) -> str:
 
 def assemble_news_delta() -> str:
     """Gathers and formats active news inputs for synthesis."""
+    import random
     news_items = []
+    # Cap each feed to max 4 items to enforce balance/variety between sources
     for name, url in FEEDS.items():
-        news_items.extend(fetch_rss_feed(name, url))
+        news_items.extend(fetch_rss_feed(name, url, max_items=4))
         
     noaa = fetch_noaa_alerts()
+    
+    # Shuffle news items to prevent any single dominant source (like BBC General News)
+    # from clustering together and biasing the narrative synthesis.
+    random.shuffle(news_items)
     
     summary_parts = []
     if news_items:
