@@ -359,6 +359,86 @@ def apply_unverified_stamp(image_path: str, stamp_path: Path | None = None) -> s
         return image_path
 
 
+def publish_to_bluesky(lifestyle_path: str, product_title: str, product_url: str, description_text: str):
+    """
+    Connects to Bluesky and publishes a post with the lifestyle mockup as an embedded link card.
+    Fails gracefully without breaking the main fabrication pipeline.
+    """
+    _log("[SYSTEM_LOG]: Protocol Initiation: BLUESKY_BROADCAST")
+    app_password = os.getenv("BLUESKY_APP_PASSWORD")
+    if not app_password:
+        _log("⚠️ [SYSTEM_WARNING]: BLUESKY_APP_PASSWORD not found in environment. Bypassing broadcast.")
+        return
+
+    try:
+        from atproto import Client, models
+        import io
+        client = Client()
+        client.login('cbgstudio.bsky.social', app_password)
+        
+        _log(f"[SYSTEM_LOG]: Logged into Bluesky as cbgstudio.bsky.social. Preparing package ...")
+        
+        # Load, compress or convert image if it exceeds Bluesky's strict 1MB (1,000,000 bytes) limit
+        with open(lifestyle_path, 'rb') as f:
+            image_data = f.read()
+            
+        file_size = len(image_data)
+        if file_size > 950000:
+            _log(f"[SYSTEM_LOG]: Input image size ({file_size} bytes) exceeds Bluesky's 1MB limit. Initiating compression ritual...")
+            img = Image.open(io.BytesIO(image_data))
+            
+            # Convert RGBA to RGB (required for JPEG conversion)
+            if img.mode in ("RGBA", "P"):
+                img = img.convert("RGB")
+            
+            # Scale down if extremely large
+            if img.width > 1200 or img.height > 1200:
+                img.thumbnail((1200, 1200), Image.Resampling.LANCZOS)
+                
+            # Compress dynamically until under 950KB
+            quality = 85
+            while quality > 10:
+                out_buffer = io.BytesIO()
+                img.save(out_buffer, format="JPEG", quality=quality, optimize=True)
+                compressed_bytes = out_buffer.getvalue()
+                if len(compressed_bytes) < 950000:
+                    image_data = compressed_bytes
+                    _log(f"✅ [SYSTEM_LOG]: Compression finalized: {len(image_data)} bytes at JPEG quality {quality}%")
+                    break
+                quality -= 10
+                
+        upload = client.upload_blob(image_data)
+            
+        # Clean title & description
+        title = product_title if product_title else "UNVERIFIED SPECIMEN"
+        clean_desc = description_text.replace("\n", " ").strip()
+        if len(clean_desc) > 200:
+            clean_desc = clean_desc[:197] + "..."
+            
+        # Package link card with the uploaded blob reference
+        link_card = models.AppBskyEmbedExternal.Main(
+            external=models.AppBskyEmbedExternal.External(
+                title=title,
+                description=clean_desc,
+                uri=product_url if product_url else "https://cbg.studio",
+                thumb=upload.blob
+            )
+        )
+        
+        # Publish post
+        alert_text = f"[ALERT] A new active intrusion specimen has been extruded into the manifold: {title}"
+        if len(alert_text) > 300:
+            alert_text = alert_text[:297] + "..."
+            
+        client.send_post(
+            text=alert_text,
+            embed=link_card
+        )
+        _log(f"✅ [SYSTEM_SUCCESS]: Bluesky broadcast completed successfully for {title}")
+    except Exception as e:
+        _log(f"⚠️ [SYSTEM_WARNING]: Bluesky broadcast failed: {e}")
+
+
 def generate_context_prompt(theme, role, base_prompt=None, theme_data=None, base_data=None, breach_data=None):
     """
     Synthesizes a role-specific Nanobanana prompt.
@@ -1005,11 +1085,13 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
                         
                         # Upload lifestyle mockup directly to the live Shopify listing
                         _log("[SYSTEM_LOG]: Protocol Initiation: SHOPIFY_IMAGE_UPLOAD")
+                        lifestyle_uploaded_successfully = False
                         try:
                             # Use the local lifestyle path for Shopify upload
                             resolved_lifestyle = str(Path(mockup_folder) / Path(lifestyle_path).name) if mockup_folder else lifestyle_path
                             upload_lifestyle_image(shopify_product_id, resolved_lifestyle)
                             _log(f"✅ [SYSTEM_SUCCESS]: Lifestyle image uploaded to Shopify product {shopify_product_id}")
+                            lifestyle_uploaded_successfully = True
                             
                             # [METADATA_THREAD]: Set Shopify product_type from blueprint metadata
                             # Tags are set on the Printify product and sync automatically via publish.
@@ -1026,6 +1108,17 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
                             
                         except Exception as sync_err:
                             _log(f"⚠️ [SYSTEM_WARNING]: Shopify lifestyle image upload failed: {sync_err}. Product still on Printify.")
+
+                        # Emit Bluesky broadcast if the lifestyle image finished uploading successfully
+                        if lifestyle_uploaded_successfully:
+                            # Extract a clean plain text description from either theme description or remix description
+                            raw_desc = remix_desc if is_remix else (theme_data.get('description', '') if theme_data else "")
+                            publish_to_bluesky(
+                                lifestyle_path=resolved_lifestyle,
+                                product_title=product_title,
+                                product_url=product_url,
+                                description_text=raw_desc
+                            )
                     else:
                         _log(f"❌ [SYSTEM_ERROR]: Media upload failed to return ID. Skipping Shopify image upload.")
                 else:
