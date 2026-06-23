@@ -36,10 +36,10 @@ FEEDS = {
 
 NOAA_ALERTS_URL = "https://services.swpc.noaa.gov/products/alerts.json"
 
-def fetch_rss_feed(name: str, url: str, max_items: int = 15, hours_lookback: int = 1) -> list:
+def fetch_rss_feed(name: str, url: str, max_items: int = 15, hours_lookback: int = 12) -> list:
     """Fetch and parse RSS feed, return list of {title, description, source, pub_date, link}
     filtering for items within the lookback window. Falls back to at least top 5 items."""
-    print(f"[SYSTEM_LOG]: Ingesting feed signals from: {name} (1h filter active) …")
+    print(f"[SYSTEM_LOG]: Ingesting feed signals from: {name} (12h filter active) …")
     try:
         headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 CBGStudio-Loom/2.0"}
         resp = requests.get(url, headers=headers, timeout=12)
@@ -131,9 +131,9 @@ def fetch_rss_feed(name: str, url: str, max_items: int = 15, hours_lookback: int
         print(f"[SYSTEM_WARNING]: Feed disruption on {name} — {e}")
         return []
 
-def fetch_noaa_alerts(hours_lookback: int = 1) -> str:
-    """Fetch space weather alerts from NOAA SWPC (JSON format) within last hour."""
-    print("[SYSTEM_LOG]: Ingesting NOAA Space Weather telemetry (1h filter active) …")
+def fetch_noaa_alerts(hours_lookback: int = 12) -> str:
+    """Fetch space weather alerts from NOAA SWPC (JSON format) within last 12 hours."""
+    print("[SYSTEM_LOG]: Ingesting NOAA Space Weather telemetry (12h filter active) …")
     try:
         headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36 CBGStudio-Loom/2.0"}
         resp = requests.get(NOAA_ALERTS_URL, headers=headers, timeout=12)
@@ -187,9 +187,9 @@ def assemble_news_delta() -> str:
     news_items = []
     # Cap each feed to max 4 items to enforce balance/variety between sources
     for name, url in FEEDS.items():
-        news_items.extend(fetch_rss_feed(name, url, max_items=4, hours_lookback=1))
+        news_items.extend(fetch_rss_feed(name, url, max_items=4, hours_lookback=12))
         
-    noaa = fetch_noaa_alerts(hours_lookback=1)
+    noaa = fetch_noaa_alerts(hours_lookback=12)
     
     # Shuffle news items to prevent any single dominant source (like BBC General News)
     # from clustering together and biasing the narrative synthesis.
@@ -197,7 +197,7 @@ def assemble_news_delta() -> str:
     
     summary_parts = []
     if news_items:
-        summary_parts.append("=== CAPTURED TELEMETERED NEWS (1-HOUR REAL-TIME DELTA) ===")
+        summary_parts.append("=== CAPTURED TELEMETERED NEWS (12-HOUR REAL-TIME DELTA) ===")
         for i, item in enumerate(news_items, 1):
             desc_str = f" - {item['description']}" if item['description'] else ""
             link_str = f" (Source Link: {item['link']})" if item.get('link') else ""
@@ -215,13 +215,13 @@ def generate_lore_prompt(news_summary: str) -> str:
     """Builds system prompt for Gemini lore synthesis, forcing multi-article, topical concrete detail."""
     return f"""You are the central Narrative Synthesis Core for the "Loom" of Chaya Berry Goose (CBG Studio), an Industrial Noir/Tech-Wear brand.
 
-The current 1-hour world-state delta has captured the following raw signals of real-world chaos, infrastructure failures, server outages, space weather, cybersecurity incidents, and technological friction:
+The current 12-hour world-state delta has captured the following raw signals of real-world chaos, infrastructure failures, server outages, space weather, cybersecurity incidents, and technological friction:
 
 \"\"\"
 {news_summary}
 \"\"\"
 
-Your task: Analyze these real-world disruptions of the past hour. Identify between 5 to 10 completely distinct real-world incidents, topics, technological failures, space anomalies, or research breakthroughs from the provided telemetry.
+Your task: Analyze these real-world disruptions of the past 12 hours. Identify between 5 to 10 completely distinct real-world incidents, topics, technological failures, space anomalies, or research breakthroughs from the provided telemetry.
 Then, synthesize these distinct events into a single, cohesive, high-fidelity textile lore "Incident" or "World-State Delta" for CBG Studio.
 
 This must be translated through the trademark CBG clinical, Brutalist, and Industrial Noir perspective. Do not use generic corporate language, hype, or marketing speak. Use clinical, technical, and atmospheric vocabulary (e.g. "Abyssal", "flux", "rift", "interference", "decay", "breach", "resonance", "overload", "scour").
@@ -291,7 +291,7 @@ def run_lore_generation() -> tuple[str, Path]:
     return title, path
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="CBG News-driven Lore Generator (Hourly Cadence)")
+    parser = argparse.ArgumentParser(description="CBG News-driven Lore Generator (12-Hour Cadence)")
     args = parser.parse_args()
     
     title, path = run_lore_generation()
