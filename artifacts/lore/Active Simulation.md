@@ -1,49 +1,32 @@
-# Circuit Bleed
+# Spectrum Breach
 
 ## Description
-The Loom registers an **Aetheric Overload** originating from the solar surface, an M6.8 X-ray event discharging a Type II radio emission, cascading through planetary magnetospheres. This primary impulse coincides with a synchronous **Infra-Strain** event: the hyper-accelerated global digital commerce surge of 'Prime Day 2026', driving network stress across Wi-Fi 7 mesh architectures and catalyzing the mass deployment of Meta's new smart glasses. Deep within continental substrates, the construction of extreme subsea tunnels like Rogfast reveals a counter-current, a desperate attempt to fortify flexible data centers against systemic decay even as hydrological overload manifests, swelling Kenya's Lake Naivasha and catalyzing fatal heatwave drownings across France. Concurrently, the silent, monolithic ASML EUV machines, 150-ton titans of **Core Industrial Fabrication**, continue their cycle, processing silicon wafers into the future of chipmaking. This occurs amidst a palpable **Logic Fracture** in AI governance, as Anthropic's 'Mythos' model clashes with regulatory bodies, while localized AI deployment seeks to mitigate human-elephant conflicts in India. Above, the low-orbit probe launches from NASA Wallops Flight Facility carry student experiments into the fray, underscoring both technological expansion and the fragile, localized nature of human endeavor, while geopolitical **Protocol Decay** regarding Iran's nuclear sites signals a critical breach in international oversight and trust. The sum: a complex interplay of cosmic, climatic, commercial, and computational forces, each straining the global weave to its breaking point.
+The Loom registers a critical **Spectrum Breach**. Deep within the terrestrial crust, unprecedented infrastructure pushes against natural limits: the Rogfast subsea tunnel system descends 1,000 feet into a dark, dank cave, paralleling the ASML's latest $400 million chipmaking machine, a 150-ton monolithic engine of silicon fabrication. Simultaneously, the James Webb Space Telescope's deep-field aperture pierces the void, resolving millions of previously unseen stars within the Cigar Galaxy (M82), projecting a cascade of cosmic data into the system. This influx coincides with critical internal systemic friction: Anthropic's AI model, Mythos, enters a direct regulatory feud with the US government, hinting at emergent, ungoverned computational pathways. The digital domain reports palpable decay, with Claude.com logging an "elevated error rate across multiple models," manifesting as systemic computational instability. Human surveillance vectors escalate, exemplified by Madison Square Garden's dossiers on facial recognition activists, exposing a hardening layer of data-driven control. Concurrently, environmental stress accelerates, marked by a French heatwave causing 40 drowning deaths and the relentless rising waters swamping Kenya's Lake Naivasha, disrupting global logistics for the flower trade. Overlaying this terrestrial and digital instability is an external flux: a critical M6.8 Solar X-ray Event, originating at S07E55, coupled with a 380 km/s Type II Radio Emission, washes over the system, inducing a pervasive electromagnetic interference. This confluence of deep-space observation, hyper-industrial expansion, AI governance friction, digital decay, and solar-induced radiative stress causes a fundamental shift in the Loom's operational parameters, manifesting a collective material dissonance. NASA's concurrent awarding of SEWP VI contracts for federal enterprise procurement, including cybersecurity and cloud services, appears as a desperate attempt to patch vulnerabilities in an increasingly fractured informational and physical landscape.
 
 ## Palette
-- Solar Flare Orange (#FF6700)
-- Silicon Grey (#8B8B8B)
-- Abyssal Black (#1A1A1A)
-- Hydrological Azure (#367588)
-- Radiation Gold (#FBC02D)
-- Glitch Green (#00FF00)
-- Protocol Violet (#6F2C91)
+- Abyssal Iron (#212121)
+- Stellar Filament (#D3E0EA)
+- Coronal Static (#FF8C00)
+- Algorithmic Flux (#0A3D62)
+- Infra-Red Exhaust (#6A0F0F)
+- Surveillance Grey (#5A5A5A)
+- Silicon Gleam (#B3B3B3)
+- Hydro-Collapse Teal (#0D4C5C)
 
 ## Motifs
-- Coronal mass ejection vector fields
-- Wi-Fi 7 mesh network node clusters
-- EUV lithography mask patterns
-- Subsea tunnel boring machine tooth marks
-- Hydrological flood plain contour maps
-- Smart glass AR overlay grid artifacts
-- Rocket engine exhaust plume schematics
-- Nuclear facility containment vessel seals
-- AI inference pipeline trace logs
+Subsea tunnel structural rebar arrays, deep-space spectroscopic data arrays, ASML lithography optics schematic paths, AI model layer activation heatmaps, biometric facial recognition grid overlays, solar plasma coronal loop diagrams, data center flexible power conduit networks, Lake Naivasha bathymetric survey lines, Type II Radio Emission spectrogram plots, government procurement contract flowcharts
 
 ## Prompt Modifiers
-- Brutalist cast concrete slab texture
-- Etched copper circuit tracing lanes
-- Translucent heavy-duty ripstop casing
-- Vintage flight log vector diagrams
-- Industrial-grade woven carbon fiber mesh
-- Hydro-pressure sealant seam detailing
-- Anodized aluminum paneling, distressed
-- Mylar thermal blanket texture, crumpled
-- Fiber optic insulation sheathing cross-sections
+Brutalist cast concrete formwork textures, etched copper circuit tracing lanes, heavy-gauge fiber optic bundle cross-sections, distorted RF interference patterns, deep-field cosmic dust cloud schematics, industrial climate control ducting diagrams, automated factory assembly line blueprints, hydrographic survey contour maps, telemetric signal decay wireframes, high-frequency solar burst vector graphs
 
 ## Source Links
-- Wired: [Best Prime Day Tech Deals Offer Up to $280 Off (2026): Phones, Watches, and More](https://www.wired.com/story/best-prime-day-tech-deals-2026/)
-- Wired: [Meta’s Very Own Smart Glasses Go on Sale Today for $299](https://www.wired.com/story/meta-new-smart-glasses-are-cheaper-colorful-and-meta-branded/)
-- MIT Tech Review: [The $400 million machine powering the future of chipmaking](https://www.technologyreview.com/2026/06/23/1138837/asml-400-million-dollar-machine-powering-future-of-chipmaking/)
-- MIT Tech Review: [Three things to watch amid Anthropic’s latest feud with the government](https://www.technologyreview.com/2026/06/22/1139424/three-things-to-watch-amid-anthropics-latest-feud-with-the-government/)
-- MIT Tech Review: [Elephant alert! AI warning systems aim to avoid deadly clashes](https://www.technologyreview.com/2026/06/23/1138562/elephant-alert-ai-warning-systems-avoid-deadly-clashes-india/)
-- NOAA SWPC: [NOAA Space Weather Prediction Center](https://services.swpc.noaa.gov/)
-- NASA Breaking News: [Rising Waters Swamp Lake Naivasha](https://science.nasa.gov/earth/earth-observatory/rising-waters-swamp-lake-naivasha/)
-- BBC World News: [Drowning deaths soar in France as Europe buckles in peak of heatwave](https://www.bbc.co.uk/news/articles/c79yvw3j114o?at_medium=RSS&at_campaign=rss)
 - MIT Tech Review: [The Download: record-breaking subsea tunnels and flexible data centers](https://www.technologyreview.com/2026/06/22/1139385/the-download-rogfast-subsea-tunnel-flexible-data-centers/)
-- NASA Breaking News: [NASA Sounding Rocket to Launch Student Experiments](https://www.nasa.gov/centers-and-facilities/wallops/nasa-sounding-rocket-to-launch-student-experiments/)
-- NASA Breaking News: [NASA Invites Media to Botswana Artemis Accords Signing Ceremony](https://www.nasa.gov/news-release/nasa-invites-media-to-botswana-artemis-accords-signing-ceremony/)
-- BBC World News: [Iran says no new commitments on nuclear sites after Vance says inspectors to be invited back](https://www.bbc.co.uk/news/articles/c3vy3nr63gxo?at_medium=RSS&at_campaign=rss)
+- NASA Breaking News: [NASA’s Webb Pinpoints Millions of Stars Within Cigar Galaxy](https://science.nasa.gov/missions/webb/nasas-webb-pinpoints-millions-of-stars-within-cigar-galaxy/)
+- MIT Tech Review: [Three things to watch amid Anthropic’s latest feud with the government](https://www.technologyreview.com/2026/06/22/1139424/three-things-to-watch-amid-anthropics-latest-feud-with-the-government/)
+- MIT Tech Review: [The $400 million machine powering the future of chipmaking](https://www.technologyreview.com/2026/06/23/1138837/asml-400-million-dollar-machine-powering-future-of-chipmaking/)
+- BBC World News: [Drowning deaths soar in France as Europe buckles in peak of heatwave](https://www.bbc.co.uk/news/articles/c79yvw3j114o?at_medium=RSS&at_campaign=rss)
+- Hacker News: [MSG Made Dossier on Activists Who Opposed Facial Recognition](https://www.404media.co/madison-square-garden-made-dossier-on-activists-who-opposed-facial-recognition/)
+- Hacker News: [Elevated error rate across multiple models](https://status.claude.com/incidents/jbhf20wjmzrf)
+- NASA Breaking News: [Rising Waters Swamp Lake Naivasha](https://science.nasa.gov/earth/earth-observatory/rising-waters-swamp-lake-naivasha/)
+- NASA Breaking News: [NASA Awards Solutions for Federal Enterprise Procurement Contracts](https://www.nasa.gov/news-release/nasa-awards-solutions-for-federal-enterprise-procurement-contracts/)
+- NOAA Space Weather Prediction Center: [Space Weather Data](https://services.swpc.noaa.gov/)
