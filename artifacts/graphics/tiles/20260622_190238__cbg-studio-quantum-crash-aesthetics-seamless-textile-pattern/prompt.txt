@@ -1,0 +1,3 @@
+prompt: CBG Studio | Quantum Crash Aesthetics: seamless textile pattern, repeatable surface design, flat layout, architectural motif, industrial noir, glitch art, breakfast topography, semiconductor texture, industrial noir color palette, cobalt blue accents, sharp details, high contrast. CRITICAL: absolutely no text, no glyphs, no letters, no words, no numbers, no symbols, no writing of any kind.
+model: gemini-3.1-flash-image-preview
+timestamp: 20260622_190238
