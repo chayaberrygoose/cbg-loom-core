@@ -1,22 +1,23 @@
-# Core Overload
+# Thermal Cascade
 
 ## Description
-The Loom registers a profound **Core Overload** event, indicating cascading systemic decay under intensified pressure. A palpable **flux** of digital interference permeated the healthcare sector, manifesting as a **cyber-breach** that forced over 100 Romanian hospitals into a four-day analog reversion. Critical medical infrastructure, now disconnected from its digital nervous system, operated under a veneer of handwritten protocols, its electronic pulse flatlined. Simultaneously, a violent **rupture** in industrial stability detonated at the Ras Laffan LNG processing site in Qatar. This "technical accident" tore through the city's vital energy grid, claiming lives and searing the landscape with its raw, uncontrolled thermal discharge. The **resonant** shockwave from these ground-level failures was met by a potent, unseen **scour** from the celestial sphere: a recorded M6.8 X-ray Event, originating at S07E55, coupled with a Type II Radio Emission. This R2-Moderate solar **interference** broadcasted an omnipresent, silent pressure across all exposed networks, an invisible hand pushing already strained systems towards terminal collapse. The collective material shift within the Loom reflects this convergence: localized systemic decay, volatile energy release, and pervasive cosmic radiation coalescing into a single, high-stress signature of vulnerability.
+A confluence of critical systemic breaches manifests across the global Loom. The Ras Laffan industrial zone reports a "technical accident," an abyssal LNG processing site failure disseminating immediate kinetic energy and thermal discharge, registering a sharp decay in energy infrastructure integrity. Concurrently, across Central and Western Europe, a sustained thermal overload event registers with predicted 40C forecast, pushing regional climate regulators beyond operational parameters. This environmental stress resonates with the celestial interference pattern logged by NOAA, an M6.8 X-ray event, indicative of significant solar particulate flux impacting Earth-facing systems. Simultaneously, the digital substrate experiences a significant localized decay: Romanian hospital networks suffer a nationwide cyber-attack, forcing a complete system regression to pre-digital, "pen and paper" protocols. This cascade of energy discharge, thermal saturation, and digital vulnerability signifies a critical material shift, a palpable weakening of interconnected global systems under both terrestrial and extra-terrestrial pressures, revealing the inherent fragility within the Loom's networked architecture. The forced reversion to analog amidst advanced system failure suggests a growing rift between intended operational states and acute systemic decay.
 
 ## Palette
--   Cyberstatic Grey (#3C4042)
--   Rupture Orange (#E36414)
--   X-ray Violet (#8A2BE2)
--   Analog Parchment (#D4D0C5)
--   Soot Black (#1F1F1F)
+- Conflagration Red (#CC2200)
+- Ras Laffan Rust (#5C381E)
+- Data Void Black (#1A1A1A)
+- Analog Grey (#888888)
+- Coronal Ochre (#DDAA00)
 
 ## Motifs
-Corrupted data block matrices, handwritten ledger lines, medical diagnostic screen overlays, fractured LNG pipeline diagrams, charred industrial trusswork, thermal expansion joint schematics, solar flare magnetic field lines, spectral emission charts, geochronological waveform traces.
+fractured industrial piping networks, thermal expansion stress lines, corrupted data array matrices, emergency analog bypass diagrams, solar particulate flux trails, hospital triage flowchart diagrams
 
 ## Prompt Modifiers
-Distressed industrial steel textures, frayed fiber optic bundles, heavy-gauge cable cross-sections, emergency shutdown sequence flowcharts, redline engineering blueprints, schematic wireframe overlays, perforated metal mesh patterns, radiation warning symbols, raw sensor telemetry displays.
+brutalist cast concrete slab texture, abrasive fused polymer weave, high-tensile stress-mapped ripstop, etched data stream schematics, thermal imaging overlay film, degraded biometric sensor arrays
 
 ## Source Links
--   BBC: [How 100 Romanian hospitals switched to pen and paper to defeat a national cyber-attack](https://www.bbc.com/news/articles/c4gyk756mzlo?at_medium=RSS&at_campaign=rss)
--   BBC: [At least 13 killed and dozens injured after Qatar gas explosion](https://www.bbc.com/news/articles/cwy05llpjpno?at_medium=RSS&at_campaign=rss)
--   NOAA SWPC: [Space Weather Highlights](https://services.swpc.noaa.gov/)
+- BBC World News: [At least 13 killed and dozens injured after Qatar gas explosion](https://www.bbc.com/news/articles/cwy05llpjpno?at_medium=RSS&at_campaign=rss)
+- BBC World News: [Red heat alerts issued in France, Italy and Spain as 40C temperatures forecast](https://www.bbc.com/news/articles/c0jy9g96086o?at_medium=RSS&at_campaign=rss)
+- BBC World News: [How 100 Romanian hospitals switched to pen and paper to defeat a national cyber-attack](https://www.bbc.com/news/articles/c4gyk756mzlo?at_medium=RSS&at_campaign=rss)
+- NOAA SWPC: [Space Weather Highlights](https://services.swpc.noaa.gov/)

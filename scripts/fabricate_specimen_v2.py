@@ -324,19 +324,21 @@ def select_remix_pair(base_override=None, breach_override=None) -> tuple:
     return (base_name, breach_name, desc)
 
 
-def apply_unverified_stamp(image_path: str) -> str:
+def apply_unverified_stamp(image_path: str, stamp_path: Path | None = None) -> str:
     """
-    Composites the STATUS: UNVERIFIED stamp (repo_portal_qr.png) onto the image.
+    Composites the STATUS: UNVERIFIED stamp (product-specific QR or repo_portal_qr.png) onto the image.
     The stamp is applied as the final layer per the Remix Protocol branding constraint.
     Returns the path to the stamped image.
     """
-    if not STAMP_PATH.exists():
-        print(f"!! [WARNING]: Stamp not found at {STAMP_PATH}. Skipping stamp.")
+    chosen_stamp = stamp_path if (stamp_path and stamp_path.exists()) else STAMP_PATH
+
+    if not chosen_stamp.exists():
+        print(f"!! [WARNING]: Stamp not found at {chosen_stamp}. Skipping stamp.")
         return image_path
 
     try:
         base_img = Image.open(image_path).convert("RGBA")
-        stamp = Image.open(str(STAMP_PATH)).convert("RGBA")
+        stamp = Image.open(str(chosen_stamp)).convert("RGBA")
 
         # Scale stamp to ~12% of image width
         stamp_size = max(int(base_img.width * 0.12), 48)
@@ -350,7 +352,7 @@ def apply_unverified_stamp(image_path: str) -> str:
         # Composite
         base_img.paste(stamp, (x, y), stamp)
         base_img.save(image_path)
-        print(f"// STAMP_APPLIED: STATUS: UNVERIFIED @ ({x}, {y})")
+        print(f"// STAMP_APPLIED: STATUS: UNVERIFIED using stamp {chosen_stamp.name} @ ({x}, {y})")
         return image_path
     except Exception as e:
         print(f"!! [WARNING]: Stamp application failed: {e}")
@@ -861,6 +863,7 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
         _log("[SYSTEM_LOG]: Protocol Initiation: SHOPIFY_SYNC_WAIT (Pre-QR Generation)")
         shopify_product_id = None
         product_url = None
+        local_qr_path = None
         
         try:
             shopify_product_id = wait_for_printify_publish(pub_shop_id, product_id)
@@ -953,7 +956,7 @@ def fabricate_specimen(theme, template_search=None, prompt_override=None,
             
             if lifestyle_path:
                 # [REMIX_PROTOCOL]: Apply STATUS: UNVERIFIED stamp as final layer
-                apply_unverified_stamp(lifestyle_path)
+                apply_unverified_stamp(lifestyle_path, stamp_path=local_qr_path)
                 _log("[SYSTEM_LOG]: Lifestyle artifact stabilized. Injecting into Conduit...")
                 # Ensure the file exists before upload
                 if os.path.exists(lifestyle_path):
