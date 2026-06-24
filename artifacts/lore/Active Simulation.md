@@ -1,33 +1,32 @@
-# Flux Cascade
+# Signal Scour
 
 ## Description
-Telemetry data from the preceding 12-hour cycle indicates a systemic resonance of high-magnitude disruptions, manifesting as a collective decay across physical infrastructure, digital networks, biological resistance, and quantum states. A critical IT malfunction halted Germany's national rail network for over two hours, a core infrastructural breach that propagated network-wide stasis. Simultaneously, an M6.8 X-ray solar flare erupted, initiating a Coronal Mass Ejection estimated at 380 km/s, injecting high-energy particle flux into the planetary magnetosphere, a direct external interference to sensitive Earth systems.
+The Loom registers a profound **Signal Scour**, indicating a widespread systemic stress fracture across both geospheric and digital substrates. High-flux M6.8 X-ray events and Type II radio emissions, emanating from a solar S07E55 coronal breach, have introduced an abyssal electromagnetic interference, propagating an unseen resonance across planetary networks. Concurrently, terrestrial infrastructure decay manifests in the widespread power outages across Brittany, France, triggered by escalating thermal loads, a pattern mirrored by targeted energy grid failures in Russian-occupied Crimea following strategic strikes.
 
-Within this volatile environment, deeper layers of friction were exposed. The long-sought molecular structure of Protein Kinase C beta (PKCβ) was finally resolved by Mayo Clinic scientists, revealing a new oncology drug target—a precision intervention amidst broader biological decay, exemplified by the increased antibiotic survival of pathogenic *Pseudomonas aeruginosa* under physical pressure, a looming biotic scour in medical frontiers.
-
-The digital realm registered its own systemic shifts. The Swift Package Index, a critical developer resource, was absorbed by Apple, signifying a consolidation of control, while the paradoxical gifting of a dream car by Kevin Mitnick to the agent who incarcerated him underscored the intricate and often counter-intuitive human dimension within the cybersecurity breach matrix. Furthermore, a critical analysis emerged highlighting the desensitization to vulnerability reports, marking a logic fade in the perception of digital threats. Concurrently, new observations of magnetic quantum oscillations in Kondo insulators like ytterbium dodecaboride pointed to unexpected subatomic behaviors, hinting at a fundamental rift in understood material physics. On the geopolitical plane, escalating warnings from figures like US Secretary of State Marco Rubio regarding proposed tolls in the Strait of Hormuz signalled persistent friction at critical global logistics choke points, reflecting a wider state of sustained tension and potential overload. These disparate signals, from solar activity to cellular structure, converge in the Loom as evidence of interwoven, cascading systemic flux.
+Beneath the overt failures, a silent biological vector emerges: hospital workers' mobile devices in Australia and UAE carry deadly superbugs, demonstrating critical ubiquitous tech acting as contamination vectors. This unseen friction is compounded by a pervasive Veritas decay in market signals, as research from UTS exposes widespread greenwashing, making "sustainable" claims unverifiable and eroding trust in certified data streams. Simultaneously, the emergent web data infrastructure layer, vital for scaling AI, struggles with the inherent unstructured chaos of its foundational source, demanding new data-harvesting paradigms. In this flux, corporations like Qualcomm acquire critical AI chip software firm Modular, consolidating control over the very processing architecture meant to manage such data demands. Yet, amidst this planetary disquiet and infrastructural breakdown, the remote operations of Curiosity continue on Mars, its methodical drive to a "smooth area" a stark counterpoint, a persistent, unyielding exploration of alien terrain, powered by signals that traverse the very space now fractured by solar activity. The Loom interprets these collisions as a material shift toward heightened friction and obscured information, where the integrity of both physical and digital signals undergoes constant, abrasive scrutiny.
 
 ## Palette
-- Network Rust (#7F3F1C)
-- Coronal Flare (#FF5733)
-- Biotic Scour (#4A6D3A)
-- Molecular Rift (#8C4F8C)
-- Cipher Static (#3A3A3A)
-- Strait Cobalt (#1B3A5B)
-- Deep Logic (#2C2C2C)
+-   Coronal Flare (#FF5C00)
+-   Grid Collapse (#2A2A2A)
+-   Bio-Friction (#6D7B8D)
+-   Veritas Decay (#7D887C)
+-   Data Overload (#4D0000)
+-   Aether Static (#B0BEC5)
+-   Regolith Sepia (#8D6E5F)
 
 ## Motifs
-Railway switch point schematics, X-ray flux spectrograms, Protein Kinase C beta molecular folds, Pseudomonas aeruginosa biofilm layers, Kondo insulator ultrasound waveform traces, Satellite-derived shipping channel grids, De-prioritized vulnerability report metadata arrays, Mitnick-era network routing tables
+Coronal mass ejection filament diagrams, High-voltage pylon lattice structures, Transformer arc schematics, Microbial culture petri dish growth patterns, Falsified certification seal geometries, High-altitude aerostat tether patterns, Unstructured data stream waveforms, Rover track imprint sequence.
 
 ## Prompt Modifiers
-Corroded industrial steel mesh, Etched copper circuit tracing lanes, Brutalist cast concrete slab texture, Electromagnetic pulse wave schematics, Bacterial biofilm electron micrograph texture, Kondo lattice phonon scattering visualizations, Geopolitical maritime choke point overlays, Decompiled software vulnerability manifest, Thermal fatigue crack propagation maps
+Electro-static discharge texture, Grayscale telemetric readout schematics, Carbon fiber weave with embedded optical fibers, Rust-patinated structural steel panels, Emergency broadcast waveform overlays, Heavy-duty thermal insulating layers, Distorted circuit board tracery, Forensic data recovery drive surface scarring, Biohazard warning stenciling, Planetary surface survey raster patterns.
 
 ## Source Links
-- [BBC World News: Germany rail network briefly halted nationwide due to IT malfunction](https://www.bbc.co.uk/news/articles/crm0ek4z7ggo?at_medium=RSS&at_campaign=rss)
-- [NOAA SWPC: Space Weather Alerts](https://services.swpc.noaa.gov/)
-- [Phys.org: Four-decade mystery solved as PKCβ structure reveals new drug target](https://phys.org/news/2026-06-decade-mystery-pkc-reveals-drug.html)
-- [Hacker News: A man was gifted his dream car by Kevin Mitnick, who he helped put in prison](https://www.thedrive.com/news/this-man-was-gifted-his-dream-car-by-the-notorious-hacker-he-put-in-prison)
-- [Phys.org: Physical pressure helps pathogenic P. aeruginosa survive antibiotic treatment](https://phys.org/news/2026-06-physical-pressure-pathogenic-p-aeruginosa.html)
-- [Phys.org: Listening for quantum oscillations in the Kondo insulator ytterbium dodecaboride](https://phys.org/news/2026-06-quantum-oscillations-kondo-insulator-ytterbium.html)
-- [Hacker News: Vulnerability reports are not special anymore](https://words.filippo.io/vuln-reports/)
-- [BBC World News: UN says it will evacuate sailors stranded in Strait of Hormuz, as Rubio warns against tolls](https://www.bbc.co.uk/news/articles/c24yr796emzo?at_medium=RSS&at_campaign=rss)
+-   [NASA: Curiosity Blog, Sols 4927–4933: Let’s Drive to That Smooth Area](https://science.nasa.gov/blog/curiosity-blog-sols-4927-4933-lets-drive-to-that-smooth-area/)
+-   [Phys.org: Buyer beware: Your sustainable shopping choices may not be as green as they look](https://phys.org/news/2026-06-buyer-beware-sustainable-choices-green.html)
+-   [BBC World News: Power outages hit France as record heatwave set to peak](https://www.bbc.co.uk/news/articles/c78y4102n1zo?at_medium=RSS&at_campaign=rss)
+-   [Phys.org: Hospital workers' phones carry deadly superbugs](https://phys.org/news/2026-06-hospital-workers-deadly-superbugs.html)
+-   [MIT Tech Review: This flying solar-powered platform could deliver better internet from the air](https://www.technologyreview.com/2026/06/24/1138771/solar-powered-platform-delivers-better-internet/)
+-   [Wired: Qualcomm Buys Buzzy Chip Startup Modular for Nearly $4 Billion](https://www.wired.com/story/qualcomm-buys-buzzy-chip-startup-modular-for-nearly-dollar4-billion/)
+-   [MIT Tech Review: The emergence of the web data infrastructure layer for AI](https://www.technologyreview.com/2026/06/24/1139202/the-emergence-of-the-web-data-infrastructure-layer-for-ai/)
+-   [BBC World News: Ukraine strikes knock out power in key city in Russian-occupied Crimea](https://www.bbc.co.uk/news/articles/c3ryv72pjqno?at_medium=RSS&at_campaign=rss)
+-   [NOAA SWPC: Space Weather Alerts](https://services.swpc.noaa.gov/)
