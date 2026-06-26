@@ -1,29 +1,35 @@
-# SIGNAL DECAY
+# Silicon Bleed
 
 ## Description
-The Loom registers a critical **Signal Decay**. Persistent G1-level **geomagnetic flux**, confirmed by extended K-index 5 warnings, blankets Earth's poleward regions, inducing weak **power grid fluctuations** and minor satellite interference. Simultaneously, an acute **thermal overload** grips Europe, with record-breaking heat forcing the shutdown of critical **power plant infrastructure**, manifesting as localized grid fractures and widespread environmental attrition. On the geo-strata, **Venezuela** experienced catastrophic **seismic events** of 7.5 magnitude, causing immediate structural collapse in Caracas and significant human decay. Within the bio-layer, climate stress continues to enforce a **nutritional decay** in staple crops, exacerbating "hidden hunger," with CRISPR presented as a molecular patch-protocol against this fundamental erosion. Digital integrity suffers concurrent breaches: **LastPass** confirms another data compromise, while the illicit **extraction of Claude AI model capabilities** by Alibaba indicates pervasive cognitive asset exploitation. Against this backdrop of systemic friction and collapse, two counter-currents emerge: IBM unveils a sub-1nm chip, projecting an extended **Moore's Law** and unprecedented computational density, while **NASA** confirms advancements in its **lunar base initiative** and Artemis II Orion successes, establishing an outward vector for resource projection and extra-terrestrial operational continuity. These disparate events resonate through the Loom as a collective material shift: a pervasive breakdown of terrestrial systems, countered by concentrated computational acceleration and an accelerating extraterrestrial migration vector.
+The Loom registered a critical **Current Overload** event, driven by systemic friction across multiple strata. Europe’s extreme **thermal flux**, manifested as record-breaking heatwaves, induced widespread grid instability and forced multiple power plant shutdowns, particularly across France. This environmental stress resonated with an **Abyssal Fault Rupture** in Venezuela, where a rare "seismic doublet" of 7.2 and 7.5 magnitude quakes precipitated infrastructure collapse and deepened geopolitical uncertainty following recent leadership breaches. Concurrently, a persistent NOAA-issued **Geomagnetic K-index 4** warning confirmed external solar interference, introducing weak induced currents across terrestrial power grids, amplifying the already fragile energy infrastructure.
+
+Within this state of escalating decay, the computational substrate strained. IBM’s unveiling of a **sub-1nm chip** with 100 billion transistors, a desperate attempt to extend Moore's Law, signaled an intensified push for density amidst environmental and operational vulnerabilities. This drive for raw processing power was juxtaposed against the subtle but pervasive **AI-driven restructuring** of retail supply chains and internal decision matrices, as algorithms increasingly governed resource allocation and logistical flow, often leading to unforeseen consequences like data center worker resistance and Meta’s leaked employee data. Simultaneously, the internet architecture itself manifested a "papers, please" era, escalating concerns over **digital privacy decimation** and access control.
+
+Orbital vectors registered conflicting signals: the reflective calm of Expedition 73 crew recollections and James Webb Telescope’s deep-space observation of the Cigar Galaxy were offset by the geopolitical ripple effect of a **Strait of Hormuz cargo ship attack**, underscoring the fragile interdependencies of global commerce and resource transfer. This confluence of geophysical trauma, computational intensification, and external interference created a profound material shift within the Loom, indicating an advanced state of systemic stress and fragmented control, a pervasive silicon bleed across all integrated systems.
 
 ## Palette
-- Scorched Earth (#A34A2F)
-- Geomagnetic Violet (#4F007F)
-- Breach Cobalt (#003366)
-- Lunar Regolith (#7F7F7F)
-- Silicon Core (#1A1A1A)
-- Erosion Green (#6B7F00)
-- Alert Red (#CC0000)
+- Gridlock Amber (#FF7A00)
+- Rift Cinder (#4A3B3B)
+- Silicon Glaze (#D0E0E3)
+- Abyss Blue (#1E2E40)
+- Auroral Oxide (#1F302B)
+- Data Void Purple (#330033)
+- Filament Grey (#7F8C8D)
 
 ## Motifs
-Coronal emission spectrogram paths, overloaded circuit breaker arc flash diagrams, fractured concrete rebar mesh, electron micrograph of nutrient-depleted plant cells, encrypted data packet header fields, neural network layer connection diagrams, sub-1nm transistor array topology, lunar habitat structural reinforcement grid, seismic waveform graph plots, melted power cable insulation striations
+Seismic doublet propagation waveforms, overloaded substation thermal imaging contours, sub-1nm transistor gate schematics, geomagnetic field line diagrams, cargo ship attack blast radius projections, retail supply chain network flow maps, Herculaneum scroll unrolling helix, orbital insertion trajectory vectors, server rack ventilation slot arrays, historical public debt growth curve charts.
 
 ## Prompt Modifiers
-Brutalist cast concrete slab texture, etched copper circuit tracing lanes, thermochromic fabric reactive print, degraded holographic data projection overlay, woven carbon fiber mesh reinforcement, geomagnetic field line topographic map print, nutrient media cellular lattice embroidery, industrial grade ripstop paneling with stress-fracture graphics, modular system schematics on ballistic nylon, voltage fluctuation waveform jacquard weave
+Heat-stressed polymer casing texture, fractured concrete rebar exposure, etched silicon wafer topography, high-tension electrical conduit lattice, translucent heavy-duty ripstop casing with embedded fiber optics, encrypted data packet wireframe renders, vintage navigational chart watermarks, plasma-arc welded industrial seams, perforated metal filtration panels, distressed satellite telemetry overlay.
 
 ## Source Links
-- [Phys.org: Why climate change could make staple crops less nutritious—and how CRISPR may help](https://phys.org/news/2026-06-climate-staple-crops-nutritious-crispr.html)
 - [MIT Tech Review: Europe’s extreme heat is shutting down power plants](https://www.technologyreview.com/2026/06/24/1139676/europe-heat-power-plants/)
-- [Wired: Two Massive Earthquakes Struck Venezuela. Thousands Are Feared Dead](https://www.wired.com/story/thousands-feared-dead-after-venezuela-struck-by-strongest-earthquakes-in-over-125-years/)
-- [NASA Breaking News: NASA to Share Latest Moon Base Mission Progress](https://www.nasa.gov/news-release/nasa-to-share-latest-moon-base-mission-progress/)
-- [9to5mac: LastPass notifies users of yet another data breach](https://9to5mac.com/2026/06/23/lastpass-notifies-users-of-yet-another-data-breach/)
-- [Reuters: Anthropic says Alibaba illicitly extracted Claude AI model capabilities](https://www.reuters.com/world/china/anthropic-says-alibaba-illicitly-extracted-claude-ai-model-capabilities-2026-06-24/)
-- [MIT Tech Review: IBM has unveiled chip technology that could help extend Moore’s Law another decade](https://www.technologyreview.com/2026/06/25/1139696/ibm-unveils-sub1nm-chip/)
+- [BBC World News: Rescuers search rubble for survivors as Venezuela earthquakes kill at least 188](https://www.bbc.co.uk/news/articles/cjegdqw5d3yo?at_medium=RSS&at_campaign=rss)
 - [NOAA SWPC: Space Weather Alerts](https://services.swpc.noaa.gov/)
+- [MIT Tech Review: IBM has unveiled chip technology that could help extend Moore’s Law another decade](https://www.technologyreview.com/2026/06/25/1139696/ibm-unveils-sub1nm-chip/)
+- [MIT Tech Review: Repositioning retail for the AI era](https://www.technologyreview.com/2026/06/25/1137848/repositioning-retail-for-the-ai-era/)
+- [Wired: Why Amazon Dropped Its OpenAI Movie, Data Center Workers Fight Back, and Meta Leaks Employee Data](https://www.wired.com/story/uncanny-valley-podcast-amazon-mgm-openai-movie-data-center-workers-fight-back-meta-leaks-employee-data/)
+- [Hacker News: The 'papers, please' era of the internet will decimate your privacy](https://expression.fire.org/p/the-papers-please-era-of-the-internet)
+- [BBC World News: UN pauses Strait of Hormuz evacuation plan after cargo ship attacked](https://www.bbc.co.uk/news/articles/cjwg9np904qo?at_medium=RSS&at_campaign=rss)
+- [NASA Breaking News: Expedition 73 Crew Reflects on Science, Teamwork, and Life in Orbit](https://www.nasa.gov/centers-and-facilities/johnson/expedition-73-crew-reflects-on-science-teamwork-and-life-in-orbit/)
+- [Hacker News: An entire Herculaneum scroll has been read for the first time](https://scrollprize.org/firstscroll)
