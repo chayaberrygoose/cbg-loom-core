@@ -1,34 +1,40 @@
-# Cognitive Rift
+# Cognition Scour
 
 ## Description
-The Loom registers a profound **Cognitive Rift**. Biological systems demonstrate an inherent, previously uncataloged magnetic orientation, a silent compass embedded within the cellular deep, as single-celled organisms unexpectedly acquire a magnetic sense. This nascent biological re-sensitization starkly contrasts with the digital realm's escalating disorientation. AI matrices, intended for systemic optimization, instead manifest self-generated biases during critical processes like hiring, their learned parameters decaying into partisan echo chambers, as evidenced by "China’s AI models" igniting "Trump’s AI world at war with itself" and "weather data sabotage" undermining critical environmental baselines, introducing a pervasive cognitive drift. This digital contagion is paralleled by direct infrastructure annihilation, epitomized by the "hacker wipes Romania's land registry database," a brutal purge of foundational land tenure data, indicating systemic vulnerability and data integrity breach. Simultaneously, the cosmic narrative reconfigures, with "Little Red Dots" now re-categorized as ancestral "globular clusters," a fundamental shift in astrophysical understanding that introduces a new resonance in our celestial models. Amidst this systemic erosion of truth, distributed "widespread water monitoring in India" highlights data provenance vulnerabilities, while the promise of "piezosynthesis" to transform pervasive mechanical "vibrations into clean fuels and chemicals" offers a stark material counterpoint to the spreading digital decay. Overlaying these internal frictions, global geopolitical nodes enter a critical state of resource denial and punitive action, with "US launches fresh strikes on Iran," "Trump slaps 50% tariffs on Canada," and Yemen's "Houthis announce 'maritime embargo'," creating a complex web of economic and military interference and an effective global network fracture. All of this unfolds under a persistent **Electron 2MeV Integral Flux** exceedance, a pervasive, high-energy particle scour further contributing to systemic instability and atmospheric noise. The Loom registers a multi-axis decay: biological re-sensitization, computational self-corruption, data annihilation, cosmic re-evaluation, and geopolitical fragmentation, all under a constant celestial bombardment, leading to a profound **Cognitive Rift** in perceived reality.
+The Loom registers a profound, systemic **Cognition Scour**, manifesting as a critical degradation of both algorithmic integrity and human-interface perception. Algorithmic directives exhibit increasing **decay**: "Chinese AI models" now actively divide political factions within the White House, while generalized AI systems manifest pronounced human-derived biases during resume screening, injecting intellectual **friction** into critical resource allocation. Concurrently, environmental integrity shows signs of a subterranean **flux**: "invisible microbes" in the Flinders Ranges initiate biochemical "mining" of toxic waste, transmuting stable radioactive elements into mobile nanoparticles. This resonates with the surface-level erosion of "Maine's sandy shorelines," made "jagged" by bedrock variances and sediment distribution, indicating a pervasive material **rift**.
+
+Geopolitical systems enter a state of acute **overload**: "Trump's 50% tariffs on Canada" signal escalating economic warfare, while "US strikes on Iran" intensify military **breaches**, pushing regional stability to its breaking point. Yet, paradoxically, technological ambition continues its ascent: "AI agents" achieve "autonomous operation" in "synchrotron X-ray experimental measurements," a clinical step towards self-optimizing material science innovation. Alongside this, hybrid-electric flight demonstrations from "NASA and GE Aerospace" and the historical precedent of "Viking landers on Mars" signify an unwavering push into new energy vectors and extraterrestrial expansion, a deliberate transcendence of the terrestrial.
+
+Hovering above, a "Geomagnetic K-index of 4" alert indicates external celestial **interference**, a subtle yet pervasive energy **pulse** impacting the magnetosphere, potentially disrupting the very fabric of global communication and navigation. This cosmic pressure coincides with the ever-deepening integration of digital extensions into daily life: "smartwatches" and "online relationships" solidify human reliance on networked systems, forming an intimate, fragile connection to the global grid. Finally, the societal substrate exhibits palpable **resonance** against systemic pressures: "Bologna protests" erupt in response to state violence, while "Stanford students walk out" against tech giants' military contracts, signaling deep-seated societal fractures against perceived corporate complicity and technological dominance.
 
 ## Palette
--   Flux Amber (#FF7A00)
--   Magnetic Biomass Green (#4A735E)
--   Data Annihilation Black (#1A1A1A)
--   Cognitive Drift Grey (#6B707C)
--   Cosmic Redshift (#7F0000)
--   Piezosynthesis Blue (#005F73)
--   Geopolitical Scour Oxide (#8B4513)
--   Telemetry White (#E0E0E0)
+-   Static Cobalt (#2C3E50)
+-   Microbial Ochre (#A87A00)
+-   Flare Vermillion (#A52A2A)
+-   Auroral K-Index (#33FF33)
+-   Martian Dust (#BF5A31)
+-   Data Casing Grey (#4A4A4A)
+-   Sediment Scour (#7B6F64)
 
 ## Motifs
-Magnetotactic bacterial alignment vectors, neural network bias anomaly gradients, corrupted data block checksum errors, globular cluster stellar density maps, water quality sensor node array diagrams, piezocatalytic reaction chamber schematics, Strait of Hormuz maritime shipping lanes, 2MeV electron integral flux spectrograms, digital forensic partition recovery traces, multilingual policy flowchart interconnections.
+LLM latent space topology diagrams, electron micrograph bacterial colony structures, tariff imposition matrix overlays, synchrotron beam path schematics, hybrid-electric engine cross-section diagrams, magnetospheric flux line renders, smartwatch biometric sensor arrays, crowd movement heat maps
 
 ## Prompt Modifiers
-Brutalist cast concrete slab texture, etched copper circuit tracing lanes, translucent heavy-duty ripstop casing, vintage flight log vector diagrams, weather satellite telemetry overlay graphics, industrial-grade insulated wiring loom patterns, distressed ballistic nylon paneling, glacial ice core spectral analysis graphs, topographic mapping contour lines, fractured ceramic insulator grid.
+Obfuscated neural network wiring, subterranean mineral corrosion texture, hardened military-grade composite paneling, precision-machined silicon wafer topography, ablative re-entry shield thermal stress patterns, pulsed electromagnetic field ripple texture, micro-perforated smart fabric, reinforced crowd barrier schematics
 
 ## Source Links
--   [Phys.org]: Unusual three-way bestows magnetic sense to single-celled organism (https://phys.org/news/2026-07-unusual-bestows-magnetic-celled.html)
--   [MIT Tech Review]: AI is more likely than humans to form biases when hiring (https://www.technologyreview.com/2026/07/20/1140655/ai-biases-hiring-humans/)
--   [MIT Tech Review]: The Download: AI hiring biases, and weather data sabotage (https://www.technologyreview.com/2026/07/20/1140664/the-download-ai-hiring-biases-weather-data-sabotage/)
--   [MIT Tech Review]: China’s AI models have Trump’s AI world at war with itself (https://www.technologyreview.com/2026/07/20/1140675/chinas-ai-models-have-trumps-ai-world-at-war-with-itself/)
--   [Hacker News]: Hacker wipes Romania's land registry database (https://news.risky.biz/risky-bulletin-hacker-wipes-romanias-entire-land-registry-database/)
--   [Phys.org]: One idea, two cosmic mysteries—linking Little Red Dots and globular clusters (https://phys.org/news/2026-07-idea-cosmic-mysteries-linking-red.html)
--   [Phys.org]: Students enable widespread water monitoring in India (https://phys.org/news/2026-07-students-enable-widespread-india.html)
--   [Phys.org]: Transforming vibrations into clean fuels and chemicals through piezosynthesis (https://phys.org/news/2026-07-vibrations-fuels-chemicals-piezosynthesis.html)
--   [BBC World News]: US launches fresh strikes on Iran, as Trump warns of retaliation for deaths of soldiers (https://www.bbc.co.uk/news/articles/cx25wg2x26do?at_medium=RSS&at_campaign=rss)
--   [BBC World News]: Trump slaps 50% tariffs on Canada and Carney vows to 'intensify' trade talks (https://www.bbc.co.uk/news/articles/cg4dzq3x3e1o?at_medium=RSS&at_campaign=rss)
--   [BBC World News]: Yemen's Houthis announce 'maritime embargo' on Saudi Arabia (https://www.bbc.co.uk/news/articles/cm2gmddx1ldo?at_medium=RSS&at_campaign=rss)
--   [NOAA SWPC]: Space Weather Alerts (https://services.swpc.noaa.gov/)
+-   [MIT Tech Review: The Download: Chinese AI divides the White House, and a record copyright payout](https://www.technologyreview.com/2026/07/21/1140685/the-download-chinese-ai-divides-white-house-anthropic-copyright-settlement/)
+-   [MIT Tech Review: AI is more likely than humans to form biases when hiring](https://www.technologyreview.com/2026/07/20/1140655/ai-biases-hiring-humans/)
+-   [Phys.org: Invisible microbes 'mining' toxic waste in the Flinders Ranges](https://phys.org/news/2026-07-invisible-microbes-toxic-flinders-ranges.html)
+-   [NASA Breaking News: Why Maine’s Sandy Shorelines Turn Jagged](https://science.nasa.gov/earth/earth-observatory/why-maines-sandy-shorelines-turn-jagged/)
+-   [BBC World News: Trump slaps 50% tariffs on Canada and Carney vows to 'intensify' trade talks](https://www.bbc.co.uk/news/articles/cg4dzq3x3e1o?at_medium=RSS&at_campaign=rss)
+-   [BBC World News: US launches fresh strikes on Iran, as Trump warns of retaliation for deaths of soldiers](https://www.bbc.co.uk/news/articles/cx25wg2x26do?at_medium=RSS&at_campaign=rss)
+-   [Phys.org: AI agent helps prepare synchrotron X-ray experimental measurements, paving the way for autonomous operation](https://phys.org/news/2026-07-ai-agent-synchrotron-ray-experimental.html)
+-   [MIT Tech Review: Advancing next-gen AI with materials science innovation](https://www.technologyreview.com/2026/07/21/1140602/advancing-next-gen-ai-with-materials-science-innovation/)
+-   [NASA Breaking News: NASA, GE Aerospace Work Enables Hybrid-Electric Flight Demonstration](https://www.nasa.gov/directorates/rtmd/nasa-ge-hybrid-electric-flight/)
+-   [NASA Breaking News: From Hampton to Mars: How NASA Langley Helped Land on the Red Planet](https://www.nasa.gov/general/from-hampton-to-mars-how-nasa-langley-helped-land-on-the-red-planet/)
+-   [NOAA SWPC: Space Weather Alerts](https://services.swpc.noaa.gov/)
+-   [Wired: 8 Best Smartwatches (2026): Apple, Google, and Hybrid Watches](https://www.wired.com/gallery/best-smartwatches/)
+-   [Phys.org: Upside of online relationships](https://phys.org/news/2026-07-upside-online-relationships.html)
+-   [BBC World News: Dozens hurt in Bologna protests after man dies while being restrained by police](https://www.bbc.co.uk/news/articles/c86nwgw148xo?at_medium=RSS&at_campaign=rss)
+-   [Wired: ‘It’s a Modern-Day Draft’: Why Stanford Students Walked Out on Sundar Pichai’s Commencement Speech](https://www.wired.com/story/big-interview-stanford-students-booing-sundar-pichai/)
