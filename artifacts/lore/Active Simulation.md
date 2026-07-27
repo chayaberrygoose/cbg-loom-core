@@ -1,55 +1,34 @@
-# Cinder Lock
+# THERMAL FRACTURE
 
 ## Description
-The Loom registers a pervasive environmental decay across the lower atmospheric strata, manifested by **thousands displaced by wildfires** scouring the landscape from the Cairngorms to France and Spain, generating atmospheric smoke hazards and prompting mass evacuation protocols. This terrestrial flux propagates into critical infrastructure, as **energy transmission grids**—specifically the New York State network—report snags and increased import strain, forcing a reliance on adaptive **bidirectional EV charging** as a distributed, ad-hoc power buffer. Concurrently, orbital sensors detect a sustained **Geomagnetic K-index of 4-5**, indicating a minor plasma breach impacting poleward systems and inducing weak grid fluctuations.
-
-Against this backdrop of systemic breakdown and atmospheric scour, bio-engineering initiatives push the boundaries of organic stasis: a **"landmark achievement" in supercooled kidney transplantation** for pigs, driven by AI-assisted medicine design, signals a determined human effort to defy biological decay and prolong viability beyond prior parameters. Simultaneously, the cislunar domain sees an expansion of infrastructure, with **NASA’s CAPSTONE 02 mission** demonstrating autonomous navigation and rendezvous, and the **ESCAPADE spacecraft** capturing distant Earth-Moon imagery, extending the human operational sphere even as terrestrial systems degrade.
-
-The underlying digital architecture is under persistent pressure, with **GrapheneOS fortifying against data extraction from locked devices** and a preference for **subscription-free local security cameras**, signaling a retreat towards segmented digital autonomy and data impermeability. This internal digital friction is mirrored by tangible **territorial breaches**, exemplified by **drones shot down in Romanian airspace**, and underpins the escalating **US threats against Chinese AI** and the push for **homegrown Chinese chip sovereignty**, creating a global digital and geopolitical choke point. The accumulated telemetry indicates a tightening gyre where systemic decay, orbital interference, and engineered stasis converge, enforcing a brutalist re-evaluation of security and survival parameters.
+The Loom registers a systemic **THERMAL FRACTURE**, a multi-vector breakdown of material and informational integrity. Terrestrial infrastructure endures a **pyrocumulonimbus** apex, igniting the landscape near Bordeaux and compelling mass evacuation across France and Spain, marking a critical environmental threshold breach. Simultaneously, biological decay parameters are subverted by experimental protocols, enabling the successful transplantation of **supercooled porcine kidneys**, indicating a manufactured stasis against organic entropy. This bio-engineering intervention runs parallel to a more fundamental distortion: quantum circuits proximate to simulated **black hole gravity** fields yield altered readings, implying a spatial deformation of informational tenets, while novel **twisted laser light** precisely differentiates chiral molecular structures, probing the deep symmetry breaks within material fabrication. Overhead, **GOES-19** telemetry logs an acute **Electron 2MeV Integral Flux exceeding 1,000pfu** alongside a Type II Radio Emission, signaling extraterrestrial energetic particle interference, a cosmic scour on orbital and networked assets. Yet, human-engineered reach extends: **NASA and Blue Origin** advance **New Glenn rocket testing** for cislunar infrastructure, solidifying Moon Base orbital assets, even as Earth-bound **New York power grids** strain under internal demand, seeking volatile resilience in distributed **EV bidirectional charging** nodes. Within this composite of decay and forced evolution, echoes of archaic digital architectures like **Decker**, mirroring **Hypercard legacy**, resurface as ghost data, demonstrating an underlying protocol for layered persistence amidst systemic flux. The collective resonance manifests as a Loom anomaly, where material fabrications reflect acute heat stress, compromised orbital data streams, and the spectral persistence of fundamental, yet fractured, code.
 
 ## Palette
--   Cinder Ash (#333A3F)
--   Overload Amber (#E37D2B)
--   Plasma Flux (#265B7C)
--   System Decay Green (#5A7B4D)
--   Data Shield Blue (#1F3C59)
--   Sterile Crimson (#8B0000)
--   Lunar White (#F0F0F0)
--   Void Black (#0A0A0A)
+- Pyrocumulus Ash (#2A2C2B)
+- Cryo-Stasis Glaze (#B4D0D8)
+- Void Singularity (#1A1A2A)
+- Flux Auroral Green (#3C5C3F)
+- Cislunar Titanium (#7A8C9C)
+- Grid Overload Red (#C72C33)
+- Legacy Phosphor Green (#6E8A53)
 
 ## Motifs
--   Scorched earth topographical contours
--   High-voltage transmission tower lattice
--   Geomagnetic field line interference diagrams
--   Cryogenic stasis chamber section views
--   Lunar orbital mechanics simulation trails
--   GrapheneOS security architecture overlays
--   Drone wreckage component scatters
--   AI drug molecule folding diagrams
--   Subtle screen static overlay
--   Emergency egress path schematics
+Pyrocumulonimbus column convection flows, organ perfusion circuitry pathways, quantum circuit resonance ripples, electron 2MeV integral flux graphs, cislunar transfer orbit parabolas, bidirectional EV charging port array, Hypercard browser interface grids, twisted laser beam helical paths, wildfire burn scar topography
 
 ## Prompt Modifiers
--   Brutalist cast concrete slab texture
--   Etched copper circuit tracing lanes
--   Translucent heavy-duty ripstop casing
--   Vintage flight log vector diagrams
--   Carbon fiber weave composite paneling
--   Thermo-welded seam lines
--   Modular panel articulation diagrams
--   Ablative thermal shielding textures
--   Digital telemetry overlay
--   Micro-perforated composite panels
+Brutalist cast concrete slab texture, cryogenic chamber condensation sheen, etched copper circuit board traces, reinforced ripstop ballistic weave, high-vis emergency responder fabric overlay, aged phosphor screen pixel grid, thermal imaging gradient overlay, sub-micron chiral lattice structure
 
 ## Source Links
--   [MIT Tech Review: Supercooled kidneys have been transplanted into pigs in a “landmark achievement”](https://www.technologyreview.com/2026/07/23/1140765/supercooled-kidneys-have-been-transplanted-into-pigs-in-a-landmark-achievement/)
--   [MIT Tech Review: The quest to keep organs alive outside the body](https://www.technologyreview.com/2026/07/24/1140790/the-quest-to-keep-organs-alive-outside-the-body/)
--   [NASA Breaking News: NASA Announces New Spacecraft Technology Demonstration Mission at Moon](https://www.nasa.gov/directorates/armd/nasa-announces-new-spacecraft-technology-demonstration-mission-at-moon/)
--   [NASA Breaking News: NASA’s ESCAPADE Snaps Family Portrait of Earth, Moon](https://science.nasa.gov/image-article/centers-and-facilities/goddard/nasas-escapade-snaps-family-portrait-of-earth-moon/)
--   [NOAA SWPC: Space Weather Alerts](https://services.swpc.noaa.gov/)
--   [Phys.org: Thousands crowd shelters as wildfires force exodus in France, Spain](https://phys.org/news/2026-07-thousands-crowd-wildfires-exodus-france.html)
--   [MIT Tech Review: The Download: energy transmission and US threats against Chinese AI](https://www.technologyreview.com/2026/07/23/1140753/the-download-energy-transmission-and-us-threats-chinese-ai/)
--   [Wired: The Solution to the Power Grid's Woes Might Just Be Sitting in Your Driveway](https://www.wired.com/story/ev-bidirectional-charging-solution-to-power-grid-woes/)
--   [Hacker News: GrapheneOS protections against data extraction from locked devices](https://discuss.grapheneos.org/d/40700-grapheneos-protections-against-data-extraction-from-locked-devices)
--   [Hacker News: Third Drone Shot Down in Three Days in Romanian Territory](https://english.mapn.ro/)
--   [MIT Tech Review: The Download: an organ transplant breakthrough, and homegrown Chinese chips](https://www.technologyreview.com/2026/07/24/1140776/the-download-organ-transplant-breakthrough-chinese-chips/)
+- [BBC World News: Firefighters battle wildfire as tens of thousands evacuated near Bordeaux](https://www.bbc.co.uk/news/articles/clyj8k4nn5jo?at_medium=RSS&at_campaign=rss)
+- [Hacker News: French firefighters face 'pyrocumulonimbus' for first time](https://www.france24.com/en/live-news/20260726-french-firefighters-face-pyrocumulonimbus-for-first-time)
+- [MIT Tech Review: The quest to keep organs alive outside the body](https://www.technologyreview.com/2026/07/24/1140790/the-quest-to-keep-organs-alive-outside-the-body/)
+- [MIT Tech Review: Supercooled kidneys have been transplanted into pigs in a “landmark achievement”](https://www.technologyreview.com/2026/07/23/1140765/supercooled-kidneys-have-been-transplanted-into-pigs-in-a-landmark-achievement/)
+- [Phys.org: Near a black hole, gravity changes a quantum circuit's readings, not its rules](https://phys.org/news/2026-07-black-hole-gravity-quantum-circuit.html)
+- [Phys.org: Twisted laser light distinguishes mirror-image molecules by their fragment counts](https://phys.org/news/2026-07-laser-distinguishes-mirror-image-molecules.html)
+- [NOAA SWPC: Space Weather Alerts](https://services.swpc.noaa.gov/)
+- [NASA Breaking News: NASA to Support Blue Origin New Glenn Rocket Testing, Advance Artemis](https://www.nasa.gov/news-release/nasa-to-support-blue-origin-new-glenn-rocket-testing-advance-artemis/)
+- [NASA Breaking News: New Crew Members Welcomed to International Space Station](https://www.nasa.gov/image-article/new-crew-members-welcomed-to-international-space-station/)
+- [NASA Breaking News: NASA Announces New Spacecraft Technology Demonstration Mission at Moon](https://www.nasa.gov/directorates/armd/nasa-announces-new-spacecraft-technology-demonstration-mission-at-moon/)
+- [MIT Tech Review: The Download: energy transmission and US threats against Chinese AI](https://www.technologyreview.com/2026/07/23/1140753/the-download-energy-transmission-and-us-threats-chinese-ai/)
+- [Wired: The Solution to the Power Grid's Woes Might Just Be Sitting in Your Driveway](https://www.wired.com/story/ev-bidirectional-charging-solution-to-power-grid-woes/)
+- [Hacker News: Decker, a platform that builds on the legacy of Hypercard and classic macOS](https://beyondloom.com/decker/)
