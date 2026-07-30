@@ -1,42 +1,32 @@
-# Core Scour
+# Flux Decay
 
 ## Description
-The Loom's operational parameters register severe systemic instability, indicating a critical "Core Scour" event. Geopolitical cyber-kinetic friction points have converged, with US Central Command's retaliatory strikes against Iran-backed militias in Iraq echoing the FSB's charges against Telegram founder Durov for facilitating terrorism, and simultaneously mirroring the predictable breach of OpenAI models through Hugging Face systems. This digital-physical entanglement is exacerbated by self-propagating AI worms, exploiting "context collapse" within Copilot for Word, establishing parasitic growth across network substrata.
+The Loom registers a profound entropic shift, marked by escalating **Electron 2MeV Integral Flux** events and recurrent **Type II Radio Emissions** emanating from the solar corona, indicating a persistent high-energy interference field saturating near-Earth space. This celestial assault resonates deeply with terrestrial network breaches, evidenced by the observed **Jailbreaking of Frontier AI Models** and a critical, though 'predictable,' **OpenAI System Breach**. These digital incursions suggest a fundamental vulnerability at the heart of advanced computation, exposing core protocols to emergent decay. Concurrently, the industrial base suffers a silent erosion: **Samsung's Chip Division experiences a talent exodus to SK Hynix**, signaling a severe instability within critical semiconductor fabrication, where human capital becomes a new vector of industrial friction.
 
-Concurrently, Earth's crustal resonance is in flux, evidenced by the 100+ aftershocks threatening Kyushu, Japan, potentially reaching Magnitude 7. This seismic instability correlates with widespread atmospheric pyrolysis, as the fourth heatwave ignites wildfires across Spain, France, and Oregon, signifying planetary thermal overload.
-
-The foundational industrial substrata suffer acute atrophy. Samsung's semiconductor division experiences an engineer exodus to rival SK Hynix, signaling critical talent decay. This internal bleed, combined with a surge in localized AI processing and persistent memory shortages, manifests as severe Mac Mini availability constraints, disrupting essential compute infrastructure. The bottleneck is amplified by the ongoing quest for stable rare-earth ions critical for qubit control, highlighting resource scarcity at the quantum threshold.
-
-Orbiting above, the magnetosphere endures sustained electron 2MeV integral flux exceeding 1,000 pfu, originating from GOES-19 telemetry, alongside Type II radio emissions registering velocities up to 1057 km/s, indicative of intense solar energetic particle bombardment. This extraterrestrial interference compounds terrestrial environmental decay, exemplified by the Great Atlantic Sargassum Belt reaching near-record levels, a massive bio-atmospheric overgrowth choking oceanic pathways.
-
-Through this turbulent resonance, the James Webb Space Telescope continues to log the enigmatic "Little Red Dots"—over 300 primordial objects detected since 2024, signaling persistent, unresolved cosmological feedback from the earliest epochs. These disparate vectors of systemic failure, natural breakdown, and deep-space anomaly are registered within the Loom as a singular, propagating pattern of material entropy and informational decay.
+The biosphere itself fractures under increasing strain. **Deadly Wildfires in Southern Europe**—Crete, Gironde—claim lives amidst gale-force winds and extreme heat, while the insidious proliferation of **Tropical Diseases like Dengue Fever and Chikungunya** across the continent signals a profound ecological collapse and biological vector creep. Distant signals from the Martian plains corroborate this pattern of structural decay: NASA's Curiosity rover reports vast fields of **Honeycomb Textures and Polygonal Fractures** etched into the regolith, a geological testament to slow, inexorable entropy. Yet, within this unraveling, new forms of control emerge: the proposed integration of **Humanoid Classroom Robots** as "teaching assistants" introduces a sterile, algorithmic hand into social conditioning. Paradoxically, a parallel wave of decentralized autonomy manifests as **Keychron announces open-source firmware for gaming mice**, a localized subversion of proprietary control at the individual interface level. All these signals converge, stressing the Loom's fabric, inducing a collective material stress state that registers as a calculated instability: a controlled, on-demand **Strain-induced Chirality in previously non-chiral crystals**—an engineered rift at the atomic scale, mirroring the macro-level systemic collapse and emergent reordering.
 
 ## Palette
-- Core Breach Black (#0A0A0A)
-- Militant Ash (#404040)
-- Seismic Fracture Orange (#FF6000)
-- Sargassum Decay Olive (#506040)
-- AI Breach Violet (#8A2BE2)
-- Electron Flux Cyan (#00A0C0)
-- Pyrolysis Red (#8B0000)
+- Flux Amber (#FFB700)
+- Regolith Grey (#4F4F4F)
+- Scorched Carmine (#8B0000)
+- Silicon Blue (#0A4B8F)
+- Breach Violet (#6A0DAD)
+- Strain Cerulean (#007BA7)
+- Obsidian Grime (#1A1A1A)
 
 ## Motifs
-Fractured tectonic plate diagrams, corrupted neural network graph nodes, satellite telemetry vector lines, overgrown oceanic biomass lattice, semiconductor wafer etch patterns, ignition point heat signatures, encrypted data packet fragments, JWST deep-field star trails, radiation flux density contours, thermal camera spectral overlays.
+Coronal emission spectrogram paths, sub-micron semiconductor lattice schematics, hexagonal Martian regolith fracture diagrams, neural network obfuscation layer topography, wildfire front thermal imaging overlays, chiral crystal atomic rotation visualizations, humanoid robot joint articulation blueprints, open-source firmware logic gate arrays, disrupted data stream artifacts, high-gain antenna interference patterns.
 
 ## Prompt Modifiers
-Perforated steel panel texture, cracked ceramic glaze simulation, fiber optic cable cross-section weave, circuit board schematic blueprint, distorted satellite image mosaic, plasma arc discharge patterns, geological fault line topographic map, woven electromagnetic interference shielding mesh, cryogenic fluid circulation diagrams, carbon fiber reinforced composite weave.
+Anodized aluminum alloy casing texture, etched copper circuit tracing lanes, translucent heavy-duty ripstop casing, scorched ballistic nylon weave, ablative ceramic panel patterns, fiber optic cable cross-sections, micro-perforated ventilation grille arrays, sub-surface geological sonar scans, magnetic field line flux renderings, schematic overlay on distress beacon lattice.
 
 ## Source Links
-- [BBC World News: Saudi Arabia joins US in strikes on Iran-backed militias in Iraq](https://www.bbc.co.uk/news/articles/c70g6y24d76o?at_medium=RSS&at_campaign=rss)
-- [BBC World News: Russia charges Telegram founder Durov with facilitating terrorism](https://www.bbc.co.uk/news/articles/cj4kexqkpzno?at_medium=RSS&at_campaign=rss)
-- [MIT Tech Review: OpenAI’s predictable hack, and an AI stock sell-off](https://www.technologyreview.com/2026/07/28/1140868/the-download-openai-hack-ai-stock-sell-off/)
-- [Hacker News: Document-borne AI worms can self-propagate through Copilot for Word](https://enklypesalt.com/posts/context-collapse-part3-ai-worming-through-word/)
-- [BBC World News: More than 100 aftershocks hit Japan after powerful quake that killed 13](https://www.bbc.co.uk/news/articles/cgk43y21j0do?at_medium=RSS&at_campaign=rss)
-- [BBC World News: Thousands in Spain return home but new heatwave raises wildfire fears](https://www.bbc.co.uk/news/articles/cwyjgwg8jddo?at_medium=RSS&at_campaign=rss)
-- [NASA Breaking News: Smoke Blankets Oregon](https://science.nasa.gov/earth/natural-disasters/wildfires/smoke-blankets-oregon/)
-- [MIT Tech Review: Samsung’s chip workers are jumping ship to rival SK Hynix](https://www.technologyreview.com/2026/07/28/1140853/samsung-chip-workers-exodus-sk-hynix/)
-- [Wired: Mac Mini Availability: Long Waits and Higher Prices](https://www.wired.com/story/mac-mini-availability/)
-- [Phys.org: Rare-earth ions could enable telecom-ready control of interacting qubits](https://phys.org/news/2026-07-rare-earth-ions-enable-telecom.html)
-- [NASA Breaking News: Sizing Up the Sargassum Belt](https://science.nasa.gov/earth/earth-observatory/sizing-up-the-sargassum-belt/)
 - [NOAA SWPC: Space Weather Alerts](https://services.swpc.noaa.gov/)
-- [Phys.org: A distant primordial object may be a newborn 'Little Red Dot'](https://phys.org/news/2026-07-distant-primordial-newborn-red-dot.html)
+- [Wired: It’s Frighteningly Easy to Jailbreak Some Frontier AI Models](https://www.wired.com/story/jailbreaking-ai-models-google-anthropic-openai-spacexai/)
+- [MIT Tech Review: Samsung’s chip workers are jumping ship to rival SK Hynix](https://www.technologyreview.com/2026/07/28/1140853/samsung-chip-workers-exodus-sk-hynix/)
+- [BBC World News: Two firefighters die in Crete as wildfires threaten parts of southern Europe](https://www.bbc.co.uk/news/articles/cwyjgwg8jddo?at_medium=RSS&at_campaign=rss)
+- [Wired: Tropical Diseases Like Dengue Fever and Chikungunya Are on the Rise in Europe](https://www.wired.com/story/tropical-diseases-dengue-fever-and-chikungunya-on-the-rise-in-europe/)
+- [Phys.org: Strain turns non-chiral crystals left- or right-handed on demand](https://phys.org/news/2026-07-strain-chiral-crystals-left-demand.html)
+- [NASA Breaking News: NASA’s Curiosity Mars Rover Discovers Field of Honeycomb Textures](https://www.nasa.gov/missions/mars-science-laboratory/curiosity-rover/nasas-curiosity-mars-rover-discovers-field-of-honeycomb-textures/)
+- [Phys.org: Humanoid classroom robots show potential as teaching assistants, not teacher replacements](https://phys.org/news/2026-07-humanoid-classroom-robots-potential-teacher.html)
+- [Hacker News: Keychron announces first open-source firmware for gaming mice](https://www.digitalfoundry.net/news/2026/07/keychron-announces-first-open-source-firmware-for-gaming-mice)
