@@ -371,7 +371,7 @@ def publish_to_bluesky(lifestyle_path: str, product_title: str, product_url: str
         return
 
     try:
-        from atproto import Client, models
+        from atproto import Client, models, client_utils
         import io
         client = Client()
         client.login('cbgstudio.bsky.social', app_password)
@@ -425,13 +425,146 @@ def publish_to_bluesky(lifestyle_path: str, product_title: str, product_url: str
             )
         )
         
-        # Publish post
-        alert_text = f"[ALERT] A new active intrusion specimen has been extruded into the manifold: {title}"
-        if len(alert_text) > 300:
-            alert_text = alert_text[:297] + "..."
+        # Analyze content to determine the hashtags to include dynamically using the Gemini API.
+        # Fallback keyword list is maintained in case LLM is unreachable or fails.
+        tags = []
+        try:
+            from agents.skills.gemini_skill.gemini_skill import generate_specimen_data
+            import json
+            
+            _log("[SYSTEM_LOG]: Engaging LLM for dynamic hashtag synthesis ...")
+            llm_prompt = f"""You are a high-fidelity social media hashtag extraction system for a technical apparel line.
+Analyze the following title and description of a garment specimen.
+Extract exactly 2 to 4 highly-relevant, popular, interesting, and highly-searchable hashtags (such as #CentaurusA, #GeomagneticStorm, #Whales, #Defcon, #Goth, #Techwear, #Streetwear) based on real-world topics, cosmic/terrestrial events, organizations, and aesthetic themes explicitly mentioned or strongly featured in the text.
+Do NOT use niche tags unique only to our brand (like #TheLoom, #ChayaBerryGoose, #CBGStudio).
+Only output a valid JSON block containing an array of strings called "tags", formatted as shown, with NO additional chat, commentary, or markdown wrapping:
+{{"tags": ["Tag1", "Tag2"]}}
+
+Garment Specimen Title: {title}
+Garment Specimen Description:
+{description_text}
+"""
+            # Query Gemini
+            response_text = generate_specimen_data("gemini-2.5-flash", llm_prompt)
+            json_match = re.search(r"\{.*\}", response_text, re.DOTALL)
+            if json_match:
+                parsed_data = json.loads(json_match.group(0))
+                extracted_tags = parsed_data.get("tags", [])
+                
+                # Filter, clean and format extracted tags to be valid alphanumeric hashtags
+                for raw_tag in extracted_tags:
+                    # Remove # if present, remove non-alphanumeric chars
+                    clean_tag = re.sub(r"[^\w]", "", raw_tag).strip()
+                    if clean_tag and len(clean_tag) >= 3 and len(clean_tag) <= 30:
+                        if clean_tag not in tags:
+                            tags.append(clean_tag)
+                _log(f"✅ [SYSTEM_SUCCESS]: Dynamic hashtags synthesized: {tags}")
+        except Exception as llm_err:
+            _log(f"⚠️ [SYSTEM_WARNING]: Dynamic hashtag synthesis failed: {llm_err}. Reverting to static keyword heuristics.")
+
+        # Local static heuristic mapping as a robust fallback
+        if not tags:
+            combined_content = f"{title} {description_text}".lower()
+            
+            # Map specific interesting topic keywords in description/title to popular, heavily-searched hashtags
+            topic_map = {
+                "floral": ["Floral", "Botanical"],
+                "flower": ["Floral"],
+                "botanical": ["Botanical", "Floral"],
+                "garden": ["MidnightGarden"],
+                "plaid": ["Plaid", "Tartan"],
+                "tartan": ["Tartan", "Plaid"],
+                "fishnet": ["Fishnet", "Mesh"],
+                "mesh": ["Mesh", "Fishnet"],
+                "geometric": ["Geometric"],
+                "grid": ["GridAesthetic", "Minimalist"],
+                "wireframe": ["3DArt", "Minimalist"],
+                "glitch": ["GlitchArt"],
+                "distortion": ["GlitchArt"],
+                "anomaly": ["SciFi"],
+                "brutalist": ["Brutalist"],
+                "brutalism": ["Brutalist"],
+                "skeleton": ["Goth", "Anatomy"],
+                "anatomical": ["Anatomy", "Goth"],
+                "skull": ["Goth"],
+                "cyberpunk": ["Cyberpunk", "SciFi"],
+                "industrial": ["Industrial"],
+                "goth": ["Goth"],
+                "gothic": ["Goth"],
+                "alt": ["AlternativeFashion"],
+                "alternative": ["AlternativeFashion"],
+                "minimalist": ["Minimalism"],
+                "minimalism": ["Minimalism"],
+                "dark": ["DarkAesthetic"],
+                "moody": ["DarkAesthetic"],
+                "midnight": ["DarkAesthetic"],
+                "obsidian": ["AllBlackEverything", "DarkAesthetic"],
+                "black": ["AllBlackEverything"],
+                "red": ["RedAesthetic"],
+                "neon": ["NeonGlow"],
+                "hoodie": ["Streetwear", "Cozy"],
+                "sweatshirt": ["Streetwear", "Cozy"],
+                "cozy": ["Cozy"],
+                "soft": ["Cozy"],
+                "jogger": ["Streetwear", "Activewear"],
+                "legging": ["Streetwear", "Activewear"],
+                "pant": ["Streetwear", "Activewear"],
+                "cargo": ["Streetwear", "CargoPants"],
+                "skirt": ["OOTD", "AlternativeFashion"],
+                "dress": ["OOTD", "AlternativeFashion"],
+                "bag": ["Accessories"],
+                "tote": ["Accessories"],
+                "sports bra": ["Activewear", "Athleisure"],
+                "athletic": ["Activewear", "Athleisure"]
+            }
+
+            for keyword, mapped_tags in topic_map.items():
+                if keyword in combined_content:
+                    for t in mapped_tags:
+                        if t not in tags:
+                            tags.append(t)
+
+        # Deduplicate, keep order
+        seen = set()
+        deduped_tags = []
+        for t in tags:
+            if t not in seen:
+                seen.add(t)
+                deduped_tags.append(t)
+
+        # Fallback default highly-searched/popular hashtags instead of niche brand tags
+        defaults = ["Techwear", "Streetwear", "Cyberpunk", "Fashion", "OOTD"]
+        for d in defaults:
+            if len(deduped_tags) >= 4:
+                break
+            if d not in seen:
+                seen.add(d)
+                deduped_tags.append(d)
+
+        # Keep a maximum of 4 high-signal tags to stay compact and prevent spam look
+        selected_tags = deduped_tags[:4]
+
+        # Assemble the base alert text
+        base_alert = f"[ALERT] A new active intrusion specimen has been extruded into the manifold: {title}"
+
+        # Adjust text length to strictly fit the 300 character limit with the hashtags
+        tags_str = " ".join([f"#{t}" for t in selected_tags])
+        max_base_len = 300 - len(tags_str) - 2 # 2 accounts for \n\n divider
+
+        if len(base_alert) > max_base_len:
+            base_alert = base_alert[:max_base_len - 3] + "..."
+
+        # Construct and publish the post with TextBuilder
+        tb = client_utils.TextBuilder()
+        tb.text(base_alert)
+        tb.text("\n\n")
+        for i, t in enumerate(selected_tags):
+            if i > 0:
+                tb.text(" ")
+            tb.tag(f"#{t}", t)
             
         client.send_post(
-            text=alert_text,
+            text=tb,
             embed=link_card
         )
         _log(f"✅ [SYSTEM_SUCCESS]: Bluesky broadcast completed successfully for {title}")

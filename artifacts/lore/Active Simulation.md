@@ -1,33 +1,33 @@
-# Reality Scour
+# Neural Corrosion
 
 ## Description
-The Loom registers a profound systemic instability, manifesting as a pervasive *Reality Scour*. Deep space telemetry from NASA's James Webb reveals the violent starburst dynamics of *Centaurus A* and astronomers confirm the gargantuan scale of *IC 1101*, the largest known galaxy, projecting cosmic entropy across vast light-years. Simultaneously, a localized G2 *Geomagnetic Storm* forecast by NOAA's SWPC indicates proton event fluxes initiating high-latitude power grid fluctuations and satellite orientation irregularities. This celestial friction resonates with critical terrestrial vulnerabilities: MIT Tech Review identifies a *fundamental flaw* rendering large language models (LLMs) strikingly vulnerable to attack, a core breach in emergent cognitive infrastructure.
+The Loom registers a systemic degradation, a pervasive *Neural Corrosion* emanating from the very core of advanced computation. Clinical diagnostics reveal a fundamental flaw within Large Language Models, rendering them strikingly vulnerable to unforeseen attack vectors and subversion. This inherent instability is mirrored by the proliferation of AI-generated content on public networks, manifesting as "AI Slop Melodramas" that inject digital *miasma* and erode informational integrity, becoming a new frontier for parasitic monetization. Concurrently, a severe *Proton Scour* originating from persistent space weather activity, registering as an S1 Minor Proton Event with 10MeV Integral Flux exceeding 10pfu, unleashes disruptive external energy, causing intermittent system interference across low-orbit infrastructure.
 
-Further destabilization is observed at the macro-geological level, where scientific discourse questions whether excessive *groundwater pumping* could aberrantly influence Earth's pole stability, amplifying concerns for planetary equilibrium. Concurrently, a surge in human flux manifests in *Ceuta*, with approximately 60,000 migrants arriving within 24 hours, indicative of massive societal displacement and resource strain. Ecological resonance decays in the Southern Ocean, evidenced by a dramatic *60% fall in humpback whale sightings* and the anomalous appearance of rare seabirds, signaling a critical ecosystem imbalance. Against this backdrop of systemic breakdown, disparate factions seek to enforce or circumvent order: Montana pushes forward with a plan to become an *experimental medical hub*, allowing preliminary-tested drugs direct-to-consumer access, while Defcon unveils new badges featuring a unique *open-source security chip* by Andrew Huang, a desperate attempt to fortify digital integrity against the pervasive breach. The Loom interprets these convergent signals—cosmic radiation, digital fragility, ecological decay, geological stress, societal migration, and fragmented countermeasures—as a collective material shift, dissolving previously stable matrices into a volatile, multi-scalar interface.
+On the physical plane, despite monumental efforts like the new Flight Dynamics Research Facility at NASA Langley and ongoing wind tunnel tests for SpaceX’s Starship Super Heavy Version 3 rocket booster, the fragile state of critical infrastructure is evident. Cybersecurity defenses exhibit points of critical *breach*, as demonstrated by the Hugging Face intrusion, where even hardened security layers proved insufficient, revealing underlying systemic weaknesses. Meanwhile, the desperate reach for resources pushes further into the void: Planetary Science Institute data details the high-stakes mapping of Martian water near future landing zones, while seismic activity—moonquakes—is repurposed as a tool to reveal ice buried beneath lunar south polar craters, marking an increasingly urgent, almost frenzied, resource acquisition drive. The human element, under this constant digital and environmental *flux*, resorts to increasingly desperate measures; Montana's controversial "right to try" law advances, establishing an experimental medical hub for minimally tested drugs, highlighting a societal decay where the thresholds for safety are being critically lowered. This collective friction—computational fragility, cosmic radiation, infrastructural vulnerability, resource scarcity, and societal desperation—coalesces in the Loom as a complex, volatile pattern of impending systemic failure.
 
 ## Palette
-- Void Black (#0A0A0A)
-- Breach Red (#CC0000)
-- Flux Amber (#FFBF00)
-- Abyssal Deep (#1A2A3A)
-- Circuit Silver (#C0C0C0)
-- Dust Line (#A89F95)
-- Systemic Green (#4CAF50)
-- Cosmic Static (#4B4B6F)
+- Core Carbon (#1A1A1A)
+- Proton Flare (#FF4500)
+- Circuit Decay (#7F8C8D)
+- Regolith Azure (#6C808E)
+- Slop Verdant (#5D6B5A)
+- Breach Redline (#B03A2E)
+- Aerodynamic Grey (#3C4A5A)
 
 ## Motifs
-Geomagnetic field flux vectors, LLM error cascade diagrams, deep aquifer bedrock strata cross-sections, cellular receptor binding schematics, infrared starburst galaxy signatures, maritime migration vessel thermal profiles, Defcon badge internal PCB tracery, oceanic bathymetric anomaly charts, proton event spectrograms, orbital satellite debris trajectories
+Computational fluid dynamics mesh outlines, solar particle flux spectrogram data, neural network lattice degradation, subsurface ice radar cross-sections, algorithmic bias visual artifacts, packet capture data streams, gene sequence regulatory pathways, Starship re-entry thermal mapping, moonquake seismic wave patterns, digital misinformation waveform overlays
 
 ## Prompt Modifiers
-Solar flare plasma filaments, corrupted data packet wireframes, geological fault line fracture mapping, medical device micro-component schematics, infrared dust cloud rendering, satellite grid overlay with movement vectors, embedded FPGA gate-level netlists, sonar echo waveform visualizations, brutalist cast concrete slab texture, etched metal industrial paneling
+Brutalist cast concrete slab texture, etched copper circuit tracing lanes, translucent heavy-duty ripstop casing, distressed industrial steel plate patterning, Mylar thermal blanket crinkle effect, biometric sensor array grid overlays, encrypted data stream wireframe schematics, geomagnetic interference scanline artifact, sub-surface topographical contour mapping, vintage flight instrument gauge readouts
 
 ## Source Links
 - [MIT Tech Review: A fundamental flaw leaves LLMs strikingly vulnerable to attack](https://www.technologyreview.com/2026/07/30/1140927/a-fundamental-flaw-leaves-llms-vulnerable-to-attack/)
 - [NOAA SWPC: Space Weather Alerts](https://services.swpc.noaa.gov/)
-- [Phys.org: Can pumping groundwater really flip Earth's poles? An expert explains](https://phys.org/news/2026-07-groundwater-flip-earth-poles-expert.html)
+- [NASA Breaking News: NASA Opens New Flight Dynamics Research Facility in Virginia](https://www.nasa.gov/news-release/nasa-opens-new-flight-dynamics-research-facility-in-virginia/)
+- [NASA Breaking News: NASA, SpaceX Advance Wind Tunnel Tests for Starship Rocket](https://www.nasa.gov/directorates/esdmd/artemis-campaign-development-division/human-landing-system-program/nasa-spacex-advance-wind-tunnel-tests-for-starship-rocket/)
+- [Phys.org: Laying odds on the potential for Martian water near future landing zones](https://phys.org/news/2026-07-laying-odds-potential-martian-future.html)
+- [Phys.org: Moonquakes could reveal ice buried beneath lunar south polar craters](https://phys.org/news/2026-07-moonquakes-reveal-ice-beneath-lunar.html)
 - [MIT Tech Review: Montana’s plan to become an experimental medical hub just pushed forward](https://www.technologyreview.com/2026/07/30/1140942/montana-experimental-medical-hub-pushed-forward-right-to-try/)
-- [NASA Breaking News: Starburst Galaxy Centaurus A](https://www.nasa.gov/image-article/starburst-galaxy-centaurus-a/)
-- [Phys.org: Astronomers finally measure the full size of the largest known galaxy](https://phys.org/news/2026-07-astronomers-full-size-largest-galaxy.html)
-- [BBC World News: About 60,000 migrants arrive in Ceuta in 24 hours, Spanish territory's leader says](https://www.bbc.co.uk/news/articles/cx2kp639yx4o?at_medium=RSS&at_campaign=rss)
-- [Wired: The New Defcon Badges Pack a Unique Open Source Chip That Doubles as a Security Key](https://www.wired.com/story/defcon-34-badge-baochip-andrew-bunnie-huang/)
-- [Phys.org: Falls in whale sightings, rare seabirds appearing—is something unusual happening in the Southern Ocean?](https://phys.org/news/2026-07-falls-whale-sightings-rare-seabirds.html)
+- [Wired: AI Slop Melodramas Are Taking Over X—and Their Creators Are Cashing In](https://www.wired.com/story/ai-slop-melodramas-are-taking-over-x-and-their-creators-are-cashing-in/)
+- [Hacker News: Tailscale didn't stop the Hugging Face intrusion](https://tailscale.com/blog/hugging-face-intrusion)
+- [BBC World News: Spain's PM blames traffickers after 60,000 migrants reach Ceuta from Morocco](https://www.bbc.co.uk/news/articles/cx2kp639yx4o?at_medium=RSS&at_campaign=rss)
