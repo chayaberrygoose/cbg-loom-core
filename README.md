@@ -1,5 +1,7 @@
 # CHAYA BERRY GOOSE // LOOM_CORE_v1.0
 
+[CBG Studio Shopify](https://cbg.studio)
+
 > **[LOG_TYPE: MASTER_ARCHIVE]**
 > **[SECTOR: INDUSTRIAL_NOIR]**
 > **[OBJECTIVE: FOSSILIZE_BRAND_METADATA]**
@@ -63,7 +65,12 @@ product = run()  # zero-config
 
 ## 04_AUTOMATED_FABRICATION
 
-The Loom can run autonomously via cron, extruding specimens twice per day at 6am and 6pm:
+The Loom runs autonomously via `fabricate_cron.sh`, performing sequential tasks twice per day at 6am and 6pm:
+
+1. **StProcess Cleanup**: Automatically terminates any stuck or stale `scripts/fabricate.py` sessions.
+2. **Git Pre-Sync**: Stashes untracked changes/local work, rebases cleanly onto `origin main` to inherit the latest remote codebase modifications, and pops the stash.
+3. **Synthesis Engine Execution**: Runs `scripts/fabricate.py` in the established virtual environment, piping logs to `/tmp/cbg_fabricate.log`.
+4. **Git Post-Sync**: Commits state updates (e.g. usage statistics, logs) under the commit message `auto: fabrication run YYYY-MM-DD HH:MM` and pushes back to `origin main` dynamically.
 
 ```bash
 # Install cron job (6am and 6pm daily)
@@ -286,9 +293,7 @@ python scripts/analyze_feedback.py --json
 ---
 
 ## 08_ACCESS_PROTOCOL
-* [ ] **Public Terminal:** [chayaberrygoose.com](https://www.chayaberrygoose.com)
 * [ ] **Commerce Probe:** [CBG Studio Shopify](https://cbg.studio)
-* [ ] **Visual Archive:** [Pinterest](https://pinterest.com/chayaberrygoose)
 
 ---
 
