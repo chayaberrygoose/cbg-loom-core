@@ -1,0 +1,253 @@
+{
+  "title": "[DRAFT]: Specimen Prototype - Men's Hoodie (AOP)",
+  "description": "Prototype collaboration specimen. Multi-frame episodic arrangement. Strictly draft status.",
+  "blueprint_id": 1028,
+  "print_provider_id": 90,
+  "variants": [
+    {
+      "id": 79861,
+      "price": 4500,
+      "is_enabled": true
+    },
+    {
+      "id": 79862,
+      "price": 4500,
+      "is_enabled": true
+    },
+    {
+      "id": 79863,
+      "price": 4500,
+      "is_enabled": true
+    },
+    {
+      "id": 79864,
+      "price": 4500,
+      "is_enabled": true
+    },
+    {
+      "id": 79865,
+      "price": 4500,
+      "is_enabled": true
+    },
+    {
+      "id": 79866,
+      "price": 4500,
+      "is_enabled": true
+    },
+    {
+      "id": 79867,
+      "price": 4500,
+      "is_enabled": true
+    }
+  ],
+  "print_areas": [
+    {
+      "variant_ids": [
+        79861,
+        79862,
+        79863,
+        79864,
+        79865,
+        79866,
+        79867
+      ],
+      "placeholders": [
+        {
+          "position": "front",
+          "images": [
+            {
+              "id": "6acd318cd6977c1fb206762c",
+              "x": 0.28,
+              "y": 0.45,
+              "scale": 0.52,
+              "angle": 0
+            },
+            {
+              "id": "6acd318dd81cf41401a4d9c4",
+              "x": 0.72,
+              "y": 0.45,
+              "scale": 0.52,
+              "angle": 0
+            },
+            {
+              "id": "6acd319241c1c7089f467a2d",
+              "x": 0.72,
+              "y": 0.18,
+              "scale": 0.15,
+              "angle": 0
+            }
+          ]
+        },
+        {
+          "position": "pocket",
+          "images": [
+            {
+              "id": "6acd318e5aedea2e95028ea5",
+              "x": 0.5,
+              "y": 0.5,
+              "scale": 0.95,
+              "angle": 0
+            }
+          ]
+        },
+        {
+          "position": "waistband",
+          "images": [
+            {
+              "id": "69a81a6217876b2f0601450b",
+              "x": 0.5,
+              "y": 0.5,
+              "scale": 0.25,
+              "angle": 0,
+              "pattern": {
+                "spacing_x": 1,
+                "spacing_y": 1,
+                "angle": 0,
+                "offset": 0
+              },
+              "height": 1024,
+              "width": 1024
+            }
+          ]
+        },
+        {
+          "position": "back",
+          "images": [
+            {
+              "id": "6acd318f7c7fc2f35eab8fdc",
+              "x": 0.28,
+              "y": 0.45,
+              "scale": 0.52,
+              "angle": 0
+            },
+            {
+              "id": "6acd318f6efad2dcbabbfd95",
+              "x": 0.72,
+              "y": 0.45,
+              "scale": 0.52,
+              "angle": 0
+            }
+          ]
+        },
+        {
+          "position": "right_sleeve",
+          "images": [
+            {
+              "id": "6acd3191b09064d2f83fe166",
+              "x": 0.5,
+              "y": 0.5,
+              "scale": 0.95,
+              "angle": 0
+            }
+          ]
+        },
+        {
+          "position": "right_cuff_panel",
+          "images": [
+            {
+              "id": "69a81a6217876b2f0601450b",
+              "x": 0.5,
+              "y": 0.5,
+              "scale": 0.25,
+              "angle": 0,
+              "pattern": {
+                "spacing_x": 1,
+                "spacing_y": 1,
+                "angle": 0,
+                "offset": 0
+              },
+              "height": 1024,
+              "width": 1024
+            }
+          ]
+        },
+        {
+          "position": "left_sleeve",
+          "images": [
+            {
+              "id": "6acd31905aedea2e95028ea7",
+              "x": 0.5,
+              "y": 0.5,
+              "scale": 0.95,
+              "angle": 0
+            }
+          ]
+        },
+        {
+          "position": "left_cuff_panel",
+          "images": [
+            {
+              "id": "69a81a6217876b2f0601450b",
+              "x": 0.5,
+              "y": 0.5,
+              "scale": 0.25,
+              "angle": 0,
+              "pattern": {
+                "spacing_x": 1,
+                "spacing_y": 1,
+                "angle": 0,
+                "offset": 0
+              },
+              "height": 1024,
+              "width": 1024
+            }
+          ]
+        },
+        {
+          "position": "right_hood",
+          "images": [
+            {
+              "id": "6acd318cd6977c1fb206762c",
+              "x": 0.5,
+              "y": 0.5,
+              "scale": 0.95,
+              "angle": 0
+            }
+          ]
+        },
+        {
+          "position": "right_hood_lining",
+          "images": [
+            {
+              "id": "6acd318dd81cf41401a4d9c4",
+              "x": 0.5,
+              "y": 0.5,
+              "scale": 0.95,
+              "angle": 0
+            }
+          ]
+        },
+        {
+          "position": "left_hood",
+          "images": [
+            {
+              "id": "6acd318cd6977c1fb206762c",
+              "x": 0.5,
+              "y": 0.5,
+              "scale": 0.95,
+              "angle": 0
+            }
+          ]
+        },
+        {
+          "position": "left_hood_lining",
+          "images": [
+            {
+              "id": "6acd318dd81cf41401a4d9c4",
+              "x": 0.5,
+              "y": 0.5,
+              "scale": 0.95,
+              "angle": 0
+            }
+          ]
+        }
+      ],
+      "background": "#000000"
+    }
+  ],
+  "tags": [
+    "CBG Studio",
+    "specimen-prototype",
+    "draft"
+  ]
+}
